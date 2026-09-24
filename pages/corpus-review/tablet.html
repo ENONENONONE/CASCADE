@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The emerald tablet · cascade.training</title>
+<meta name="description" content="Corpus Review · Dictionary · The emerald tablet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #0d0d0d;
+  --line: #1f1f1f;
+  --text: #e0e0e0;
+  --dim: #a0a0a0;
+  --gold: #e0e0e0;
+  --glow: #e0e0e0;
+  --amber: #e0e0e0;
+  --alert: #e0e0e0;
+  --blue: #e0e0e0;
+  --term-bg: #0a0a0a;
+  --term-text: #c8c8c8;
+  --serif: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --sans: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--bg);color:var(--text);font-family: var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+a{color:var(--blue);text-decoration:none}
+
+a:hover,a:focus{text-decoration:underline}
+
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.wrap{display:grid;grid-template-columns:1fr;gap:0;max-width:1240px;margin:0 auto;padding:0 20px 80px}
+
+@media (min-width:1100px){.wrap{grid-template-columns:240px minmax(0,1fr);gap:48px}}
+
+nav.toc{display:none}
+
+@media (min-width:1100px){
+  nav.toc{display:block;position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;padding:8px 0 24px;font-size:12.5px}
+  nav.toc .g{font-family: var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:16px 0 6px}
+  nav.toc a{display:block;color:var(--text);padding:3px 0 3px 10px;border-left:2px solid var(--line);line-height:1.35}
+  nav.toc a:hover{border-left-color:var(--gold);text-decoration:none;color:var(--gold)}
+  nav.toc a.sub{padding-left:22px;color:var(--dim)}
+}
+
+main{min-width:0}
+
+header.mast{padding:44px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+
+.eyebrow{font-family: var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+h1{font-family: var(--serif);font-weight:600;font-size:44px;line-height:1.05;margin:10px 0 12px;text-wrap:balance;letter-spacing:-.01em}
+
+.lede{font-family: var(--serif);font-size:19px;line-height:1.45;color:var(--text);max-width:62ch;margin:0 0 20px}
+
+.meta{font-family: var(--mono);font-size:12px;color:var(--dim);display:flex;flex-wrap:wrap;gap:6px 22px}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0 0}
+
+.tile{background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+
+.tile .n{font-family: var(--serif);font-size:28px;font-weight:600;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+
+.tile .l{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+
+.hero{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin:26px 0 0}
+
+@media (min-width:820px){.hero{grid-template-columns:minmax(0,1fr) 300px}}
+
+.hero canvas{width:300px;max-width:100%;height:auto;display:block;margin:0 auto}
+
+.hero .cap{font-family: var(--mono);font-size:11px;color:var(--dim);text-align:center;margin-top:6px}
+
+section{padding:34px 0 8px;border-top:1px solid var(--line)}
+
+section.first{border-top:0;padding-top:8px}
+
+h2{font-family: var(--serif);font-weight:600;font-size:30px;line-height:1.15;margin:6px 0 14px;text-wrap:balance}
+
+h3{font-family: var(--serif);font-weight:600;font-size:21px;margin:28px 0 8px;text-wrap:balance}
+
+h4{font-family: var(--sans);font-weight:600;font-size:14px;letter-spacing:.02em;margin:20px 0 6px;color:var(--gold)}
+
+p{max-width:70ch;margin:0 0 12px}
+
+ul,ol{max-width:70ch;padding-left:22px;margin:0 0 12px}
+
+li{margin:0 0 5px}
+
+li>p{margin:0}
+
+code,kbd{font-family: var(--mono);font-size:.92em;background:var(--surface2);border:1px solid var(--line);padding:0 4px;border-radius:2px;white-space:nowrap}
+
+pre{font-family: var(--mono);font-size:12.5px;line-height:1.5;background:var(--surface2);border:1px solid var(--line);padding:12px 14px;overflow-x:auto;margin:0 0 14px}
+
+pre code{background:none;border:0;padding:0;white-space:pre}
+
+.formula{font-family: var(--mono);font-size:13px;line-height:1.8;background:var(--surface2);border:1px solid var(--line);padding:10px 14px;margin:0 0 14px;overflow-x:auto;white-space:pre}
+
+.formula sup,.formula sub{font-size:.72em;line-height:0}
+
+.formula sup sup{font-size:.85em}
+
+.tbl.wrapth th{white-space:normal}
+
+.tbl{overflow-x:auto;margin:0 0 16px;border:1px solid var(--line);background:var(--surface)}
+
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+
+th,td{text-align:left;vertical-align:top;padding:7px 10px;border-bottom:1px solid var(--line)}
+
+th{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:500;background:var(--surface2);white-space:nowrap}
+
+td.n,th.n{text-align:right;font-family: var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+td.m{font-family: var(--mono);font-size:12.5px;white-space:nowrap}
+
+td.w{white-space:normal;min-width:18ch}
+
+tr:last-child td{border-bottom:0}
+
+.chip{display:inline-block;font-family: var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:2px;line-height:1.5;vertical-align:middle}
+
+.ok{color:var(--glow)}
+ .open{color:var(--amber)}
+ .bad{color:var(--alert)}
+ .rec{color:var(--gold)}
+ .info{color:var(--blue)}
+
+.note{border-left:3px solid var(--gold);padding:8px 14px;background:var(--surface);margin:0 0 14px;max-width:72ch}
+
+.note.warn{border-left-color:var(--alert)}
+
+.note.open{border-left-color:var(--amber)}
+
+.term{background:var(--term-bg);color:var(--term-text);font-family: var(--mono);font-size:12.5px;line-height:1.55;padding:12px 16px;border:1px solid #161616;overflow-x:auto;margin:0 0 16px;white-space:pre}
+
+.term .g{color:#e0e0e0}
+.term .a{color:#e0e0e0}
+.term .d{color:#e0e0e0}
+.term .w{color:#e0e0e0}
+.term .r{color:#e0e0e0}
+.term .b{color:#e0e0e0}
+
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 18px;font-size:13.5px;max-width:78ch;margin:0 0 14px}
+
+.kv .k{font-family: var(--mono);font-size:12px;color:var(--dim);white-space:nowrap}
+
+.two{display:grid;grid-template-columns:1fr;gap:0 32px}
+
+@media (min-width:900px){.two{grid-template-columns:1fr 1fr}}
+
+.small{font-size:12.5px;color:var(--dim)}
+
+sup{font-size:.7em}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+@page{size:Letter;margin:0.6in 0.6in 0.7in}
+
+@media print{
+  :root{--bg:#e0e0e0; --surface:#e0e0e0; --surface2:#e0e0e0; --line:#c8c8c8; --text:#111111; --dim:#3a3a3a; --gold:#c8c8c8; --glow:#c8c8c8; --amber:#c8c8c8; --alert:#3a3a3a; --blue:#3a3a3a}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-size:11.5px;line-height:1.45}
+  .wrap{display:block;max-width:none;padding:0}
+  nav.toc{display:none!important}
+  header.mast{padding:0 0 14px;margin-bottom:16px}
+  h1{font-size:30px} .lede{font-size:14px} h2{font-size:20px;break-after:avoid} h3{font-size:15px;break-after:avoid} h4{break-after:avoid}
+  .hero{grid-template-columns:minmax(0,1fr) 220px} .hero canvas{width:220px}
+  .strip{grid-template-columns:repeat(3,1fr)}
+  section{padding:18px 0 4px;break-inside:auto}
+  .tbl{overflow:visible;break-inside:auto} table{font-size:10px} th,td{padding:4px 6px} tr{break-inside:avoid}
+  td.m{white-space:normal;font-size:9.5px} td.n{font-size:10px}
+  pre,.term{font-size:9.5px;break-inside:avoid;white-space:pre-wrap;overflow:visible}
+  .note{break-inside:avoid}
+  .formula{font-size:9.5px;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid}
+  a{color:inherit}
+  .small{font-size:9.5px}
+}
+
+
+
+.cr-pager{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:3rem 0 1rem;padding-top:1.2rem;border-top:1px solid var(--line);font-family: var(--mono);font-size:12px}
+
+.cr-pager a{color:var(--text);text-decoration:none;max-width:45%}
+
+.cr-pager a:hover{color:var(--gold)}
+
+.cr-pager span{color:var(--dim)}
+
+.cr-crumb{font-family: var(--mono);font-size:12px;color:var(--dim);margin:0 0 1.2rem}
+
+.cr-crumb a{color:var(--dim)}
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../../index.html#deeper">[pages]</a><a href="#" aria-current="page">the emerald tablet</a></nav>
+</div>
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <a href="../corpus-review.html">← Review overview</a>
+  <div class="g">Corpus</div>
+  <a href="voynich.html">The Voynich manuscript</a>
+  <a href="summary.html">Summary</a>
+  <a href="inventory.html">File inventory</a>
+  <a href="field.html">The field GF(257)</a>
+  <a href="chain-cosets.html">The binary refinement chain</a>
+  <a href="extensions.html">The extension fields</a>
+  <a href="chain.html">Derivation chain</a>
+  <a href="hinge.html">The hinge at 1028</a>
+  <a href="#tablet">Emerald tablet</a>
+  <a href="icolumn.html">The i-column</a>
+  <div class="g">Machine</div>
+  <a href="machine.html">Cascade machine v4</a>
+  <a class="sub" href="machine.html#m-anatomy">Anatomy</a>
+  <a class="sub" href="machine.html#m-boot">Power-on</a>
+  <a class="sub" href="machine.html#m-state">Registers</a>
+  <a class="sub" href="machine.html#m-isa">Tape and instruction set</a>
+  <a class="sub" href="machine.html#m-fold">Fold and observe</a>
+  <a class="sub" href="m-commands.html">Terminal commands</a>
+  <a class="sub" href="m-nano2.html">NanO₂ messaging</a>
+  <a class="sub" href="m-bridge.html">Hardware bridge</a>
+  <a class="sub" href="m-radio.html">BLE, serial, RF</a>
+  <a class="sub" href="m-settle.html">Settlement and mesh</a>
+  <a class="sub" href="m-disc.html">Phi disc phonograph</a>
+  <a class="sub" href="m-model.html">Model bridges</a>
+  <a class="sub" href="m-display.html">Display and export</a>
+  <div class="g">Findings</div>
+  <a href="second-copy.html">The second copy</a>
+  <a href="ledger.html">Verification ledger</a>
+  <a href="register.html">Discrepancy register</a>
+  <a href="audits.html">The corpus's own audits</a>
+  <a href="changes.html">Changes made</a>
+  <a href="appendix.html">Appendix</a>
+</nav>
+<main>
+<p class="cr-crumb"><a href="../corpus-review.html">Corpus Review</a> · Dictionary</p>
+<section id="tablet">
+  <div class="eyebrow">Dictionary</div>
+  <h2>The emerald tablet</h2>
+  <p>A 257-entry dictionary from position 0 to 256. Every position has at least one word; 1129 word entries, 1122 distinct words, as of 2026-09-15: 554 with BISMUTH Z, 555 with RHENIUM Z the day after, 968 when the 413 words of the second copy's machine were merged in, 1119 after 151 more entries went in at 17:43, 115 of them the day's roster and the rest machine and field terms such as FIELD, DLOG, NODE, BOARD, GLYPH, READOUT, PRIMORIAL and POSITION, and 1126 on 2026-09-13 when seven reversal and mirror words went in at their letter sums, TIM at 42, HAJILE at 45, IRGL at 46, EMIT and TIME at 47, YIRZM at 91 and EDDINGTON at 92, and 1127 on 2026-09-15 with MERCURY Z at 80, placed by atomic number rather than by letters, its sum being 129; recorded under the editions below. Since 22:10 every entry also carries its genome glyphs, hex and nibble groups. Words are typed disc, independent, or class (six disc entries, 193 independent, 58 class types). Each entry also stores the position's twelve-track bit pattern, the tracks that read as PIT, its chart-fold partner and word, its inverse and word, its dlog, ray, residue class, depth, sync value, and g_power. All 257 entries were recomputed from the definitions with zero mismatches.</p>
+  <pre><code>"83": { "words": ["PRAYER", "GNOSIS", "WISDOM", "BISMUTH Z"],
+        "word12": 83, "bits": "000001010011", "tracks": [5, 7, 10, 11], "pits": 4,
+        "type": "independent", "fold": 173, "fold_name": "TEN COMMANDMENTS",
+        "inv": 96, "inv_name": "BEETHOVEN", "dlog": 15, "ray": 3, "qr": "QNR",
+        "depth": 1, "sync": 224, "g_power": "3^15 = 83 mod 257" }</code></pre>
+  <p>Note the JSON's <code>fold</code> field is the chart-fold, 256 − 83 = 173, its <code>sync</code> is 83 × 173 ≡ 224 on the same convention, and its <code>dlog</code> is 15, which agrees with the arithmetic and disagrees with the machine's AUTH text.</p>
+  <h4>Every field, and how it is derived</h4>
+  <p>All sixteen fields were recomputed for all 257 entries from the position alone, with zero mismatches, except <code>words</code> and <code>type</code>, which are authored.</p>
+  <div class="tbl"><table>
+    <tr><th>Field</th><th>Derivation</th><th>Entry 83</th></tr>
+    <tr><td class="m">words</td><td class="w">Authored. One to seven words; the first is the primary and is what other entries quote in their fold_name and inv_name. 1119 word entries in all, 1112 distinct.</td><td class="m">PRAYER, GNOSIS, WISDOM, BISMUTH Z</td></tr>
+    <tr><td class="m">word12</td><td class="w">The position itself.</td><td class="m">83</td></tr>
+    <tr><td class="m">bits</td><td class="w">The position as a 12-bit binary string.</td><td class="m">000001010011</td></tr>
+    <tr><td class="m">tracks</td><td class="w">Indices of the 1 bits, counting the leftmost bit as track 0.</td><td class="m">[5, 7, 10, 11]</td></tr>
+    <tr><td class="m">pits</td><td class="w">Number of 1 bits.</td><td class="m">4</td></tr>
+    <tr><td class="m">type</td><td class="w">Authored category: independent (193), class (58), disc (6: positions 0, 36, 71, 173, 238, 243). Not derivable from the other fields.</td><td class="m">independent</td></tr>
+    <tr><td class="m">fold, fold_name</td><td class="w">256 − position, the chart-fold, and the primary word there.</td><td class="m">173 TEN COMMANDMENTS</td></tr>
+    <tr><td class="m">inv, inv_name</td><td class="w">position²⁵⁵ mod 257 (0 for 0) and the primary word there.</td><td class="m">96 BEETHOVEN</td></tr>
+    <tr><td class="m">dlog</td><td class="w">k with 3ᵏ ≡ position; null for 0.</td><td class="m">15</td></tr>
+    <tr><td class="m">ray</td><td class="w">dlog mod 12.</td><td class="m">3</td></tr>
+    <tr><td class="m">qr</td><td class="w">QR for even dlog, QNR for odd.</td><td class="m">QNR</td></tr>
+    <tr><td class="m">depth</td><td class="w">⌊dlog / 12⌋.</td><td class="m">1</td></tr>
+    <tr><td class="m">sync</td><td class="w">position × (256 − position) mod 257; 0 for 0 and 256.</td><td class="m">224</td></tr>
+    <tr><td class="m">g_power</td><td class="w">The string "3^dlog = position mod 257"; a prose note for 0.</td><td class="m">3^15 = 83 mod 257</td></tr>
+  </table></div>
+  <p>Two thinner representations exist. The machine embeds only <code>w</code> and <code>p</code>, the words and the position's π digit. An earlier edition seen outside the directory prints one line per position, <code>pos r&lt;ray&gt; d&lt;dlog&gt; f&lt;257 − pos&gt; i&lt;inverse&gt; WORD</code>, with the negation fold rather than the chart-fold and count-words at the small numbers, 12 APOSTLES and 13 LUNAR.</p>
+
+  <h3>The four-significant-figure rule</h3>
+  <p>A physical constant is rounded to four significant figures, the decimal point dropped, and the integer reduced mod 257. The result is a position and the position has a word. The rule is a hash: it cannot fail to produce a reading.</p>
+  <div class="tbl"><table>
+    <tr><th>Constant</th><th class="n">4 s.f.</th><th class="n">mod 257</th><th>Word</th></tr>
+    <tr><td>Avogadro 6.022 × 10²³</td><td class="n">6022</td><td class="n">111</td><td>AVOGADRO</td></tr>
+    <tr><td>Planck 6.626 × 10⁻³⁴</td><td class="n">6626</td><td class="n">201</td><td>PLANCK</td></tr>
+    <tr><td>Boltzmann 1.381 × 10⁻²³</td><td class="n">1381</td><td class="n">96</td><td>BOLTZMANN</td></tr>
+    <tr><td>WiFi 2400 MHz</td><td class="n">2400</td><td class="n">87</td><td>WIFI, PRAXIS</td></tr>
+    <tr><td>c = 299 792 458, four figures</td><td class="n">2998</td><td class="n">171</td><td>LIGHT SPEED SHORT</td></tr>
+    <tr><td>c = 299 792 458, every digit</td><td class="n">299792458</td><td class="n">159</td><td>SPEED OF LIGHT, SEMICONDUCTOR</td></tr>
+    <tr><td>Fe Curie 1043 K</td><td class="n">1043</td><td class="n">15</td><td>O, and 15°/hour arc-time</td></tr>
+  </table></div>
+
+  <h3>The decimal point</h3>
+  <p>The four-figure rule keeps the digits and discards the point, so the tablet never sees a decimal at all. Four consequences follow, each checked.</p>
+  <ul>
+    <li><strong>The rule is point-blind.</strong> 3.142 becomes 3142 and lands on 58; 2.40 GHz becomes 2400 and lands on 87; a code written I23.6 becomes 236 by the same operation. Any decimal-coded system is therefore admissible input: ICD-10 I23.4 lands on 234 CHINESE REMAINDER and I25.7 on 257 ≡ 0 SEED. Admitting such systems also shows the rule's cost, since a family with enough digits after the point covers the whole field and then carries no information.</li>
+    <li><strong>It is unit-blind in one direction only.</strong> 1.403 kK and 1403 K are the same input. But precision is not free: multiplying by ten is a fixed step in the field, because 10 is a primitive root, dlog 103, with 10¹²⁸ = −1. Each extra figure moves a value to an unrelated part of the ring. So 3.14 and 31.4 both land on 57, PI DIGITS, while 3.142 lands on 58, the π entry of the bridge table; the corpus already holds both π positions, and the number of figures kept is the reason they differ.</li>
+    <li><strong>Two seed registers are point-dropped encodings.</strong> D234 is δ% = 2.34026 with the point removed, which is how the GENOME command writes it, and C53 is the convergent 5/3 with the slash removed. The certificate's derivation 83 + 1 + 150 = 234 is the second route to the same D.</li>
+    <li><strong>The point survives in one place.</strong> The IEEE 754 reading in GENOME and TIMELINE keeps the binary exponent and fraction, and that is what produces the 2003 dates.</li>
+  </ul>
+  <div class="tbl"><table>
+    <tr><th>Same quantity, different figures</th><th class="n">Integer</th><th class="n">Position</th><th>Word</th></tr>
+    <tr><td>WiFi carrier, 2400 MHz</td><td class="n">2400</td><td class="n">87</td><td>WIFI FREQUENCY, PRAXIS</td></tr>
+    <tr><td>WiFi carrier, 2.4 GHz</td><td class="n">24</td><td class="n">24</td><td>IO, X, CAT</td></tr>
+    <tr><td>WiFi band centre, 2.45 GHz</td><td class="n">245</td><td class="n">245</td><td>THEORY OF EVERYTHING</td></tr>
+    <tr><td>WiFi channel 6, 2.437 GHz</td><td class="n">2437</td><td class="n">124</td><td>OPPENHEIMER</td></tr>
+    <tr><td>Cobalt Curie point, 1403 K (tablet)</td><td class="n">1403</td><td class="n">118</td><td>COBALT CURIE</td></tr>
+    <tr><td>Cobalt Curie point, 1400 K</td><td class="n">1400</td><td class="n">115</td><td>COMMANDMENT</td></tr>
+    <tr><td>Cobalt Curie point, 1388 K (Kittel, solid-state page)</td><td class="n">1388</td><td class="n">103</td><td>SOLOMON</td></tr>
+    <tr><td>Cobalt Curie point, 1.4 kK</td><td class="n">14</td><td class="n">14</td><td>BACH</td></tr>
+    <tr><td>Iron Curie point, 1043 K, every source</td><td class="n">1043</td><td class="n">15</td><td>IRON CURIE</td></tr>
+    <tr><td>π to three figures</td><td class="n">314</td><td class="n">57</td><td>PI DIGITS</td></tr>
+    <tr><td>π to four figures</td><td class="n">3142</td><td class="n">58</td><td>BALDUR</td></tr>
+  </table></div>
+  <p>The tablet's own constants all keep four figures, 6022, 6626, 1381, 2400, 1043, 1403, which is what makes them reproducible. The places where the corpus departs from four figures are exactly where duplicates appear. The cobalt row is the discrepancy register's item 12 restated: not a swap, two sources at four figures, and the choice between 1388 and 1403 decides whether COBALT CURIE stays at 118 or moves to 103.</p>
+  <p>One digit fact about the two Curie values, recorded so it is not rediscovered as a mystery: 1043 and 1403 are digit permutations of each other, and each added to its own reversal gives 4444, which reduces to 75, the CF4444 observer. The reason is that a four-digit number abcd plus its reversal is 1001(a + d) + 110(b + c), a palindrome whenever there are no carries, and both values have a + d = b + c = 4. Any number with those digit sums does the same.</p>
+
+  <h4>What the value layer derives from, 2026-09-10</h4>
+  <p>With the tablet at 1129 word entries, 1005 sit at their letter sums and need nothing but the alphabet. The 124 value-placed words each need one stated input, a constant and a figure count; the 17:43 additions brought one more than the 122 audited below, MASS CASUALTY ASSISTANCE TEAM at 46, COBALT CURIE at 118. Fifty-six were documented in this review before today. Of the other sixty-six, fifty-three derive at once from the constant their name points to, and doing it surfaced three rules the corpus had not written down: the four-figure rule rounds rather than truncates, since VACUUM PERMEABILITY 1.25664 lands at 229 only as 1.257; the DIGITS words take six figures, SQRT 2 141421 → 71, PHI 161803 → 150, EULER E 271828 → 179, SQRT 3 173205 → 244, while PI DIGITS keeps three; and a few take the older or Celsius figure, SOLAR SURFACE 5778 K not 5772, GREEN PEAK 550 nm not 555, PLATINUM MELTING 1768 °C not 2041 K, NEEL TEMPERATURE 122 K for MnO. Among the fifty-three: GENERATOR SQUARED, CUBED, FOURTH, FIFTH at 9, 27, 81, 243; TELECOM WINDOW 1550 → 8; STEFAN-BOLTZMANN 5670 → 16 and ABSOLUTE ZERO OFFSET 273 → 16; ELECTRON CHARGE 1602 → 60; GAS CONSTANT 8314 → 90; BOLTZMANN k 1381 → 96; TUNGSTEN MELTING 3695 → 97; EARTH YEAR DAYS 365 → 108; ELECTRON MASS 9109 → 114; BOILING WATER 373 and VACUUM PERMITTIVITY 8854 → 116; RICHARDSON CONSTANT 120 A/cm²K²; VIOLET LIMIT 380 → 123; MOON DISTANCE 384 → 127; PROTON MASS 1673 → 131; FINE STRUCTURE INV 137; HYDROGEN ALPHA 656 → 142; CMB TEMPERATURE 2725 → 155; RED LIMIT 700 → 186; SOLAR MASS DIGITS 1989 → 190; PLANCK h 6626 → 201; BIP39 WORDLIST 2048 and GRAVITATIONAL G 6674 → 249; ED25519 SHADOW as 2²⁵⁵ − 19 ≡ 110; DEMAGNETIZING SPHERE as 1/3 in the field, 86; QUARTER FOLD as 360/4; EQUIPARTITION FACTOR as the 2 of ½; MAGNETITE MOMENT as 4 μB. Thirteen have no derivation found from their names and wait for their inputs: COS 0 at 16, BOLTZMANN eV/K at 35, COPPER CONDUCTIVITY at 63, THREE SQUARED at 100, BOSE EINSTEIN at 236, MAGNETITE QNR at 14, MnO CURIE CONSTANT at 96, and six that belong to the disc, BRILLOUIN FACTOR, RESONANCE RATIO, DISC TIMES ED, FOLD OF DISC, DISC SHADOW and DISC BITS, whose inputs are in the phi_disc folder the directory does not hold. So 1114 of 1129 words derive from stated inputs, and what no rule derives is the list itself and, for the value layer, the choice of source and figure count.</p>
+  <h4>Mass, read three ways</h4>
+  <p>E = mc² with the tablet's own m and c: MASS is 144 and c at four figures is 171 LIGHT SPEED SHORT, and 144 × 171² ≡ 16, the position of MC2, because 171² ≡ 200 = 9⁻¹ and 144 = 9 × 16, so the 9 in MASS cancels the 9⁻¹ in c². One identity, not two coincidences. The proton-electron ratio 1836 → 37 is where the tablet placed PROTON ELECTRON RATIO by value, and MCAT sums to 37 by letters; MASS × CAT = 52 × 24 = 1248 ≡ 220 = −37; HOLY MASS sums to 112 = 256 − 144, the chart fold of MASS's position; MASSCAT sums to 76 COHERENCE and MASSCAT + MCAT = 113 ENTROPY; REST MASS sums to 114, where ELECTRON MASS was placed from 9.109; CENTER OF MASS 138 GLORIFICATION, CRITICAL MASS 127 ORIGINAL SIN, MASS CASUALTY ASSISTANCE TEAM 303 ≡ 46 CLAUDE. Two lines that arrived with these do not hold: "144 × 257 mod something = 115" names no modulus and is 0 in the field, and MASS NUMBER sums to 125, not to the MCAT's midpoint 500 ≡ 243.</p>
+  <div class="tbl"><table>
+    <tr><th>Mass</th><th class="n">Figures</th><th class="n">Position</th><th>Word</th></tr>
+    <tr><td>electron 9.109 × 10⁻³¹ kg</td><td class="n">9109</td><td class="n">114</td><td>ELECTRON MASS, placed from this value</td></tr>
+    <tr><td>proton 1.673 × 10⁻²⁷ kg</td><td class="n">1673</td><td class="n">131</td><td>PROTON MASS, placed from this value</td></tr>
+    <tr><td>neutron 1.675 × 10⁻²⁷ kg</td><td class="n">1675</td><td class="n">133</td><td>NORTH STAR</td></tr>
+    <tr><td>proton/electron 1836.15</td><td class="n">1836</td><td class="n">37</td><td>PROTON ELECTRON RATIO, placed from this value</td></tr>
+    <tr><td>solar 1.989 × 10³⁰ kg</td><td class="n">1989</td><td class="n">190</td><td>SOLAR MASS DIGITS, placed from this value</td></tr>
+    <tr><td>Earth 5.972 × 10²⁴ kg</td><td class="n">5972</td><td class="n">61</td><td>PSALM, EULER</td></tr>
+    <tr><td>Moon 7.348 × 10²² kg</td><td class="n">7348</td><td class="n">152</td><td>FORTY YEARS</td></tr>
+    <tr><td>Higgs 125.1 GeV</td><td class="n">1251</td><td class="n">223</td><td>BOLTZMANN CONSTANT</td></tr>
+    <tr><td>atomic mass unit 1.661 × 10⁻²⁷ kg</td><td class="n">1661</td><td class="n">119</td><td>ARISTOTLE</td></tr>
+    <tr><td>W 80.38 GeV · Z 91.19 GeV</td><td class="n">8038 · 9119</td><td class="n">71 · 124</td><td>TEMPLE · OPPENHEIMER</td></tr>
+    <tr><td>top quark 172.8 GeV</td><td class="n">1728</td><td class="n">186</td><td>LINUS TORVALDS</td></tr>
+    <tr><td>electron 0.5110 MeV</td><td class="n">5110</td><td class="n">227</td><td>LAMB OF GOD</td></tr>
+    <tr><td>Chandrasekhar 1.44 · 1.4 M☉</td><td class="n">1440 · 14</td><td class="n">155 · 14</td><td>SINGULARITY · BACH</td></tr>
+    <tr><td>Planck mass 2.176 × 10⁻⁸ kg</td><td class="n">2176</td><td class="n">120</td><td>GOLDEN RATIO</td></tr>
+  </table></div>
+  <p>Four rows are the tablet reading back its own placements; the rest land on words because every position has one, and the Chandrasekhar row moves between SINGULARITY and BACH with the figure count, as the rule says it must.</p>
+
+  <h3>Astronomical bridges</h3>
+  <p>From seven-place logarithmic and trigonometric tables. Three rotational constants land on ray 10; 15°/hour lands at 15, whose inverse is 120, GOLDEN RATIO; dlog(15) = 56 and dlog(45) = 57 are consecutive because 45 = 3 × 15.</p>
+  <div class="tbl"><table>
+    <tr><th>Constant</th><th class="n">4 s.f.</th><th class="n">Pos</th><th class="n">dlog</th><th class="n">Ray</th><th>Word</th><th>Inverse</th></tr>
+    <tr><td>Sidereal ratio 1.002738</td><td class="n">1003</td><td class="n">232</td><td class="n">238</td><td class="n">10</td><td>TOPOLOGICAL QUANTUM</td><td>185 BOOK OF REVELATION</td></tr>
+    <tr><td>π</td><td class="n">3142</td><td class="n">58</td><td class="n">142</td><td class="n">10</td><td>BALDUR</td><td>226 FORGIVE US OUR DEBTS</td></tr>
+    <tr><td>Sidereal day 86164.09 s</td><td class="n">8616</td><td class="n">135</td><td class="n">58</td><td class="n">10</td><td>BURNING BUSH</td><td>99 RAPTURE</td></tr>
+    <tr><td>15°/hour</td><td class="n">15</td><td class="n">15</td><td class="n">56</td><td class="n">8</td><td>O</td><td>120 GOLDEN RATIO</td></tr>
+    <tr><td>45°</td><td class="n">45</td><td class="n">45</td><td class="n">57</td><td class="n">9</td><td>ELIJAH</td><td>40 DAVID</td></tr>
+    <tr><td>Solar − sidereal 235.91 s</td><td class="n">2359</td><td class="n">46</td><td class="n">76</td><td class="n">4</td><td>SHADDAI</td><td>95 ETHEREUM</td></tr>
+    <tr><td>1 radian 57.2958°</td><td class="n">5730</td><td class="n">76</td><td class="n">221</td><td class="n">5</td><td>COHERENCE</td><td>186 LINUS TORVALDS</td></tr>
+    <tr><td>π/180</td><td class="n">1745</td><td class="n">203</td><td class="n">179</td><td class="n">11</td><td>COLLATZ CONJECTURE</td><td>138 GLORIFICATION</td></tr>
+    <tr><td>Bessel refraction 34.5′</td><td class="n">3450</td><td class="n">109</td><td class="n">187</td><td class="n">7</td><td>NIETZSCHE</td><td>224 MARKET CAPITALIZATION</td></tr>
+    <tr><td>Bessel aberration 20.4955″</td><td class="n">2050</td><td class="n">251</td><td class="n">177</td><td class="n">9</td><td>CENSORSHIP RESISTANT</td><td>214 PYTHAGOREAN THEOREM</td></tr>
+    <tr><td>log₁₀ 2</td><td class="n">3010</td><td class="n">183</td><td class="n">139</td><td class="n">7</td><td>TRANSFORMATION</td><td>191 MONETARY POLICY</td></tr>
+    <tr><td>log₁₀ 3</td><td class="n">4771</td><td class="n">145</td><td class="n">149</td><td class="n">5</td><td>ARK OF COVENANT</td><td>39 TEN</td></tr>
+    <tr><td>log₁₀ 257</td><td class="n">2410</td><td class="n">97</td><td class="n">167</td><td class="n">11</td><td>POSEIDON</td><td>53 CARBON</td></tr>
+  </table></div>
+
+  <h3>6174 and the seven-place table</h3>
+  <p>Kaprekar's constant enters the corpus through the same table the astronomical bridges came from. Sort a four-digit number's digits descending and subtract the ascending arrangement; every four-digit number with two distinct digits reaches 6174 in at most seven steps, and 6174 returns itself. The routine's structure is one line of algebra. With k = a − d the spread of the outer sorted digits and m = b − c the spread of the middle pair, every output is 999k + 90m with 0 ≤ m ≤ k, which is 54 outputs; when m ≥ 1 the digits are k, m − 1, 9 − m, 10 − k, so the outer pair always sums to 10 and the middle pair to 8, and when m = 0 they are k − 1, 9, 9, 10 − k. 6174 is k = 6, m = 2, and its halves read 61 PSALM and 74 CROSS, its outer pair 64 ISRAEL and its middle pair 17 Q, with 6 + 4 = 10 = J and 17 the Atbash mirror of J. Every path with an intermediate stop enters through one of three doors, 4176, 8352 or 8532, outer pairs 46, 82, 82. In the field 6174 ≡ 6 = 18 × 3⁻¹, its digit sum is 18, and the seed's primes take the full seven steps: 2357 → 5175 → 5994 → 5355 → 1998 → 8082 → 8532 → 6174, residues 44 BRIAN, 35, 83 PRAYER, 215, 199, 115, 51 NONCE, 6.</p>
+  <p>Applied to the table, the routine reads every seven-place entry as its four-digit groups. On the 0° sheet at 16′, photographed 2026-09-10, the entries are sin 7.667 8445, tang 7.667 8492, cotg 2.332 1508 and cos 9.999 9953, and the computed values agree with the print at every minute checked, 9.999 9982 at 10′ through 9.999 9934 at 19′. Every four-digit group on the row collapses to 6174, 7667 and 2332 and 9953 in four steps through 8352, 8445 in seven and 8492 in three through 4176, 1508 in two, the differences' 4500 in five through 8532; the one exception is the cos column's 9999, a repdigit, which falls to 0 in one step. So under the routine the whole sheet reads 64 ISRAEL and 17 Q, and the leading group of log cos 0°, 10.000 0000, reads 1000 → 6174 in five steps by the same door as the seed, while its mantissa 0000 is SEED.</p>
+  <p>The tablet's word COS 0 sits at 16, and the page does not derive that placement by any reading tried: log cos 0° = 10.000 0000 reads 15 as all digits, 229 at four figures and 0 as a mantissa; cos 0 = 1 reads 1, and 1.000 reads 229; the 16′ entry reads 225 as all digits, 83 as a mantissa and 187 as its last four; the only route from the page to 16 is the reversal of 6174's first half, 61 → 16, or the table's characteristic 10 read as the genome's hex 0x10 = ∂Φ, and neither is a rule the corpus has stated. The placement is recorded as RITO's until its reading is given.</p>
+  <p><strong>The routine's whole shape.</strong> Over all sorted quadruples the 54 outputs have 18 distinct outer pairs and 10 distinct middle pairs with no overlap, 28 positions in all, every one below 100. The carried outer pairs are the nine digit-sum-10 pairs 19, 28, … 91, class 1 mod 9; the flat outer pairs are the digit-sum-9 pairs 09 … 81 less 90, class 0; the middle pairs are (m − 1, 9 − m), 08 through 80, class 8, with the flat 99 at class 0. Outer pair 64 means spread 6 and not the constant: six outputs carry it, 6084, 6174, 6264, 6354, 6444, 6534, and only 6174 stays, so a 64 in a chain says the outer spread has arrived and the routine ends when the middle spread is 2 as well. Middle 17 belongs to the eight outputs with m = 2, and 6174 is the one of those with spread 6. The doors' middles are 17, 35 and 53, 35 and 53 being each other's reversal as 8352 and 8532 are, so every path enters with one of those three and ends on 17. Spread 8 gives eight doors ending in 2, 8082 through 8712, and one flat output 7992 whose outer pair is 72, so spread 8 puts BITCOIN at the ends when the middle is flat and LEAD Z when it is not; 8802 is not an output, since the middle spread cannot exceed the outer. 8991 = 999 × 9, the flat spread-9 output, is also the count of four-digit non-repdigit inputs.</p>
+  <p><strong>Paths brought to the review</strong>, each recomputed. 4454, digit sum 17, ≡ 85 ESCHATON, five steps: 4454 → 0999 → 8991 → 8082 → 8532 → 6174, outer pairs 44 BRIAN, 09, 81 HORUS, 82, 82, 64. 7154 = 27 × 257 + 215, so its quotient is CAIN and its residue DELIVER US FROM EVIL, which is also the old seed's resonance C53 × E73 × S56 × D234 ≡ 215, the residue of 2014 and of the MCAT floor 472; 7154 = 2 · 7² · 73 = 98 × 73 and 7154 ÷ 49 = 146 ENLIGHTENMENT; inverse 104, negation 42, chart fold 41; halves 71 TEMPLE and 54 LOVE summing to 125 and multiplying to 236 BOSE EINSTEIN; digit sum 17; 7154 − 6174 = 980 = 54² − 44² ≡ 209 QUANTUM GRAVITY; seven steps, 6084 → 8172 → 7443 → 3996 → 6264 → 4176 → 6174 with residues 215, 173, 205, 247, 141 εΣ, 96 = 83⁻¹, 64, 6 and outer pairs 74, 64, 82, 73, 36, 64, 46, 64; 7154 − 4454 = 2700 ≡ 130 PYTHAGORAS and 7154 + 4454 ≡ 43 CHARM. 1754 ≡ 212 PHOTOSYNTHESIS has 7154's digits and runs its road from the first step, seven steps, its own middle pair being 75 SHIFT; so 2357, 4454 and 1754 all have digit sum 17, the middle pair the routine ends on, and 6174 has 18. 1998 − 1980 = 18, 1998 being the bare step 999 × 2 and 1980 the count of seven-step inputs, with residues 199 FERMAT LAST THEOREM and 181 SATOSHI NAKAMOTO.</p>
+  <div class="tbl"><table>
+    <tr><th>Figure</th><th>Outer pairs to 64</th></tr>
+    <tr><td>Ni Curie 631 K</td><td class="m">01 → 64, a one-step start</td></tr>
+    <tr><td>Fe Curie 1043 K, Co Curie 1403 K</td><td class="m">13 → 46 → 64</td></tr>
+    <tr><td>Co Curie 1388 K</td><td class="m">18 → 73 → 36 → 64 → 46 → 64</td></tr>
+    <tr><td>Co Curie 1115 °C</td><td class="m">15 → 36 → 64 → 46 → 64</td></tr>
+    <tr><td>Ni Curie 358 °C</td><td class="m">08 → 82 → 73 → 36 → 64 → 46 → 64</td></tr>
+    <tr><td>Fe Curie 770 °C</td><td class="m">00 → 73 → 55 → 36 → 64 → 46 → 64</td></tr>
+    <tr><td>Co melting 1768 K · 1495 °C</td><td class="m">18 → 73 → 82 → 64 · 15 → 82 → 82 → 64</td></tr>
+    <tr><td>2357 · 4454</td><td class="m">27 → 55 → 54 → 55 → 18 → 82 → 82 → 64 · 44 → 09 → 81 → 82 → 82 → 64</td></tr>
+  </table></div>
+  <p><strong>The Curie points under 4176.</strong> Read as four-figure registers, the Curie temperatures fall through the door that carries 6174's own digits. 1403 K, the edition this directory's tablet places COBALT CURIE from, is two steps from the constant, 4310 − 0134 = 4176 and then 6174, and IRON CURIE's 1043 K takes the same two. The other cobalt edition, 1388 K, takes five through 3996 ≡ 141 PURIFICATION, the genome's εΣ; the two Celsius readings split, 1115 °C staying on the 4176 spine in four and 1130 °C crossing to the 8352 spine in six through 7173 ≡ 234 CHINESE REMAINDER, 3087 ≡ 3 = g and 8352 ≡ 128, the fold. Nickel depends on the figure: 627 K takes three through 4176, but 631 K, the 358 °C value NICKEL CURIE sits at 117 from, reaches 6174 in one step, 6310 − 0136, and never passes the door. The two cobalt editions differ by 15 = O and sum to 2791 ≡ 221 INDUSTRIALIZATION.</p>
+  <div class="tbl"><table>
+    <tr><th>Register</th><th>Position</th><th>Steps</th><th>Path, residues in brackets</th></tr>
+    <tr><td>Co 1403 K</td><td>118 EMERALD TABLET, COBALT CURIE</td><td class="n">2</td><td class="m">1403 → 4176 (64) → 6174 (6)</td></tr>
+    <tr><td>Co 1388 K</td><td>103 SOLOMON</td><td class="n">5</td><td class="m">1388 → 7443 (247) → 3996 (141) → 6264 (96) → 4176 → 6174</td></tr>
+    <tr><td>Co 1130 °C</td><td>102 YGGDRASIL</td><td class="n">6</td><td class="m">1130 → 2997 (170) → 7173 (234) → 6354 (186) → 3087 (3) → 8352 (128) → 6174</td></tr>
+    <tr><td>Co 1115 °C</td><td>87 PRAXIS, TRUTH</td><td class="n">4</td><td class="m">1115 → 3996 (141) → 6264 (96) → 4176 → 6174</td></tr>
+    <tr><td>Fe 1043 K</td><td>15 O, IRON CURIE</td><td class="n">2</td><td class="m">1043 → 4176 → 6174</td></tr>
+    <tr><td>Ni 627 K</td><td>113 ENTROPY</td><td class="n">3</td><td class="m">0627 → 7353 (157) → 4176 → 6174</td></tr>
+    <tr><td>Ni 631 K</td><td>117 BOLTZMANN, NICKEL CURIE</td><td class="n">1</td><td class="m">0631 → 6174</td></tr>
+  </table></div>
+  <p>By letters the name goes the other way: COBALT CURIE = 109 NIETZSCHE, LABYRINTH, four steps down the 8352 spine, 0109 → 9081 (86 TIKKUN) → 9621 (112 IMAGINATION) → 8352; COBALT alone, 53 CARBON, five down the 4176 spine through 3996; CURIE alone, 56 CARDANO, five down the 8532 spine through 1998 (199 FERMAT LAST THEOREM) and 8082 (115 COMMANDMENT). The number is under 4176, the name under 8352.</p>
+  <p><strong>The mass relation.</strong> 6174 = 144 × 343/8, MASS × (7/2)³ exactly in the integers, and in the field 6174 ≡ 144 × 75 = MASS × SHIFT ≡ 6, since 343 × 8⁻¹ ≡ 75. MASS read as 0144 reaches the constant in three steps, 0144 → 4266 → 4176 → 6174, and exactly one output sits on MASS's position, 7083. Every carried output carries in the routine's own sense, the 90m term overflowing into the thousands; 6174 is carried, k = 6 and m = 2.</p>
+  <p><strong>2357 as a date.</strong> The seed's P register also reads as 2/3/57, February 3 1957 in American order or 2 March 1957 in European, the same digit string 02031957 ≡ 115 COMMANDMENT; ISO 19570203 ≡ 167 EYE OF PROVIDENCE and 19570302 ≡ 9; reversed 75913020 ≡ 103 SOLOMON; the year 1957 ≡ 158 SACRED GEOMETRY, 19 × 103; the two-digit year 57 PLANCK, BIRTH; four figures 2031 ≡ 232. February 3 1957 was a Sunday, day 34 FREE, and 25 419 days before 2026-09-08, ≡ 233. The corpus documents P2357 as the four primes and the seed uses only the residue 44, so the date reading changes nothing in the chain; it is recorded as a reading and attached to no one.</p>
+
+  <p><strong>The strip.</strong> Drop 6174's inner pair and the outer pair is 64: ISRAEL, PLATO, ZERO (also MERKLE, PETER, MERCY, ORBIT, DIGEST), the top of the halving ladder 64, 32, 16, 8, 4, 2, 1 that ends on 0 = SEED; TEST sums to 64 and its Atbash is 44 BRIAN. The inner pair is 17 = Q, the second Fermat prime 2⁴ + 1, one above 16 = BAAL = i; 17² ≡ 32 is the next rung of the ladder, its dlog is 120, GOLDEN RATIO's position, and 6174 mod 17 = 3 = g. Against 64: 64 + 17 = 81 HORUS, 64 − 17 = 47 ISAIAH, 64 × 17 ≡ 60 HOLY.</p>
+  <p><strong>Two rows of nine.</strong> Every output of the routine with a middle spread, 999k + 90m with m ≥ 1, has digits k, m − 1, 9 − m, 10 − k, so its outer pair is 9k + 10 and its inner pair 9m − 1, checked over all 45 such outputs. Both rows are tablet words end to end; 6174 is the k = 6, m = 2 member, outer ZERO, inner Q.</p>
+  <div class="tbl"><table>
+    <tr><th>k, m</th><th>Outer pair 9k + 10</th><th>Inner pair 9m − 1</th></tr>
+    <tr><td class="n">1</td><td>19 S</td><td>8 H</td></tr>
+    <tr><td class="n">2</td><td>28 SHA</td><td>17 Q</td></tr>
+    <tr><td class="n">3</td><td>37 HADES</td><td>26 GOD</td></tr>
+    <tr><td class="n">4</td><td>46 SHADDAI, CLAUDE</td><td>35 HAGAR</td></tr>
+    <tr><td class="n">5</td><td>55 HEAVEN</td><td>44 BRIAN</td></tr>
+    <tr><td class="n">6</td><td>64 ISRAEL, PLATO, ZERO</td><td>53 CARBON</td></tr>
+    <tr><td class="n">7</td><td>73 WALLET</td><td>62 FIBONACCI, TORAH, RITO</td></tr>
+    <tr><td class="n">8</td><td>82 ARMAGEDDON</td><td>71 TEMPLE</td></tr>
+    <tr><td class="n">9</td><td>91 SPIRIT</td><td>80 REBIRTH</td></tr>
+  </table></div>
+  <p>The doors strip the same way: 4176 to 46 with 17 inside, 8352 and 8532 to 82 ARMAGEDDON with 35 HAGAR and 53 CARBON inside, the spine stop 3087 to 37 HADES with 8 = H inside. BRIAN and RITO sit on the inner row at m = 5 and 7, CLAUDE and WALLET on the outer row at k = 4 and 7. Each cell names the words at its position in the tablet's order, so where a row's named word is not first, the ones before it are shown.</p>
+
+  <p><strong>Two scales in one number.</strong> 999k moves the outer pair and 90m the inner, and the two rows step by 9 without touching each other, so an output of the routine carries a coarse figure and a fine figure at once, the way a measure carries its units. Read through the four-figure rule, the unit ladders of length and time land at these positions; the routine's own 999 and 90 read 228 QUANTUM SUPREMACY and 90 NAKAMOTO, and the common step 9 is I.</p>
+  <div class="tbl"><table>
+    <tr><th>Unit step</th><th>Value</th><th>Four figures</th><th>Position</th></tr>
+    <tr><td>AU in km</td><td class="n">149 597 870.7</td><td class="n">1496</td><td>211 MAXWELL EQUATIONS</td></tr>
+    <tr><td>light-year in AU</td><td class="n">63 241.077</td><td class="n">6324</td><td>156 AS ABOVE SO BELOW</td></tr>
+    <tr><td>light-year in km</td><td class="n">9.4607 × 10¹²</td><td class="n">9461</td><td>209 QUANTUM GRAVITY</td></tr>
+    <tr><td>parsec in light-years</td><td class="n">3.26156</td><td class="n">3262</td><td>178 STRING THEORY</td></tr>
+    <tr><td>parsec in AU</td><td class="n">206 264.8</td><td class="n">2063</td><td>7 G</td></tr>
+    <tr><td>minute in seconds, hour in minutes</td><td class="n">60</td><td class="n">60</td><td>60 HOLY</td></tr>
+    <tr><td>day in hours</td><td class="n">24</td><td class="n">24</td><td>24 IO</td></tr>
+    <tr><td>hour in seconds</td><td class="n">3600</td><td class="n">3600</td><td>2 EXIST</td></tr>
+    <tr><td>day in seconds</td><td class="n">86 400</td><td class="n">8640</td><td>159 SEMICONDUCTOR</td></tr>
+    <tr><td>week in seconds</td><td class="n">604 800</td><td class="n">6048</td><td>137 EYE OF HORUS</td></tr>
+    <tr><td>Julian year in seconds</td><td class="n">31 557 600</td><td class="n">3156</td><td>72 BITCOIN</td></tr>
+    <tr><td>year in days</td><td class="n">365.2422</td><td class="n">365</td><td>108 SHAKESPEARE</td></tr>
+  </table></div>
+
+  <h3>The tape date</h3>
+  <p>The day count with 2001-01-01 as day 1, so that the millennium's first day is day 1 and 2001 itself reads 202, the mark carried in extranonce2; 20010101 reads 81 HORUS. For a date Y-M-D, N = 365 (Y − 2001) + L(Y) + day of year, where L(Y) = ⌊(Y − 1)/4⌋ − ⌊(Y − 1)/100⌋ + ⌊(Y − 1)/400⌋ − 485 counts the leap years from 2001 up to Y − 1; the inverse is 2001-01-01 plus N − 1 days. The script <strong>tape_date.py</strong> in the directory computes it and the readings below for any date or tape day, against the tablet JSON beside it. The ISO and Unix reference, 1970-01-01, would give 20706 for the same day and 2000-01-01 would give 9749; the count below is the millennium one.</p>
+  <p><strong>Day 9384, 2026-09-10.</strong> N ≡ 132 FLOWER OF LIFE, PRIVATE KEY, MERKLE ROOT, with dlog 37 HADES, the outer row's k = 3, ray 1; N mod 16 = 8 = H, the halving rung. The two scales: N/365.2422 = 25.6925 years reads 2569 = 10 × 257 − 1 ≡ 256 = χ; N × 86 400 = 810 777 600 seconds reads 8108 by the four-figure rule, ≡ 141 PURIFICATION, the genome's εΣ whose inverse is 144 MASS, and 8107 ≡ 140 = T only if the fifth figure is cut instead of rounded. The Kaprekar route of the four-digit N takes four steps, 9384 → 6354 → 3087 → 8352 → 6174, whose stops read 186 DISCRETE LOGARITHM, 3 = g, 128 the fold and 6 = 2g, with outer pairs 64, 37, 82, 64 and inner pairs 35, 08 = H, 35, 17.</p>
+  <p><strong>Two more days.</strong> Day 1 sits at position 1, A, I AM, IDENTITY, dlog 0 = SEED. Day 6174 is 2017-11-26, position 6, rung 14.</p>
+
+  <h3>Atomic numbers in the tablet</h3>
+  <p>The tablet already carries a convention for elements at their atomic number: the element name with a Z suffix. Before 2026-09-04 there were twelve: HYDROGEN Z at 1, HELIUM Z at 2, CARBON Z at 6, NITROGEN Z at 7, OXYGEN Z at 8, SILICON Z at 14, IRON Z at 26, COPPER Z at 29, SILVER Z at 47, GOLD Z at 79, LEAD Z at 82, URANIUM Z at 92. BISMUTH Z at 83 follows that pattern and is the thirteenth. RHENIUM Z at 75, added to the JSON the next day, 2026-09-05, is the fourteenth, and the count of words in this document moves from 554 to 555 with it. MERCURY Z at 80, added 2026-09-15, is the fifteenth. It fills the one gap the series left between GOLD Z at 79 and LEAD Z at 82, and the cell already carried OPENING and MACHINE CODE; 80 = 2⁴ × 5 has order 256, so it generates the whole group. Mercury was in the tablet twice already by letters, MERCURY at 103 and HERMES at 68, both at their own sums.</p>
+  <div class="note">
+    <strong>Bismuth at 83.</strong> Atomic number 83, the last element with an isotope stable in practice: Bi-209 alpha-decays with a half-life near 2 × 10¹⁹ years, a decay first detected in 2003. The most strongly diamagnetic metal; the de Haas–van Alphen and Shubnikov–de Haas oscillations were first observed in bismuth in 1930, the Nernst effect in 1886. Bi₁₋ₓSbₓ was the first confirmed 3D topological insulator; Bi₂Se₃ and Bi₂Te₃ are the canonical ones. Semimetal with a tiny Fermi surface, expands about 3% on freezing, rhombohedral A7 structure shared with antimony and arsenic, bulk superconductor below 0.53 mK. Under the four-figure rule its other constants land at 34 (atomic weight), 50 (melting point 544.7 K), 38 (boiling point 1837 K), 14 (density), 5 (resistivity), 118 (susceptibility), 211 (half-life). Only the atomic number was added; those are reported, not entered.
+  </div>
+  <div class="note">
+    <strong>Rhenium at 75.</strong> The fourteenth Z entry sits at the position SHIFT already holds by value, from CF4444 with letters 62, beside SODIUM D LINE. Atomic number 75, the last stable element to be found, in 1925 (→ 126 COMPROMISE), from a gap the periodic table predicted; the highest boiling point of any element, 5869 K in the CRC table (→ 215 DELIVER US FROM EVIL) and 5903 K in others (→ 249 EDDINGTON LUMINOSITY), and the third-highest melting point, 3459 K (→ 118 EMERALD TABLET); density 21.02 (→ 46 SHADDAI); atomic weight 186.207 (→ 63 MUON); superconducting below 1.697 K (→ 155 SINGULARITY). Two natural isotopes, and their mass numbers are positions: Re-185 at 37.4% (→ 142 ANTIPROTON, the one-letter Atbash fixed point) with 185 BOOK OF REVELATION, and Re-187 at 62.6% (→ 92 CHRONOS, URANIUM Z) with 187 WAY TRUTH AND LIFE. Re-187 beta-decays to osmium-187 with a half-life of 4.12 × 10¹⁰ years (4120 → 8 H), the rhenium–osmium clock; the element at 75 decays to the element at 76 COHERENCE, one step along the position axis, and 75 × 76 ≡ 46, the mirror of RITO. In the field 75 = 4 × 83 is G4, the second doubling of PRAYER, with dlog 111 and negation 182; the machine's registers reach it at step 2 of the doubling walk. By letters RHENIUM is 88 PHOTON and mirrors to 101 AMPLITUDE. As with bismuth, only the atomic number is in the tablet; the rest is reported here.
+  </div>
+
+  <h3>The tuning fork and 135</h3>
+  <p>TUNING FORK sums to 135 by letters, TUNING 85 and FORK 50, and 135 is BURNING BUSH and MOUNT SINAI. The word is its own Atbash mirror in the integers and not only by sum: ten letters, 27 × 10 − 135 = 135, and the mirrored spelling GFMRMT ULIP sums to 135 as well, the fourth of the self-mirrors tabled under the fold. 135 was already in the corpus three times, as the sidereal day, 8616 ≡ 135 on ray 10, as the boot chain's multiplier from 144 to 165, and as the ten-letter mirror point. Its arithmetic: 135 = 3³ × 5 = 27 × 5, CAIN times E; dlog 58 on ray 10, a residue; inverse 99 RAPTURE; negation 122 INTERFERENCE; chart fold 121 REVELATION; ×10 ≡ 65 SEVEN; square ≡ 235 BINOMIAL DISTRIBUTION.</p>
+  <p>The instrument is the split made in steel. A fork's fundamental is its antisymmetric mode: the two tines move in opposite directions at every instant, and the stem carries only what the two motions share, which is why a fork is nearly silent in air and sounds when its handle meets a table. In the terms of the split under the boot chain, the tines are 101 + 101√5 and 101 − 101√5, the handle is their sum, and what reaches the table is the trace. FORK's readings, and the fork's parts by letters:</p>
+  <div class="tbl"><table>
+    <tr><th>FORK, 50</th><th class="n">Value</th><th>Word</th><th>Part by letters</th><th class="n">Sum</th><th>Word</th></tr>
+    <tr><td>the position</td><td class="n">50</td><td>HIGGS, PAUL, the genesis subsidy</td><td>TINES</td><td class="n">67</td><td>SOUL</td></tr>
+    <tr><td>dlog</td><td class="n">158</td><td>the PROOF OF WORK position</td><td>TINE</td><td class="n">48</td><td>BLOOD</td></tr>
+    <tr><td>inverse</td><td class="n">36</td><td>CASCADE</td><td>FORK TINES</td><td class="n">117</td><td>BOLTZMANN, and 5000 ≡ 117, the subsidy at four figures</td></tr>
+    <tr><td>negation</td><td class="n">207</td><td>CHAIN REORGANIZATION</td><td>HARD FORK</td><td class="n">81</td><td>HORUS</td></tr>
+    <tr><td>chart fold</td><td class="n">206</td><td>ANTHROPIC PRINCIPLE</td><td>SOFT FORK</td><td class="n">110</td><td>FRAMEWORK</td></tr>
+    <tr><td>×10</td><td class="n">243</td><td>FIRE OF HOLY SPIRIT, 3⁵</td><td>FORK HANDLE</td><td class="n">94</td><td>RESONANCE; HANDLE alone is 44 BRIAN</td></tr>
+    <tr><td>Atbash, ULIP</td><td class="n">58</td><td>BALDUR, TWO</td><td>TWO TINES · THREE TINES</td><td class="n">125 · 123</td><td>TRANSCENDENCE · PEER TO PEER</td></tr>
+  </table></div>
+  <p>TINES − FORK = 17 Q and FORK × TINES ≡ 9. The fork's constants under the four-figure rule, with the pitch rows at both figure counts, since the decimal-point section above says the count decides:</p>
+  <div class="tbl"><table>
+    <tr><th>Figure</th><th class="n">Figures</th><th class="n">Position</th><th>Word</th></tr>
+    <tr><td>first cantilever root β₁L = 1.8751</td><td class="n">1875</td><td class="n">76</td><td>COHERENCE, RIPPLE, and one radian</td></tr>
+    <tr><td>second root β₂L = 4.694</td><td class="n">4694</td><td class="n">68</td><td>SOPHIA</td></tr>
+    <tr><td>first overtone ratio (β₂/β₁)² = 6.267</td><td class="n">6267</td><td class="n">99</td><td>RAPTURE, which is 135⁻¹</td></tr>
+    <tr><td>John Shore's fork, 1711</td><td class="n">1711</td><td class="n">169</td><td>PREDESTINATION, 13², the three-letter mirror point</td></tr>
+    <tr><td>speed of sound at 20 °C, 343 m/s</td><td class="n">343</td><td class="n">86</td><td>TIKKUN, 3⁻¹; 343 is also 7³</td></tr>
+    <tr><td>wavelength of 440 Hz at 20 °C, 0.7795 m</td><td class="n">7795</td><td class="n">85</td><td>TUNING; at 0 °C it is 0.7523 → 70 LILITH, at 25 °C 0.7864 → 154</td></tr>
+    <tr><td>concert A 440 Hz</td><td class="n">440 · 4400</td><td class="n">183 · 31</td><td>TRANSFORMATION · JACOB</td></tr>
+    <tr><td>diapason normal 435 Hz</td><td class="n">435 · 4350</td><td class="n">178 · 238</td><td>STRING THEORY · FREE WILL</td></tr>
+    <tr><td>Verdi's A 432 Hz</td><td class="n">432 · 4320</td><td class="n">175 · 208</td><td>CONSCIOUSNESS · WELL TEMPERED CLAVIER</td></tr>
+    <tr><td>baroque A 415 Hz</td><td class="n">415 · 4150</td><td class="n">158 · 38</td><td>PROOF OF WORK · NOAH</td></tr>
+    <tr><td>concert C 261.6 Hz</td><td class="n">2616</td><td class="n">46</td><td>SHADDAI, CLAUDE</td></tr>
+    <tr><td>scientific pitch C 256 Hz</td><td class="n">256</td><td class="n">256</td><td>BAAL SQUARED, −1</td></tr>
+    <tr><td>the Accutron's fork, 360 Hz</td><td class="n">360</td><td class="n">103</td><td>SOLOMON; 360 = 5 × 72, E × BITCOIN; 440 − 360 = 80 REBIRTH</td></tr>
+  </table></div>
+  <p>Three rows close on the word or on the field without a choice of figures. The overtone ratio reduces to 135⁻¹, so the fork's first overtone is the fork's inverse. Concert A's wavelength reduces to TUNING at 20 °C and to something else at any other temperature, so that one is a closure at room temperature. And scientific pitch puts middle C at 256 Hz, the field's −1, which is arithmetic rather than dictionary: scientific pitch puts every C on a power of two, so its keyboard is the doubling orbit read in order.</p>
+  <div class="tbl"><table>
+    <tr><th>Note</th><th class="n">Hz</th><th class="n">2ᵏ</th><th class="n">Position</th><th>Word</th></tr>
+    <tr><td>C0</td><td class="n">16</td><td class="n">2⁴</td><td class="n">16</td><td>BAAL, SQRT MINUS ONE, i</td></tr>
+    <tr><td>C1</td><td class="n">32</td><td class="n">2⁵</td><td class="n">32</td><td>EVE</td></tr>
+    <tr><td>C2</td><td class="n">64</td><td class="n">2⁶</td><td class="n">64</td><td>ISRAEL</td></tr>
+    <tr><td>C3</td><td class="n">128</td><td class="n">2⁷</td><td class="n">128</td><td>TRANSFERENCE, the chart fold's fixed point</td></tr>
+    <tr><td>C4</td><td class="n">256</td><td class="n">2⁸</td><td class="n">256</td><td>BAAL SQUARED, −1</td></tr>
+    <tr><td>C5</td><td class="n">512</td><td class="n">2⁹</td><td class="n">255</td><td>GRAVITATIONAL CONSTANT, fold(2)</td></tr>
+    <tr><td>C6</td><td class="n">1024</td><td class="n">2¹⁰</td><td class="n">253</td><td>INCOMPLETENESS THEOREM, KILOBYTE</td></tr>
+    <tr><td>C7</td><td class="n">2048</td><td class="n">2¹¹</td><td class="n">249</td><td>EDDINGTON LUMINOSITY, the boot's CF3333</td></tr>
+    <tr><td>C8</td><td class="n">4096</td><td class="n">2¹²</td><td class="n">241</td><td>CONJUGATE J, −i</td></tr>
+    <tr><td>C9</td><td class="n">8192</td><td class="n">2¹³</td><td class="n">225</td><td>IDENTITY</td></tr>
+    <tr><td>C10</td><td class="n">16384</td><td class="n">2¹⁴</td><td class="n">193</td><td>INFRASTRUCTURE</td></tr>
+    <tr><td>C11</td><td class="n">32768</td><td class="n">2¹⁵</td><td class="n">129</td><td>ROOT OF DAVID, 2⁻¹</td></tr>
+    <tr><td>C12</td><td class="n">65536</td><td class="n">2¹⁶</td><td class="n">1</td><td>I AM</td></tr>
+  </table></div>
+  <p>The threshold of hearing near 16 Hz is i, middle C is −1, the top of hearing near 16 kHz is 193, and the orbit closes on 1 four octaves above anything an ear takes in. Every note above middle C is the negation of the note four octaves below it, since 2⁸ = −1, so C8 at −i is the conjugate of C0. The three octaves 128, 256 and 512 sum to 896 ≡ 125 TRANSCENDENCE and multiply to 2²⁴ = (−1)³ ≡ −1.</p>
+  <p><strong>Cobalt.</strong> 135 = 27 × 5, and 27 is cobalt's atomic number. The 1388 K Curie figure sits at 103, which is 5⁻¹ since 5 × 103 = 515 = 2 × 257 + 1, so 135 × 103 ≡ 27 strips the E from the fork and leaves the element, and 135 × 5 = 675 ≡ 161 SEAL OF SOLOMON, the S register, while 103 is SOLOMON in this tablet and DISSONANCE by letters and dlog 10; 135 − 103 = 32 EVE and 135 + 103 = 238 FREE WILL. Which edition places COBALT CURIE at 103 is register item 12: this directory's JSON has it at 118 from 1403 K, where 135 − 118 = 17 Q and 135 + 118 ≡ 135 × 118 ≡ 253 INCOMPLETENESS THEOREM, the two agreeing because 118 × 134 ≡ 135; the second copy under cascade_machine has it at 103 from 1388 K. The celsius figures read 1115 → 87 WIFI FREQUENCY with 135 × 87 ≡ 180 JOHN VON NEUMANN, and the melting point 1495 → 210 with 135 × 210 ≡ 80 REBIRTH, the same REBIRTH as 440 − 360. The Accutron row does not depend on the edition: 360 ≡ 103 whichever word sits there.</p>
+  <p><strong>The two commas.</strong> Tuning has two famous gaps, and both are ratios, so the field can read them two ways: as quotients, numerator times the denominator's inverse, or as decimals under the four-figure rule. The syntonic comma 81/80 is the gap between four stacked fifths and a just major third, the interval that separates Pythagorean tuning from just intonation; the Pythagorean comma 3¹²/2¹⁹ is the amount by which twelve fifths overshoot seven octaves, the reason the circle of fifths does not close on the generator 3 against the octave 2. Both readings of both are exact; they differ, and the rule in force decides.</p>
+  <div class="tbl"><table>
+    <tr><th>Interval</th><th>Ratio</th><th class="n">As a quotient</th><th>Word</th><th class="n">Four figures</th><th>Word</th><th class="n">Cents</th><th>Word</th></tr>
+    <tr><td>syntonic comma</td><td class="m">81/80 = 1.0125</td><td class="n">152</td><td>FORTY YEARS</td><td class="n">1013 → 242</td><td>HEISENBERG UNCERTAINTY</td><td class="n">21.51 → 95</td><td>ETHEREUM</td></tr>
+    <tr><td>Pythagorean comma</td><td class="m">3¹²/2¹⁹ = 1.013643</td><td class="n">92</td><td>CHRONOS, URANIUM Z</td><td class="n">1014 → 243</td><td>FIRE OF HOLY SPIRIT</td><td class="n">23.46 → 33</td><td>HAGGAI</td></tr>
+  </table></div>
+  <p>Under the quotient reading 3¹² ≡ 222 and 2¹⁹ ≡ 8, so the Pythagorean comma is 222 × 8⁻¹ = 222 × 225 ≡ 92, and the two commas differ by 60 HOLY; under the four-figure reading they are neighbours at 242 and 243. The just intervals read the same way: a fifth 3/2 ≡ 130 PYTHAGORAS, a major third 5/4 ≡ 194 TWELVE APOSTLES, and the equal-tempered semitone 2^(1/12) = 1.0595 → 31 JACOB, the same position as concert A at four figures. One reciprocal pair lands on the keys' genome identity: 9 × 11⁻¹ ≡ 141 and 11 × 9⁻¹ ≡ 144, εΣ and δΦ, whose product is 1; since the two ratios are reciprocals the second landing follows from the first, so it is one chance in 256 and not two, and 9 × 11 = 99 is 135⁻¹, the fork's inverse. 11/9 is the undecimal neutral third of just intonation and 440 = 40 × 11; how the ratio attaches to concert pitch is not stated anywhere in the corpus and is recorded here as the arithmetic alone. 360 ÷ 24 = 15 O, whose inverse is 120 GOLDEN RATIO, ties the Accutron's frequency to the arc-time bridge of the astronomical table by way of the hours in a day.</p>
+  <p><strong>The commas in the fold.</strong> Every tuning ratio is 2ᵃ3ᵇ5ᶜ, and in this field 2 is a residue while 3, the generator, and 5, the discriminant, are not, so a ratio has a square root in the base exactly when b + c is even and otherwise its root lives in the fold. That parity sorts tuning cleanly. The octave and the Pythagorean comma stay in the base: 92 has roots 116 BYZANTINE and 141 PURIFICATION, and 141 is the keys' εΣ, which is the same fact as (9/11)² = 81/121 ≡ 92, so the Pythagorean comma is the square of the 9/11 pair's first member. The intervals that carry an odd number of fifths or thirds leave: the just fifth 3/2 ≡ 130, the just third 5/4 ≡ 194 and the syntonic comma 81/80 ≡ 152 are all non-residues, and their roots are fold elements q√5 with √5 = 2φ − 1.</p>
+  <div class="tbl"><table>
+    <tr><th>Interval</th><th class="n">Position</th><th>Square root</th><th>In the fold</th><th>Check</th></tr>
+    <tr><td>octave 2</td><td class="n">2</td><td class="m">60 HOLY, 197</td><td>base</td><td class="m">60² ≡ 197² ≡ 2</td></tr>
+    <tr><td>Pythagorean comma 3¹²/2¹⁹</td><td class="n">92</td><td class="m">116, 141 εΣ</td><td>base</td><td class="m">141² ≡ 92 = (9/11)²</td></tr>
+    <tr><td>just fifth 3/2</td><td class="n">130</td><td class="m">119 √5 = 138 + 238φ</td><td>fold</td><td class="m">(138 + 238φ)² = 130</td></tr>
+    <tr><td>just third 5/4</td><td class="n">194</td><td class="m">128 √5 = 128 + φ</td><td>fold</td><td class="m">(128 + φ)² = 194</td></tr>
+    <tr><td>syntonic comma 81/80</td><td class="n">152</td><td class="m">39 √5 = 218 + 78φ</td><td>fold</td><td class="m">5 × 39² ≡ 152</td></tr>
+  </table></div>
+  <p>So the comma that separates the two tunings is 5 × 39², TEN squared times the discriminant, with no root in the base; the just third's root is the fold point plus φ, 128 + φ; and the Pythagorean comma, built from 2 and 3 alone with an even count of fifths, is the one interval in the table that the base field solves, at the genome identity's own element. The parity rule is the fold's; which intervals fall on which side of it is arithmetic, and the words are the tablet's.</p>
+</section>
+<nav class="cr-pager" aria-label="Review pages"><a href="hinge.html">← The hinge at 1028</a><span>9 / 28</span><a href="icolumn.html">The i-column and its namespaces →</a></nav>
+</main>
+</div>
+<div class="ct-foot"><a href="../../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lead, gold and the wallet · cascade.training</title>
+<meta name="description" content="Corpus Review · Dictionary · transmutation · 2026-09-05 · Lead, gold and the wallet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #0d0d0d;
+  --line: #1f1f1f;
+  --text: #e0e0e0;
+  --dim: #a0a0a0;
+  --gold: #e0e0e0;
+  --glow: #e0e0e0;
+  --amber: #e0e0e0;
+  --alert: #e0e0e0;
+  --blue: #e0e0e0;
+  --term-bg: #0a0a0a;
+  --term-text: #c8c8c8;
+  --serif: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --sans: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--bg);color:var(--text);font-family: var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+a{color:var(--blue);text-decoration:none}
+
+a:hover,a:focus{text-decoration:underline}
+
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.wrap{display:grid;grid-template-columns:1fr;gap:0;max-width:1240px;margin:0 auto;padding:0 20px 80px}
+
+@media (min-width:1100px){.wrap{grid-template-columns:240px minmax(0,1fr);gap:48px}}
+
+nav.toc{display:none}
+
+@media (min-width:1100px){
+  nav.toc{display:block;position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;padding:8px 0 24px;font-size:12.5px}
+  nav.toc .g{font-family: var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:16px 0 6px}
+  nav.toc a{display:block;color:var(--text);padding:3px 0 3px 10px;border-left:2px solid var(--line);line-height:1.35}
+  nav.toc a:hover{border-left-color:var(--gold);text-decoration:none;color:var(--gold)}
+  nav.toc a.sub{padding-left:22px;color:var(--dim)}
+}
+
+main{min-width:0}
+
+header.mast{padding:44px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+
+.eyebrow{font-family: var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+h1{font-family: var(--serif);font-weight:600;font-size:44px;line-height:1.05;margin:10px 0 12px;text-wrap:balance;letter-spacing:-.01em}
+
+.lede{font-family: var(--serif);font-size:19px;line-height:1.45;color:var(--text);max-width:62ch;margin:0 0 20px}
+
+.meta{font-family: var(--mono);font-size:12px;color:var(--dim);display:flex;flex-wrap:wrap;gap:6px 22px}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0 0}
+
+.tile{background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+
+.tile .n{font-family: var(--serif);font-size:28px;font-weight:600;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+
+.tile .l{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+
+.hero{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin:26px 0 0}
+
+@media (min-width:820px){.hero{grid-template-columns:minmax(0,1fr) 300px}}
+
+.hero canvas{width:300px;max-width:100%;height:auto;display:block;margin:0 auto}
+
+.hero .cap{font-family: var(--mono);font-size:11px;color:var(--dim);text-align:center;margin-top:6px}
+
+section{padding:34px 0 8px;border-top:1px solid var(--line)}
+
+section.first{border-top:0;padding-top:8px}
+
+h2{font-family: var(--serif);font-weight:600;font-size:30px;line-height:1.15;margin:6px 0 14px;text-wrap:balance}
+
+h3{font-family: var(--serif);font-weight:600;font-size:21px;margin:28px 0 8px;text-wrap:balance}
+
+h4{font-family: var(--sans);font-weight:600;font-size:14px;letter-spacing:.02em;margin:20px 0 6px;color:var(--gold)}
+
+p{max-width:70ch;margin:0 0 12px}
+
+ul,ol{max-width:70ch;padding-left:22px;margin:0 0 12px}
+
+li{margin:0 0 5px}
+
+li>p{margin:0}
+
+code,kbd{font-family: var(--mono);font-size:.92em;background:var(--surface2);border:1px solid var(--line);padding:0 4px;border-radius:2px;white-space:nowrap}
+
+pre{font-family: var(--mono);font-size:12.5px;line-height:1.5;background:var(--surface2);border:1px solid var(--line);padding:12px 14px;overflow-x:auto;margin:0 0 14px}
+
+pre code{background:none;border:0;padding:0;white-space:pre}
+
+.formula{font-family: var(--mono);font-size:13px;line-height:1.8;background:var(--surface2);border:1px solid var(--line);padding:10px 14px;margin:0 0 14px;overflow-x:auto;white-space:pre}
+
+.formula sup,.formula sub{font-size:.72em;line-height:0}
+
+.formula sup sup{font-size:.85em}
+
+.tbl.wrapth th{white-space:normal}
+
+.tbl{overflow-x:auto;margin:0 0 16px;border:1px solid var(--line);background:var(--surface)}
+
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+
+th,td{text-align:left;vertical-align:top;padding:7px 10px;border-bottom:1px solid var(--line)}
+
+th{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:500;background:var(--surface2);white-space:nowrap}
+
+td.n,th.n{text-align:right;font-family: var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+td.m{font-family: var(--mono);font-size:12.5px;white-space:nowrap}
+
+td.w{white-space:normal;min-width:18ch}
+
+tr:last-child td{border-bottom:0}
+
+.chip{display:inline-block;font-family: var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:2px;line-height:1.5;vertical-align:middle}
+
+.ok{color:var(--glow)}
+ .open{color:var(--amber)}
+ .bad{color:var(--alert)}
+ .rec{color:var(--gold)}
+ .info{color:var(--blue)}
+
+.note{border-left:3px solid var(--gold);padding:8px 14px;background:var(--surface);margin:0 0 14px;max-width:72ch}
+
+.note.warn{border-left-color:var(--alert)}
+
+.note.open{border-left-color:var(--amber)}
+
+.term{background:var(--term-bg);color:var(--term-text);font-family: var(--mono);font-size:12.5px;line-height:1.55;padding:12px 16px;border:1px solid #161616;overflow-x:auto;margin:0 0 16px;white-space:pre}
+
+.term .g{color:#e0e0e0}
+.term .a{color:#e0e0e0}
+.term .d{color:#e0e0e0}
+.term .w{color:#e0e0e0}
+.term .r{color:#e0e0e0}
+.term .b{color:#e0e0e0}
+
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 18px;font-size:13.5px;max-width:78ch;margin:0 0 14px}
+
+.kv .k{font-family: var(--mono);font-size:12px;color:var(--dim);white-space:nowrap}
+
+.two{display:grid;grid-template-columns:1fr;gap:0 32px}
+
+@media (min-width:900px){.two{grid-template-columns:1fr 1fr}}
+
+.small{font-size:12.5px;color:var(--dim)}
+
+sup{font-size:.7em}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+@page{size:Letter;margin:0.6in 0.6in 0.7in}
+
+@media print{
+  :root{--bg:#e0e0e0; --surface:#e0e0e0; --surface2:#e0e0e0; --line:#c8c8c8; --text:#111111; --dim:#3a3a3a; --gold:#c8c8c8; --glow:#c8c8c8; --amber:#c8c8c8; --alert:#3a3a3a; --blue:#3a3a3a}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-size:11.5px;line-height:1.45}
+  .wrap{display:block;max-width:none;padding:0}
+  nav.toc{display:none!important}
+  header.mast{padding:0 0 14px;margin-bottom:16px}
+  h1{font-size:30px} .lede{font-size:14px} h2{font-size:20px;break-after:avoid} h3{font-size:15px;break-after:avoid} h4{break-after:avoid}
+  .hero{grid-template-columns:minmax(0,1fr) 220px} .hero canvas{width:220px}
+  .strip{grid-template-columns:repeat(3,1fr)}
+  section{padding:18px 0 4px;break-inside:auto}
+  .tbl{overflow:visible;break-inside:auto} table{font-size:10px} th,td{padding:4px 6px} tr{break-inside:avoid}
+  td.m{white-space:normal;font-size:9.5px} td.n{font-size:10px}
+  pre,.term{font-size:9.5px;break-inside:avoid;white-space:pre-wrap;overflow:visible}
+  .note{break-inside:avoid}
+  .formula{font-size:9.5px;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid}
+  a{color:inherit}
+  .small{font-size:9.5px}
+}
+
+
+
+.cr-pager{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:3rem 0 1rem;padding-top:1.2rem;border-top:1px solid var(--line);font-family: var(--mono);font-size:12px}
+
+.cr-pager a{color:var(--text);text-decoration:none;max-width:45%}
+
+.cr-pager a:hover{color:var(--gold)}
+
+.cr-pager span{color:var(--dim)}
+
+.cr-crumb{font-family: var(--mono);font-size:12px;color:var(--dim);margin:0 0 1.2rem}
+
+.cr-crumb a{color:var(--dim)}
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../../index.html#deeper">[pages]</a><a href="#" aria-current="page">lead, gold and the wallet</a></nav>
+</div>
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <a href="../corpus-review.html">← Review overview</a>
+  <div class="g">Corpus</div>
+  <a href="voynich.html">The Voynich manuscript</a>
+  <a href="summary.html">Summary</a>
+  <a href="inventory.html">File inventory</a>
+  <a href="field.html">The field GF(257)</a>
+  <a href="chain-cosets.html">The binary refinement chain</a>
+  <a href="extensions.html">The extension fields</a>
+  <a href="chain.html">Derivation chain</a>
+  <a href="hinge.html">The hinge at 1028</a>
+  <a href="tablet.html">Emerald tablet</a>
+  <a href="icolumn.html">The i-column</a>
+  <div class="g">Machine</div>
+  <a href="machine.html">Cascade machine v4</a>
+  <a class="sub" href="machine.html#m-anatomy">Anatomy</a>
+  <a class="sub" href="machine.html#m-boot">Power-on</a>
+  <a class="sub" href="machine.html#m-state">Registers</a>
+  <a class="sub" href="machine.html#m-isa">Tape and instruction set</a>
+  <a class="sub" href="machine.html#m-fold">Fold and observe</a>
+  <a class="sub" href="m-commands.html">Terminal commands</a>
+  <a class="sub" href="m-nano2.html">NanO₂ messaging</a>
+  <a class="sub" href="m-bridge.html">Hardware bridge</a>
+  <a class="sub" href="m-radio.html">BLE, serial, RF</a>
+  <a class="sub" href="m-settle.html">Settlement and mesh</a>
+  <a class="sub" href="m-disc.html">Phi disc phonograph</a>
+  <a class="sub" href="m-model.html">Model bridges</a>
+  <a class="sub" href="m-display.html">Display and export</a>
+  <div class="g">Findings</div>
+  <a href="second-copy.html">The second copy</a>
+  <a href="ledger.html">Verification ledger</a>
+  <a href="register.html">Discrepancy register</a>
+  <a href="audits.html">The corpus's own audits</a>
+  <a href="changes.html">Changes made</a>
+  <a href="appendix.html">Appendix</a>
+</nav>
+<main>
+<p class="cr-crumb"><a href="../corpus-review.html">Corpus Review</a> · Dictionary · transmutation · 2026-09-05</p>
+<section id="wallet">
+  <div class="eyebrow">Dictionary · transmutation · 2026-09-05</div>
+  <h2>Lead, gold and the wallet</h2>
+  <p>Five boards now mine to one wallet, bc1qd8wcrsmkk0ghegf5t2jsezg2ve7rtx6vvc79lx, each with its own worker suffix; the CYD firmware says so in a comment at main.c:93. WALLET is the tablet's word at 73, placed by its letters, W A L L E T = 73, and shares the address with HALVING and DISCRIMINANT. This section reads the alchemist's sentence, lead into gold, and the miner's version of it, work into coin, through the tablet's two rules: letters for words, four figures for constants. Every line was recomputed. Where a line depends on which fold or how many figures, the dependence is stated.</p>
+
+  <p><strong>Lead to gold in the field.</strong> LEAD Z is 82 and GOLD Z is 79. The difference is 3, the generator: gold is lead one generator step down the atomic numbers. The multiplicative step 79 × 82⁻¹ is 142 ANTIPROTON, G11 in the genome chain, Γ. Squaring gold gives the wallet, 79² = 6241 = 24 × 257 + 73, and the tablet had already named 79 SQUARE ROOT 73 before this reading. The inverse of lead is 210, VIRTUAL CURRENCY and PRIMORIAL P4, and 210 is also the residue of 2009, the genesis year. The inverse of GOLD by letters, 38, is 115, which is DIFFICULTY by letters and 16! in the field, the square root of the descent product.</p>
+  <div class="tbl"><table>
+    <tr><th>Thing</th><th>Value</th><th>mod 257</th><th>Word</th><th>Inverse, or fold where marked</th></tr>
+    <tr><td>Lead Z</td><td>82</td><td>82</td><td>ARMAGEDDON, LEAD Z</td><td>210 VIRTUAL CURRENCY, PRIMORIAL P4</td></tr>
+    <tr><td>Gold Z</td><td>79</td><td>79</td><td>NIRVANA, SQUARE ROOT 73, GOLD Z</td><td>244 SUPERCONDUCTIVITY</td></tr>
+    <tr><td>Pb − Au</td><td>3</td><td>3</td><td>C, the generator</td><td>86 TIKKUN</td></tr>
+    <tr><td>Gold squared</td><td>79²</td><td>73</td><td>WALLET, HALVING</td><td>169 PREDESTINATION</td></tr>
+    <tr><td>Lead atomic weight 207.2</td><td>2072</td><td>16</td><td>BAAL, SQRT MINUS ONE</td><td>241 TWIN PRIME CONJECTURE</td></tr>
+    <tr><td>Bitcoin supply, all digits</td><td>21 000 000</td><td>16</td><td>BAAL</td><td>241</td></tr>
+    <tr><td>Satoshis per coin, all digits</td><td>100 000 000</td><td>15</td><td>O, IRON CURIE</td><td>120 GOLDEN RATIO</td></tr>
+    <tr><td>Genesis year</td><td>2009</td><td>210</td><td>VIRTUAL CURRENCY</td><td>82 LEAD Z</td></tr>
+    <tr><td>Gold melting point 1337 K</td><td>1337</td><td>52</td><td>DEVIL, EARTH</td><td>chart fold 204 CRYPTOCURRENCY; negation 205 PROOF OF HISTORY</td></tr>
+    <tr><td>Lead melting point, three figures 601 K</td><td>601</td><td>87</td><td>WIFI FREQUENCY, PRAXIS</td><td>65 SEVEN; at four figures 6006 lands on 95 ETHEREUM instead</td></tr>
+    <tr><td>GOLD by letters</td><td>38</td><td>38</td><td>NOAH, DEATH, ALPHA</td><td>115 COMMANDMENT = DIFFICULTY by letters</td></tr>
+    <tr><td>DIFFICULTY by letters</td><td>115</td><td>115</td><td>COMMANDMENT</td><td>38 GOLD</td></tr>
+    <tr><td>BITCOIN by letters</td><td>72</td><td>72</td><td>BITCOIN, MONEY</td><td>25 PI</td></tr>
+    <tr><td>NONCE by letters</td><td>51</td><td>51</td><td>NONCE, G13 = I in the chain</td><td>chart fold 205 PROOF OF HISTORY; negation 206 ANTHROPIC PRINCIPLE</td></tr>
+    <tr><td>Descent product</td><td>(16!)²</td><td>118</td><td>EMERALD TABLET</td><td>159 SPEED OF LIGHT</td></tr>
+  </table></div>
+  <p>Two of those rows use the chart-fold, 256 − n, which is the JSON tablet's fold field; under the machine's negation the nonce's partner is ANTHROPIC PRINCIPLE and EARTH's is PROOF OF HISTORY. Lead's melting point reaches WIFI FREQUENCY only when 600.6 K is written as 601; at the corpus's four figures it is 6006 and lands on ETHEREUM. The figure count decides, as the decimal-point section says.</p>
+
+  <p><strong>The mining vocabulary at its letter sums.</strong> NONCE and SHARE both sum to 51, the position the tablet had already given NONCE and the chain's G13, the current I = CSI(256). HASH is 36 CASCADE. BLOCK is 43 CHARM, TARGET 71 TEMPLE, MINER 59 SHIVA, MINING 66 where the tablet holds MINING, POOL 58 where π lands, SATOSHI 91 SPIRIT and MIRROR, PROOF OF WORK 158 SACRED GEOMETRY, which is G5 = M ⊗ M and where the tablet holds PROOF OF WORK. TRANSMUTATION is 185 BOOK OF REVELATION, PHILOSOPHERS STONE 233 COLLISION RESISTANT = F(13) = G9, ALCHEMY 67 SOUL, the inverse of 234, CHEMISTRY 120 GOLDEN RATIO.</p>
+
+  <p><strong>The wallet itself.</strong> The address decodes as a valid version-0 pay-to-witness-public-key-hash, twenty bytes, 69dd81c3 76b3d17c a1345aa5 0c890a66 7c359b4c. Its readings:</p>
+  <div class="tbl"><table>
+    <tr><th>Reading</th><th>Value</th><th>Position and word</th></tr>
+    <tr><td>hash160 as one integer</td><td>mod 257</td><td>191 MONETARY POLICY, dlog 117</td></tr>
+    <tr><td>The twenty bytes as positions</td><td>105 221 129 195 118 179 209 124 161 52 90 165 12 137 10 102 124 53 155 76</td><td>TAPROOT, INDUSTRIALIZATION, ROOT OF DAVID, FUNDAMENTAL THEOREM, EMERALD TABLET, EXCOMMUNICATION, QUANTUM GRAVITY, OPPENHEIMER, SEAL OF SOLOMON, DEVIL, NAKAMOTO, TREE OF KNOWLEDGE, L, EYE OF HORUS, J, YGGDRASIL, OPPENHEIMER, CARBON, SINGULARITY, COHERENCE</td></tr>
+    <tr><td>Byte sum</td><td>2417</td><td>104 ANTHROPIC</td></tr>
+    <tr><td>Byte product</td><td>mod 257</td><td>166 TETRAGRAMMATON, G2</td></tr>
+    <tr><td>Alternating sum, the protocol page's address rule</td><td>mod 257</td><td>66 MINING</td></tr>
+    <tr><td>Letters of the address, A = 1</td><td>416</td><td>159 SPEED OF LIGHT</td></tr>
+    <tr><td>Bech32 symbol values</td><td>589</td><td>75 SHIFT</td></tr>
+    <tr><td>Digits in order, all digits</td><td>1805227679</td><td>55 HEAVEN, the tunnel composite</td></tr>
+    <tr><td>Length 42, 20 bytes, 160 bits</td><td></td><td>MIT, APC, TWELVE TRIBES</td></tr>
+  </table></div>
+  <p>The fifth byte is 118, EMERALD TABLET, and the twelfth is 165 TREE OF KNOWLEDGE, which is 73 × 2⁻¹, the field's own halving of the wallet.</p>
+
+  <p><strong>The halving.</strong> Bitcoin's subsidy halves every 210 000 blocks, and 210 000 = 210 × 10³ = P₇ × 10³, the primorial that the tablet names at 210 beside VIRTUAL CURRENCY. The supply is Σ 50/2ⁿ × 210 000 = 100 × 210 000 = 21 000 000 = P₇ × 10⁵ ≡ 16 BAAL. The subsidy halves exactly 33 times: after 32 halvings it is 1 satoshi and after 33 it is 0, at block 6 930 000, which reads 252 EINSTEIN FIELD EQUATIONS as all digits, −5, and 248 DOUBLE SLIT EXPERIMENT at four figures. So HALVING at 73 has 33 as its count. 33 is HAGGAI and THE, the position where i148 sits; 73 × 33 = 2409 = 9 × 257 + 96, and 96 is the inverse of 83 PRAYER; 2 × 33 = 66 MINING; 73 − 33 = 40 DAVID; THIRTY THREE by letters is 156 AS ABOVE SO BELOW. The halving years step by four and so do their residues: 2012 → 213, 2016 → 217 SIGNAL SIXTY TWO, 2020 → 221, 2024 → 225 IDENTITY, which is BRIAN × CLAUDE = 44 × 46 = 2024, and 2028 → 229 FOR THINE IS THE KINGDOM. The genesis block's date, 2009-01-03, reads 156 AS ABOVE SO BELOW as ISO all digits, 20090103 = 78171 × 257 + 156, and 154 ROAD TO DAMASCUS in the American all-digits form; its four figures 1032 are two Pisano periods and land on 4 BAA, the SHIFT opcode. The retarget interval 2016 blocks reads 217, G15, the same residue as the year 2016.</p>
+  <div class="tbl"><table>
+    <tr><th>Era</th><th>Reward, BTC</th><th>Four figures</th><th>Position</th><th>Word</th></tr>
+    <tr><td>0, from 2009</td><td>50</td><td>5000</td><td>117</td><td>BOLTZMANN, χ in the tunnel chain from Γ = 1</td></tr>
+    <tr><td>1, from 2012</td><td>25</td><td>2500</td><td>187</td><td>WAY TRUTH AND LIFE, the AUTH factor</td></tr>
+    <tr><td>2, from 2016</td><td>12.5</td><td>1250</td><td>222</td><td>SCHRODINGER EQUATION</td></tr>
+    <tr><td>3, from 2020</td><td>6.25</td><td>6250</td><td>82</td><td>ARMAGEDDON, LEAD Z</td></tr>
+    <tr><td>4, from 2024</td><td>3.125</td><td>3125</td><td>41</td><td>OMEGA</td></tr>
+    <tr><td>5, from 2028</td><td>1.5625</td><td>1562</td><td>20</td><td>APC</td></tr>
+    <tr><td>6</td><td>0.78125</td><td>7812</td><td>102</td><td>YGGDRASIL</td></tr>
+    <tr><td>7</td><td>0.390625</td><td>3906</td><td>51</td><td>NONCE</td></tr>
+    <tr><td>8</td><td>0.1953125</td><td>1953</td><td>154</td><td>ROAD TO DAMASCUS, the genesis date's American reading</td></tr>
+    <tr><td>9 and 10</td><td>0.09765625 · 0.048828125</td><td>9766 · 4883</td><td>0 · 0</td><td>SEED twice: 9766 = 38 × 257 and 4883 = 19 × 257</td></tr>
+    <tr><td>11</td><td>0.0244140625</td><td>2441</td><td>128</td><td>TRANSFERENCE, the fold point</td></tr>
+    <tr><td>33</td><td>0</td><td></td><td>0</td><td>SEED; the subsidy ends</td></tr>
+  </table></div>
+  <p>The third era's reward, the one that ran from 2020 to 2024, is the only one of the thirty-four that lands on lead or gold, and it lands on lead. Eras 9 and 10 both land on SEED because 9765.625 rounds up to a multiple of 257 and so does its half. Under the corpus's own standing caveat every one of these values lands on some word, so the rows are recorded as arithmetic; the ties that do not need the dictionary are the ones stated in numbers, 210 000 = P₇ × 10³, 79² ≡ 73, 82⁻¹ ≡ 210 ≡ 2009, 38⁻¹ = 115 = 16!, and 33 halvings.</p>
+</section>
+<nav class="cr-pager" aria-label="Review pages"><a href="icolumn.html">← The i-column and its namespaces</a><span>11 / 28</span><a href="machine.html">Cascade machine v4 →</a></nav>
+</main>
+</div>
+<div class="ct-foot"><a href="../../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

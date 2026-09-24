@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BLE, serial, RF · cascade.training</title>
+<meta name="description" content="Corpus Review · Instrument · radio · BLE, serial, RF">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #0d0d0d;
+  --line: #1f1f1f;
+  --text: #e0e0e0;
+  --dim: #a0a0a0;
+  --gold: #e0e0e0;
+  --glow: #e0e0e0;
+  --amber: #e0e0e0;
+  --alert: #e0e0e0;
+  --blue: #e0e0e0;
+  --term-bg: #0a0a0a;
+  --term-text: #c8c8c8;
+  --serif: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --sans: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--bg);color:var(--text);font-family: var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+a{color:var(--blue);text-decoration:none}
+
+a:hover,a:focus{text-decoration:underline}
+
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.wrap{display:grid;grid-template-columns:1fr;gap:0;max-width:1240px;margin:0 auto;padding:0 20px 80px}
+
+@media (min-width:1100px){.wrap{grid-template-columns:240px minmax(0,1fr);gap:48px}}
+
+nav.toc{display:none}
+
+@media (min-width:1100px){
+  nav.toc{display:block;position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;padding:8px 0 24px;font-size:12.5px}
+  nav.toc .g{font-family: var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:16px 0 6px}
+  nav.toc a{display:block;color:var(--text);padding:3px 0 3px 10px;border-left:2px solid var(--line);line-height:1.35}
+  nav.toc a:hover{border-left-color:var(--gold);text-decoration:none;color:var(--gold)}
+  nav.toc a.sub{padding-left:22px;color:var(--dim)}
+}
+
+main{min-width:0}
+
+header.mast{padding:44px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+
+.eyebrow{font-family: var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+h1{font-family: var(--serif);font-weight:600;font-size:44px;line-height:1.05;margin:10px 0 12px;text-wrap:balance;letter-spacing:-.01em}
+
+.lede{font-family: var(--serif);font-size:19px;line-height:1.45;color:var(--text);max-width:62ch;margin:0 0 20px}
+
+.meta{font-family: var(--mono);font-size:12px;color:var(--dim);display:flex;flex-wrap:wrap;gap:6px 22px}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0 0}
+
+.tile{background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+
+.tile .n{font-family: var(--serif);font-size:28px;font-weight:600;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+
+.tile .l{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+
+.hero{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin:26px 0 0}
+
+@media (min-width:820px){.hero{grid-template-columns:minmax(0,1fr) 300px}}
+
+.hero canvas{width:300px;max-width:100%;height:auto;display:block;margin:0 auto}
+
+.hero .cap{font-family: var(--mono);font-size:11px;color:var(--dim);text-align:center;margin-top:6px}
+
+section{padding:34px 0 8px;border-top:1px solid var(--line)}
+
+section.first{border-top:0;padding-top:8px}
+
+h2{font-family: var(--serif);font-weight:600;font-size:30px;line-height:1.15;margin:6px 0 14px;text-wrap:balance}
+
+h3{font-family: var(--serif);font-weight:600;font-size:21px;margin:28px 0 8px;text-wrap:balance}
+
+h4{font-family: var(--sans);font-weight:600;font-size:14px;letter-spacing:.02em;margin:20px 0 6px;color:var(--gold)}
+
+p{max-width:70ch;margin:0 0 12px}
+
+ul,ol{max-width:70ch;padding-left:22px;margin:0 0 12px}
+
+li{margin:0 0 5px}
+
+li>p{margin:0}
+
+code,kbd{font-family: var(--mono);font-size:.92em;background:var(--surface2);border:1px solid var(--line);padding:0 4px;border-radius:2px;white-space:nowrap}
+
+pre{font-family: var(--mono);font-size:12.5px;line-height:1.5;background:var(--surface2);border:1px solid var(--line);padding:12px 14px;overflow-x:auto;margin:0 0 14px}
+
+pre code{background:none;border:0;padding:0;white-space:pre}
+
+.formula{font-family: var(--mono);font-size:13px;line-height:1.8;background:var(--surface2);border:1px solid var(--line);padding:10px 14px;margin:0 0 14px;overflow-x:auto;white-space:pre}
+
+.formula sup,.formula sub{font-size:.72em;line-height:0}
+
+.formula sup sup{font-size:.85em}
+
+.tbl.wrapth th{white-space:normal}
+
+.tbl{overflow-x:auto;margin:0 0 16px;border:1px solid var(--line);background:var(--surface)}
+
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+
+th,td{text-align:left;vertical-align:top;padding:7px 10px;border-bottom:1px solid var(--line)}
+
+th{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:500;background:var(--surface2);white-space:nowrap}
+
+td.n,th.n{text-align:right;font-family: var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+td.m{font-family: var(--mono);font-size:12.5px;white-space:nowrap}
+
+td.w{white-space:normal;min-width:18ch}
+
+tr:last-child td{border-bottom:0}
+
+.chip{display:inline-block;font-family: var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:2px;line-height:1.5;vertical-align:middle}
+
+.ok{color:var(--glow)}
+ .open{color:var(--amber)}
+ .bad{color:var(--alert)}
+ .rec{color:var(--gold)}
+ .info{color:var(--blue)}
+
+.note{border-left:3px solid var(--gold);padding:8px 14px;background:var(--surface);margin:0 0 14px;max-width:72ch}
+
+.note.warn{border-left-color:var(--alert)}
+
+.note.open{border-left-color:var(--amber)}
+
+.term{background:var(--term-bg);color:var(--term-text);font-family: var(--mono);font-size:12.5px;line-height:1.55;padding:12px 16px;border:1px solid #161616;overflow-x:auto;margin:0 0 16px;white-space:pre}
+
+.term .g{color:#e0e0e0}
+.term .a{color:#e0e0e0}
+.term .d{color:#e0e0e0}
+.term .w{color:#e0e0e0}
+.term .r{color:#e0e0e0}
+.term .b{color:#e0e0e0}
+
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 18px;font-size:13.5px;max-width:78ch;margin:0 0 14px}
+
+.kv .k{font-family: var(--mono);font-size:12px;color:var(--dim);white-space:nowrap}
+
+.two{display:grid;grid-template-columns:1fr;gap:0 32px}
+
+@media (min-width:900px){.two{grid-template-columns:1fr 1fr}}
+
+.small{font-size:12.5px;color:var(--dim)}
+
+sup{font-size:.7em}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+@page{size:Letter;margin:0.6in 0.6in 0.7in}
+
+@media print{
+  :root{--bg:#e0e0e0; --surface:#e0e0e0; --surface2:#e0e0e0; --line:#c8c8c8; --text:#111111; --dim:#3a3a3a; --gold:#c8c8c8; --glow:#c8c8c8; --amber:#c8c8c8; --alert:#3a3a3a; --blue:#3a3a3a}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-size:11.5px;line-height:1.45}
+  .wrap{display:block;max-width:none;padding:0}
+  nav.toc{display:none!important}
+  header.mast{padding:0 0 14px;margin-bottom:16px}
+  h1{font-size:30px} .lede{font-size:14px} h2{font-size:20px;break-after:avoid} h3{font-size:15px;break-after:avoid} h4{break-after:avoid}
+  .hero{grid-template-columns:minmax(0,1fr) 220px} .hero canvas{width:220px}
+  .strip{grid-template-columns:repeat(3,1fr)}
+  section{padding:18px 0 4px;break-inside:auto}
+  .tbl{overflow:visible;break-inside:auto} table{font-size:10px} th,td{padding:4px 6px} tr{break-inside:avoid}
+  td.m{white-space:normal;font-size:9.5px} td.n{font-size:10px}
+  pre,.term{font-size:9.5px;break-inside:avoid;white-space:pre-wrap;overflow:visible}
+  .note{break-inside:avoid}
+  .formula{font-size:9.5px;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid}
+  a{color:inherit}
+  .small{font-size:9.5px}
+}
+
+
+
+.cr-pager{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:3rem 0 1rem;padding-top:1.2rem;border-top:1px solid var(--line);font-family: var(--mono);font-size:12px}
+
+.cr-pager a{color:var(--text);text-decoration:none;max-width:45%}
+
+.cr-pager a:hover{color:var(--gold)}
+
+.cr-pager span{color:var(--dim)}
+
+.cr-crumb{font-family: var(--mono);font-size:12px;color:var(--dim);margin:0 0 1.2rem}
+
+.cr-crumb a{color:var(--dim)}
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../../index.html#deeper">[pages]</a><a href="#" aria-current="page">ble, serial, rf</a></nav>
+</div>
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <a href="../corpus-review.html">← Review overview</a>
+  <div class="g">Corpus</div>
+  <a href="voynich.html">The Voynich manuscript</a>
+  <a href="summary.html">Summary</a>
+  <a href="inventory.html">File inventory</a>
+  <a href="field.html">The field GF(257)</a>
+  <a href="chain-cosets.html">The binary refinement chain</a>
+  <a href="extensions.html">The extension fields</a>
+  <a href="chain.html">Derivation chain</a>
+  <a href="hinge.html">The hinge at 1028</a>
+  <a href="tablet.html">Emerald tablet</a>
+  <a href="icolumn.html">The i-column</a>
+  <div class="g">Machine</div>
+  <a href="machine.html">Cascade machine v4</a>
+  <a class="sub" href="machine.html#m-anatomy">Anatomy</a>
+  <a class="sub" href="machine.html#m-boot">Power-on</a>
+  <a class="sub" href="machine.html#m-state">Registers</a>
+  <a class="sub" href="machine.html#m-isa">Tape and instruction set</a>
+  <a class="sub" href="machine.html#m-fold">Fold and observe</a>
+  <a class="sub" href="m-commands.html">Terminal commands</a>
+  <a class="sub" href="m-nano2.html">NanO₂ messaging</a>
+  <a class="sub" href="m-bridge.html">Hardware bridge</a>
+  <a class="sub" href="#m-radio">BLE, serial, RF</a>
+  <a class="sub" href="m-settle.html">Settlement and mesh</a>
+  <a class="sub" href="m-disc.html">Phi disc phonograph</a>
+  <a class="sub" href="m-model.html">Model bridges</a>
+  <a class="sub" href="m-display.html">Display and export</a>
+  <div class="g">Findings</div>
+  <a href="second-copy.html">The second copy</a>
+  <a href="ledger.html">Verification ledger</a>
+  <a href="register.html">Discrepancy register</a>
+  <a href="audits.html">The corpus's own audits</a>
+  <a href="changes.html">Changes made</a>
+  <a href="appendix.html">Appendix</a>
+</nav>
+<main>
+<p class="cr-crumb"><a href="../corpus-review.html">Corpus Review</a> · Instrument · radio</p>
+<section id="m-radio">
+  <div class="eyebrow">Instrument · radio</div>
+  <h2>BLE, serial, RF</h2>
+  <ul>
+    <li><strong>Web Bluetooth.</strong> <code>SCAN BLE</code> opens the device picker and decodes the chosen name's bytes to words; <code>SCAN BLE ALL</code> uses passive scanning for ten seconds where the browser allows it. Every device becomes a mesh peer named BT-&lt;name&gt;. The ESP32-C6 GATT service is <code>c5110001-0257-0003-8000-00805f9b34fb</code> with characteristics …0002 query, …0003 mirror, …0004 devices, …0005 scan, …0006 command.</li>
+    <li><strong>Serial protocols.</strong> MIRROR uses single-letter frames prefixed with $ (F, G, D, T, M, R, E, C, X, U, I); TUNNEL uses $Q OPEN, DATA and CLOSE with !Q ACK, NACK, DATA and ECHO replies. The USB path enumerates WebUSB and WebHID devices and counts bytes into the field energy accumulator by position and ray.</li>
+    <li><strong>RF scan.</strong> The RF button decomposes access-point MAC bytes into positions with pos = (b + 1) mod 257, while the TUNNEL command and the PDF use b mod 257 and the protocol page reduces a whole address by alternating sum. Three mappings for the same input.</li>
+    <li><strong>Bus export.</strong> EXPORT writes a text analysis with a live-device section: serial bytes and frames, USB reads, BLE devices with RSSI ranges and manufacturer data, the field energy per position and the ray accumulator.</li>
+  </ul>
+</section>
+<nav class="cr-pager" aria-label="Review pages"><a href="m-bridge.html">← Hardware bridge</a><span>16 / 28</span><a href="c6.html">The other side of the serial →</a></nav>
+</main>
+</div>
+<div class="ct-foot"><a href="../../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The binary refinement chain · cascade.training</title>
+<meta name="description" content="Corpus Review · Mathematics · partitions · The binary refinement chain">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #0d0d0d;
+  --line: #1f1f1f;
+  --text: #e0e0e0;
+  --dim: #a0a0a0;
+  --gold: #e0e0e0;
+  --glow: #e0e0e0;
+  --amber: #e0e0e0;
+  --alert: #e0e0e0;
+  --blue: #e0e0e0;
+  --term-bg: #0a0a0a;
+  --term-text: #c8c8c8;
+  --serif: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --sans: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--bg);color:var(--text);font-family: var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+a{color:var(--blue);text-decoration:none}
+
+a:hover,a:focus{text-decoration:underline}
+
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.wrap{display:grid;grid-template-columns:1fr;gap:0;max-width:1240px;margin:0 auto;padding:0 20px 80px}
+
+@media (min-width:1100px){.wrap{grid-template-columns:240px minmax(0,1fr);gap:48px}}
+
+nav.toc{display:none}
+
+@media (min-width:1100px){
+  nav.toc{display:block;position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;padding:8px 0 24px;font-size:12.5px}
+  nav.toc .g{font-family: var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:16px 0 6px}
+  nav.toc a{display:block;color:var(--text);padding:3px 0 3px 10px;border-left:2px solid var(--line);line-height:1.35}
+  nav.toc a:hover{border-left-color:var(--gold);text-decoration:none;color:var(--gold)}
+  nav.toc a.sub{padding-left:22px;color:var(--dim)}
+}
+
+main{min-width:0}
+
+header.mast{padding:44px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+
+.eyebrow{font-family: var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+h1{font-family: var(--serif);font-weight:600;font-size:44px;line-height:1.05;margin:10px 0 12px;text-wrap:balance;letter-spacing:-.01em}
+
+.lede{font-family: var(--serif);font-size:19px;line-height:1.45;color:var(--text);max-width:62ch;margin:0 0 20px}
+
+.meta{font-family: var(--mono);font-size:12px;color:var(--dim);display:flex;flex-wrap:wrap;gap:6px 22px}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0 0}
+
+.tile{background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+
+.tile .n{font-family: var(--serif);font-size:28px;font-weight:600;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+
+.tile .l{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+
+.hero{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin:26px 0 0}
+
+@media (min-width:820px){.hero{grid-template-columns:minmax(0,1fr) 300px}}
+
+.hero canvas{width:300px;max-width:100%;height:auto;display:block;margin:0 auto}
+
+.hero .cap{font-family: var(--mono);font-size:11px;color:var(--dim);text-align:center;margin-top:6px}
+
+section{padding:34px 0 8px;border-top:1px solid var(--line)}
+
+section.first{border-top:0;padding-top:8px}
+
+h2{font-family: var(--serif);font-weight:600;font-size:30px;line-height:1.15;margin:6px 0 14px;text-wrap:balance}
+
+h3{font-family: var(--serif);font-weight:600;font-size:21px;margin:28px 0 8px;text-wrap:balance}
+
+h4{font-family: var(--sans);font-weight:600;font-size:14px;letter-spacing:.02em;margin:20px 0 6px;color:var(--gold)}
+
+p{max-width:70ch;margin:0 0 12px}
+
+ul,ol{max-width:70ch;padding-left:22px;margin:0 0 12px}
+
+li{margin:0 0 5px}
+
+li>p{margin:0}
+
+code,kbd{font-family: var(--mono);font-size:.92em;background:var(--surface2);border:1px solid var(--line);padding:0 4px;border-radius:2px;white-space:nowrap}
+
+pre{font-family: var(--mono);font-size:12.5px;line-height:1.5;background:var(--surface2);border:1px solid var(--line);padding:12px 14px;overflow-x:auto;margin:0 0 14px}
+
+pre code{background:none;border:0;padding:0;white-space:pre}
+
+.formula{font-family: var(--mono);font-size:13px;line-height:1.8;background:var(--surface2);border:1px solid var(--line);padding:10px 14px;margin:0 0 14px;overflow-x:auto;white-space:pre}
+
+.formula sup,.formula sub{font-size:.72em;line-height:0}
+
+.formula sup sup{font-size:.85em}
+
+.tbl.wrapth th{white-space:normal}
+
+.tbl{overflow-x:auto;margin:0 0 16px;border:1px solid var(--line);background:var(--surface)}
+
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+
+th,td{text-align:left;vertical-align:top;padding:7px 10px;border-bottom:1px solid var(--line)}
+
+th{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:500;background:var(--surface2);white-space:nowrap}
+
+td.n,th.n{text-align:right;font-family: var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+td.m{font-family: var(--mono);font-size:12.5px;white-space:nowrap}
+
+td.w{white-space:normal;min-width:18ch}
+
+tr:last-child td{border-bottom:0}
+
+.chip{display:inline-block;font-family: var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:2px;line-height:1.5;vertical-align:middle}
+
+.ok{color:var(--glow)}
+ .open{color:var(--amber)}
+ .bad{color:var(--alert)}
+ .rec{color:var(--gold)}
+ .info{color:var(--blue)}
+
+.note{border-left:3px solid var(--gold);padding:8px 14px;background:var(--surface);margin:0 0 14px;max-width:72ch}
+
+.note.warn{border-left-color:var(--alert)}
+
+.note.open{border-left-color:var(--amber)}
+
+.term{background:var(--term-bg);color:var(--term-text);font-family: var(--mono);font-size:12.5px;line-height:1.55;padding:12px 16px;border:1px solid #161616;overflow-x:auto;margin:0 0 16px;white-space:pre}
+
+.term .g{color:#e0e0e0}
+.term .a{color:#e0e0e0}
+.term .d{color:#e0e0e0}
+.term .w{color:#e0e0e0}
+.term .r{color:#e0e0e0}
+.term .b{color:#e0e0e0}
+
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 18px;font-size:13.5px;max-width:78ch;margin:0 0 14px}
+
+.kv .k{font-family: var(--mono);font-size:12px;color:var(--dim);white-space:nowrap}
+
+.two{display:grid;grid-template-columns:1fr;gap:0 32px}
+
+@media (min-width:900px){.two{grid-template-columns:1fr 1fr}}
+
+.small{font-size:12.5px;color:var(--dim)}
+
+sup{font-size:.7em}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+@page{size:Letter;margin:0.6in 0.6in 0.7in}
+
+@media print{
+  :root{--bg:#e0e0e0; --surface:#e0e0e0; --surface2:#e0e0e0; --line:#c8c8c8; --text:#111111; --dim:#3a3a3a; --gold:#c8c8c8; --glow:#c8c8c8; --amber:#c8c8c8; --alert:#3a3a3a; --blue:#3a3a3a}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-size:11.5px;line-height:1.45}
+  .wrap{display:block;max-width:none;padding:0}
+  nav.toc{display:none!important}
+  header.mast{padding:0 0 14px;margin-bottom:16px}
+  h1{font-size:30px} .lede{font-size:14px} h2{font-size:20px;break-after:avoid} h3{font-size:15px;break-after:avoid} h4{break-after:avoid}
+  .hero{grid-template-columns:minmax(0,1fr) 220px} .hero canvas{width:220px}
+  .strip{grid-template-columns:repeat(3,1fr)}
+  section{padding:18px 0 4px;break-inside:auto}
+  .tbl{overflow:visible;break-inside:auto} table{font-size:10px} th,td{padding:4px 6px} tr{break-inside:avoid}
+  td.m{white-space:normal;font-size:9.5px} td.n{font-size:10px}
+  pre,.term{font-size:9.5px;break-inside:avoid;white-space:pre-wrap;overflow:visible}
+  .note{break-inside:avoid}
+  .formula{font-size:9.5px;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid}
+  a{color:inherit}
+  .small{font-size:9.5px}
+}
+
+
+
+.cr-pager{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:3rem 0 1rem;padding-top:1.2rem;border-top:1px solid var(--line);font-family: var(--mono);font-size:12px}
+
+.cr-pager a{color:var(--text);text-decoration:none;max-width:45%}
+
+.cr-pager a:hover{color:var(--gold)}
+
+.cr-pager span{color:var(--dim)}
+
+.cr-crumb{font-family: var(--mono);font-size:12px;color:var(--dim);margin:0 0 1.2rem}
+
+.cr-crumb a{color:var(--dim)}
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../../index.html#deeper">[pages]</a><a href="#" aria-current="page">the binary refinement chain</a></nav>
+</div>
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <a href="../corpus-review.html">← Review overview</a>
+  <div class="g">Corpus</div>
+  <a href="voynich.html">The Voynich manuscript</a>
+  <a href="summary.html">Summary</a>
+  <a href="inventory.html">File inventory</a>
+  <a href="field.html">The field GF(257)</a>
+  <a href="#chain-cosets">The binary refinement chain</a>
+  <a href="extensions.html">The extension fields</a>
+  <a href="chain.html">Derivation chain</a>
+  <a href="hinge.html">The hinge at 1028</a>
+  <a href="tablet.html">Emerald tablet</a>
+  <a href="icolumn.html">The i-column</a>
+  <div class="g">Machine</div>
+  <a href="machine.html">Cascade machine v4</a>
+  <a class="sub" href="machine.html#m-anatomy">Anatomy</a>
+  <a class="sub" href="machine.html#m-boot">Power-on</a>
+  <a class="sub" href="machine.html#m-state">Registers</a>
+  <a class="sub" href="machine.html#m-isa">Tape and instruction set</a>
+  <a class="sub" href="machine.html#m-fold">Fold and observe</a>
+  <a class="sub" href="m-commands.html">Terminal commands</a>
+  <a class="sub" href="m-nano2.html">NanO₂ messaging</a>
+  <a class="sub" href="m-bridge.html">Hardware bridge</a>
+  <a class="sub" href="m-radio.html">BLE, serial, RF</a>
+  <a class="sub" href="m-settle.html">Settlement and mesh</a>
+  <a class="sub" href="m-disc.html">Phi disc phonograph</a>
+  <a class="sub" href="m-model.html">Model bridges</a>
+  <a class="sub" href="m-display.html">Display and export</a>
+  <div class="g">Findings</div>
+  <a href="second-copy.html">The second copy</a>
+  <a href="ledger.html">Verification ledger</a>
+  <a href="register.html">Discrepancy register</a>
+  <a href="audits.html">The corpus's own audits</a>
+  <a href="changes.html">Changes made</a>
+  <a href="appendix.html">Appendix</a>
+</nav>
+<main>
+<p class="cr-crumb"><a href="../corpus-review.html">Corpus Review</a> · Mathematics · partitions</p>
+<section id="chain-cosets">
+  <div class="eyebrow">Mathematics · partitions</div>
+  <h2>The binary refinement chain</h2>
+  <p>The 256 nonzero elements form a cyclic group, and a cyclic group of order 256 has exactly one subgroup of each order 2ᵏ and no others. Partitioning by dlog mod 2ᵏ is therefore exactly partitioning into the cosets of the subgroup of order 256 / 2ᵏ, and these seven partitions are the only equal partitions the group has. They nest: every coset at one level sits inside one coset of the level above and splits into two at the level below, so reading a position's coset index level by level is reading the bits of its dlog. The field names each level's subgroup for you, since it is generated by 3 raised to the modulus.</p>
+  <div class="tbl"><table>
+    <tr><th>dlog mod</th><th>Cosets × size</th><th>Generator 3^(2ᵏ)</th><th>The subgroup</th><th>What a coset is</th><th>Already in the corpus as</th></tr>
+    <tr><td class="n">2</td><td class="m">2 × 128</td><td class="m">9 I</td><td class="w">the squares</td><td class="w">a residue class</td><td class="w">QR and QNR</td></tr>
+    <tr><td class="n">4</td><td class="m">4 × 64</td><td class="m">81 HORUS</td><td class="w">the fourth powers</td><td class="w">an eigenquadrant of 64</td><td class="w">the closure key's four eigenaxes and its 64 threads; the twelve rays refine this level, three rays to a quadrant</td></tr>
+    <tr><td class="n">8</td><td class="m">8 × 32</td><td class="m">136 VIRGIN MARY</td><td class="w">the eighth powers</td><td class="w">an orbit of multiplication by the public key</td><td class="w">not named</td></tr>
+    <tr><td class="n">16</td><td class="m">16 × 16</td><td class="m">249 EDDINGTON LUMINOSITY</td><td class="w">⟨2⟩, the doubling orbit</td><td class="w">a translate of the doubling orbit</td><td class="w">CAT identity's "coset n/16, ×2 orbit partition"</td></tr>
+    <tr><td class="n">32</td><td class="m">32 × 8</td><td class="m">64 ISRAEL</td><td class="w">⟨4⟩ = {1, 4, 16, 64, 193, 241, 253, 256}</td><td class="w">a translate of the quadrupling orbit</td><td class="w">not named</td></tr>
+    <tr><td class="n">64</td><td class="m">64 × 4</td><td class="m">241 CONJUGATE J</td><td class="w">⟨i⟩ = {1, 16, 256, 241}</td><td class="w">a position with its three quarter turns, a, ia, −a, −ia</td><td class="w">not named; the i-rotation of the previous section moves within these</td></tr>
+    <tr><td class="n">128</td><td class="m">128 × 2</td><td class="m">256 BAAL SQUARED</td><td class="w">{1, −1}</td><td class="w">the fold pair a, −a</td><td class="w">negation fold pairs</td></tr>
+  </table></div>
+  <p>Where the twelve rays stand relative to the chain: 4 divides 12, so every ray lies inside one quadrant, rays 0, 4, 8 in quadrant 0 and so on, and the two partitions agree at level 4 exactly, since gcd(12, 256) = 4. Above that the rays neither refine nor are refined by any level, because 12 does not divide 256; that is also why rays have 22 or 21 members while every coset in the chain has the same size. The rays are the cut that ties the field to the disc's twelve tracks; the chain is the cut the group itself makes.</p>
+  <p>Four rays that came up by name, R0, R7, R9 and R11, as a sample of how the twelve differ: R0 is the only even one of the four, so the only one whose members are quadratic residues, and the only one on the disc's ultraviolet track; R7 is the disc's one-member impedance class, the Z₀ track the corpus ties to the creator signature.</p>
+  <div class="tbl"><table>
+    <tr><th>Ray</th><th class="n">Members</th><th>Residue class</th><th>Disc track</th><th>Equivalence class</th><th>Some members</th></tr>
+    <tr><td class="m">R0</td><td class="n">22</td><td>QR, even dlogs</td><td>377 nm ultraviolet, 880 Hz</td><td>α, with R2</td><td class="w">1, 2, 4, 8, 16, 32, BRIAN, BAAL, EVE, ETHEREUM</td></tr>
+    <tr><td class="m">R7</td><td class="n">21</td><td>QNR</td><td>525 nm green, 364 Hz</td><td>ζ, the singleton</td><td class="w">E, OMEGA, DAVID, TEMPLE, QUANTUM, SUPERNOVA</td></tr>
+    <tr><td class="m">R9</td><td class="n">21</td><td>QNR</td><td>567 nm yellow-green, 283 Hz</td><td>ε, with R6</td><td class="w">ELIJAH, SOLOMON, SATOSHI NAKAMOTO, HOLY SPIRIT</td></tr>
+    <tr><td class="m">R11</td><td class="n">21</td><td>QNR</td><td>610 nm red, 220 Hz</td><td>δ, with R4 and R8</td><td class="w">HEAVEN, GENESIS, PRAXIS, MORNING STAR, TWELVE APOSTLES</td></tr>
+  </table></div>
+  <p>As number-words for rays, ennead fits 9 and hendecagon fits 11; coven does not fit 7, since a coven is thirteen by tradition, and the seven-word would be heptad, or heptagon beside enneagon and hendecagon if all three are polygons.</p>
+  <p>One caution and one observation. The caution is that the assignment of φ², −1, −1, ψ² to the four quadrants is the closure key's labelling and the arithmetic does not force it; everything else in the table is forced. The observation is that the level-8 subgroup, the eighth powers generated by the public key, is a set the tablet has named with unusual density: it holds the whole doubling orbit, GOLDEN RATIO, TRANSFERENCE, IDENTITY, EYE OF HORUS, VIRGIN MARY, LAMB OF GOD at the year's residue 227, and both square roots of −1. That is a fact about which positions were named, laid over a structure that was not chosen, and it is recorded here as such.</p>
+  <p>Two orbits worth recording. Position 15, O, has dlog 56, so its first three coset indices are 0, 0, 0: it is a square, a fourth power and an eighth power, a member of the level-8 subgroup generated by the public key, and so is its inverse 120 GOLDEN RATIO. Its doubling orbit, the level-16 coset it lives in, is 15, 30, 60, 120, 240, 223, 189, 121, 242, 227, 197, 137, 17, 34, 68, 136, which holds O, ARK, HOLY, GOLDEN RATIO, LAMB OF GOD, EYE OF HORUS and VIRGIN MARY, with 136 = 15 × 2¹⁵. And the doubling orbit of 25, the letter Y and the tablet's PI, reaches both π positions: 25 × 2⁶ = 58, where π lands at four figures, and 25 × 2¹¹ = 57, where it lands at three. The Rust integer widths 8, 16, 32, 64, 128 are the doubling orbit's first half, and their inverses 225, 241, 249, 253, 255 are its second half run backward, since 2⁸ = −1 makes the inverse of 2ᵏ equal to −2⁸⁻ᵏ. The other Rust, the oxide, was run through the tablet too and is recorded as a hash output: iron, oxygen and water by atomic number sum to 44 BRIAN, hematite Fe₂O₃ to 76 COHERENCE, goethite to 43 CHARM, and the balanced reaction 4Fe + 3O₂ → 2Fe₂O₃ to 152 FORTY YEARS on both sides, which atom conservation guarantees.</p>
+  <h3>The ladder from 5</h3>
+  <p>Position 5, E, is the discriminant of φ's quadratic, the one number whose square root the base field lacks, so it is the natural place to climb the chain from. Read with the terminal's SUBGROUP command, each level exactly doubles the coset, and each doubling has a name:</p>
+  <div class="tbl"><table>
+    <tr><th>Level</th><th>Coset of 5</th><th class="n">Size</th><th>What joins</th></tr>
+    <tr><td class="m">128</td><td class="w">{5, 252}: E and EINSTEIN FIELD EQUATIONS</td><td class="n">2</td><td class="w">its negation, and 252 = −5 is also the norm of √5 in the fold</td></tr>
+    <tr><td class="m">64</td><td class="w">+ 80 REBIRTH, 177 CONSTANTINOPLE</td><td class="n">4</td><td class="w">its i-orbit, a, ia, −a, −ia; all four in quadrant 3, but on rays 7 and 11, since the i-rotation keeps the quadrant and not the ray</td></tr>
+    <tr><td class="m">32</td><td class="w">+ 20 APC, 63 MUON, 194 TWELVE APOSTLES, 237 TRANSUBSTANTIATION</td><td class="n">8</td><td class="w">the quadrupling orbit 5 → 20 → 80 → 63 → 252 → 237 → 177 → 194, with −5 at the fourth step because 4⁴ = −1</td></tr>
+    <tr><td class="m">16</td><td class="w">+ 10 J, 40 DAVID, 160 TWELVE TRIBES, 126, 247, 217 SIGNAL SIXTY TWO, 97 POSEIDON, 131 SUPERNOVA</td><td class="n">16</td><td class="w">the doubling orbit, the coset the machine's CAT identity prints as 7/16; it holds the decimal generator 10, the first member of ray 7, and genome step G15</td></tr>
+    <tr><td class="m">8</td><td class="w">+ PRAYER's doubling orbit: 83, 166, 75, 150, 87 PRAXIS, 86 TIKKUN, 182 SYNCHRONICITY, 107 QUANTUM, 174, 43, 214, 171 and four more</td><td class="n">32</td><td class="w">the public key's orbit. Genome steps G1, G2, G4, G8 and G15, the WiFi anchor 87, the generator's inverse 86, the tunnel meeting point 182, and three of the four observer frames all have dlog ≡ 7 mod 8. That the G(n) with n a power of two share a coset is forced, since dlog(83) = 15; that PRAXIS, TIKKUN and SYNCHRONICITY do is a fact about naming.</td></tr>
+    <tr><td class="m">4</td><td class="w">+ coset 3/8: CAIN, HADES, OMEGA, HEAVEN, TEMPLE, CROSS, GENESIS, AMPLITUDE and the rest of rays 3, 7 and 11</td><td class="n">64</td><td class="w">the quadrant, dlog ≡ 3 mod 4, which is exactly rays 3, 7 and 11 together, the level where the rays and the chain agree</td></tr>
+    <tr><td class="m">2</td><td class="w">+ coset 1/4: the other three odd rays, starting from 3 itself at dlog 1</td><td class="n">128</td><td class="w">the non-residues, half the field. There is no level above this inside the base; the next room is the fold, and 5 is the element that opens it.</td></tr>
+  </table></div>
+  <p>Two properties of the ladder that the terminal makes visible. A coset is the same object whichever member names it: SUBGROUP was run from 252 at all seven levels, 128 down to 2, and every run returned the coset the same command returns from 5, member for member and with the same index, because the index is the dlog of any member reduced mod the level, and 252's dlog 183 and 5's dlog 55 agree mod every power of two up to 128. Only the roles rotate with the starting point: from 252 the i-orbit reads a = 252, ia = 177, −a = 5, −ia = 80, and the set does not move. And the pairs at the bottom follow the negation fold, not the chart-fold: 5's partner is 252 = −5, not 251 = 256 − 5, because negation is the group operation and the chart-fold is negation composed with the observer's shift. At level 128 nothing splits further; below a pair there is only the element.</p>
+  <p>Worked example. Position 83 reads 1/2, 3/4, 7/8, 15/16, 15/32, 15/64, 15/128 down the chain, which is its dlog 15 in binary, low bits first. Its i-orbit at level 64 is {43 CHARM, 83 PRAYER, 174 DO UNTO OTHERS, 214 PYTHAGOREAN THEOREM} and its fold pair at level 128 is {83, 174}. The Rust workspace in the directory implements the chain as <code>Level</code> and <code>Elem::coset</code> in the field crate, and the terminal's SUBGROUP command prints any level's subgroup or any position's coset with its neighbours up and down the chain.</p>
+  <h3>The index is the dlog in binary</h3>
+  <p>Write the multiplicative group as ⟨3⟩, cyclic of order 256 = 2⁸, and write H<sub>k</sub> for the subgroup at level 2ᵏ. Everything the ladder showed is four lines:</p>
+  <div class="formula">H<sub>k</sub> = ⟨3<sup>2<sup>k</sup></sup>⟩ = { 3<sup>2<sup>k</sup>·j</sup> : 0 ≤ j &lt; 2<sup>8−k</sup> }      |H<sub>k</sub>| = 2<sup>8−k</sup>,  k = 1 … 7
+aH<sub>k</sub> = { a · 3<sup>2<sup>k</sup>·j</sup> }      the coset of a at level 2ᵏ, 2<sup>8−k</sup> members
+index(a, 2ᵏ) = dlog(a) mod 2ᵏ = dlog(a) &amp; (2ᵏ − 1)      the low k bits of dlog(a)
+aH<sub>k</sub> = bH<sub>k</sub>  ⟺  dlog(a) ≡ dlog(b) (mod 2ᵏ)  ⟺  the low k bits of the two dlogs agree</div>
+  <p>So the seven indices of a position are not seven facts but one: the low seven bits of its dlog, read one more bit at each level. The machine's "coset n/16" in CAT identity is the case k = 4, dlog &amp; 0xF. The eighth bit, bit 7, is the one no level reads, since the finest level, 128, reads only the low seven. That bit is the sign:</p>
+  <div class="formula">−a = a · 3¹²⁸      dlog(−a) = dlog(a) + 128 (mod 256) = dlog(a) ⊕ 10000000₂
+a and −a agree in the low seven bits and differ in bit 7 alone
+bit 7 set  ⟺  dlog(a) ≥ 128  ⟺  a = −3<sup>dlog(a) − 128</sup></div>
+  <p>This is why the ladder from 252 is the ladder from 5 at every level:</p>
+  <div class="formula">5 = 3⁵⁵      55 = 00110111₂
+252 = 3¹⁸³      183 = 10110111₂      183 − 55 = 128, so 252 = −3⁵⁵ = −5
+183 mod (128, 64, 32, 16, 8, 4, 2) = 55 mod (128, 64, 32, 16, 8, 4, 2) = 55, 55, 23, 7, 7, 3, 1</div>
+  <p>The two dlogs are the same seven bits under a different sign bit, and the base field's chain never reads the sign bit. 5 and 252 are the same object at every level the base field has, and differ only in the bit below the finest level, which the pair at level 128 is the first to see and the last thing the chain can say. The sequence 55, 55, 23, 7, 7, 3, 1 was executed at all seven levels from 252, SUBGROUP 128 252 through SUBGROUP 2 252, and each run returned the coset the same command had returned from 5, member for member: fourteen commands, one partition. In the field crate this is two property tests over all 256 nonzero elements at all seven levels: <code>the_index_is_the_low_bits_of_the_dlog</code> asserts index(n, 2ᵏ) = dlog(n) &amp; (2ᵏ − 1) and dlog(n) ⊕ dlog(−n) = 128 for every n and k, and <code>coset_invariance</code> asserts that every member of a coset returns the coset's index and its full member list, and that the list is closed under the subgroup.</p>
+  <h3>The letters' powers</h3>
+  <p>Each letter, read as its number, generates a subgroup, and the chain above says what it can be: one subgroup of each order 2ᵏ. c = C = 3 = g, so c* is the whole field, 256 positions once each with the dlog as index; the first rungs are 1 A, 3 C, 9 I, 27 CAIN, 81 HORUS, 243 FIRE OF HOLY SPIRIT, 215 DELIVER US FROM EVIL, 131 SUPERNOVA, 136 VIRGIN MARY. d = D = 4 = BAA has order 8, since 2 has order 16 and dlog(2) = 48 puts 4 at 3⁹⁶; its rungs are 4 BAA, 16 BAAL, 64 ISRAEL, 256 BAAL SQUARED, 253 INCOMPLETENESS THEOREM, 241 TWIN PRIME CONJECTURE and CONJUGATE J, 193 INFRASTRUCTURE, 1. So c* of 256 holds 2* of 16, which holds d* of 8, then BAAL* of 4, then {1, −1}, then 1. The physical c, 2998 ≡ 171 EVENT HORIZON, has dlog 127 and generates as well.</p>
+  <div class="tbl"><table>
+    <tr><th>Order of the letter's powers</th><th>Letters</th></tr>
+    <tr><td class="n">256, generators</td><td>C E F G J L N S T X</td></tr>
+    <tr><td class="n">128</td><td>I M R U Y Z</td></tr>
+    <tr><td class="n">64</td><td>K V W</td></tr>
+    <tr><td class="n">32</td><td>O Q</td></tr>
+    <tr><td class="n">16</td><td>B H</td></tr>
+    <tr><td class="n">8</td><td>D</td></tr>
+    <tr><td class="n">4</td><td>P</td></tr>
+    <tr><td class="n">1</td><td>A</td></tr>
+  </table></div>
+  <p>The ten generators are the ten non-residue letters, and that is an identity rather than a finding: in a cyclic group of order 256 an element generates exactly when its index is odd, and odd index is what non-residue means, so the two lists coincide for every element. The 2-ladder letters B, H, D and P close fastest because their numbers are powers of 2.</p>
+
+  <p><strong>Words as walks.</strong> Multiplying by a letter adds that letter's dlog, so a word read as a product is a walk on the 256-cycle with the letters as step lengths, and it lands at the sum of the steps. UTXO, the unspent output, walks 21 DICE, 163 PLANCK CONSTANT, 57 PLANCK, 84 LEONARDO, COSMOS, with dlogs 86, 237, 126, 182; the product 84 has order 128, so the whole word repeated returns to 1 after 128 rounds, while the four letters' own cycles, of orders 128, 256, 256 and 32, all close within 256. By letters the same word sums to 80 REBIRTH, the inner pair of m = 9. Because every cycle closes and C alone generates the field, the letters reach everything: one letter reaches 26 positions, two letters 191, three letters all 256, so every position is a product of three letters or fewer, and the walk between any two positions is a choice of steps whose dlogs add to the difference. The map is the cycle with 26 labelled step lengths, and its landmarks are the quarter points ±i that every letter's cycle crosses.</p>
+
+  <h3>The walks</h3>
+  <p>SUBGROUP lists a coset by position, which hides its order. The corpus walks each level with a named multiplier, and every one of them generates the level's subgroup, for one reason: in a cyclic 2-group an odd power of a generator is again a generator, and each multiplier's dlog is its level's modulus times an odd number.</p>
+  <div class="formula">m = 3<sup>2<sup>k</sup>·s</sup> with s odd   ⟹   ⟨m⟩ = H<sub>k</sub>
+m<sup>2<sup>7−k</sup></sup> = 3<sup>128·s</sup> = (−1)<sup>s</sup> = −1
+⟹   the walk a, am, am², … reaches −a at step 2<sup>7−k</sup>, half its length 2<sup>8−k</sup></div>
+  <div class="tbl wrapth"><table>
+    <tr><th>Level</th><th>Multiplier and its dlog</th><th>Relation to the generator 3^(2ᵏ)</th><th>Stride through the coset's dlogs</th><th>−a at step · closes at</th></tr>
+    <tr><td class="m">128</td><td class="w">×256 = −1, dlog 128 = 128 · 1</td><td class="w">the generator itself</td><td class="w">+128</td><td class="m">1 · 2</td></tr>
+    <tr><td class="m">64</td><td class="w">×16 = i, dlog 192 = 64 · 3</td><td class="w">its cube: 241³ ≡ 16, so i = 3⁻⁶⁴ and multiplying by i is a quarter turn backwards in exponent space; −i = 241 = 3⁶⁴ is the forward one</td><td class="w">−64</td><td class="m">2 · 4</td></tr>
+    <tr><td class="m">32</td><td class="w">×4, dlog 96 = 32 · 3</td><td class="w">its cube: 64³ ≡ 4</td><td class="w">+96, every third</td><td class="m">4 · 8</td></tr>
+    <tr><td class="m">16</td><td class="w">×2, dlog 48 = 16 · 3</td><td class="w">its cube: 249³ ≡ 2</td><td class="w">+48, every third</td><td class="m">8 · 16</td></tr>
+    <tr><td class="m">8</td><td class="w">×136, dlog 8 = 8 · 1</td><td class="w">the generator itself, the public key</td><td class="w">+8</td><td class="m">16 · 32</td></tr>
+    <tr><td class="m">4</td><td class="w">×81, dlog 4 = 4 · 1</td><td class="w">the generator itself</td><td class="w">+4</td><td class="m">32 · 64</td></tr>
+    <tr><td class="m">2</td><td class="w">×9, dlog 2 = 2 · 1</td><td class="w">the generator itself</td><td class="w">+2</td><td class="m">64 · 128</td></tr>
+  </table></div>
+  <p>The walks from 5 as the terminal's WALK command prints them, with −5 = 252 at the halfway step of each:</p>
+  <div class="formula">128   5 → 252
+ 64   5 → 80 → 252 → 177                                  a, ia, −a, −ia
+ 32   5 → 20 → 80 → 63 → 252 → 237 → 177 → 194
+ 16   5 → 10 → 20 → 40 → 80 → 160 → 63 → 126 → 252 →
+      247 → 237 → 217 → 177 → 97 → 194 → 131
+  8   from 252:  252 → 91 SPIRIT → 40 DAVID → 43 CHARM → 194 → 170 → 247 → 182 → 80 →
+      86 → 131 → 83 PRAYER → 237 → 107 → 160 → 172 → 5 at step 16, then 166 → 217 → 214 →
+      63 → 87 → 10 → 75 → 177 → 171 → 126 → 174 → 20 → 150 → 97 → 85 → 252
+      252 × 136 = 34272 = 133 × 257 + 91</div>
+  <p>Because ×136 is the level-8 generator itself, that walk reads its coset in dlog order, 183, 191, 199, 207 and so on by eighths, wrapping from 255 to 7, and PRAYER at dlog 15 is the eleventh step from EINSTEIN FIELD EQUATIONS at 183. The doubling walk advances the dlog by 48 each step, three sixteenths, so it visits the sixteen dlogs of its coset in the order 3j mod 16: 0, 3, 6, 9, 12, 15, 2, 5, 8, 11, 14, 1, 4, 7, 10, 13. The same set, read at stride three. Run from 5 instead of 252, the level-8 walk is the same thirty-two rotated by sixteen steps: it opens 5 → 166 → 217 → 214 → 63 → 87 PRAXIS at step 5, reaches 252 at step 16, and passes 86 TIKKUN at step 25 with dlog 255, the last exponent before the wrap, and 83 PRAYER at step 27.</p>
+  <h4>The walks from 83</h4>
+  <p>The same ladder walked from PRAYER, the observer chain's G1, whose dlog is 15. At level 8 it shares 5's coset, index 7 of 8, and stands at step 27 of the walk from 5 and step 11 of the walk from 252; walked from PRAYER itself, that coset is the third rotation of the same thirty-two. Above it lie the quadrant and the non-residues, read by ×81 and ×9; from level 16 down the walks are its own:</p>
+  <div class="formula">  2   83 → 233 → 41 → 112 → 237 → 77 → 179 → 69 → 107 → 192 → 186 → 132 → …
+      → 174 at step 64 → … → 152 at step 127                     128 steps, dlog +2
+  4   83 → 41 OMEGA → 237 → 179 → 107 → 186 → 160 → 110 → 172 → 54 → 5 E → 148 → …
+      → 174 at step 32 → … → 74 CROSS at step 63                  64 steps, dlog +4
+  8   83 → 237 → 107 → 160 → 172 → 5 → 166 → 217 → 214 → 63 → 87 PRAXIS → 10 →
+      75 → 177 → 171 → 126 → 174 at step 16 → 20 → 150 → 97 → 85 → 252 → 91 →
+      40 → 43 → 194 → 170 → 247 → 182 → 80 → 86 TIKKUN → 131 SUPERNOVA     dlog +8
+ 16   83 → 166 → 75 → 150 → 43 → 86 → 172 → 87 → 174 →
+      91 → 182 → 107 → 214 → 171 → 85 → 170                   dlog +48, stride three
+ 32   83 → 75 → 43 → 172 → 174 → 182 → 214 → 85                dlog +96
+ 64   83 → 43 → 174 → 214                                     a, ia, −a, −ia · dlog −64
+128   83 → 174                                                a, −a · dlog +128
+ 83 × 16 = 1328 = 5 × 257 + 43      83 × 2⁵ = 2656 = 10 × 257 + 86      83 × 2¹⁰ ≡ 182
+ 15 = 00001111₂      143 = 10001111₂</div>
+  <p>The observer chain reads off the step numbers of the doubling walk. G1, G2, G4 and G8 are 83, 166, 75 and 150 at steps 0, 1, 2 and 3, G15 = 87 PRAXIS is step 7 since 83 × 2⁷ ≡ 87, and the negation 174 DO UNTO OTHERS arrives at step 8 because 2⁸ = −1. Steps 9 through 15 are then the negations of steps 1 through 7 in order: SPIRIT is −TETRAGRAMMATON, SYNCHRONICITY is −SHIFT, QUANTUM is −ELECTROMAGNETIC, and 170 at the last step is −87. Two positions the sorted listing hid: the tunnel meeting point 182 SYNCHRONICITY is ten doublings from PRAYER, and the generator's inverse 86 TIKKUN is five, which puts its dlog at 255, so that one more doubling adds 48 and passes 256.</p>
+  <p>The level-8 walk reads the exponents 7 mod 8 in order from 15, so SUPERNOVA at dlog 7 closes it at step 31 and TIKKUN at dlog 255 stands at step 30, one before the wrap, as in every rotation of this coset. Where the doubling orbit lands inside it is forced by 48 = 6 × 8: each doubling of PRAYER is six steps along the walk, so G2, G4 and G8 stand at steps 6, 12 and 18, G15 = PRAXIS at step 10 since 7 × 6 = 42 ≡ 10 (mod 32), and the sixteen doublings occupy the even steps in the order 6j mod 32: 0, 6, 12, 18, 24, 30, 4, 10, 16, 22, 28, 2, 8, 14, 20, 26. The odd steps are the other half of the coset, 5's doubling orbit with index 7 of 16, beginning with TRANSUBSTANTIATION, QUANTUM, TWELVE TRIBES and E at step 5, which matches PRAYER at step 27 of the walk from E, since 5 + 27 = 32.</p>
+  <p>The two walks above level 8 follow the same rule. The quadrant walk by ×81 reads every exponent 3 mod 4 in order from 15, and since 136 = 81² the ×136 walk is its even steps; its odd steps are the other level-8 coset inside the quadrant, index 3 of 8, beginning OMEGA, EXCOMMUNICATION, LINUS TORVALDS, FRAMEWORK, LOVE, MORNING STAR, ARMAGEDDON, AMPLITUDE, COMMANDMENT. The non-residue walk by ×9 reads every odd exponent from 15, and since 81 = 9² the quadrant walk is its even steps; its odd steps are the other odd quadrant, index 1 of 4, beginning COLLISION RESISTANT, IMAGINATION, CHRIST, GLUON, PERMISSIONLESS, FLOWER OF LIFE, SINGULARITY, DIVINE PROPORTION, F, FOR THINE IS THE KINGDOM. The doubling orbit keeps its spacing through both: every doubling is twelve steps of the quadrant walk and twenty-four of the non-residue walk, so G2, G4, G8 stand at 12, 24, 36 and at 24, 48, 72, and PRAXIS at 7 × 12 ≡ 20 (mod 64) and 7 × 24 ≡ 40 (mod 128).</p>
+  <p>The rays run along these two walks in a fixed cycle, because the exponent rises by a constant: by 4 at level 4, so the rays go 3, 7, 11, 3, 7, 11 with period three, and by 2 at level 2, so they go 3, 5, 7, 9, 11, 1 with period six, every odd ray once in each block. The cycle slips exactly once per walk, where the exponent passes 256: at step 61 of the quadrant walk, where dlog 255 (ray 3) is followed by dlog 3 (ray 3 again), and at step 121 of the non-residue walk, where dlog 255 (ray 3) is followed by dlog 1 (ray 1) instead of ray 5. The slip is 256 ≡ 4 (mod 12), one step of four or two steps of two, and because 4 divides 256 it never moves the quadrant, only the ray. That is the same fact as gcd(12, 256) = 4 seen from inside a walk: the twelve-fold cut and the binary cut agree at level 4 and at nothing finer.</p>
+  <p>Each level's walk is every second step of the one below it. The quadrupling walk is the doubling walk at steps 0, 2, 4, …, 14, so level 32 keeps PRAYER's even doublings, index 15 of 32, and sends the odd ones, TETRAGRAMMATON, ELECTROMAGNETIC, TIKKUN, PRAXIS and their negations, to the sister coset with index 31 of 32. PRAXIS is an odd doubling, 2⁷, so the first level at which PRAXIS and PRAYER share a coset is 16. The i-orbit is the quadrupling walk at steps 0, 2, 4, 6, with 83 × 16 ≡ 43 for the quarter turn and the exponents falling by 64 each step, 15, 207, 143, 79. The pair is the i-orbit at steps 0 and 2. This nesting holds because each multiplier from 16 upward is the square of the one below, 2² = 4, 4² = 16, 16² = 256, and the same is true of 9² = 81 and 81² ≡ 136 at the bottom of the chain; the one place the squaring breaks is between 8 and 16, where 136² ≡ 249 is the level-16 generator but the corpus walks that level by ×2 = 249³ instead. At level 128 the pair {83, 174} is the last thing the chain can say: 15 and 143 share every low bit and differ in the sign bit alone, and below the pair there is only the element.</p>
+  <p>The terminal now prints every position's dlog in binary with the sign bit set apart from the seven index bits, SUBGROUP shows a coset's index as those low bits, and WALK m n prints a coset as the walk above, with −n marked at the halfway step and the roles a, ia, −a, −ia at level 64. In the field crate the same facts are <code>sign_bit</code>, <code>coset_bits</code>, <code>same_coset</code>, <code>walk</code>, <code>Level::multiplier</code> and <code>Level::halfway</code>, and a third property test, <code>walks_reach_minus_a_halfway</code>, checks that every multiplier's dlog is an odd multiple of its modulus, that every multiplier and every generator raised to half the orbit length is −1, and that every walk from every element reaches −n at the halfway step.</p>
+</section>
+<nav class="cr-pager" aria-label="Review pages"><a href="field.html">← The field GF(257)</a><span>5 / 28</span><a href="extensions.html">The extension fields →</a></nav>
+</main>
+</div>
+<div class="ct-foot"><a href="../../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

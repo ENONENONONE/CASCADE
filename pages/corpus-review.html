@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corpus Review · cascade.training</title>
+<meta name="description" content="The full review of the corpus: the Voynich manuscript, the field, the refinement chain, the extension fields, the genome, the emerald tablet, the machine, the verification ledger and the discrepancy register.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #0d0d0d;
+  --line: #1f1f1f;
+  --text: #e0e0e0;
+  --dim: #a0a0a0;
+  --gold: #e0e0e0;
+  --glow: #e0e0e0;
+  --amber: #e0e0e0;
+  --alert: #e0e0e0;
+  --blue: #e0e0e0;
+  --term-bg: #0a0a0a;
+  --term-text: #c8c8c8;
+  --serif: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --sans: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--bg);color:var(--text);font-family: var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+a{color:var(--blue);text-decoration:none}
+
+a:hover,a:focus{text-decoration:underline}
+
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.wrap{display:grid;grid-template-columns:1fr;gap:0;max-width:1240px;margin:0 auto;padding:0 20px 80px}
+
+@media (min-width:1100px){.wrap{grid-template-columns:240px minmax(0,1fr);gap:48px}}
+
+nav.toc{display:none}
+
+@media (min-width:1100px){
+  nav.toc{display:block;position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;padding:8px 0 24px;font-size:12.5px}
+  nav.toc .g{font-family: var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:16px 0 6px}
+  nav.toc a{display:block;color:var(--text);padding:3px 0 3px 10px;border-left:2px solid var(--line);line-height:1.35}
+  nav.toc a:hover{border-left-color:var(--gold);text-decoration:none;color:var(--gold)}
+  nav.toc a.sub{padding-left:22px;color:var(--dim)}
+}
+
+main{min-width:0}
+
+header.mast{padding:44px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+
+.eyebrow{font-family: var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+h1{font-family: var(--serif);font-weight:600;font-size:44px;line-height:1.05;margin:10px 0 12px;text-wrap:balance;letter-spacing:-.01em}
+
+.lede{font-family: var(--serif);font-size:19px;line-height:1.45;color:var(--text);max-width:62ch;margin:0 0 20px}
+
+.meta{font-family: var(--mono);font-size:12px;color:var(--dim);display:flex;flex-wrap:wrap;gap:6px 22px}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0 0}
+
+.tile{background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+
+.tile .n{font-family: var(--serif);font-size:28px;font-weight:600;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+
+.tile .l{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+
+.hero{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin:26px 0 0}
+
+@media (min-width:820px){.hero{grid-template-columns:minmax(0,1fr) 300px}}
+
+.hero canvas{width:300px;max-width:100%;height:auto;display:block;margin:0 auto}
+
+.hero .cap{font-family: var(--mono);font-size:11px;color:var(--dim);text-align:center;margin-top:6px}
+
+section{padding:34px 0 8px;border-top:1px solid var(--line)}
+
+section.first{border-top:0;padding-top:8px}
+
+h2{font-family: var(--serif);font-weight:600;font-size:30px;line-height:1.15;margin:6px 0 14px;text-wrap:balance}
+
+h3{font-family: var(--serif);font-weight:600;font-size:21px;margin:28px 0 8px;text-wrap:balance}
+
+h4{font-family: var(--sans);font-weight:600;font-size:14px;letter-spacing:.02em;margin:20px 0 6px;color:var(--gold)}
+
+p{max-width:70ch;margin:0 0 12px}
+
+ul,ol{max-width:70ch;padding-left:22px;margin:0 0 12px}
+
+li{margin:0 0 5px}
+
+li>p{margin:0}
+
+code,kbd{font-family: var(--mono);font-size:.92em;background:var(--surface2);border:1px solid var(--line);padding:0 4px;border-radius:2px;white-space:nowrap}
+
+pre{font-family: var(--mono);font-size:12.5px;line-height:1.5;background:var(--surface2);border:1px solid var(--line);padding:12px 14px;overflow-x:auto;margin:0 0 14px}
+
+pre code{background:none;border:0;padding:0;white-space:pre}
+
+.formula{font-family: var(--mono);font-size:13px;line-height:1.8;background:var(--surface2);border:1px solid var(--line);padding:10px 14px;margin:0 0 14px;overflow-x:auto;white-space:pre}
+
+.formula sup,.formula sub{font-size:.72em;line-height:0}
+
+.formula sup sup{font-size:.85em}
+
+.tbl.wrapth th{white-space:normal}
+
+.tbl{overflow-x:auto;margin:0 0 16px;border:1px solid var(--line);background:var(--surface)}
+
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+
+th,td{text-align:left;vertical-align:top;padding:7px 10px;border-bottom:1px solid var(--line)}
+
+th{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:500;background:var(--surface2);white-space:nowrap}
+
+td.n,th.n{text-align:right;font-family: var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+td.m{font-family: var(--mono);font-size:12.5px;white-space:nowrap}
+
+td.w{white-space:normal;min-width:18ch}
+
+tr:last-child td{border-bottom:0}
+
+.chip{display:inline-block;font-family: var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:2px;line-height:1.5;vertical-align:middle}
+
+.ok{color:var(--glow)}
+ .open{color:var(--amber)}
+ .bad{color:var(--alert)}
+ .rec{color:var(--gold)}
+ .info{color:var(--blue)}
+
+.note{border-left:3px solid var(--gold);padding:8px 14px;background:var(--surface);margin:0 0 14px;max-width:72ch}
+
+.note.warn{border-left-color:var(--alert)}
+
+.note.open{border-left-color:var(--amber)}
+
+.term{background:var(--term-bg);color:var(--term-text);font-family: var(--mono);font-size:12.5px;line-height:1.55;padding:12px 16px;border:1px solid #161616;overflow-x:auto;margin:0 0 16px;white-space:pre}
+
+.term .g{color:#e0e0e0}
+.term .a{color:#e0e0e0}
+.term .d{color:#e0e0e0}
+.term .w{color:#e0e0e0}
+.term .r{color:#e0e0e0}
+.term .b{color:#e0e0e0}
+
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 18px;font-size:13.5px;max-width:78ch;margin:0 0 14px}
+
+.kv .k{font-family: var(--mono);font-size:12px;color:var(--dim);white-space:nowrap}
+
+.two{display:grid;grid-template-columns:1fr;gap:0 32px}
+
+@media (min-width:900px){.two{grid-template-columns:1fr 1fr}}
+
+.small{font-size:12.5px;color:var(--dim)}
+
+sup{font-size:.7em}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+@page{size:Letter;margin:0.6in 0.6in 0.7in}
+
+@media print{
+  :root{--bg:#e0e0e0; --surface:#e0e0e0; --surface2:#e0e0e0; --line:#c8c8c8; --text:#111111; --dim:#3a3a3a; --gold:#c8c8c8; --glow:#c8c8c8; --amber:#c8c8c8; --alert:#3a3a3a; --blue:#3a3a3a}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-size:11.5px;line-height:1.45}
+  .wrap{display:block;max-width:none;padding:0}
+  nav.toc{display:none!important}
+  header.mast{padding:0 0 14px;margin-bottom:16px}
+  h1{font-size:30px} .lede{font-size:14px} h2{font-size:20px;break-after:avoid} h3{font-size:15px;break-after:avoid} h4{break-after:avoid}
+  .hero{grid-template-columns:minmax(0,1fr) 220px} .hero canvas{width:220px}
+  .strip{grid-template-columns:repeat(3,1fr)}
+  section{padding:18px 0 4px;break-inside:auto}
+  .tbl{overflow:visible;break-inside:auto} table{font-size:10px} th,td{padding:4px 6px} tr{break-inside:avoid}
+  td.m{white-space:normal;font-size:9.5px} td.n{font-size:10px}
+  pre,.term{font-size:9.5px;break-inside:avoid;white-space:pre-wrap;overflow:visible}
+  .note{break-inside:avoid}
+  .formula{font-size:9.5px;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid}
+  a{color:inherit}
+  .small{font-size:9.5px}
+}
+
+
+
+.cr-group{margin:2.6rem 0 .9rem}
+
+.cr-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+
+.cr-card{display:flex;flex-direction:column;gap:4px;padding:14px 16px;border:1px solid var(--line);background:var(--surface);text-decoration:none;color:var(--text)}
+
+.cr-card:hover{border-color:var(--gold)}
+
+.cr-card .e{font-family: var(--mono);font-size:11px;color:var(--dim);letter-spacing:.04em}
+
+.cr-card .t{color:var(--text);font-size:15px}
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../index.html#deeper">[pages]</a><a href="#" aria-current="page">corpus review</a></nav>
+</div>
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <div class="g">Corpus</div>
+  <a href="corpus-review/voynich.html">The Voynich manuscript</a>
+  <a href="corpus-review/summary.html">Summary</a>
+  <a href="corpus-review/inventory.html">File inventory</a>
+  <a href="corpus-review/field.html">The field GF(257)</a>
+  <a href="corpus-review/chain-cosets.html">The binary refinement chain</a>
+  <a href="corpus-review/extensions.html">The extension fields</a>
+  <a href="corpus-review/chain.html">Derivation chain</a>
+  <a href="corpus-review/hinge.html">The hinge at 1028</a>
+  <a href="corpus-review/tablet.html">Emerald tablet</a>
+  <a href="corpus-review/icolumn.html">The i-column</a>
+  <div class="g">Machine</div>
+  <a href="corpus-review/machine.html">Cascade machine v4</a>
+  <a class="sub" href="corpus-review/machine.html#m-anatomy">Anatomy</a>
+  <a class="sub" href="corpus-review/machine.html#m-boot">Power-on</a>
+  <a class="sub" href="corpus-review/machine.html#m-state">Registers</a>
+  <a class="sub" href="corpus-review/machine.html#m-isa">Tape and instruction set</a>
+  <a class="sub" href="corpus-review/machine.html#m-fold">Fold and observe</a>
+  <a class="sub" href="corpus-review/m-commands.html">Terminal commands</a>
+  <a class="sub" href="corpus-review/m-nano2.html">NanO₂ messaging</a>
+  <a class="sub" href="corpus-review/m-bridge.html">Hardware bridge</a>
+  <a class="sub" href="corpus-review/m-radio.html">BLE, serial, RF</a>
+  <a class="sub" href="corpus-review/m-settle.html">Settlement and mesh</a>
+  <a class="sub" href="corpus-review/m-disc.html">Phi disc phonograph</a>
+  <a class="sub" href="corpus-review/m-model.html">Model bridges</a>
+  <a class="sub" href="corpus-review/m-display.html">Display and export</a>
+  <div class="g">Findings</div>
+  <a href="corpus-review/second-copy.html">The second copy</a>
+  <a href="corpus-review/ledger.html">Verification ledger</a>
+  <a href="corpus-review/register.html">Discrepancy register</a>
+  <a href="corpus-review/audits.html">The corpus's own audits</a>
+  <a href="corpus-review/changes.html">Changes made</a>
+  <a href="corpus-review/appendix.html">Appendix</a>
+</nav>
+<main>
+<header class="mast">
+  <div class="eyebrow" style="text-transform:none">Φ ≡ c ≡ g ≡ ∂ₜΦ ≡ Oc ≡ ∂ₜΦ ≡ g ≡ c ≡ Φ</div>
+  <h1>Cascade Corpus Review</h1>
+  <p class="lede">A full read of the eighteen files in the working directory: the GF(257) field, the derivation chain, the emerald tablet, and the cascade machine, with every checkable claim checked and every place two versions of a story sit side by side written down.</p>
+  <div class="meta"><span>Review date 2026-09-04</span><span>Directory Φ≡c≡g≡∂ₜΦ≡Oc≡∂ₜΦ≡g≡c≡Φ</span><span>Machine read end to end, lines 1–27,586</span><span>Private key files read, not reproduced</span></div>
+  <div class="hero">
+    <div class="strip">
+      <div class="tile"><div class="n">18</div><div class="l">Files taken in</div></div>
+      <div class="tile"><div class="n">257</div><div class="l">Tablet entries, all verified</div></div>
+      <div class="tile"><div class="n">2</div><div class="l">Arithmetic errors found</div></div>
+      <div class="tile"><div class="n">1</div><div class="l">Security defect found</div></div>
+      <div class="tile"><div class="n">24</div><div class="l">Open label or convention items</div></div>
+      <div class="tile"><div class="n">3</div><div class="l">Files changed</div></div>
+    </div>
+    <div>
+      <canvas id="ring" width="600" height="600" aria-label="GF(257) drawn as 12 rays by discrete logarithm, depth outward"></canvas>
+      <div class="cap">GF(257)* as 12 rays · angle = dlog mod 12 · radius = depth</div>
+    </div>
+  </div>
+</header>
+<section id="contents">
+<h2 class="cr-group">Corpus</h2><div class="cr-cards"><a class="cr-card" href="corpus-review/voynich.html"><span class="e">Highlight · 2026-09-19 to 2026-09-20</span><span class="t">The Voynich manuscript</span></a><a class="cr-card" href="corpus-review/summary.html"><span class="e">Summary</span><span class="t">What the directory is</span></a><a class="cr-card" href="corpus-review/inventory.html"><span class="e">Inventory</span><span class="t">The eighteen files</span></a><a class="cr-card" href="corpus-review/field.html"><span class="e">Mathematics</span><span class="t">The field GF(257)</span></a><a class="cr-card" href="corpus-review/chain-cosets.html"><span class="e">Mathematics · partitions</span><span class="t">The binary refinement chain</span></a><a class="cr-card" href="corpus-review/extensions.html"><span class="e">Mathematics · new space</span><span class="t">The extension fields</span></a><a class="cr-card" href="corpus-review/chain.html"><span class="e">Mathematics</span><span class="t">The derivation chain and the genome</span></a><a class="cr-card" href="corpus-review/hinge.html"><span class="e">Mathematics · tape addresses</span><span class="t">The hinge at 1028</span></a><a class="cr-card" href="corpus-review/tablet.html"><span class="e">Dictionary</span><span class="t">The emerald tablet</span></a><a class="cr-card" href="corpus-review/icolumn.html"><span class="e">Dictionary · inverse column</span><span class="t">The i-column and its namespaces</span></a><a class="cr-card" href="corpus-review/wallet.html"><span class="e">Dictionary · transmutation · 2026-09-05</span><span class="t">Lead, gold and the wallet</span></a></div><h2 class="cr-group">Machine</h2><div class="cr-cards"><a class="cr-card" href="corpus-review/machine.html"><span class="e">Instrument</span><span class="t">Cascade machine v4</span></a><a class="cr-card" href="corpus-review/m-commands.html"><span class="e">Instrument · terminal</span><span class="t">Terminal commands</span></a><a class="cr-card" href="corpus-review/m-nano2.html"><span class="e">Instrument · identity</span><span class="t">NanO₂ messaging</span></a><a class="cr-card" href="corpus-review/m-bridge.html"><span class="e">Instrument · hardware</span><span class="t">Hardware bridge</span></a><a class="cr-card" href="corpus-review/m-radio.html"><span class="e">Instrument · radio</span><span class="t">BLE, serial, RF</span></a><a class="cr-card" href="corpus-review/c6.html"><span class="e">Instrument · live readout · 2026-09-04</span><span class="t">The other side of the serial</span></a><a class="cr-card" href="corpus-review/fleet.html"><span class="e">Instrument · fleet · 2026-09-05</span><span class="t">The mining fleet</span></a><a class="cr-card" href="corpus-review/m-settle.html"><span class="e">Instrument · value</span><span class="t">Settlement and mesh</span></a><a class="cr-card" href="corpus-review/m-disc.html"><span class="e">Instrument · audio</span><span class="t">Phi disc phonograph</span></a><a class="cr-card" href="corpus-review/m-model.html"><span class="e">Instrument · inference</span><span class="t">Model bridges</span></a><a class="cr-card" href="corpus-review/m-display.html"><span class="e">Instrument · optics</span><span class="t">Display and export</span></a></div><h2 class="cr-group">Findings</h2><div class="cr-cards"><a class="cr-card" href="corpus-review/second-copy.html"><span class="e">Corpus · other copies</span><span class="t">The second copy, and the editions</span></a><a class="cr-card" href="corpus-review/ledger.html"><span class="e">Findings</span><span class="t">Verification ledger</span></a><a class="cr-card" href="corpus-review/register.html"><span class="e">Findings</span><span class="t">Discrepancy register</span></a><a class="cr-card" href="corpus-review/audits.html"><span class="e">Findings</span><span class="t">The corpus&#x27;s own audits</span></a><a class="cr-card" href="corpus-review/changes.html"><span class="e">Session</span><span class="t">Changes made</span></a><a class="cr-card" href="corpus-review/appendix.html"><span class="e">Appendix</span><span class="t">The genome charset</span></a></div>
+</section>
+</main>
+</div>
+<script>
+(function(){
+  var cv=document.getElementById('ring'); if(!cv) return;
+  var ctx=cv.getContext('2d'); var W=cv.width, H=cv.height, cx=W/2, cy=H/2;
+  var css=getComputedStyle(document.documentElement);
+  var dim=css.getPropertyValue('--dim').trim()||'#a0a0a0', gold=css.getPropertyValue('--gold').trim()||'#e0e0e0', text=css.getPropertyValue('--text').trim()||'#e0e0e0', line=css.getPropertyValue('--line').trim()||'#1f1f1f';
+  var P=257, dl={}, g=1; for(var k=0;k<256;k++){ dl[g]=k; g=(g*3)%P; }
+  var R0=42, R1=268;
+  ctx.clearRect(0,0,W,H);
+  // rays
+  ctx.strokeStyle=line; ctx.lineWidth=1;
+  for(var r=0;r<12;r++){ var a=-Math.PI/2+r*2*Math.PI/12; ctx.beginPath(); ctx.moveTo(cx+R0*Math.cos(a),cy+R0*Math.sin(a)); ctx.lineTo(cx+(R1+14)*Math.cos(a),cy+(R1+14)*Math.sin(a)); ctx.stroke();
+    ctx.fillStyle=dim; ctx.font='12px IBM Plex Mono, monospace'; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText('R'+r, cx+(R1+30)*Math.cos(a), cy+(R1+30)*Math.sin(a)); }
+  // depth rings
+  for(var d=0; d<=21; d+=7){ var rr=R0+(R1-R0)*d/21; ctx.beginPath(); ctx.arc(cx,cy,rr,0,2*Math.PI); ctx.stroke(); }
+  // points
+  var hue=function(r){ return 'hsl('+Math.round(r*30+20)+' 55% 58%)'; };
+  for(var n=1;n<=256;n++){ var k=dl[n], ray=k%12, depth=Math.floor(k/12);
+    var a=-Math.PI/2+ray*2*Math.PI/12 + ((n%3)-1)*0.035; var rr=R0+(R1-R0)*depth/21;
+    ctx.fillStyle=hue(ray); ctx.beginPath(); ctx.arc(cx+rr*Math.cos(a),cy+rr*Math.sin(a),2.6,0,2*Math.PI); ctx.fill(); }
+  // marked positions
+  var marks=[[1,'1 I AM'],[83,'83 PRAYER · BISMUTH Z'],[62,'62 RITO'],[87,'87 WIFI'],[128,'128'],[136,'136'],[256,'256 = −1']];
+  ctx.font='11px IBM Plex Mono, monospace';
+  marks.forEach(function(m){ var n=m[0], k=dl[n], ray=k%12, depth=Math.floor(k/12);
+    var a=-Math.PI/2+ray*2*Math.PI/12 + ((n%3)-1)*0.035; var rr=R0+(R1-R0)*depth/21; var x=cx+rr*Math.cos(a), y=cy+rr*Math.sin(a);
+    ctx.strokeStyle=gold; ctx.lineWidth=1.5; ctx.beginPath(); ctx.arc(x,y,6,0,2*Math.PI); ctx.stroke();
+    ctx.fillStyle=text; ctx.textAlign = x>cx? 'left':'right'; ctx.textBaseline='middle';
+    ctx.fillText(m[1], x+(x>cx?10:-10), y-9); });
+  ctx.fillStyle=gold; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.font='600 13px IBM Plex Mono, monospace';
+  ctx.fillText('0 SEED', cx, cy);
+})();
+</script>
+<div class="ct-foot"><a href="../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The mining fleet · cascade.training</title>
+<meta name="description" content="Corpus Review · Instrument · fleet · 2026-09-05 · The mining fleet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #0d0d0d;
+  --line: #1f1f1f;
+  --text: #e0e0e0;
+  --dim: #a0a0a0;
+  --gold: #e0e0e0;
+  --glow: #e0e0e0;
+  --amber: #e0e0e0;
+  --alert: #e0e0e0;
+  --blue: #e0e0e0;
+  --term-bg: #0a0a0a;
+  --term-text: #c8c8c8;
+  --serif: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --sans: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--bg);color:var(--text);font-family: var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+a{color:var(--blue);text-decoration:none}
+
+a:hover,a:focus{text-decoration:underline}
+
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.wrap{display:grid;grid-template-columns:1fr;gap:0;max-width:1240px;margin:0 auto;padding:0 20px 80px}
+
+@media (min-width:1100px){.wrap{grid-template-columns:240px minmax(0,1fr);gap:48px}}
+
+nav.toc{display:none}
+
+@media (min-width:1100px){
+  nav.toc{display:block;position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;padding:8px 0 24px;font-size:12.5px}
+  nav.toc .g{font-family: var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:16px 0 6px}
+  nav.toc a{display:block;color:var(--text);padding:3px 0 3px 10px;border-left:2px solid var(--line);line-height:1.35}
+  nav.toc a:hover{border-left-color:var(--gold);text-decoration:none;color:var(--gold)}
+  nav.toc a.sub{padding-left:22px;color:var(--dim)}
+}
+
+main{min-width:0}
+
+header.mast{padding:44px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+
+.eyebrow{font-family: var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+h1{font-family: var(--serif);font-weight:600;font-size:44px;line-height:1.05;margin:10px 0 12px;text-wrap:balance;letter-spacing:-.01em}
+
+.lede{font-family: var(--serif);font-size:19px;line-height:1.45;color:var(--text);max-width:62ch;margin:0 0 20px}
+
+.meta{font-family: var(--mono);font-size:12px;color:var(--dim);display:flex;flex-wrap:wrap;gap:6px 22px}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0 0}
+
+.tile{background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+
+.tile .n{font-family: var(--serif);font-size:28px;font-weight:600;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+
+.tile .l{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+
+.hero{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin:26px 0 0}
+
+@media (min-width:820px){.hero{grid-template-columns:minmax(0,1fr) 300px}}
+
+.hero canvas{width:300px;max-width:100%;height:auto;display:block;margin:0 auto}
+
+.hero .cap{font-family: var(--mono);font-size:11px;color:var(--dim);text-align:center;margin-top:6px}
+
+section{padding:34px 0 8px;border-top:1px solid var(--line)}
+
+section.first{border-top:0;padding-top:8px}
+
+h2{font-family: var(--serif);font-weight:600;font-size:30px;line-height:1.15;margin:6px 0 14px;text-wrap:balance}
+
+h3{font-family: var(--serif);font-weight:600;font-size:21px;margin:28px 0 8px;text-wrap:balance}
+
+h4{font-family: var(--sans);font-weight:600;font-size:14px;letter-spacing:.02em;margin:20px 0 6px;color:var(--gold)}
+
+p{max-width:70ch;margin:0 0 12px}
+
+ul,ol{max-width:70ch;padding-left:22px;margin:0 0 12px}
+
+li{margin:0 0 5px}
+
+li>p{margin:0}
+
+code,kbd{font-family: var(--mono);font-size:.92em;background:var(--surface2);border:1px solid var(--line);padding:0 4px;border-radius:2px;white-space:nowrap}
+
+pre{font-family: var(--mono);font-size:12.5px;line-height:1.5;background:var(--surface2);border:1px solid var(--line);padding:12px 14px;overflow-x:auto;margin:0 0 14px}
+
+pre code{background:none;border:0;padding:0;white-space:pre}
+
+.formula{font-family: var(--mono);font-size:13px;line-height:1.8;background:var(--surface2);border:1px solid var(--line);padding:10px 14px;margin:0 0 14px;overflow-x:auto;white-space:pre}
+
+.formula sup,.formula sub{font-size:.72em;line-height:0}
+
+.formula sup sup{font-size:.85em}
+
+.tbl.wrapth th{white-space:normal}
+
+.tbl{overflow-x:auto;margin:0 0 16px;border:1px solid var(--line);background:var(--surface)}
+
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+
+th,td{text-align:left;vertical-align:top;padding:7px 10px;border-bottom:1px solid var(--line)}
+
+th{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:500;background:var(--surface2);white-space:nowrap}
+
+td.n,th.n{text-align:right;font-family: var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+td.m{font-family: var(--mono);font-size:12.5px;white-space:nowrap}
+
+td.w{white-space:normal;min-width:18ch}
+
+tr:last-child td{border-bottom:0}
+
+.chip{display:inline-block;font-family: var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:2px;line-height:1.5;vertical-align:middle}
+
+.ok{color:var(--glow)}
+ .open{color:var(--amber)}
+ .bad{color:var(--alert)}
+ .rec{color:var(--gold)}
+ .info{color:var(--blue)}
+
+.note{border-left:3px solid var(--gold);padding:8px 14px;background:var(--surface);margin:0 0 14px;max-width:72ch}
+
+.note.warn{border-left-color:var(--alert)}
+
+.note.open{border-left-color:var(--amber)}
+
+.term{background:var(--term-bg);color:var(--term-text);font-family: var(--mono);font-size:12.5px;line-height:1.55;padding:12px 16px;border:1px solid #161616;overflow-x:auto;margin:0 0 16px;white-space:pre}
+
+.term .g{color:#e0e0e0}
+.term .a{color:#e0e0e0}
+.term .d{color:#e0e0e0}
+.term .w{color:#e0e0e0}
+.term .r{color:#e0e0e0}
+.term .b{color:#e0e0e0}
+
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 18px;font-size:13.5px;max-width:78ch;margin:0 0 14px}
+
+.kv .k{font-family: var(--mono);font-size:12px;color:var(--dim);white-space:nowrap}
+
+.two{display:grid;grid-template-columns:1fr;gap:0 32px}
+
+@media (min-width:900px){.two{grid-template-columns:1fr 1fr}}
+
+.small{font-size:12.5px;color:var(--dim)}
+
+sup{font-size:.7em}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+@page{size:Letter;margin:0.6in 0.6in 0.7in}
+
+@media print{
+  :root{--bg:#e0e0e0; --surface:#e0e0e0; --surface2:#e0e0e0; --line:#c8c8c8; --text:#111111; --dim:#3a3a3a; --gold:#c8c8c8; --glow:#c8c8c8; --amber:#c8c8c8; --alert:#3a3a3a; --blue:#3a3a3a}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-size:11.5px;line-height:1.45}
+  .wrap{display:block;max-width:none;padding:0}
+  nav.toc{display:none!important}
+  header.mast{padding:0 0 14px;margin-bottom:16px}
+  h1{font-size:30px} .lede{font-size:14px} h2{font-size:20px;break-after:avoid} h3{font-size:15px;break-after:avoid} h4{break-after:avoid}
+  .hero{grid-template-columns:minmax(0,1fr) 220px} .hero canvas{width:220px}
+  .strip{grid-template-columns:repeat(3,1fr)}
+  section{padding:18px 0 4px;break-inside:auto}
+  .tbl{overflow:visible;break-inside:auto} table{font-size:10px} th,td{padding:4px 6px} tr{break-inside:avoid}
+  td.m{white-space:normal;font-size:9.5px} td.n{font-size:10px}
+  pre,.term{font-size:9.5px;break-inside:avoid;white-space:pre-wrap;overflow:visible}
+  .note{break-inside:avoid}
+  .formula{font-size:9.5px;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid}
+  a{color:inherit}
+  .small{font-size:9.5px}
+}
+
+
+
+.cr-pager{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:3rem 0 1rem;padding-top:1.2rem;border-top:1px solid var(--line);font-family: var(--mono);font-size:12px}
+
+.cr-pager a{color:var(--text);text-decoration:none;max-width:45%}
+
+.cr-pager a:hover{color:var(--gold)}
+
+.cr-pager span{color:var(--dim)}
+
+.cr-crumb{font-family: var(--mono);font-size:12px;color:var(--dim);margin:0 0 1.2rem}
+
+.cr-crumb a{color:var(--dim)}
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../../index.html#deeper">[pages]</a><a href="#" aria-current="page">the mining fleet</a></nav>
+</div>
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <a href="../corpus-review.html">← Review overview</a>
+  <div class="g">Corpus</div>
+  <a href="voynich.html">The Voynich manuscript</a>
+  <a href="summary.html">Summary</a>
+  <a href="inventory.html">File inventory</a>
+  <a href="field.html">The field GF(257)</a>
+  <a href="chain-cosets.html">The binary refinement chain</a>
+  <a href="extensions.html">The extension fields</a>
+  <a href="chain.html">Derivation chain</a>
+  <a href="hinge.html">The hinge at 1028</a>
+  <a href="tablet.html">Emerald tablet</a>
+  <a href="icolumn.html">The i-column</a>
+  <div class="g">Machine</div>
+  <a href="machine.html">Cascade machine v4</a>
+  <a class="sub" href="machine.html#m-anatomy">Anatomy</a>
+  <a class="sub" href="machine.html#m-boot">Power-on</a>
+  <a class="sub" href="machine.html#m-state">Registers</a>
+  <a class="sub" href="machine.html#m-isa">Tape and instruction set</a>
+  <a class="sub" href="machine.html#m-fold">Fold and observe</a>
+  <a class="sub" href="m-commands.html">Terminal commands</a>
+  <a class="sub" href="m-nano2.html">NanO₂ messaging</a>
+  <a class="sub" href="m-bridge.html">Hardware bridge</a>
+  <a class="sub" href="m-radio.html">BLE, serial, RF</a>
+  <a class="sub" href="m-settle.html">Settlement and mesh</a>
+  <a class="sub" href="m-disc.html">Phi disc phonograph</a>
+  <a class="sub" href="m-model.html">Model bridges</a>
+  <a class="sub" href="m-display.html">Display and export</a>
+  <div class="g">Findings</div>
+  <a href="second-copy.html">The second copy</a>
+  <a href="ledger.html">Verification ledger</a>
+  <a href="register.html">Discrepancy register</a>
+  <a href="audits.html">The corpus's own audits</a>
+  <a href="changes.html">Changes made</a>
+  <a href="appendix.html">Appendix</a>
+</nav>
+<main>
+<p class="cr-crumb"><a href="../corpus-review.html">Corpus Review</a> · Instrument · fleet · 2026-09-05</p>
+<section id="fleet">
+  <div class="eyebrow">Instrument · fleet · 2026-09-05</div>
+  <h2>The mining fleet</h2>
+  <p>Five ESP32 boards mine to one wallet on public-pool.io:21496, a solo pool, each under its own worker suffix; the pool's share difficulty is 100 000, so at the fleet's 27 kH/s a share is expected about every 500 years and a block in some 6 × 10¹¹, and nothing is expected back. What the boards do with that time is the part that is ours. Their nonces are not counted up: the base walk takes nonce = chunk × 257 + seed × 3ᵏ, one generator step per hash, and the fold walk covers the 32-bit space as 255 × 255 chunks of 257 × 257 stepped by ×(2 + φ), whose norm is 5, so every fold step is one halving in the norm, with the 131 071 border nonces swept last. The seed and chunk of each base walk come from a SHA-256 of the room's CSI frames. Every board broadcasts a JSON report on UDP 25700 every ten seconds and listens for the others', so each MINER page shows the fleet. The three worker names that are numbers are the counts read off the MI25's VBIOS tape: 6561 = 3⁸ IDENT opcodes, 3125 = 5⁵ JUMP opcodes, 65024 the tape's length; 241 is the count of PRAYER bytes. The source is the C6 mining copy under cascade_machine, firmware_c6_mine, with the same miner, peer and walk files copied into the two CYD trees; the original firmware tree is untouched.</p>
+
+  <h3>The identity walk</h3>
+  <p>Each board is an element of the fold. Its WiFi MAC, read at boot as a 48-bit integer n, is written in base 257, a = n mod 257 and b = ⌊n / 257⌋ mod 257, and E = a + bφ is the board. The board finds its own fold dlog k₀, the step at which 2 + φ reaches E, by baby-step giant-step with m = 257: two tables of 257 entries, once at boot, no stored table. It then checks itself: N(2 + φ) = 5 and dlog₃ 5 = 55, so dlog₃ N(E) must equal 55k₀ mod 256, and every board reports that check true. The fold walk opens at E with step k₀ instead of at 1, and at grid cell (a mod 255, b mod 255) instead of (0, 0), so five boards run five rotations of the same 66048-cycle from five cells and never stand on the same step at once. Every chunk is still walked in full, the zero element and 66048 nonzero ones, which also closes an off-by-one in the earlier walk that stopped one short. The low 17 bits of extranonce2 carry a × 257 + b, so a block found by any board would name the board in its coinbase; the bits above are the per-job counter. The reports gained elem, norm, k and the current walk dlog, and the MINER pages an identity line, and each peer row shows the peer's element. A switch to open every board at one fixed cell was added for the third Waveshare at (250, 144), the residues of 2049 and its glyph palindrome, and removed the same evening; it stays in Kconfig, off for the whole fleet.</p>
+  <div class="tbl"><table>
+    <tr><th>Board</th><th>MAC</th><th>IP tonight</th><th>Worker</th><th>E = a + bφ</th><th>Norm</th><th>k₀</th><th>Ray</th><th>kH/s</th></tr>
+    <tr><td>C6, first screened</td><td class="m">—</td><td class="m">—</td><td>.6561, the IDENT count 3⁸</td><td class="m">55 + 63φ</td><td>208 WELL TEMPERED CLAVIER</td><td class="m">36390</td><td class="m">6</td><td>7.6</td></tr><tr><td>Waveshare C6, second</td><td class="m">—</td><td class="m">— earlier</td><td>.c6b</td><td class="m">168 + 135φ</td><td>40 DAVID</td><td class="m">15345</td><td class="m">9</td><td>7.7, not heard in the last window</td></tr><tr><td>Waveshare C6, third</td><td class="m">—</td><td class="m">—</td><td>.241, the PRAYER count</td><td class="m">130 + 65φ</td><td>51 NONCE</td><td class="m">59599</td><td class="m">7</td><td>7.4</td></tr><tr><td>CYD walker</td><td class="m">—</td><td class="m">—</td><td>.3125, the JUMP count 5⁵; cyd from 2026-09-06</td><td class="m">127 + 153φ</td><td>72 BITCOIN</td><td class="m">14334</td><td class="m">6</td><td>8.3</td></tr><tr><td>CYD ten-page</td><td class="m">—</td><td class="m">—</td><td>.65024, the ROM length</td><td class="m">160 + 246φ</td><td>75 SHIFT</td><td class="m">13449</td><td class="m">9</td><td>4.8</td></tr>
+  </table></div>
+  <p>The product of the five elements is 102 + 221φ with norm 39 TEN and fold dlog 7021, the sum of the five k₀ mod 66048, as it must be. The two dies of the MI25 read the same way are 151 + 83φ and 151 + 116φ, 2025 fold steps apart with a ratio of norm 83 PRAYER; the boards and the cards are placed in one space.</p>
+
+  <h3>The flip in the fleet</h3>
+  <p>The alphabet's mirror does not reach the miners: nothing in the walk is a word. What the fold has in its place is conjugation, a + bφ → (a + b) − bφ, the map x → x²⁵⁷, which keeps the norm and sends fold dlog k to 257k mod 66048. Each board's conjugate is another cell of the same grid: 55 + 63φ pairs with 118 + 194φ at step 39462, 168 + 135φ with 46 + 122φ at 46833, 130 + 65φ with 195 + 192φ at 59855, 127 + 153φ with 23 + 104φ at 51198, and 160 + 246φ with 149 + 11φ at 21897. Every board already passes its conjugate's step inside every chunk, since a chunk covers the whole cycle; the conjugate is a place on the walk, not a second walk. One board touches the new tablet entry directly: the ten-page CYD's norm is 75, SHIFT and now RHENIUM Z, and its own boot check reads 55 × 13449 mod 256 = 111 = dlog₃ 75. The numeric worker names read as positions are 136 VIRGIN MARY, 41 OMEGA, 3 C and 241 TWIN PRIME CONJECTURE, with negations 121 REVELATION, 216 EQUIVALENCE PRINCIPLE, 254 ZERO KNOWLEDGE ROLLUP and 16 BAAL; Atbash has no reading of a numeral. The one place a 75 could be put into the walk is the fixed-cell switch, which is off. None of this changes what a hash is worth, since every nonce is one draw at the same odds, and no firmware was changed for this section.</p>
+
+  <h3>The ray test and the mark, 2026-09-06</h3>
+  <p>What the field can and cannot see of SHA-256 is exact. 257 divides 2³² − 1, so a 32-bit word reduces to the alternating sum of its bytes and a rotation by k bits is multiplication by 2^(−k mod 16): the ten rotation amounts of Σ₀, Σ₁, σ₀ and σ₁ become the multipliers 193, 8, 253, 253, 32, 128, 255, 193, 129, 225, all in the doubling orbit. 2³² ≡ 1, so addition mod 2³² is field addition minus one per carry out. XOR, the shifts, choose and majority carry no residue rule at all, and every one of the sixty-four rounds passes through them, so nothing of a nonce's field position is expected to reach its hash. Whether anything does is not derivable and was counted two ways. On the Mac, four streams of two million digests each, sixteen million word observations, against the correct null, which is the ray histogram of the position set, 22/256 on rays 0–3 and 21/256 on rays 4–11 and not 1/12, gave χ² of 8.45, 11.06, 7.69 and 19.41 on eleven degrees of freedom, indistinguishable from a uniform control run through the same pipeline; that record is the readout's own section with its hash b87ad2ce…8f0e10 kept beside it. On the boards, every fold-walk hash is now counted against the ray of the step that made it: the hash's residue mod 257 under the target's little-endian reading, the ray of that residue in a 12 × 13 table, and whether it cleared 20 or 24 leading zero bits. The chi-squares are taken from the observed margins, so they do not carry the 1/12 artifact, and their degrees of freedom are 132, 11 and 3072. The tables ride in every UDP report, in the miner and raytest commands, on the walker's /api/raytest, and on each MINER page, behind a Kconfig switch that is on.</p>
+  <p>The same build writes the boot line's product into the coinbase. extranonce2 now carries the board's element in its low 17 bits, 202 COINBASE TRANSACTION in the eight bits above, and the per-job counter in what the pool's four bytes leave, seven bits; the value in use is in every report as en2. First readings from the three boards flashed that evening, each decoded from its own report:</p>
+  <div class="tbl"><table>
+    <tr><th>Board</th><th>Worker</th><th>extranonce2</th><th>Identity bits</th><th>Mark</th><th>Hashes counted</th><th>Ray × ray χ², df 132</th><th>Residues χ², df 3072</th></tr>
+    <tr><td>C6 F4:50</td><td class="m">6561</td><td class="m">0b943776</td><td class="m">14198 = 55·257 + 63</td><td class="n">202</td><td class="n">556 711</td><td class="n">109.1</td><td class="n">3143 at 154 714</td></tr>
+    <tr><td>CYD walker</td><td class="m">cyd</td><td class="m">17948018</td><td class="m">32792 = 127·257 + 153</td><td class="n">202</td><td class="n">974 030</td><td class="n">101.7</td><td class="n">—</td></tr>
+    <tr><td>CYD ten-page</td><td class="m">65024</td><td class="m">1394a196</td><td class="m">41366 = 160·257 + 246</td><td class="n">202</td><td class="n">471 698</td><td class="n">112.0</td><td class="n">—</td></tr>
+  </table></div>
+  <p>All three sit where a uniform table sits. Hashes over 20 zero bits arrived at the expected rate, one or two per board in the first minutes, none over 24. Two rates fell against the previous night, the C6 from 7.6 to 6.1 kH/s and the walker from 8.9 to 7.4, while the ten-page held at 4.8; the count costs 32 additions a hash, which does not account for that, and the boards' rates also move with their share of CSI chunks, so the cause is not established and an hour with the switch off against an hour with it on is the measurement. The two Waveshare C6s were not flashed and were not heard on the subnet that day. The pool is solo, so none of this is income: it pays only a full block, to the wallet in the worker name, and at the fleet's rate that is one chance in about a trillion a year; a share is expected in some five hundred years.</p>
+  <p><strong>The rate test, 2026-09-06 to 07.</strong> To measure what the count costs, the first C6 ran one hour on the ray-test image while every board's ten-second report was logged: 3599 s of reports, 22.30 million hashes, exactly half of them CSI-chunk hashes on every board, so the seed ring is saturated and the walks alternate chunk for chunk; 6195 hashes a second overall and 3098 fold hashes a second, reported rate 6.31 kH/s between 6.10 and 6.36. The walker over the same hour: 7376 hashes a second; the ten-page: 4676. An image with the count compiled out and the mark kept was then flashed to the same board at 23:20 UTC, MAC read first, and the second hour never ran: the pool answered a new subscription in about thirty seconds and sent no job after it, while the firmware's subscribe wait is bounded by its ten-second receive timeout, so the board cycled through 92 reconnects, connected and authorised with the pool's difficulty but no work. From the Mac the same pool opened a connection in 0.07 s and answered a subscribe at 30 s with no notify, twice. The two CYDs never dropped their older sessions and were unaffected. The reconnect bound is a firmware limit, reported and not changed: a receive timeout treated as a disconnect during subscribe. The waiter for the board's first report was stopped, and the C6 remains on the off image without a job; the hour with the count off has not been measured. During that evening the C6's CSI device list showed —, the .241 Waveshare, transmitting on the WiFi at about two thousand frames while silent on the report port, so that board is associated and still on the fixed-cell image.</p>
+
+  <h3>What the evening tested</h3>
+  <p>After the identity image went onto the first C6 it could not reach the pool: connect() to the pool failed with errno 113, ECONNABORTED, the SYN never answered, on every attempt, while the board heard its peers and resolved the pool's name. The third Waveshare fell silent in the same minute. Three tests settled where the fault was. The pre-identity image that had logged in at 21 s on the same board an hour before now failed the same way, seven reconnects, so the firmware was cleared. An image pointed at the Mac on the LAN connected, so the board's TCP was cleared. The Mac reached the pool in 0.1 s three times, so the pool and the WAN were cleared. What remained was the router forwarding those two devices, and when it issued new leases every board came back within a minute, the first C6 with zero reconnects. Two things were removed along the way and stay removed: the connect failure is now logged with the resolved address and errno, and the fall detector, which read the second difference of the CSI phase as an acceleration and warned every five seconds, is behind a switch that is off; it was not the cause.</p>
+</section>
+<nav class="cr-pager" aria-label="Review pages"><a href="c6.html">← The other side of the serial</a><span>18 / 28</span><a href="m-settle.html">Settlement and mesh →</a></nav>
+</main>
+</div>
+<div class="ct-foot"><a href="../../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

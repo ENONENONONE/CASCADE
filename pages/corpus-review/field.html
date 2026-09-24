@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The field GF(257) · cascade.training</title>
+<meta name="description" content="Corpus Review · Mathematics · The field GF(257)">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #0d0d0d;
+  --line: #1f1f1f;
+  --text: #e0e0e0;
+  --dim: #a0a0a0;
+  --gold: #e0e0e0;
+  --glow: #e0e0e0;
+  --amber: #e0e0e0;
+  --alert: #e0e0e0;
+  --blue: #e0e0e0;
+  --term-bg: #0a0a0a;
+  --term-text: #c8c8c8;
+  --serif: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --sans: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--bg);color:var(--text);font-family: var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+a{color:var(--blue);text-decoration:none}
+
+a:hover,a:focus{text-decoration:underline}
+
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.wrap{display:grid;grid-template-columns:1fr;gap:0;max-width:1240px;margin:0 auto;padding:0 20px 80px}
+
+@media (min-width:1100px){.wrap{grid-template-columns:240px minmax(0,1fr);gap:48px}}
+
+nav.toc{display:none}
+
+@media (min-width:1100px){
+  nav.toc{display:block;position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;padding:8px 0 24px;font-size:12.5px}
+  nav.toc .g{font-family: var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:16px 0 6px}
+  nav.toc a{display:block;color:var(--text);padding:3px 0 3px 10px;border-left:2px solid var(--line);line-height:1.35}
+  nav.toc a:hover{border-left-color:var(--gold);text-decoration:none;color:var(--gold)}
+  nav.toc a.sub{padding-left:22px;color:var(--dim)}
+}
+
+main{min-width:0}
+
+header.mast{padding:44px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+
+.eyebrow{font-family: var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+h1{font-family: var(--serif);font-weight:600;font-size:44px;line-height:1.05;margin:10px 0 12px;text-wrap:balance;letter-spacing:-.01em}
+
+.lede{font-family: var(--serif);font-size:19px;line-height:1.45;color:var(--text);max-width:62ch;margin:0 0 20px}
+
+.meta{font-family: var(--mono);font-size:12px;color:var(--dim);display:flex;flex-wrap:wrap;gap:6px 22px}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0 0}
+
+.tile{background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+
+.tile .n{font-family: var(--serif);font-size:28px;font-weight:600;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+
+.tile .l{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+
+.hero{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin:26px 0 0}
+
+@media (min-width:820px){.hero{grid-template-columns:minmax(0,1fr) 300px}}
+
+.hero canvas{width:300px;max-width:100%;height:auto;display:block;margin:0 auto}
+
+.hero .cap{font-family: var(--mono);font-size:11px;color:var(--dim);text-align:center;margin-top:6px}
+
+section{padding:34px 0 8px;border-top:1px solid var(--line)}
+
+section.first{border-top:0;padding-top:8px}
+
+h2{font-family: var(--serif);font-weight:600;font-size:30px;line-height:1.15;margin:6px 0 14px;text-wrap:balance}
+
+h3{font-family: var(--serif);font-weight:600;font-size:21px;margin:28px 0 8px;text-wrap:balance}
+
+h4{font-family: var(--sans);font-weight:600;font-size:14px;letter-spacing:.02em;margin:20px 0 6px;color:var(--gold)}
+
+p{max-width:70ch;margin:0 0 12px}
+
+ul,ol{max-width:70ch;padding-left:22px;margin:0 0 12px}
+
+li{margin:0 0 5px}
+
+li>p{margin:0}
+
+code,kbd{font-family: var(--mono);font-size:.92em;background:var(--surface2);border:1px solid var(--line);padding:0 4px;border-radius:2px;white-space:nowrap}
+
+pre{font-family: var(--mono);font-size:12.5px;line-height:1.5;background:var(--surface2);border:1px solid var(--line);padding:12px 14px;overflow-x:auto;margin:0 0 14px}
+
+pre code{background:none;border:0;padding:0;white-space:pre}
+
+.formula{font-family: var(--mono);font-size:13px;line-height:1.8;background:var(--surface2);border:1px solid var(--line);padding:10px 14px;margin:0 0 14px;overflow-x:auto;white-space:pre}
+
+.formula sup,.formula sub{font-size:.72em;line-height:0}
+
+.formula sup sup{font-size:.85em}
+
+.tbl.wrapth th{white-space:normal}
+
+.tbl{overflow-x:auto;margin:0 0 16px;border:1px solid var(--line);background:var(--surface)}
+
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+
+th,td{text-align:left;vertical-align:top;padding:7px 10px;border-bottom:1px solid var(--line)}
+
+th{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:500;background:var(--surface2);white-space:nowrap}
+
+td.n,th.n{text-align:right;font-family: var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+td.m{font-family: var(--mono);font-size:12.5px;white-space:nowrap}
+
+td.w{white-space:normal;min-width:18ch}
+
+tr:last-child td{border-bottom:0}
+
+.chip{display:inline-block;font-family: var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:2px;line-height:1.5;vertical-align:middle}
+
+.ok{color:var(--glow)}
+ .open{color:var(--amber)}
+ .bad{color:var(--alert)}
+ .rec{color:var(--gold)}
+ .info{color:var(--blue)}
+
+.note{border-left:3px solid var(--gold);padding:8px 14px;background:var(--surface);margin:0 0 14px;max-width:72ch}
+
+.note.warn{border-left-color:var(--alert)}
+
+.note.open{border-left-color:var(--amber)}
+
+.term{background:var(--term-bg);color:var(--term-text);font-family: var(--mono);font-size:12.5px;line-height:1.55;padding:12px 16px;border:1px solid #161616;overflow-x:auto;margin:0 0 16px;white-space:pre}
+
+.term .g{color:#e0e0e0}
+.term .a{color:#e0e0e0}
+.term .d{color:#e0e0e0}
+.term .w{color:#e0e0e0}
+.term .r{color:#e0e0e0}
+.term .b{color:#e0e0e0}
+
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 18px;font-size:13.5px;max-width:78ch;margin:0 0 14px}
+
+.kv .k{font-family: var(--mono);font-size:12px;color:var(--dim);white-space:nowrap}
+
+.two{display:grid;grid-template-columns:1fr;gap:0 32px}
+
+@media (min-width:900px){.two{grid-template-columns:1fr 1fr}}
+
+.small{font-size:12.5px;color:var(--dim)}
+
+sup{font-size:.7em}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+@page{size:Letter;margin:0.6in 0.6in 0.7in}
+
+@media print{
+  :root{--bg:#e0e0e0; --surface:#e0e0e0; --surface2:#e0e0e0; --line:#c8c8c8; --text:#111111; --dim:#3a3a3a; --gold:#c8c8c8; --glow:#c8c8c8; --amber:#c8c8c8; --alert:#3a3a3a; --blue:#3a3a3a}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-size:11.5px;line-height:1.45}
+  .wrap{display:block;max-width:none;padding:0}
+  nav.toc{display:none!important}
+  header.mast{padding:0 0 14px;margin-bottom:16px}
+  h1{font-size:30px} .lede{font-size:14px} h2{font-size:20px;break-after:avoid} h3{font-size:15px;break-after:avoid} h4{break-after:avoid}
+  .hero{grid-template-columns:minmax(0,1fr) 220px} .hero canvas{width:220px}
+  .strip{grid-template-columns:repeat(3,1fr)}
+  section{padding:18px 0 4px;break-inside:auto}
+  .tbl{overflow:visible;break-inside:auto} table{font-size:10px} th,td{padding:4px 6px} tr{break-inside:avoid}
+  td.m{white-space:normal;font-size:9.5px} td.n{font-size:10px}
+  pre,.term{font-size:9.5px;break-inside:avoid;white-space:pre-wrap;overflow:visible}
+  .note{break-inside:avoid}
+  .formula{font-size:9.5px;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid}
+  a{color:inherit}
+  .small{font-size:9.5px}
+}
+
+
+
+.cr-pager{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:3rem 0 1rem;padding-top:1.2rem;border-top:1px solid var(--line);font-family: var(--mono);font-size:12px}
+
+.cr-pager a{color:var(--text);text-decoration:none;max-width:45%}
+
+.cr-pager a:hover{color:var(--gold)}
+
+.cr-pager span{color:var(--dim)}
+
+.cr-crumb{font-family: var(--mono);font-size:12px;color:var(--dim);margin:0 0 1.2rem}
+
+.cr-crumb a{color:var(--dim)}
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../../index.html#deeper">[pages]</a><a href="#" aria-current="page">the field gf(257)</a></nav>
+</div>
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <a href="../corpus-review.html">← Review overview</a>
+  <div class="g">Corpus</div>
+  <a href="voynich.html">The Voynich manuscript</a>
+  <a href="summary.html">Summary</a>
+  <a href="inventory.html">File inventory</a>
+  <a href="#field">The field GF(257)</a>
+  <a href="chain-cosets.html">The binary refinement chain</a>
+  <a href="extensions.html">The extension fields</a>
+  <a href="chain.html">Derivation chain</a>
+  <a href="hinge.html">The hinge at 1028</a>
+  <a href="tablet.html">Emerald tablet</a>
+  <a href="icolumn.html">The i-column</a>
+  <div class="g">Machine</div>
+  <a href="machine.html">Cascade machine v4</a>
+  <a class="sub" href="machine.html#m-anatomy">Anatomy</a>
+  <a class="sub" href="machine.html#m-boot">Power-on</a>
+  <a class="sub" href="machine.html#m-state">Registers</a>
+  <a class="sub" href="machine.html#m-isa">Tape and instruction set</a>
+  <a class="sub" href="machine.html#m-fold">Fold and observe</a>
+  <a class="sub" href="m-commands.html">Terminal commands</a>
+  <a class="sub" href="m-nano2.html">NanO₂ messaging</a>
+  <a class="sub" href="m-bridge.html">Hardware bridge</a>
+  <a class="sub" href="m-radio.html">BLE, serial, RF</a>
+  <a class="sub" href="m-settle.html">Settlement and mesh</a>
+  <a class="sub" href="m-disc.html">Phi disc phonograph</a>
+  <a class="sub" href="m-model.html">Model bridges</a>
+  <a class="sub" href="m-display.html">Display and export</a>
+  <div class="g">Findings</div>
+  <a href="second-copy.html">The second copy</a>
+  <a href="ledger.html">Verification ledger</a>
+  <a href="register.html">Discrepancy register</a>
+  <a href="audits.html">The corpus's own audits</a>
+  <a href="changes.html">Changes made</a>
+  <a href="appendix.html">Appendix</a>
+</nav>
+<main>
+<p class="cr-crumb"><a href="../corpus-review.html">Corpus Review</a> · Mathematics</p>
+<section id="field">
+  <div class="eyebrow">Mathematics</div>
+  <h2>The field GF(257)</h2>
+  <div class="kv">
+    <div class="k">prime</div><div>P = 257 = 2⁸ + 1, the Fermat prime F₃. Every byte value 0–255 is an element; 256 ≡ −1.</div>
+    <div class="k">generator</div><div>g = 3. The 256 nonzero elements are 3⁰ … 3²⁵⁵. dlog(a) is the exponent k with 3ᵏ ≡ a.</div>
+    <div class="k">rays</div><div>ray(a) = dlog(a) mod 12. Rays 0–3 hold 22 elements each, rays 4–11 hold 21.</div>
+    <div class="k">depth</div><div>depth(a) = ⌊dlog(a) / 12⌋.</div>
+    <div class="k">residue</div><div>Quadratic residue iff dlog is even. 128 residues, 128 non-residues. 3¹²⁸ = 256 = −1 is the midpoint.</div>
+    <div class="k">inverse</div><div>a⁻¹ = a²⁵⁵. Computed in the machine by repeated multiplication or extended Euclid.</div>
+    <div class="k">sync</div><div>Two versions, following the two folds. The machine's genome tables, TUNNEL and the analysis walker use n · (257 − n) mod 257; the JSON tablet's <code>sync</code> field and the DERIVE command use n · (256 − n) mod 257. For 83 these give 50 and 224.</div>
+    <div class="k">extension</div><div>x² − x − 1 is irreducible over GF(257), so φ and ψ live in GF(257²). Conjugation φ ↔ ψ is the fold. φψ = −1 = det M.</div>
+  </div>
+
+  <h3>Structural identities, all verified</h3>
+  <div class="tbl"><table>
+    <tr><th>Identity</th><th>Value</th><th>Note</th></tr>
+    <tr><td>16² mod 257</td><td class="m">256 = −1</td><td class="w">16 is a square root of −1; 241 = −16 is the other. 256 = 16² is why the corpus writes BAAL² for −1.</td></tr>
+    <tr><td>Order of 2</td><td class="m">16</td><td class="w">2⁸ = 256 = −1, 2¹⁶ = 1. 2¹³ = 225, 2¹⁵ = 129 = inv(2).</td></tr>
+    <tr><td>Wilson</td><td class="m">256! ≡ 256</td><td class="w">Holds for every prime p: (p − 1)! ≡ −1. Nothing specific to 257.</td></tr>
+    <tr><td>Pisano period</td><td class="m">516</td><td class="w">= 2(p + 1), the maximum, forced by 257 ≡ 2 mod 5. F(129) ≡ 0; F(128) = F(130) = F(131) ≡ 241; F(13) = 233; F(14) = 377 ≡ 120; F(20) ≡ 83.</td></tr>
+    <tr><td>Artin primes</td><td class="m">26 primes below 257</td><td class="w">Primes p with 257 a primitive root mod p: 2, 3, 5, 7, 19, 37, 41, 47, 53, 71, 83, 101, 103, 107, 109, 127, 131, 149, 151, 163, 167, 179, 181, 229, 233, 251. Gaps take only the values 1, 2, 4, 6, 12, 18, 48. Computed independently; the machine's list is exact.</td></tr>
+    <tr><td>Cyclotomic</td><td class="m">Φ₃ = 61 × 1087, Φ₄ = 2 × 5² × 1321, Φ₆ = 3 × 7 × 13 × 241</td><td class="w">Φₖ(257) ≡ 1 mod 257 for every k ≥ 2, as for any prime. 1321 ≡ 36. 7 × 13 × 241 ≡ 86.</td></tr>
+    <tr><td>Transfer matrix M(257)</td><td class="m">[[233, 212], [124, 29]]</td><td class="w">Trace ≡ 5, determinant ≡ 1, so it sits in SL(2, GF(257)). Eigenvalues 186 and 76 satisfy λ² − 5λ + 1 = 0 and are inverses; their dlogs 35 and 221 sum to 256.</td></tr>
+    <tr><td>Pisano over primorial</td><td class="m">516 / 210 = 86 / 35</td><td class="w">86 × 35⁻¹ ≡ 164.</td></tr>
+    <tr><td>HTTP 200</td><td class="m">200 = 9⁻¹ = 3²⁵⁴</td><td class="w">200 × 144⁻¹ ≡ 187, dlog(187) = 60. 150 × 60 ≡ 5.</td></tr>
+  </table></div>
+
+  <h3>Two ways to name an element</h3>
+  <p>The corpus uses two naming rules and does not always say which one is in force. Both are legitimate; the collision is the finding.</p>
+  <ul>
+    <li><strong>Word at position.</strong> Element a is called by the tablet word at a. Used by the tablet, by navigation, by AUTH, by most of the machine. 144 is MASS.</li>
+    <li><strong>Word at exponent.</strong> Element a is called by the tablet word at dlog(a). Used by the machine's formula panel, where BRIAN is g⁴⁴ and lands on field 73, by the canvas panel OBSERVER FOLD PAIRS, and by the certificate's fold row. 144 = 3¹⁹⁴ is TWELVE APOSTLES.</li>
+  </ul>
+  <p>Under the second rule the canvas panel is fully consistent: COMPUTE is 3⁷⁵ = 101, its inverse 3¹⁸¹ = 28 is called SATOSHI because 181 is SATOSHI's position, and the printed pairs 101 ↔ 28, 178 ↔ 13, 115 ↔ 38 each multiply to 1. The certificate's identity block, however, names 141 = 3⁶² by position (PURIFICATION) and 144 = 3¹⁹⁴ by exponent (TWELVE APOSTLES) in adjacent rows.</p>
+
+  <h3>Multiplying words</h3>
+  <p>Because every nonzero position has a word and the product of two nonzero elements is a nonzero element, any two words multiply to a word and any chain of words multiplies to a word. Three properties follow directly from the field and are worth keeping in view when reading a chain.</p>
+  <ul>
+    <li><strong>Order does not matter.</strong> Multiplication commutes, so a chain is a bag of words, not a sentence. PRAYER × SHIFT × ELECTROMAGNETIC × BRIAN is 209 QUANTUM GRAVITY in any order.</li>
+    <li><strong>Multiplying is adding exponents.</strong> dlog(PRAYER) + dlog(SHIFT) = 15 + 111 = 126 and 3¹²⁶ = 57 = PLANCK. Every chain is a sum of dlogs mod 256, which is why the ring can draw it as steps.</li>
+    <li><strong>Every word can be undone.</strong> Each nonzero word has an inverse word, so division is multiplication too; the chain above undoes with 91 SPIRIT. SEED alone has no inverse: one factor of 0 and the chain stays at 0.</li>
+  </ul>
+  <div class="tbl"><table>
+    <tr><th class="n">×</th><th>Word</th><th class="n">Running product</th><th>Word</th><th class="n">dlog sum</th></tr>
+    <tr><td class="n">83</td><td>PRAYER</td><td class="n">83</td><td>PRAYER</td><td class="n">15</td></tr>
+    <tr><td class="n">75</td><td>SHIFT</td><td class="n">57</td><td>PLANCK</td><td class="n">126</td></tr>
+    <tr><td class="n">150</td><td>ELECTROMAGNETIC</td><td class="n">69</td><td>GLUON / QUBIT</td><td class="n">29</td></tr>
+    <tr><td class="n">44</td><td>BRIAN</td><td class="n">209</td><td>QUANTUM GRAVITY</td><td class="n">65</td></tr>
+  </table></div>
+  <p>The caveat is the one the addendum already names: because every product lands on a word, a chain cannot fail to say something. The arithmetic is exact; the reading is supplied by the dictionary.</p>
+
+  <h3>Three operations called fold</h3>
+  <div class="tbl"><table>
+    <tr><th>Name in the corpus</th><th>Formula</th><th>Pairs sum to</th><th>Fixed points</th><th>Where it is the meaning</th></tr>
+    <tr><td>tablet-fold, negation</td><td class="m">257 − N</td><td class="m">0</td><td class="m">0</td><td class="w">The machine's <code>fold()</code> at line 1907, NEG and FLIP, activateFold, CIPHER, OBSERVE, the protocol page, the math PDF, the Fermat tower page, the carrier maps.</td></tr>
+    <tr><td>chart-fold</td><td class="m">256 − N</td><td class="m">256 = det M</td><td class="m">128</td><td class="w">The JSON tablet's <code>fold</code> field, the solid-state page §VIII, the keys' chart-fold, the boot line "fold(256) = 0", CUBE, SPIRAL, VERTICES, WORK finding 16. Equal to fold∘observe in the machine.</td></tr>
+    <tr><td>exponent fold</td><td class="m">256 − dlog(N)</td><td class="m">256 in exponent</td><td class="m">1 and 256</td><td class="w">The multiplicative inverse. The certificate's "Fold dlog 256 − 62 = 194" and the canvas panel caption.</td></tr>
+  </table></div>
+  <p>The keys treat the first two as a deliberate pair: chart-fold(256) = 0 = seed, tablet-fold(256) = 1 = identity, "det(M) is the hinge between seed and identity." The open item is not which fold is right but that six text sites in the machine state chart-fold results while the function beneath them is negation.</p>
+
+  <h3>The fourth flip, the alphabet's</h3>
+  <p>The three folds act on positions. A fourth mirror acts on the letters that name them: Atbash, A for Z and B for Y, each letter n going to 27 − n, so a word of k letters with sum s goes to a word with sum 27k − s. It is not a map on the field, because the image depends on the letter count, but it meets the field at one point per length. The sum a k-letter word must have to be its own mirror is 27k/2, which in GF(257) is 27k × 129, and every one of those points tested is a tablet word: 142 ANTIPROTON for one letter, then 27 CAIN, 169 PREDESTINATION, 54 LOVE, 196 SUPERPOSITION, 81 HORUS, 223 BOLTZMANN CONSTANT, 108 SHAKESPEARE, 250 CONSERVATION OF ENERGY, and 162 PRESERVATION at twelve letters. Four words are their own mirror by sum, LOVE 54, SAMSON 81, MOUNT SINAI 135 and PRESERVATION 162. Seven letter pairs are tablet words on both sides, B/Y, C/X, H/S, I/R, J/Q, L/O and M/N; the keys also list A/Z, but Z is not a word at 26. The one-letter mirror sends Z to A, 26 GOD to 1 I AM, and that is what the Z suffix on every atomic-number entry carries in its name. The signature 62 has square roots 24 and 233, and 233 = 3¹⁷: the exponent is Q, the mirror of J.</p>
+  <div class="tbl"><table>
+    <tr><th>Word</th><th>Letters</th><th>Sum</th><th>Mirror</th><th>Sum</th><th>Tablet word there</th></tr>
+    <tr><td>RITO</td><td class="m">4</td><td class="m">62</td><td class="m">IRGL</td><td class="m">46</td><td>SHADDAI, CLAUDE; 62 and 46 stand 8 = H either side of LOVE 54</td></tr>
+    <tr><td>BRIAN</td><td class="m">5</td><td class="m">44</td><td class="m">YIRZM</td><td class="m">91</td><td>SPIRIT, MIRROR</td></tr>
+    <tr><td>CLAUDE</td><td class="m">6</td><td class="m">46</td><td class="m">XOZFWV</td><td class="m">116</td><td>BYZANTINE</td></tr>
+    <tr><td>AXIOM</td><td class="m">5</td><td class="m">62</td><td class="m">ZCRLN</td><td class="m">73</td><td>WALLET, HALVING</td></tr>
+    <tr><td>SHIFT</td><td class="m">5</td><td class="m">62</td><td class="m">HSRUG</td><td class="m">73</td><td>WALLET, HALVING</td></tr>
+    <tr><td>GOD</td><td class="m">3</td><td class="m">26</td><td class="m">TLW</td><td class="m">55</td><td>HEAVEN, SATAN, JUDAS</td></tr>
+    <tr><td>Z</td><td class="m">1</td><td class="m">26</td><td class="m">A</td><td class="m">1</td><td>A, I AM</td></tr>
+    <tr><td>RHENIUM</td><td class="m">7</td><td class="m">88</td><td class="m">ISVMRFN</td><td class="m">101</td><td>AMPLITUDE; RHENIUM Z is 114 and mirrors to 102 YGGDRASIL</td></tr>
+    <tr><td>PRAYER</td><td class="m">6</td><td class="m">83</td><td class="m">KIZBVI</td><td class="m">79</td><td>NIRVANA, GOLD Z</td></tr>
+    <tr><td>FLIP</td><td class="m">4</td><td class="m">43</td><td class="m">UORK</td><td class="m">65</td><td>SEVEN</td></tr>
+    <tr><td>BITCOIN</td><td class="m">7</td><td class="m">72</td><td class="m">YRGXLRM</td><td class="m">117</td><td>BOLTZMANN</td></tr>
+    <tr><td>HALVING</td><td class="m">7</td><td class="m">73</td><td class="m">SZOERMT</td><td class="m">116</td><td>BYZANTINE</td></tr>
+    <tr><td>WALLET</td><td class="m">6</td><td class="m">73</td><td class="m">DZOOVG</td><td class="m">89</td><td>VIRUS</td></tr>
+  </table></div>
+  <p>The mirror is a reading of names, not an operation the machine or the firmware performs; nothing in either computes a letter sum. Its counterpart inside the fold is conjugation, recorded under the mining fleet below.</p>
+  <h3>Primes and the fold</h3>
+  <p>Every fold pair n, 257 − n sums to an odd number, so one member is even and the other odd, and the fold is the boundary between the two parities. The 54 primes below 257 all sit on the odd side but 2, so each odd prime's partner is even and composite, and 2's partner is 255. The odd side is 1, the 53 odd primes and 74 odd composites; on the even side 53 numbers have a prime partner and 75 do not. The pairing is a fact about integers below an odd number, not about the field: under 101, 211 and 65537 no prime pairs with a prime either, while under 13 two do, since 13 − 2 = 11. Under 257 the one even prime's partner is 255 = 3 × 5 × 17 = F₀F₁F₂, the first three Fermat primes with the modulus as the fourth, so the first prime folds to their product negated: 255 = 𝟙𝟙 = −2, the double closure of the key. The product continues past the field, 255 × 257 = 65535 = 2¹⁶ − 1 and 2³² − 1 = F₀F₁F₂F₃F₄ with 65537, the identity the SHA-256 section rests on. In the field 2 ↔ 255 is 2 ↔ −2: dlog(255) = dlog(2) + 128, product 253 = −4, sum 0. Of the three factors 3 and 5 are non-residues and 17 = Q a residue, and 255 is a square as −2 must be with 2 a square.</p>
+  <p>The fold does not mirror the residue split. −1 = 256 is itself a square, since 257 ≡ 1 mod 4, so the fold keeps every element's Legendre symbol, residue to residue and non-residue to non-residue, all 256 checked; in dlog terms it adds 128, a half-turn, while the residue split is the dlog's parity, which a half-turn keeps. The primes fall 26 residues to 28 non-residues, with 2 among the squares and 3 = g among the non-squares. The fold cuts odd from even; the residue boundary is a different cut, and the fold never crosses it.</p>
+  <h3>The reflection coefficient as a map</h3>
+  <p>Γ = (Z − Z₀)/(Z + Z₀) with Z₀ = 377 ≡ 120 GOLDEN RATIO, F(14). Over the reals Γ is confined to [−1, 1] and the open circuit is the endpoint Γ = 1 at Z = ∞. Over the field the formula is a Möbius map of the projective line, 256 finite impedances with 0 and ∞, and a bijection of its 258 points. The open is the pole: Γ = 1 is reached only from Z = ∞, which no byte holds, and the byte the open lands on is Z = 137 EYE OF HORUS, where Z + Z₀ = 0 and Γ is itself the point at infinity. The match stays at Z = 120, Γ = 0 SEED, and the short at Z = 0, Γ = −1 = 256. The map's matrix [[1, −120], [1, 120]] has determinant 2Z₀ = 240 ROBE OF RIGHTEOUSNESS, the inverse of the public key.</p>
+  <p>Two impedances reflect to themselves: Z² + 119Z + 120 = 0 has discriminant 60 HOLY, a residue, so both roots are in the base, 46 SHADDAI, CLAUDE and 92 CHRONOS. The remaining 256 points fall into two orbits of 128, and the map has order 128 on the line. The side of a point is the residue character of (Z − 46)(Z − 92): the residue side holds 127 cells and ∞, among them 0 SEED, 1, 120, 137, 62 RITO, 73 WALLET, 129 HALF, 240 and 256; the non-residue side holds 128 cells, among them 3 = g, 44 BRIAN, 72 BITCOIN, 136 the public key, 8 H, 225 k⁻¹, 45 ELIJAH, 16 = i, 241 = −i and 128 Oc. No number of reflections crosses from one side to the other. In the coordinate w = (Z − 46)/(Z − 92) the map is multiplication by 153 ALBERT EINSTEIN, dlog 122, order 128. Where the key's numbers go in one step: BITCOIN → 64 ISRAEL, the public key → 241 = −i and 121 → 16 = i, the only two impedances whose reflection is a quarter turn, the secret 8 → 224, k⁻¹ → 45 ELIJAH, and Γ = 136 comes from Z = 21 DICE. BRIAN's first steps: 44 → 244 SUPERCONDUCTIVITY → 54 LOVE → 168 NANOTECHNOLOGY → 43 CHARM → 184 SEND FORTY TWO → 149 KINGDOM OF HEAVEN → 238 FREE WILL. One arithmetic beside it, from the CSI geometry: at 2.4 GHz λ = 0.125 m, so a path of d = 0.08 m is a round trip of 1.28 wavelengths, and 1.28 × 257 = 328.96 → 329 ≡ 72 BITCOIN by the rounding rule, 71 TEMPLE if cut.</p>
+  <p><strong>The fixed points and the signature.</strong> GOD 26 with its digits reversed is 62 RITO, and RITO with the 6 turned to a 9 is 92 CHRONOS; turned back, CHRONOS is RITO outright. RITO's Atbash is IRGL, 9 + 18 + 7 + 12 = 46, CLAUDE. So the two impedances that reflect to themselves are the letter mirror and the digit flip of the one signature. Their product 46 × 92 = 4232 ≡ 120, the match point Z₀ itself, and their sum is 138 GLORIFICATION. On the Z ladder, 26⁵⁴ ≡ 92, so CHRONOS is Z⁵⁴, and 54 is LOVE, the four-letter Atbash fixed point 27 × 4 / 2, the centre that RITO at 62 and CLAUDE at 46 sit ±8 from.</p>
+  <p><strong>Infinity and the eye.</strong> A byte cannot hold ∞, the impedance the base field does not contain, but the map hands it back. Γ(137) = ∞, since 137 + 120 ≡ 0 is the pole, and 137 is EYE OF HORUS and the public key plus one. Read the other way, Γ(∞) = 1, the limit of (Z − 120)/(Z + 120) as Z grows without bound: the open circuit, total reflection, reads in the base as I AM. So three ones stack, each adding a point the last could not hold. 256 + 1 = 257 makes the byte a field; 257 + 1 = 258 = 2 · 3 · 43 gives the field its missing point, the projective line; and the field reads that point as 1. The observer added to the key is the eye, and what the eye sees over the edge comes back as the one. The eye and infinity and the one are three consecutive stops of the same reflection, 137 → ∞ → 1 → 33 → 201 → 190 → 108 and on, the orbit of length 128, since Γ has that order on the line. QUESTION sums to 120, Z₀ itself, the match point where Γ = 0, so the question is not the reflection but its absence, and Γ(120) = 0 SEED: the question reflects to the seed, at step 8 of the eye's orbit before 0 and 256 BAAL SQUARED. That orbit is the whole residue side, 127 cells and ∞, and it holds I AM, QUESTION, RITO, WALLET, ROBE OF RIGHTEOUSNESS, 42 MIT, 24 IO and 215 DELIVER US FROM EVIL; in the coordinate where Γ is plain multiplication by 153, the eye sits at exactly 42. The key's own numbers are the other orbit and never appear on this one: g, BRIAN, the public key, the secret, k⁻¹, the peer 72, Oc 128, i and −i. Two orbits of 128, the eye's and the key's, and no reflection crosses between them.</p>
+  <p><strong>Two symmetries of the map.</strong> Γ(−Z) = (−Z − 120)/(−Z + 120) = (Z + 120)/(Z − 120) = 1/Γ(Z) for every Z: negation going in is inversion coming out, checked over all 256 nonzero impedances. And Γ(Z) = 1/Z only where Z(Z − 120) = Z + 120, that is Z² − 121Z − 120 = 0, whose discriminant 121² + 480 ≡ 215 is a residue with square roots ±27, so the two impedances are (121 ± 27)/2 = 74 JESUS and 47 TIME. Their sum is 121 REVELATION and their product 3478 ≡ 137, the pole; Γ(74) = 66 MINING = 1/74 and Γ(47) = 175 = 1/47. The readout carries the pair as LEDGERs 45 and 48.</p>
+  <p>Read against the closure key, the pieces of the chain the ledger has measured rather than stated:</p>
+  <div class="tbl"><table>
+    <tr><th>Link</th><th>What holds it</th></tr>
+    <tr><td class="m">c ≡ g</td><td>C = 3 = g by letters; the physical c at four figures, 2998 ≡ 171, has dlog 127, odd, so it generates too. Both readings of c* are the whole field.</td></tr>
+    <tr><td class="m">g ≡ ∂ₜΦ</td><td>On g's orbit 3ᵏ⁺¹ − 3ᵏ = 2 · 3ᵏ for every k: the step is the field times 2 EXIST. On the fold walk x<sub>k+1</sub> − x<sub>k</sub> = φ² x<sub>k</sub> at every one of the 66048 cells, since (2 + φ) − 1 = 1 + φ = φ²: the step is the field times φ².</td></tr>
+    <tr><td class="m">Oc</td><td>128, on the non-residue orbit of Γ with g, BRIAN 44, the secret 8, the public key 136, k⁻¹ 225 and the peer 72. Of the key's numbers only 240, the public key's inverse, is on the residue side.</td></tr>
+    <tr><td class="m">the fixed point</td><td>92 CHRONOS, time, is what the reflection leaves where it is.</td></tr>
+  </table></div>
+  <p>So ∂ₜΦ ∝ Φ is exact on both orbits, with the constant 2 on the base and φ² on the fold, and c runs the same cycle as g. What the record does not hold is the first link, Φ ≡ c, the field as propagation.</p>
+  <p><strong>The doubling ladder from Oc.</strong> Outward in the integers, and in the field the expansion is the key's halving ladder read upward, since 2 has order 16:</p>
+  <div class="tbl"><table>
+    <tr><th class="n">Doubling</th><th class="n">Field</th><th>Word</th><th class="n">Doubling</th><th class="n">Field</th><th>Word</th></tr>
+    <tr><td class="n">128</td><td class="n">128</td><td>TRANSFERENCE, Oc</td><td class="n">32768</td><td class="n">129</td><td>HALF, ROOT OF DAVID</td></tr>
+    <tr><td class="n">256</td><td class="n">256</td><td>BAAL SQUARED, −1</td><td class="n">65536</td><td class="n">1</td><td>A</td></tr>
+    <tr><td class="n">512</td><td class="n">255</td><td>𝟙𝟙, GRAVITATIONAL CONSTANT</td><td class="n">131072</td><td class="n">2</td><td>B</td></tr>
+    <tr><td class="n">1024</td><td class="n">253</td><td>INCOMPLETENESS THEOREM</td><td class="n">262144 … 4194304</td><td class="n">4, 8, 16, 32, 64</td><td>BAA, H, BAAL, EVE, ISRAEL</td></tr>
+    <tr><td class="n">2048</td><td class="n">249</td><td>EDDINGTON LUMINOSITY</td><td class="n">8388608</td><td class="n">128</td><td>TRANSFERENCE again</td></tr>
+    <tr><td class="n">4096</td><td class="n">241</td><td>−i</td><td></td><td></td><td></td></tr>
+    <tr><td class="n">8192</td><td class="n">225</td><td>IDENTITY, k⁻¹</td><td></td><td></td><td></td></tr>
+  </table></div>
+  <p>Sixteen doublings from Oc return to it, 2⁷ to 2²³. The turn is 65536 = 2¹⁶ = F₄ − 1, the last Fermat prime less one, so the outward expansion never leaves the sixteen rungs. Up to 8192 the four-figure reading agrees with the exact residue because the numbers have four digits or fewer. From 16384 on the two readings part: 16384 exact is 193 INFRASTRUCTURE, by four figures 1638 → 96 BEETHOVEN; 65536 exact is 1, by four figures 6553 → 128, Oc itself. The tablet's words at 249 are EDDINGTON LUMINOSITY, GRAVITATIONAL G and BIP39 WORDLIST; EDDINGTON alone was not among them; by letters it sums to 92, CHRONOS's position, and went in there on 2026-09-13.</p>
+  <p><strong>The Eye of Horus.</strong> A vortex-mathematics card brought to the review on 2026-09-15 draws the doubling sequence reduced by digit sum, 1, 2, 4, 8, 7, 5 and repeat, beside the wedjat eye's six fractions 1/2, 1/4, 1/8, 1/16, 1/32, 1/64. Its arithmetic holds: 2 has order 6 mod 9, so the digit-sum orbit closes in six; the decimal halves .5, .25, .125, .0625, .03125 have digit sums 5, 7, 8, 4, 2, which is 5ᵏ mod 9 with 5 = 2⁻¹ mod 9, the same orbit run backwards; the six fractions sum to 63/64; and its stack 124 over 875 over 999 pairs each digit with its complement to 9. In the field the six fractions are the inverses of 2 through 64, and those are six rungs of the key's halving ladder: 1/2 = 129 HALF, ROOT OF DAVID; 1/4 = 193 INFRASTRUCTURE; 1/8 = 225 IDENTITY, k⁻¹; 1/16 = 241 = −i; 1/32 = 249 EDDINGTON LUMINOSITY; 1/64 = 253 INCOMPLETENESS THEOREM. The 64th the eye lacks is 253, and the six together, 63/64, are 5 = E. Where mod 9 folds n to 9 − n, the field folds n to 257 − n, so the card's pairs 1·8, 2·7, 4·5 become 1·256, 2·255, 4·253, 8·249, the doubling rungs against the halving rungs; the vortex closes in six and the field's ladder in sixteen because 2 has order 6 mod 9 and 16 mod 257, and 257 itself reduces to 5 mod 9, the figure the card writes under 1/2. The eye is the day's cell: 137 EYE OF HORUS is 2026-09-15 under the DATE command, day 9389, with dlog 72 BITCOIN, and it is the pole of Γ, the one impedance the reflection sends to infinity.</p>
+</section>
+<nav class="cr-pager" aria-label="Review pages"><a href="inventory.html">← The eighteen files</a><span>4 / 28</span><a href="chain-cosets.html">The binary refinement chain →</a></nav>
+</main>
+</div>
+<div class="ct-foot"><a href="../../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

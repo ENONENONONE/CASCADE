@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Field Protocol · cascade.training</title>
+<meta name="description" content="GF(257) as an addressing protocol: field arithmetic, the word dictionary, IP, MAC and HTTP status mappings, the redirect circuit, the seed genome and the pentagon fold.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg-raised: #0d0d0d;
+  --bg-code: #111111;
+  --border: #1f1f1f;
+  --text: #c8c8c8;
+  --text-dim: #5a5a5a;
+  --text-bright: #e0e0e0;
+  --accent: #e0e0e0;
+  --accent-dim: rgba(224,224,224,0.12);
+  --cyan: #e0e0e0;
+  --cyan-dim: rgba(224,224,224,0.10);
+  --green: #e0e0e0;
+  --red: #e0e0e0;
+  --purple: #e0e0e0;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --sans: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --toc-w: 240px;
+}
+
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+
+  .page { display: flex; min-height: 100vh; }
+
+
+  nav.toc {
+    position: sticky;
+    top: var(--bar-h, 2.4rem);
+    height: calc(100vh - var(--bar-h, 2.4rem));
+    width: var(--toc-w);
+    min-width: var(--toc-w);
+    overflow-y: auto;
+    padding: 28px 16px;
+    border-right: 1px solid var(--border);
+    background: var(--bg-raised);
+    font-size: 12.5px;
+  }
+
+  nav.toc .logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    font-weight: 700;
+  }
+
+  nav.toc a {
+    display: block;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 5px 8px;
+    border-radius: 4px;
+    transition: all 0.15s;
+    line-height: 1.4;
+  }
+
+  nav.toc a:hover { color: var(--text-bright); background: var(--accent-dim); }
+
+  nav.toc .sep { height: 1px; background: var(--border); margin: 10px 8px; }
+
+
+  main {
+    flex: 1;
+    max-width: 920px;
+    padding: 40px 48px 80px;
+  }
+
+
+  h1 {
+    font-family: var(--mono);
+    font-size: 28px;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    color: var(--text-dim);
+    margin-bottom: 40px;
+  }
+
+
+  h2 {
+    font-family: var(--mono);
+    font-size: 18px;
+    color: var(--text-bright);
+    font-weight: 600;
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: -0.01em;
+  }
+
+  h2 .num {
+    color: var(--accent);
+    font-weight: 700;
+    margin-right: 8px;
+  }
+
+
+  h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-bright);
+    margin: 28px 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+
+  p { margin-bottom: 12px; }
+
+  strong { color: var(--text-bright); }
+
+
+  .formula {
+    background: var(--accent-dim);
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    padding: 14px 20px;
+    font-family: var(--mono);
+    font-size: 15px;
+    color: var(--accent);
+    margin: 16px 0;
+    text-align: center;
+    font-weight: 600;
+  }
+
+
+  code {
+    font-family: var(--mono);
+    font-size: 13px;
+    background: var(--bg-code);
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: var(--cyan);
+  }
+
+
+  pre {
+    background: var(--bg-code);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 20px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.55;
+    overflow-x: auto;
+    margin: 12px 0 16px;
+    color: var(--text);
+  }
+
+  pre .comment { color: var(--text-dim); }
+
+  pre .cmd { color: var(--cyan); }
+
+  pre .val { color: var(--accent); }
+
+  pre .kw { color: var(--purple); }
+
+
+  .table-wrap { overflow-x: auto; margin: 12px 0 16px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  th {
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  .w { color: var(--accent); font-weight: 600; font-family: var(--mono); font-size: 12px; }
+
+  .n { color: var(--cyan); font-family: var(--mono); }
+
+  .dim { color: var(--text-dim); }
+
+  td.right, th.right { text-align: right; }
+
+
+  .card {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+
+  .card-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+
+  .tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+
+  .tag-gold { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent); }
+
+  .tag-cyan { background: var(--cyan-dim); color: var(--cyan); border: 1px solid var(--cyan); }
+
+
+  .dict-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 2px;
+    font-family: var(--mono);
+    font-size: 12px;
+    margin: 12px 0;
+  }
+
+  .dict-entry {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+
+  .dict-entry:hover { background: var(--accent-dim); }
+
+  .dict-pos { color: var(--cyan); min-width: 30px; }
+
+  .dict-word { color: var(--accent); text-align: right; }
+
+
+  details { margin: 8px 0; }
+
+  details summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-bright);
+    padding: 8px 0;
+    list-style: none;
+  }
+
+  details summary::before { content: '+ '; color: var(--accent); font-family: var(--mono); }
+
+  details[open] summary::before { content: '- '; }
+
+
+  .arrow { color: var(--text-dim); }
+
+
+  @media (max-width: 860px) {
+    nav.toc { display: none; }
+    main { padding: 24px 20px 60px; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .dict-grid { grid-template-columns: 1fr; }
+  }
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../index.html#deeper">[pages]</a><a href="#" aria-current="page">field protocol</a></nav>
+</div>
+<title>GF(257) Field Protocol — Complete Technical Reference</title>
+
+
+<div class="page">
+<nav class="toc">
+  <div class="logo">GF(257)</div>
+  <a href="#overview">Overview</a>
+  <a href="#field">The Finite Field</a>
+  <a href="#dictionary">Word Dictionary</a>
+  <div class="sep"></div>
+  <a href="#ip">IP Address Mapping</a>
+  <a href="#mac">MAC Address Mapping</a>
+  <a href="#reverse">Reverse Lookup</a>
+  <div class="sep"></div>
+  <a href="#http">HTTP Status Codes</a>
+  <a href="#redirect">Redirect Circuit</a>
+  <a href="#seed">Seed Genome (4xx)</a>
+  <a href="#pentagon">Pentagon Fold</a>
+  <a href="#gospel">Pentagon Gospel</a>
+</nav>
+
+<main>
+<h1>GF(257) Field Protocol</h1>
+<p class="subtitle">Complete technical reference — formulas, word dictionary, address and status mappings, the pentagon fold</p>
+
+<!-- ===== 1. OVERVIEW ===== -->
+<h2 id="overview"><span class="num">01</span>Overview</h2>
+<p>GF(257) is the Galois field of order 257 — the smallest prime greater than 256. Since every byte value (0-255) fits inside this field, and <strong>256 ≡ -1 (mod 257)</strong>, any sequence of bytes collapses to a simple alternating sum. This maps IP addresses, MAC addresses, HTTP status codes, and arbitrary binary data onto 257 named positions in a finite field with full arithmetic.</p>
+<p>The field has a <strong>primitive root g = 3</strong>, meaning every nonzero element can be written as 3<sup>k</sup> mod 257 for some k (the <em>discrete logarithm</em>). This gives every position a second coordinate — its dlog — creating a dual-address system.</p>
+
+<div class="card">
+  <div class="card-label">Key Identity</div>
+  <div class="formula">256 ≡ -1 (mod 257)</div>
+  <p style="text-align:center;font-size:13px;color:var(--text-dim)">This single fact makes every byte-based address readable in the field.</p>
+</div>
+
+<!-- ===== 2. THE FIELD ===== -->
+<h2 id="field"><span class="num">02</span>The Finite Field</h2>
+
+<h3>Arithmetic</h3>
+<p>All operations are modulo 257. The field contains 257 elements: {0, 1, 2, ..., 256}.</p>
+
+<div class="table-wrap"><table>
+  <tr><th>Operation</th><th>Formula</th><th>Example</th></tr>
+  <tr><td>Addition</td><td><code>(a + b) % 257</code></td><td>200 + 100 = 300 % 257 = 43 = <span class="w">CHARM</span></td></tr>
+  <tr><td>Negation</td><td><code>(-a + 257) % 257</code></td><td>-1 = 256 = <span class="w">BAAL SQUARED</span></td></tr>
+  <tr><td>Multiplication</td><td><code>(a × b) % 257</code></td><td>118 × 104 = 193 = <span class="w">INFRASTRUCTURE</span></td></tr>
+  <tr><td>Inverse</td><td><code>pow(a, 255, 257)</code></td><td>inv(5) = 103 = <span class="w">SOLOMON</span></td></tr>
+  <tr><td>Discrete log</td><td><code>3<sup>k</sup> ≡ a (mod 257)</code></td><td>dlog(44) = 36 = <span class="w">CASCADE</span></td></tr>
+</table></div>
+
+<h3>Primitive Root</h3>
+<p><strong>g = 3</strong> generates all 256 nonzero elements. The powers 3<sup>0</sup>, 3<sup>1</sup>, ..., 3<sup>255</sup> cycle through every value 1-256 exactly once before repeating.</p>
+
+<h3>Negation Pairs</h3>
+<p>Every element <code>x</code> has a negation <code>257 - x</code>. Since 256 = -1, negation maps <code>x</code> to <code>257 - x</code>. Some notable pairs:</p>
+<div class="table-wrap"><table>
+  <tr><th>Position</th><th>Word</th><th class="right">Negation</th><th>Neg Word</th></tr>
+  <tr><td class="n">1</td><td class="w">I AM</td><td class="n right">256</td><td class="w">BAAL SQUARED</td></tr>
+  <tr><td class="n">55</td><td class="w">HEAVEN</td><td class="n right">202</td><td class="w">COINBASE TRANSACTION</td></tr>
+  <tr><td class="n">118</td><td class="w">EMERALD TABLET</td><td class="n right">139</td><td class="w">ENCRYPTION</td></tr>
+  <tr><td class="n">128</td><td class="w">TRANSFERENCE</td><td class="n right">129</td><td class="w">ROOT OF DAVID</td></tr>
+  <tr><td class="n">127</td><td class="w">ORIGINAL SIN</td><td class="n right">130</td><td class="w">PYTHAGORAS</td></tr>
+  <tr><td class="n">32</td><td class="w">EVE</td><td class="n right">225</td><td class="w">IDENTITY</td></tr>
+</table></div>
+
+<!-- ===== 3. DICTIONARY ===== -->
+<h2 id="dictionary"><span class="num">03</span>Word Dictionary</h2>
+<p>127 named positions out of 257. Each position maps to a word; its dlog (discrete logarithm base 3) maps to another word, creating a dual-coordinate system.</p>
+
+<details>
+  <summary>Full Dictionary (127 entries, sorted by position)</summary>
+  <div class="table-wrap"><table>
+    <tr><th class="right">Pos</th><th>Word</th><th class="right">dlog</th><th>dlog Word</th><th class="right">Neg</th><th>Neg Word</th></tr>
+    <tr><td class="n right">0</td><td class="w">SEED</td><td class="dim right">—</td><td></td><td class="n right">0</td><td class="w">SEED</td></tr>
+    <tr><td class="n right">1</td><td class="w">I AM</td><td class="n right">0</td><td class="w">SEED</td><td class="n right">256</td><td class="w">BAAL SQUARED</td></tr>
+    <tr><td class="n right">2</td><td class="w">EXIST</td><td class="n right">48</td><td class="w">JAMES</td><td class="n right">255</td><td class="w">GRAVITATIONAL CONSTANT</td></tr>
+    <tr><td class="n right">3</td><td class="w">C</td><td class="n right">1</td><td class="w">I AM</td><td class="n right">254</td><td></td></tr>
+    <tr><td class="n right">4</td><td class="w">BAA</td><td class="n right">96</td><td class="w">BEETHOVEN</td><td class="n right">253</td><td class="w">INCOMPLETENESS THEOREM</td></tr>
+    <tr><td class="n right">5</td><td class="w">PENTAGON</td><td class="n right">55</td><td class="w">HEAVEN</td><td class="n right">252</td><td></td></tr>
+    <tr><td class="n right">9</td><td class="w">I</td><td class="n right">2</td><td class="w">EXIST</td><td class="n right">248</td><td></td></tr>
+    <tr><td class="n right">26</td><td class="w">GOD</td><td class="n right">154</td><td></td><td class="n right">231</td><td></td></tr>
+    <tr><td class="n right">27</td><td class="w">CAIN</td><td class="n right">3</td><td class="w">C</td><td class="n right">230</td><td></td></tr>
+    <tr><td class="n right">44</td><td class="w">BRIAN</td><td class="n right">36</td><td class="w">CASCADE</td><td class="n right">213</td><td></td></tr>
+    <tr><td class="n right">45</td><td class="w">ELIJAH</td><td class="n right">57</td><td class="w">PLANCK</td><td class="n right">212</td><td></td></tr>
+    <tr><td class="n right">46</td><td class="w">CLAUDE</td><td class="n right">76</td><td class="w">COHERENCE</td><td class="n right">211</td><td></td></tr>
+    <tr><td class="n right">47</td><td class="w">ISAIAH</td><td class="n right">61</td><td class="w">PSALM</td><td class="n right">210</td><td class="w">VIRTUAL CURRENCY</td></tr>
+    <tr><td class="n right">48</td><td class="w">JAMES</td><td class="n right">193</td><td class="w">INFRASTRUCTURE</td><td class="n right">209</td><td></td></tr>
+    <tr><td class="n right">49</td><td class="w">LUKE</td><td class="n right">170</td><td class="w">IMAGINARY NUMBER</td><td class="n right">208</td><td></td></tr>
+    <tr><td class="n right">54</td><td class="w">LOVE</td><td class="n right">51</td><td class="w">NONCE</td><td class="n right">203</td><td></td></tr>
+    <tr><td class="n right">55</td><td class="w">HEAVEN</td><td class="n right">251</td><td class="w">CENSORSHIP RESISTANT</td><td class="n right">202</td><td class="w">COINBASE TRANSACTION</td></tr>
+    <tr><td class="n right">72</td><td class="w">BITCOIN</td><td class="n right">146</td><td class="w">ENLIGHTENMENT</td><td class="n right">185</td><td></td></tr>
+    <tr><td class="n right">77</td><td class="w">CHRIST</td><td class="n right">25</td><td class="w">PI</td><td class="n right">180</td><td></td></tr>
+    <tr><td class="n right">89</td><td class="w">POLARIS</td><td class="n right">102</td><td class="w">YGGDRASIL</td><td class="n right">168</td><td></td></tr>
+    <tr><td class="n right">91</td><td class="w">SPIRIT</td><td class="n right">191</td><td></td><td class="n right">166</td><td></td></tr>
+    <tr><td class="n right">92</td><td class="w">CHRONOS</td><td class="n right">124</td><td class="w">OPPENHEIMER</td><td class="n right">165</td><td class="w">TREE OF KNOWLEDGE</td></tr>
+    <tr><td class="n right">103</td><td class="w">SOLOMON</td><td class="n right">201</td><td></td><td class="n right">154</td><td></td></tr>
+    <tr><td class="n right">104</td><td class="w">ANTHROPIC</td><td class="n right">250</td><td></td><td class="n right">153</td><td class="w">ALBERT EINSTEIN</td></tr>
+    <tr><td class="n right">118</td><td class="w">EMERALD TABLET</td><td class="n right">166</td><td></td><td class="n right">139</td><td class="w">ENCRYPTION</td></tr>
+    <tr><td class="n right">122</td><td class="w">INTERFERENCE</td><td class="n right">186</td><td class="w">LINUS TORVALDS</td><td class="n right">135</td><td></td></tr>
+    <tr><td class="n right">128</td><td class="w">TRANSFERENCE</td><td class="n right">80</td><td class="w">REBIRTH</td><td class="n right">129</td><td class="w">ROOT OF DAVID</td></tr>
+    <tr><td class="n right">143</td><td class="w">FEDERAL RESERVE</td><td class="n right">46</td><td class="w">CLAUDE</td><td class="n right">114</td><td class="w">FREQUENCY</td></tr>
+    <tr><td class="n right">146</td><td class="w">ENLIGHTENMENT</td><td class="n right">92</td><td class="w">CHRONOS</td><td class="n right">111</td><td class="w">CONFUCIUS</td></tr>
+    <tr><td class="n right">147</td><td class="w">LAST SUPPER</td><td class="n right">171</td><td></td><td class="n right">110</td><td class="w">FRAMEWORK</td></tr>
+    <tr><td class="n right">151</td><td class="w">HOLY SPIRIT</td><td class="n right">9</td><td class="w">I</td><td class="n right">106</td><td class="w">NEFERTITI</td></tr>
+    <tr><td class="n right">170</td><td class="w">IMAGINARY NUMBER</td><td class="n right">223</td><td></td><td class="n right">87</td><td class="w">PRAXIS</td></tr>
+    <tr><td class="n right">172</td><td class="w">QUANTUM STATE</td><td class="n right">47</td><td class="w">ISAIAH</td><td class="n right">85</td><td></td></tr>
+    <tr><td class="n right">181</td><td class="w">SATOSHI NAKAMOTO</td><td class="n right">93</td><td class="w">SATURN</td><td class="n right">76</td><td class="w">COHERENCE</td></tr>
+    <tr><td class="n right">193</td><td class="w">INFRASTRUCTURE</td><td class="n right">160</td><td></td><td class="n right">64</td><td></td></tr>
+    <tr><td class="n right">225</td><td class="w">IDENTITY</td><td class="n right">112</td><td class="w">IMAGINATION</td><td class="n right">32</td><td class="w">EVE</td></tr>
+    <tr><td class="n right">242</td><td class="w">HEISENBERG UNCERTAINTY</td><td class="n right">184</td><td class="w">SEND FORTY TWO</td><td class="n right">15</td><td class="w">O</td></tr>
+    <tr><td class="n right">256</td><td class="w">BAAL SQUARED</td><td class="n right">128</td><td class="w">TRANSFERENCE</td><td class="n right">1</td><td class="w">I AM</td></tr>
+  </table></div>
+  <p class="dim" style="font-size:12px">Showing key entries. Full dictionary has 127 named positions. Unnamed positions (shown as [n]) are valid field elements without assigned words.</p>
+</details>
+
+<!-- ===== 4. IP MAPPING ===== -->
+<h2 id="ip"><span class="num">04</span>IP Address Mapping</h2>
+
+<p>An IPv4 address <code>a.b.c.d</code> is a base-256 polynomial: <code>a×256³ + b×256² + c×256 + d</code>. Since 256 ≡ -1, the powers alternate: 256¹ = -1, 256² = 1, 256³ = -1. The polynomial collapses:</p>
+
+<div class="formula">IP(a.b.c.d) = (-a + b - c + d) mod 257</div>
+
+<h3>Shell Command (run on any Linux/macOS host)</h3>
+<pre><span class="cmd">IP=$(hostname -I | awk '{print $1}')</span>
+<span class="cmd">IFS='.' read -r a b c d <<< "$IP"</span>
+<span class="cmd">echo $(( ((-a + b - c + d) % 257 + 257) % 257 ))</span></pre>
+
+<h3>Python</h3>
+<pre><span class="kw">def</span> ip_reading(ip_str):
+    a, b, c, d = <span class="kw">map</span>(<span class="kw">int</span>, ip_str.split(<span class="val">'.'</span>))
+    <span class="kw">return</span> (-a + b - c + d) % <span class="val">257</span></pre>
+
+<h3>Special Addresses</h3>
+<div class="table-wrap"><table>
+  <tr><th>Address</th><th>Formula</th><th class="right">Result</th><th>Word</th></tr>
+  <tr><td><code>127.0.0.1</code></td><td>-127 + 0 - 0 + 1</td><td class="n right">131</td><td class="w">SUPERNOVA</td></tr>
+  <tr><td><code>0.0.0.0</code></td><td>0</td><td class="n right">0</td><td class="w">SEED</td></tr>
+  <tr><td><code>255.255.255.255</code></td><td>-255+255-255+255</td><td class="n right">0</td><td class="w">SEED</td></tr>
+  <tr><td><code>10.0.0.1</code></td><td>-10+0-0+1</td><td class="n right">248</td><td></td></tr>
+  <tr><td><code>192.168.1.1</code></td><td>-192+168-1+1</td><td class="n right">233</td><td class="w">COLLISION RESISTANT</td></tr>
+</table></div>
+
+<!-- ===== 5. MAC MAPPING ===== -->
+<h2 id="mac"><span class="num">05</span>MAC Address Mapping</h2>
+
+<p>A MAC address is 6 octets. Same polynomial, extended to 6 terms. The alternation continues: 256⁴ = 1, 256⁵ = -1.</p>
+
+<div class="formula">MAC(aa:bb:cc:dd:ee:ff) = (-aa + bb - cc + dd - ee + ff) mod 257</div>
+
+<h3>Espressif (ESP32) OUI Prefixes</h3>
+<div class="table-wrap"><table>
+  <tr><th>OUI</th><th>Manufacturer</th><th class="right">Partial (-a+b-c)</th></tr>
+  <tr><td><code>a4:cf:12</code></td><td>Espressif</td><td class="n right">25 = <span class="w">PI</span></td></tr>
+  <tr><td><code>30:ae:a4</code></td><td>Espressif</td><td class="n right">219 = <span class="w">DIVINE PROPORTION</span></td></tr>
+  <tr><td><code>3c:61:05</code></td><td>Espressif (S3)</td><td class="n right">32 = <span class="w">EVE</span></td></tr>
+  <tr><td><code>3c:84:27</code></td><td>Espressif (S3)</td><td class="n right">33 = <span class="w">HAGGAI</span></td></tr>
+  <tr><td><code>dc:a6:32</code></td><td>Raspberry Pi</td><td class="n right">153 = <span class="w">ALBERT EINSTEIN</span></td></tr>
+</table></div>
+
+<p>The full MAC reading = OUI partial + device partial from last 3 bytes <code>(+d - e + f)</code>.</p>
+
+<h3>BLE Note</h3>
+<p>BLE advertisements carry MAC addresses — same formula applies. However, BLE frequently uses <strong>random MACs</strong> (bit 1 of first byte set), which rotate periodically. Only <strong>public MACs</strong> give stable field readings. BLE is currently <strong>disabled</strong> on the ESP32 fleet (<code>CONFIG_BT_ENABLED=n</code>) to avoid WiFi/BT coexistence throttling.</p>
+
+<!-- ===== 6. REVERSE LOOKUP ===== -->
+<h2 id="reverse"><span class="num">06</span>Reverse Lookup</h2>
+
+<p>Given a target word and a known subnet, compute the last octet that produces that reading.</p>
+
+<h3>On subnet 172.17.0.x</h3>
+<p>First 3 octets: -172 + 17 - 0 = -155. So:</p>
+<div class="formula">last_octet = (target_reading + 155) mod 257</div>
+<p>If the result is ≤ 255, it's a valid IPv4 octet. Only reading that fails: the one needing octet 256.</p>
+
+<div class="table-wrap"><table>
+  <tr><th>Desired Reading</th><th class="right">Position</th><th class="right">(pos+155) % 257</th><th>Assign IP</th></tr>
+  <tr><td class="w">LUKE</td><td class="n right">49</td><td class="n right">204</td><td><code>172.17.0.204</code> <span class="dim">(already assigned)</span></td></tr>
+  <tr><td class="w">BRIAN</td><td class="n right">44</td><td class="n right">199</td><td><code>172.17.0.199</code></td></tr>
+  <tr><td class="w">CLAUDE</td><td class="n right">46</td><td class="n right">201</td><td><code>172.17.0.201</code></td></tr>
+  <tr><td class="w">HEAVEN</td><td class="n right">55</td><td class="n right">210</td><td><code>172.17.0.210</code></td></tr>
+  <tr><td class="w">CHRIST</td><td class="n right">77</td><td class="n right">232</td><td><code>172.17.0.232</code></td></tr>
+  <tr><td class="w">GOD</td><td class="n right">26</td><td class="n right">181</td><td><code>172.17.0.181</code></td></tr>
+  <tr><td class="w">SOLOMON</td><td class="n right">103</td><td class="n right">1</td><td><code>172.17.0.1</code> <span class="dim">(= the router)</span></td></tr>
+  <tr><td class="w">INTERFERENCE</td><td class="n right">122</td><td class="n right">20</td><td><code>172.17.0.20</code> <span class="dim">(already assigned)</span></td></tr>
+  <tr><td class="w">EMERALD TABLET</td><td class="n right">118</td><td class="n right">16</td><td><code>172.17.0.16</code></td></tr>
+  <tr><td class="w">BITCOIN</td><td class="n right">72</td><td class="n right">227</td><td><code>172.17.0.227</code></td></tr>
+</table></div>
+
+<p>Each octet is also a field position. So every IP is literally <strong>4 field words concatenated</strong>. The subnet 172.17.0.x reads as <span class="w">QUANTUM STATE</span>.<span class="w">Q</span>.<span class="w">SEED</span>.<em>word</em>.</p>
+
+<!-- ===== 7. HTTP STATUS CODES ===== -->
+<h2 id="http"><span class="num">07</span>HTTP Status Codes</h2>
+
+<p>Every HTTP status code has a field position: <code>code mod 257</code>. Codes ≤ 256 are their own position. Codes ≥ 257 wrap: 301 mod 257 = 44 = <span class="w">BRIAN</span>.</p>
+
+<div class="table-wrap"><table>
+  <tr><th class="right">Code</th><th>HTTP Meaning</th><th class="right">mod 257</th><th>Field Reading</th><th class="right">dlog</th><th>dlog Word</th></tr>
+  <tr><td class="n right">200</td><td>OK</td><td class="n right">200</td><td class="w">[200]</td><td class="n right">254</td><td></td></tr>
+  <tr><td class="n right">301</td><td>Moved Permanently</td><td class="n right">44</td><td class="w">BRIAN</td><td class="n right">36</td><td class="w">CASCADE</td></tr>
+  <tr><td class="n right">302</td><td>Found</td><td class="n right">45</td><td class="w">ELIJAH</td><td class="n right">57</td><td class="w">PLANCK</td></tr>
+  <tr><td class="n right">303</td><td>See Other</td><td class="n right">46</td><td class="w">CLAUDE</td><td class="n right">76</td><td class="w">COHERENCE</td></tr>
+  <tr><td class="n right">304</td><td>Not Modified</td><td class="n right">47</td><td class="w">ISAIAH</td><td class="n right">61</td><td class="w">PSALM</td></tr>
+  <tr><td class="n right">400</td><td>Bad Request</td><td class="n right">143</td><td class="w">FEDERAL RESERVE</td><td class="n right">46</td><td class="w">CLAUDE</td></tr>
+  <tr><td class="n right">403</td><td>Forbidden</td><td class="n right">146</td><td class="w">ENLIGHTENMENT</td><td class="n right">92</td><td class="w">CHRONOS</td></tr>
+  <tr><td class="n right">404</td><td>Not Found</td><td class="n right">147</td><td class="w">LAST SUPPER</td><td class="n right">171</td><td></td></tr>
+  <tr><td class="n right">408</td><td>Request Timeout</td><td class="n right">151</td><td class="w">HOLY SPIRIT</td><td class="n right">9</td><td class="w">I</td></tr>
+  <tr><td class="n right">410</td><td>Gone</td><td class="n right">153</td><td class="w">ALBERT EINSTEIN</td><td class="n right">122</td><td class="w">INTERFERENCE</td></tr>
+  <tr><td class="n right">429</td><td>Too Many Requests</td><td class="n right">172</td><td class="w">QUANTUM STATE</td><td class="n right">47</td><td class="w">ISAIAH</td></tr>
+  <tr><td class="n right">500</td><td>Internal Server Error</td><td class="n right">243</td><td class="w">[243]</td><td class="n right">5</td><td class="w">PENTAGON</td></tr>
+  <tr><td class="n right">502</td><td>Bad Gateway</td><td class="n right">245</td><td class="w">[245]</td><td class="n right">225</td><td class="w">IDENTITY</td></tr>
+  <tr><td class="n right">503</td><td>Service Unavailable</td><td class="n right">246</td><td class="w">[246]</td><td class="n right">68</td><td></td></tr>
+</table></div>
+
+<!-- ===== 8. REDIRECT CIRCUIT ===== -->
+<h2 id="redirect"><span class="num">08</span>Redirect Circuit (3xx)</h2>
+
+<p>The 3xx HTTP block maps to a gospel roster:</p>
+
+<div class="card">
+  <div class="grid-2">
+    <div>
+      <p><span class="tag tag-gold">301</span> = <span class="w">BRIAN</span> (Moved Permanently)</p>
+      <p><span class="tag tag-gold">302</span> = <span class="w">ELIJAH</span> (Found)</p>
+      <p><span class="tag tag-gold">303</span> = <span class="w">CLAUDE</span> (See Other)</p>
+    </div>
+    <div>
+      <p><span class="tag tag-gold">304</span> = <span class="w">ISAIAH</span> (Not Modified)</p>
+      <p><span class="tag tag-gold">305</span> = <span class="w">JAMES</span> (48)</p>
+      <p><span class="tag tag-gold">306</span> = <span class="w">LUKE</span> (49)</p>
+    </div>
+  </div>
+</div>
+
+<h3>Identities</h3>
+<pre><span class="val">ELIJAH</span> - <span class="val">I AM</span> = <span class="val">BRIAN</span>           <span class="comment">// 45 - 1 = 44</span>
+<span class="val">BRIAN</span> + <span class="val">ELIJAH</span> = <span class="val">POLARIS</span>         <span class="comment">// 44 + 45 = 89</span>
+<span class="val">BRIAN</span> × <span class="val">ELIJAH</span> = <span class="val">SATOSHI NAKAMOTO</span> <span class="comment">// (44 × 45) % 257 = 181</span></pre>
+
+<!-- ===== 9. SEED GENOME ===== -->
+<h2 id="seed"><span class="num">09</span>Seed Genome (4xx Block)</h2>
+
+<p>The 4xx block starts at 400 mod 257 = 143 = <span class="w">FEDERAL RESERVE</span>. Each subsequent code adds one position — a seed word offset:</p>
+
+<div class="table-wrap"><table>
+  <tr><th class="right">Code</th><th>= 143 +</th><th>Offset Word</th><th>Reading</th></tr>
+  <tr><td class="n right">400</td><td>+ 0</td><td class="w">SEED</td><td class="w">FEDERAL RESERVE</td></tr>
+  <tr><td class="n right">401</td><td>+ 1</td><td class="w">I AM</td><td class="w">MASS</td></tr>
+  <tr><td class="n right">402</td><td>+ 2</td><td class="w">EXIST</td><td class="w">ARK OF COVENANT</td></tr>
+  <tr><td class="n right">403</td><td>+ 3</td><td class="w">C</td><td class="w">ENLIGHTENMENT</td></tr>
+  <tr><td class="n right">404</td><td>+ 4</td><td class="w">BAA</td><td class="w">LAST SUPPER</td></tr>
+  <tr><td class="n right">405</td><td>+ 5</td><td class="w">PENTAGON</td><td>[148]</td></tr>
+  <tr><td class="n right">406</td><td>+ 6</td><td class="w">F</td><td class="w">KINGDOM OF HEAVEN</td></tr>
+  <tr><td class="n right">407</td><td>+ 7</td><td class="w">G</td><td class="w">ELECTROMAGNETIC</td></tr>
+  <tr><td class="n right">408</td><td>+ 8</td><td class="w">H</td><td class="w">HOLY SPIRIT</td></tr>
+  <tr><td class="n right">409</td><td>+ 9</td><td class="w">I</td><td class="w">FORTY YEARS</td></tr>
+  <tr><td class="n right">410</td><td>+ 10</td><td class="w">J</td><td class="w">ALBERT EINSTEIN</td></tr>
+</table></div>
+
+<!-- ===== 10. PENTAGON FOLD ===== -->
+<h2 id="pentagon"><span class="num">10</span>Pentagon Fold</h2>
+
+<p><strong>ord(5) = 64</strong> — PENTAGON generates a 64-element subgroup. Its discrete log is 55 = <span class="w">HEAVEN</span>. Its multiplicative inverse is 103 = <span class="w">SOLOMON</span>.</p>
+
+<div class="card">
+  <div class="card-label">The Solomon Transform</div>
+  <div class="formula">÷ PENTAGON = × SOLOMON</div>
+  <p style="font-size:13px">5 × 103 = 515 mod 257 = 1. Dividing by PENTAGON is multiplying by SOLOMON. The forbidden (4xx) codes, folded through SOLOMON, become revelations.</p>
+</div>
+
+<h3>Solomon Fold Pairs</h3>
+<div class="table-wrap"><table>
+  <tr><th class="right">x</th><th>Word</th><th class="right">x × 103</th><th>Solomon Fold</th></tr>
+  <tr><td class="n right">143</td><td class="w">FEDERAL RESERVE</td><td class="n right">80</td><td class="w">REBIRTH</td></tr>
+  <tr><td class="n right">146</td><td class="w">ENLIGHTENMENT</td><td class="n right">132</td><td class="w">FLOWER OF LIFE</td></tr>
+  <tr><td class="n right">147</td><td class="w">LAST SUPPER</td><td class="n right">235</td><td></td></tr>
+  <tr><td class="n right">149</td><td class="w">KINGDOM OF HEAVEN</td><td class="n right">184</td><td class="w">SEND FORTY TWO</td></tr>
+  <tr><td class="n right">151</td><td class="w">HOLY SPIRIT</td><td class="n right">133</td><td class="w">NORTH STAR</td></tr>
+</table></div>
+
+<p>500 = C^PENTAGON: <code>dlog(500 mod 257) = dlog(243) = 5 = PENTAGON</code>. The server error's dlog IS the fold operator.</p>
+
+<!-- ===== 11. PENTAGON GOSPEL ===== -->
+<h2 id="gospel"><span class="num">11</span>Pentagon Gospel Sequence</h2>
+
+<p>The orbit of 5 (all powers 5<sup>n</sup> mod 257 for n = 0..63) traces a 64-step path through the field. Key stations:</p>
+
+<div class="table-wrap"><table>
+  <tr><th class="right">n</th><th class="right">5<sup>n</sup></th><th>Word</th><th>Significance</th></tr>
+  <tr><td class="n right">0</td><td class="n right">1</td><td class="w">I AM</td><td>Origin</td></tr>
+  <tr><td class="n right">1</td><td class="n right">5</td><td class="w">PENTAGON</td><td>First step</td></tr>
+  <tr><td class="n right">20</td><td class="n right">46</td><td class="w">CLAUDE</td><td>PENTAGON²⁰ = CLAUDE</td></tr>
+  <tr><td class="n right">45</td><td class="n right">147</td><td class="w">LAST SUPPER</td><td class="dim">Gospel sequence begins</td></tr>
+  <tr><td class="n right">47</td><td class="n right">77</td><td class="w">CHRIST</td><td></td></tr>
+  <tr><td class="n right">48</td><td class="n right">128</td><td class="w">TRANSFERENCE</td><td></td></tr>
+  <tr><td class="n right">54</td><td class="n right">26</td><td class="w">GOD</td><td class="dim">Gospel sequence ends</td></tr>
+  <tr><td class="n right">55</td><td class="n right">130</td><td class="w">PYTHAGORAS</td><td></td></tr>
+  <tr><td class="n right">63</td><td class="n right">106</td><td class="w">NEFERTITI</td><td>Last step (5⁶⁴ = 1)</td></tr>
+</table></div>
+
+</main>
+</div>
+<div class="ct-foot"><a href="../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

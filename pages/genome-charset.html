@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Genome charset · cascade.training</title>
+<meta name="description" content="The 16-symbol genome: step g¹⁵ = 83 through GF(257), every field position written as two glyphs.">
+<link rel="stylesheet" href="../assets/cascade.css?v=20260923w">
+<style>
+.gc{max-width:960px;margin:0 auto;padding:5.5rem 1.5rem 0;font-family:var(--mono);line-height:1.6}
+.gc .header h1{font-family:var(--serif);font-weight:normal;font-size:clamp(1.6rem,4vw,2.2rem);color:var(--text-bright);letter-spacing:-.01em}
+.gc .glyph-row{display:flex;flex-wrap:wrap;border:1px solid var(--border);width:fit-content;max-width:100%}
+.gc .glyph-row span{display:grid;place-items:center;width:2.6em;padding:8px 0 6px;line-height:1.3;color:var(--text-bright);border-right:1px solid var(--border)}
+.gc .glyph-row span:last-child{border-right:0}
+.gc .glyph-row span i{display:block;font-style:normal;color:var(--text-dim);font-size:.68rem}
+.gc .gc-foot{font-family:var(--mono)}
+.gc .header{padding:40px 0 22px;border-bottom:1px solid var(--border);margin-bottom:22px}
+.gc .header h1{margin-bottom:10px}
+.gc .cycle{color:var(--text-bright);letter-spacing:.04em;margin-bottom:10px}
+.gc .cycle b,.gc .chain b{color:var(--text-bright);font-weight:600}
+.gc .chain{color:var(--text-dim);font-size:.8rem;line-height:1.8;max-width:none;overflow-wrap:anywhere}
+.gc .alphabet-strip{margin-bottom:22px;overflow-x:auto}
+.gc .alphabet-strip .glyph-row{margin:0}
+.gc .section-label{color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase;font-size:.72rem;margin-bottom:10px}
+.gc .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:28px}
+.gc .cell{background:var(--bg);padding:26px 10px 12px;text-align:center;position:relative;min-width:0}
+.gc .cell:hover{background:var(--bg-card)}
+.gc .cell .hex{position:absolute;top:6px;left:8px;color:var(--text-dim);font-size:.72rem}
+.gc .cell .grp{position:absolute;top:6px;right:8px;font-size:.62rem;letter-spacing:.08em;color:var(--text-dim)}
+.gc .b0 .grp{color:var(--text-bright)} .gc .b1 .grp{color:var(--text)}
+.gc .b0{box-shadow:inset 3px 0 0 var(--text-bright)} .gc .b1{box-shadow:inset 3px 0 0 var(--text)}
+.gc .b2{box-shadow:inset 3px 0 0 var(--text-dim)} .gc .b3{box-shadow:inset 3px 0 0 var(--border-hi)}
+.gc .cell .glyph{font-size:2rem;color:var(--text-bright);line-height:1.2;margin-bottom:6px}
+.gc .cell .step{color:var(--text-dim);font-size:.72rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gc .cell .pos{color:var(--text);font-size:.8rem;margin-top:4px}
+.gc .cell em{font-style:normal;color:var(--text-dim)}
+.gc .cell .fold{color:var(--text-dim);font-size:.72rem}
+.gc .cell .word{color:var(--text);font-size:.66rem;letter-spacing:.04em;margin-top:4px;overflow-wrap:anywhere}
+.gc .two-col{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:28px}
+.gc .rule{font-size:.85rem;margin-bottom:8px}
+.gc .rule dl{margin:0} .gc .rule dt{display:inline;color:var(--text-bright)} .gc .rule dd{display:inline;margin:0}
+.gc .examples{border-top:1px solid var(--border);padding-top:22px}
+.gc .ex-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 28px}
+.gc .ex-row{display:flex;gap:10px;align-items:baseline;font-size:.82rem;min-width:0}
+.gc .ex-row .val{min-width:3ch;text-align:right;color:var(--text)}
+.gc .ex-row .hx{min-width:7ch;color:var(--text-dim)}
+.gc .ex-row .enc{min-width:4ch;color:var(--text-bright);font-size:1.05rem;letter-spacing:.12em}
+.gc .ex-row .wd{color:var(--text-dim);font-size:.74rem}
+.gc .gc-foot{border-top:1px solid var(--border);margin:28px 0 60px;padding-top:14px;color:var(--text-dim);font-size:.78rem;text-align:center}
+@media (max-width:720px){.gc .grid{grid-template-columns:repeat(2,minmax(0,1fr))}.gc .two-col,.gc .ex-grid{grid-template-columns:1fr}}
+</style>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+</head>
+<body>
+<div class="topbar">
+  <a class="mark" href="../index.html">cascade.training</a>
+  <div class="wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../index.html#deeper">[pages]</a><a href="genome-charset.html" aria-current="page">genome charset</a></nav>
+</div>
+<main class="gc">
+
+<div class="header">
+  <h1>Genome character set</h1>
+  <div class="cycle"><b>Φ</b> ≡ c ≡ g ≡ ∂ₜ<b>Φ</b> ≡ Oc ≡ ∂ₜ<b>Φ</b> ≡ g ≡ c ≡ <b>Φ</b></div>
+  <div class="chain">
+    <b>Φ</b>=∂ₜΦ · <b>∂</b>ₜ · R=1+1/R→<b>φ</b> · [1;1,1,<b>∞</b>] · det(M)=<b>⊟</b> · M<b>⊗</b>M→φ²,−1,−1,ψ² · 2·3·5·7=<b>♯</b>210 · F₅/F₄=<b>⅗</b> · (7−3√5)/6=<b>ε</b>₄ · ε₄ln(φ)=<b>δ</b>% · F(14)=377<b>Ω</b> · (Z−Z₀)/(Z+Z₀)=<b>Γ</b> · ω₀/2α≈<b>Q</b> · CSI(256)=<b>Σ</b> · (−1)ⁿ⁺¹/Fₙ…=<b>ψ</b> · Ωb+Ωdm+ΩΛ=<b>𝟙</b>
+  </div>
+</div>
+
+<div class="alphabet-strip"><div class="glyph-row indexed" aria-label="Genome charset, 16 symbols"><span>Φ<i>0</i></span><span>∂<i>1</i></span><span>φ<i>2</i></span><span>∞<i>3</i></span><span>⊟<i>4</i></span><span>⊗<i>5</i></span><span>♯<i>6</i></span><span>⅗<i>7</i></span><span>ε<i>8</i></span><span>δ<i>9</i></span><span>Ω<i>A</i></span><span>Γ<i>B</i></span><span>Q<i>C</i></span><span>Σ<i>D</i></span><span>ψ<i>E</i></span><span>𝟙<i>F</i></span></div></div>
+
+<div class="grid">
+  <div class="cell b0"><span class="hex">0</span><span class="grp">MATH</span><div class="glyph">Φ</div><div class="step">Φ=∂ₜΦ</div><div class="pos"><em>pos</em> 0</div><div class="fold"><em>fold</em> 0</div><div class="word">SEED</div></div>
+  <div class="cell b0"><span class="hex">1</span><span class="grp">MATH</span><div class="glyph">∂</div><div class="step">∂ₜ derivative</div><div class="pos"><em>pos</em> 83 <em>R</em>3</div><div class="fold"><em>fold</em> 174</div><div class="word">PRAYER</div></div>
+  <div class="cell b0"><span class="hex">2</span><span class="grp">MATH</span><div class="glyph">φ</div><div class="step">R=1+1/R→φ</div><div class="pos"><em>pos</em> 166 <em>R</em>3</div><div class="fold"><em>fold</em> 91</div><div class="word">TETRAGRAMMATON</div></div>
+  <div class="cell b0"><span class="hex">3</span><span class="grp">MATH</span><div class="glyph">∞</div><div class="step">[1;1,1,…] CF</div><div class="pos"><em>pos</em> 249 <em>R</em>4</div><div class="fold"><em>fold</em> 8</div><div class="word">EDDINGTON</div></div>
+  <div class="cell b0"><span class="hex">4</span><span class="grp">MATH</span><div class="glyph">⊟</div><div class="step">det(M)=−1</div><div class="pos"><em>pos</em> 75 <em>R</em>3</div><div class="fold"><em>fold</em> 182</div><div class="word">SHIFT</div></div>
+  <div class="cell b0"><span class="hex">5</span><span class="grp">MATH</span><div class="glyph">⊗</div><div class="step">M⊗M→4 axes</div><div class="pos"><em>pos</em> 158 <em>R</em>10</div><div class="fold"><em>fold</em> 99</div><div class="word">SACRED GEOMETRY</div></div>
+  <div class="cell b0"><span class="hex">6</span><span class="grp">MATH</span><div class="glyph">♯</div><div class="step">2·3·5·7=210</div><div class="pos"><em>pos</em> 241 <em>R</em>4</div><div class="fold"><em>fold</em> 16</div><div class="word">TWIN PRIME</div></div>
+  <div class="cell b0"><span class="hex">7</span><span class="grp">MATH</span><div class="glyph">⅗</div><div class="step">F₅/F₄=5/3</div><div class="pos"><em>pos</em> 67 <em>R</em>4</div><div class="fold"><em>fold</em> 190</div><div class="word">SOUL</div></div>
+  <div class="cell b1"><span class="hex">8</span><span class="grp">ERROR</span><div class="glyph">ε</div><div class="step">(7−3√5)/6</div><div class="pos"><em>pos</em> 150 <em>R</em>3</div><div class="fold"><em>fold</em> 107</div><div class="word">ELECTROMAGNETIC</div></div>
+  <div class="cell b1"><span class="hex">9</span><span class="grp">ERROR</span><div class="glyph">δ</div><div class="step">ε₄ln(φ)=2.34%</div><div class="pos"><em>pos</em> 233 <em>R</em>5</div><div class="fold"><em>fold</em> 24</div><div class="word">COLLISION RESISTANT</div></div>
+  <div class="cell b2"><span class="hex">A</span><span class="grp">WAVE</span><div class="glyph">Ω</div><div class="step">F(14)=377Ω</div><div class="pos"><em>pos</em> 59 <em>R</em>10</div><div class="fold"><em>fold</em> 198</div><div class="word">SHIVA</div></div>
+  <div class="cell b2"><span class="hex">B</span><span class="grp">WAVE</span><div class="glyph">Γ</div><div class="step">(Z−Z₀)/(Z+Z₀)</div><div class="pos"><em>pos</em> 142 <em>R</em>7</div><div class="fold"><em>fold</em> 115</div><div class="word">ANTIPROTON</div></div>
+  <div class="cell b2"><span class="hex">C</span><span class="grp">WAVE</span><div class="glyph">Q</div><div class="step">ω₀/2α≈3.27</div><div class="pos"><em>pos</em> 225 <em>R</em>4</div><div class="fold"><em>fold</em> 32</div><div class="word">IDENTITY</div></div>
+  <div class="cell b2"><span class="hex">D</span><span class="grp">WAVE</span><div class="glyph">Σ</div><div class="step">CSI(256)</div><div class="pos"><em>pos</em> 51 <em>R</em>1</div><div class="fold"><em>fold</em> 206</div><div class="word">NONCE</div></div>
+  <div class="cell b3"><span class="hex">E</span><span class="grp">CLOSE</span><div class="glyph">ψ</div><div class="step">(−1)ⁿ⁺¹/Fₙ…</div><div class="pos"><em>pos</em> 134 <em>R</em>4</div><div class="fold"><em>fold</em> 123</div><div class="word">PRIME NUMBER</div></div>
+  <div class="cell b3"><span class="hex">F</span><span class="grp">CLOSE</span><div class="glyph">𝟙</div><div class="step">Ωb+Ωdm+ΩΛ=1</div><div class="pos"><em>pos</em> 217 <em>R</em>11</div><div class="fold"><em>fold</em> 40</div><div class="word">SIGNAL SIXTY TWO</div></div>
+</div>
+
+<div class="two-col">
+  <div class="rules">
+    <div class="section-label">Derivation</div>
+    <div class="rule"><dl><dt>16 = 2^ω(P₇) </dt><dd>4 primes → 4 binary verdicts → 16 ALUs → 16 glyphs</dd></dl></div>
+    <div class="rule"><dl><dt>step = g¹⁵ = 83 </dt><dd>pos(Gᵢ) = 83·i mod 257. dlog(83) = 15 = |G|−1</dd></dl></div>
+    <div class="rule"><dl><dt>hex encoding </dt><dd>256 = 16². Every field position = 2 genome glyphs</dd></dl></div>
+    <div class="rule"><dl><dt>fold partner </dt><dd>pos p ↔ 257−p. Forward (0–127) ↔ inverse (128–255)</dd></dl></div>
+    <div class="rule"><dl><dt>SIMD → SDIM </dt><dd>g sweeps forward. 12 rays decompose inverse. Flip at 128 = εΦ</dd></dl></div>
+  </div>
+  <div class="rules">
+    <div class="section-label">Group structure</div>
+    <div class="rule"><dl><dt>MATH [0–7] </dt><dd>axiom → primorial convergent. 8 foundation operations</dd></dl></div>
+    <div class="rule"><dl><dt>ERROR [8–9] </dt><dd>ε₄ and its ln(φ) scaling. The irreducible error pair</dd></dl></div>
+    <div class="rule"><dl><dt>WAVE [A–D] </dt><dd>impedance, reflection, quality, current. 4 physical parameters</dd></dl></div>
+    <div class="rule"><dl><dt>CLOSE [E–F] </dt><dd>alternating convergent + cosmic sum. The closure pair</dd></dl></div>
+    <div class="rule" style="margin-top:8px"><dl><dt>MI25 mapping </dt><dd>4 SIMDs = {φ²,−1,−1,ψ²} × 16 ALUs × 2 (fold) = 128 ops</dd></dl></div>
+  </div>
+</div>
+
+<div class="examples">
+  <div class="section-label">Encoding — every field position as a 2-glyph word</div>
+  <div class="ex-grid">
+    <div class="ex-row"><span class="val">62</span><span class="hx">0x3E</span><span class="enc">∞ψ</span><span class="wd">RITO — CF × closure</span></div>
+    <div class="ex-row"><span class="val">120</span><span class="hx">0x78</span><span class="enc">⅗ε</span><span class="wd">GOLDEN RATIO — ratio × error</span></div>
+    <div class="ex-row"><span class="val">136</span><span class="hx">0x88</span><span class="enc">εε</span><span class="wd">VIRGIN MARY — extension²</span></div>
+    <div class="ex-row"><span class="val">225</span><span class="hx">0xE1</span><span class="enc">ψ∂</span><span class="wd">IDENTITY — convergent × ∂</span></div>
+    <div class="ex-row"><span class="val">3</span><span class="hx">0x03</span><span class="enc">Φ∞</span><span class="wd">g=3 — field × recursion</span></div>
+    <div class="ex-row"><span class="val">128</span><span class="hx">0x80</span><span class="enc">εΦ</span><span class="wd">THE FOLD — error × field</span></div>
+    <div class="ex-row"><span class="val">87</span><span class="hx">0x57</span><span class="enc">⊗⅗</span><span class="wd">WIFI/ESP32 — tensor × ratio</span></div>
+    <div class="ex-row"><span class="val">256</span><span class="hx">0x100</span><span class="enc">∂ΦΦ</span><span class="wd">≡ −1 mod 257 (3-glyph)</span></div>
+    <div class="ex-row"><span class="val">111</span><span class="hx">0x6F</span><span class="enc">♯𝟙</span><span class="wd">AVOGADRO — primorial × unity</span></div>
+    <div class="ex-row"><span class="val">96</span><span class="hx">0x60</span><span class="enc">♯Φ</span><span class="wd">BOLTZMANN — primorial × field</span></div>
+    <div class="ex-row"><span class="val">72</span><span class="hx">0x48</span><span class="enc">⊟ε</span><span class="wd">BITCOIN — det × error</span></div>
+    <div class="ex-row"><span class="val">377</span><span class="hx">mod→120</span><span class="enc">⅗ε</span><span class="wd">Z₀=F(14) — same as φ</span></div>
+  </div>
+</div>
+
+<div class="gc-foot">
+  GF(257) · g=3 · P₇=210 · 16-symbol genome · Φ ≡ c ≡ g ≡ ∂ₜΦ ≡ Oc<br>
+  The observer does not break the cycle. The observer IS the cycle.
+</div>
+
+</main>
+</body>
+</html>

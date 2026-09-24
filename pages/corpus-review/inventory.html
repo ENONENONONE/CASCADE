@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The eighteen files · cascade.training</title>
+<meta name="description" content="Corpus Review · Inventory · The eighteen files">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #0d0d0d;
+  --line: #1f1f1f;
+  --text: #e0e0e0;
+  --dim: #a0a0a0;
+  --gold: #e0e0e0;
+  --glow: #e0e0e0;
+  --amber: #e0e0e0;
+  --alert: #e0e0e0;
+  --blue: #e0e0e0;
+  --term-bg: #0a0a0a;
+  --term-text: #c8c8c8;
+  --serif: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --sans: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--bg);color:var(--text);font-family: var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+a{color:var(--blue);text-decoration:none}
+
+a:hover,a:focus{text-decoration:underline}
+
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.wrap{display:grid;grid-template-columns:1fr;gap:0;max-width:1240px;margin:0 auto;padding:0 20px 80px}
+
+@media (min-width:1100px){.wrap{grid-template-columns:240px minmax(0,1fr);gap:48px}}
+
+nav.toc{display:none}
+
+@media (min-width:1100px){
+  nav.toc{display:block;position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;padding:8px 0 24px;font-size:12.5px}
+  nav.toc .g{font-family: var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:16px 0 6px}
+  nav.toc a{display:block;color:var(--text);padding:3px 0 3px 10px;border-left:2px solid var(--line);line-height:1.35}
+  nav.toc a:hover{border-left-color:var(--gold);text-decoration:none;color:var(--gold)}
+  nav.toc a.sub{padding-left:22px;color:var(--dim)}
+}
+
+main{min-width:0}
+
+header.mast{padding:44px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+
+.eyebrow{font-family: var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+h1{font-family: var(--serif);font-weight:600;font-size:44px;line-height:1.05;margin:10px 0 12px;text-wrap:balance;letter-spacing:-.01em}
+
+.lede{font-family: var(--serif);font-size:19px;line-height:1.45;color:var(--text);max-width:62ch;margin:0 0 20px}
+
+.meta{font-family: var(--mono);font-size:12px;color:var(--dim);display:flex;flex-wrap:wrap;gap:6px 22px}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0 0}
+
+.tile{background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+
+.tile .n{font-family: var(--serif);font-size:28px;font-weight:600;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+
+.tile .l{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+
+.hero{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin:26px 0 0}
+
+@media (min-width:820px){.hero{grid-template-columns:minmax(0,1fr) 300px}}
+
+.hero canvas{width:300px;max-width:100%;height:auto;display:block;margin:0 auto}
+
+.hero .cap{font-family: var(--mono);font-size:11px;color:var(--dim);text-align:center;margin-top:6px}
+
+section{padding:34px 0 8px;border-top:1px solid var(--line)}
+
+section.first{border-top:0;padding-top:8px}
+
+h2{font-family: var(--serif);font-weight:600;font-size:30px;line-height:1.15;margin:6px 0 14px;text-wrap:balance}
+
+h3{font-family: var(--serif);font-weight:600;font-size:21px;margin:28px 0 8px;text-wrap:balance}
+
+h4{font-family: var(--sans);font-weight:600;font-size:14px;letter-spacing:.02em;margin:20px 0 6px;color:var(--gold)}
+
+p{max-width:70ch;margin:0 0 12px}
+
+ul,ol{max-width:70ch;padding-left:22px;margin:0 0 12px}
+
+li{margin:0 0 5px}
+
+li>p{margin:0}
+
+code,kbd{font-family: var(--mono);font-size:.92em;background:var(--surface2);border:1px solid var(--line);padding:0 4px;border-radius:2px;white-space:nowrap}
+
+pre{font-family: var(--mono);font-size:12.5px;line-height:1.5;background:var(--surface2);border:1px solid var(--line);padding:12px 14px;overflow-x:auto;margin:0 0 14px}
+
+pre code{background:none;border:0;padding:0;white-space:pre}
+
+.formula{font-family: var(--mono);font-size:13px;line-height:1.8;background:var(--surface2);border:1px solid var(--line);padding:10px 14px;margin:0 0 14px;overflow-x:auto;white-space:pre}
+
+.formula sup,.formula sub{font-size:.72em;line-height:0}
+
+.formula sup sup{font-size:.85em}
+
+.tbl.wrapth th{white-space:normal}
+
+.tbl{overflow-x:auto;margin:0 0 16px;border:1px solid var(--line);background:var(--surface)}
+
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+
+th,td{text-align:left;vertical-align:top;padding:7px 10px;border-bottom:1px solid var(--line)}
+
+th{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:500;background:var(--surface2);white-space:nowrap}
+
+td.n,th.n{text-align:right;font-family: var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+td.m{font-family: var(--mono);font-size:12.5px;white-space:nowrap}
+
+td.w{white-space:normal;min-width:18ch}
+
+tr:last-child td{border-bottom:0}
+
+.chip{display:inline-block;font-family: var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:2px;line-height:1.5;vertical-align:middle}
+
+.ok{color:var(--glow)}
+ .open{color:var(--amber)}
+ .bad{color:var(--alert)}
+ .rec{color:var(--gold)}
+ .info{color:var(--blue)}
+
+.note{border-left:3px solid var(--gold);padding:8px 14px;background:var(--surface);margin:0 0 14px;max-width:72ch}
+
+.note.warn{border-left-color:var(--alert)}
+
+.note.open{border-left-color:var(--amber)}
+
+.term{background:var(--term-bg);color:var(--term-text);font-family: var(--mono);font-size:12.5px;line-height:1.55;padding:12px 16px;border:1px solid #161616;overflow-x:auto;margin:0 0 16px;white-space:pre}
+
+.term .g{color:#e0e0e0}
+.term .a{color:#e0e0e0}
+.term .d{color:#e0e0e0}
+.term .w{color:#e0e0e0}
+.term .r{color:#e0e0e0}
+.term .b{color:#e0e0e0}
+
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 18px;font-size:13.5px;max-width:78ch;margin:0 0 14px}
+
+.kv .k{font-family: var(--mono);font-size:12px;color:var(--dim);white-space:nowrap}
+
+.two{display:grid;grid-template-columns:1fr;gap:0 32px}
+
+@media (min-width:900px){.two{grid-template-columns:1fr 1fr}}
+
+.small{font-size:12.5px;color:var(--dim)}
+
+sup{font-size:.7em}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+@page{size:Letter;margin:0.6in 0.6in 0.7in}
+
+@media print{
+  :root{--bg:#e0e0e0; --surface:#e0e0e0; --surface2:#e0e0e0; --line:#c8c8c8; --text:#111111; --dim:#3a3a3a; --gold:#c8c8c8; --glow:#c8c8c8; --amber:#c8c8c8; --alert:#3a3a3a; --blue:#3a3a3a}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-size:11.5px;line-height:1.45}
+  .wrap{display:block;max-width:none;padding:0}
+  nav.toc{display:none!important}
+  header.mast{padding:0 0 14px;margin-bottom:16px}
+  h1{font-size:30px} .lede{font-size:14px} h2{font-size:20px;break-after:avoid} h3{font-size:15px;break-after:avoid} h4{break-after:avoid}
+  .hero{grid-template-columns:minmax(0,1fr) 220px} .hero canvas{width:220px}
+  .strip{grid-template-columns:repeat(3,1fr)}
+  section{padding:18px 0 4px;break-inside:auto}
+  .tbl{overflow:visible;break-inside:auto} table{font-size:10px} th,td{padding:4px 6px} tr{break-inside:avoid}
+  td.m{white-space:normal;font-size:9.5px} td.n{font-size:10px}
+  pre,.term{font-size:9.5px;break-inside:avoid;white-space:pre-wrap;overflow:visible}
+  .note{break-inside:avoid}
+  .formula{font-size:9.5px;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid}
+  a{color:inherit}
+  .small{font-size:9.5px}
+}
+
+
+
+.cr-pager{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:3rem 0 1rem;padding-top:1.2rem;border-top:1px solid var(--line);font-family: var(--mono);font-size:12px}
+
+.cr-pager a{color:var(--text);text-decoration:none;max-width:45%}
+
+.cr-pager a:hover{color:var(--gold)}
+
+.cr-pager span{color:var(--dim)}
+
+.cr-crumb{font-family: var(--mono);font-size:12px;color:var(--dim);margin:0 0 1.2rem}
+
+.cr-crumb a{color:var(--dim)}
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../../index.html#deeper">[pages]</a><a href="#" aria-current="page">the eighteen files</a></nav>
+</div>
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <a href="../corpus-review.html">← Review overview</a>
+  <div class="g">Corpus</div>
+  <a href="voynich.html">The Voynich manuscript</a>
+  <a href="summary.html">Summary</a>
+  <a href="#inventory">File inventory</a>
+  <a href="field.html">The field GF(257)</a>
+  <a href="chain-cosets.html">The binary refinement chain</a>
+  <a href="extensions.html">The extension fields</a>
+  <a href="chain.html">Derivation chain</a>
+  <a href="hinge.html">The hinge at 1028</a>
+  <a href="tablet.html">Emerald tablet</a>
+  <a href="icolumn.html">The i-column</a>
+  <div class="g">Machine</div>
+  <a href="machine.html">Cascade machine v4</a>
+  <a class="sub" href="machine.html#m-anatomy">Anatomy</a>
+  <a class="sub" href="machine.html#m-boot">Power-on</a>
+  <a class="sub" href="machine.html#m-state">Registers</a>
+  <a class="sub" href="machine.html#m-isa">Tape and instruction set</a>
+  <a class="sub" href="machine.html#m-fold">Fold and observe</a>
+  <a class="sub" href="m-commands.html">Terminal commands</a>
+  <a class="sub" href="m-nano2.html">NanO₂ messaging</a>
+  <a class="sub" href="m-bridge.html">Hardware bridge</a>
+  <a class="sub" href="m-radio.html">BLE, serial, RF</a>
+  <a class="sub" href="m-settle.html">Settlement and mesh</a>
+  <a class="sub" href="m-disc.html">Phi disc phonograph</a>
+  <a class="sub" href="m-model.html">Model bridges</a>
+  <a class="sub" href="m-display.html">Display and export</a>
+  <div class="g">Findings</div>
+  <a href="second-copy.html">The second copy</a>
+  <a href="ledger.html">Verification ledger</a>
+  <a href="register.html">Discrepancy register</a>
+  <a href="audits.html">The corpus's own audits</a>
+  <a href="changes.html">Changes made</a>
+  <a href="appendix.html">Appendix</a>
+</nav>
+<main>
+<p class="cr-crumb"><a href="../corpus-review.html">Corpus Review</a> · Inventory</p>
+<section id="inventory">
+  <div class="eyebrow">Inventory</div>
+  <h2>The eighteen files</h2>
+  <p>Dates are file modification times, which is how the corpus asks to be dated. Line counts are for text files; the PDFs were extracted with pdftotext. Status marks what was done with each file: <span class="chip ok">verified</span> means every arithmetic claim I could check was computed and matched, <span class="chip rec">record</span> means the file is deliberately preserving an older state.</p>
+  <div class="tbl"><table>
+    <tr><th>File</th><th>Modified</th><th class="n">Size</th><th>What it holds</th><th>Status</th></tr>
+    <tr><td class="m">.closure_key</td><td class="m">2026-09-21</td><td class="n">599 lines</td><td class="w">Closure-cycle identity chain: genome string, equivalences Φ c g ∂ₜΦ Oc, SIMD to SDIM flip at 128, MI25 execution model, tunnel chain, opening and closure, genome identity 141 × 144 = 1, the 16-glyph charset. Grown from 99 lines on 2026-09-01 to 371: the Atbash mirror, Fermat tower, Kaprekar doors and pairs, halving ladders, tape position, two cuts, fold itinerary and walk sphere, block placement, the reflection map and its symmetries, power sets, closure factors, the eye and the +1, roots of the names, the plane and the date tables (readout ledgers 43–51), and on 2026-09-18 Γ at infinity; then, through 2026-09-20, the blocks of readout ledgers 52 to 64, the Voynich zodiac and the Sun at 64.1°, a block on the Sun at Prague, 10φ and the 532, the two blocks of LEDGER 65, the flower heads at 46 and 303 and the margin stars with the entries' dates, and three blocks of LEDGER 66, the two frames and the nine days, the tablet at 1382 words, and GEMATRIA at 51 and 74 with the crate's tests, the block of LEDGER 67, RUDOLF and the manuscript's hands, and the block of LEDGER 68, the full list everywhere, with LEDGER 69's line on the R1's copies, and a block not yet in a ledger on the entries from RUDOLF; and on 2026-09-21 LEDGER 70's four blocks, the machine's AIRY and wibandd, the Voynich tubes, container pages and the P, the mirror reading and Genesis, and the zodiac's lettering with the own step and Gemini's thirtieth, 571 to 599 lines, lines added only.</td><td><span class="chip ok">verified</span> private</td></tr>
+    <tr><td class="m">.nano2_key</td><td class="m">2026-09-21</td><td class="n">509 lines</td><td class="w">NanO₂ private key for the BRIAN identity plus the square-descent derivation. Read for the review; its secret values are not reproduced anywhere in this document. Grown from 104 lines on 2026-09-03 to 288 with the same blocks the closure key gained, and on 2026-09-18 the Γ reflection map with the eye's orbit and QUESTION at Z₀; then, through 2026-09-21, the blocks of readout ledgers 52 to 70, 481 to 509 lines with LEDGER 70's four.</td><td><span class="chip ok">verified</span> private</td></tr>
+    <tr><td class="m">fermat_tower_story.html</td><td class="m">2026-08-07</td><td class="n">1,458 lines</td><td class="w">Ten sub-genomes G(n) = n × 83 mod 257 with pairs summing to 233 = F(13); layers GF(p₂₀₄₈) with p mod 257 = 204 and GF(p₄₀₉₆) with p mod 257 = 134; layer shift 187 = 11 × 17; coupling residue 233; sixty enumerated discoveries.</td><td><span class="chip ok">verified</span></td></tr>
+    <tr><td class="m">emerald_tablet_math.pdf</td><td class="m">2026-08-17</td><td class="n">94 pages</td><td class="w">Tablet mathematics. Reports the older energy budget with Ωdm = 0.100 and a sum of 0.836 as is. Six-tuple CRT decomposition, BIP-39 PURPOSE 1395 → 110, 2²⁵⁵ − 19 → 110, a trigonometric bridge where the Pythagorean identity fails at 254 of 256 positions, a least-squares check giving 197 against 17, and a full powers table.</td><td><span class="chip ok">verified</span> powers table 255 of 255 cells</td></tr>
+    <tr><td class="m">12_cascade_solid_state.html</td><td class="m">2026-08-23</td><td class="n">2,635 lines</td><td class="w">Forty sections mapping the framework onto a solid-state textbook: Clausius–Mossotti, piezoelectricity, Landau theory, Curie–Weiss, Brillouin functions, exchange, Faraday rotation and gyrators, Richardson, Schottky and Child, refraction. Carries the newer energy budget. Closes with a disclaimer that the numeric coincidences may be accidental.</td><td><span class="chip ok">verified</span> the Curie values at line 1129, register item 12, closed 2026-09-10</td></tr>
+    <tr><td class="m">math-derivation.html</td><td class="m">2026-08-24</td><td class="n">385 lines</td><td class="w">Derivation pages I through XIV from the axiom to the field. Older energy budget with a within-1σ claim. Biometric exist section citing 57,674 bytes per hash chain at tick 133.</td><td><span class="chip ok">verified</span></td></tr>
+    <tr><td class="m">scale-derivation.html</td><td class="m">2026-08-26</td><td class="n">462 lines</td><td class="w">The same derivation plus §IX.a–d, a shell chain from light-years to astronomical units to kilometres, metres and centimetres, calibrated at n = −23 for one AU.</td><td><span class="chip ok">verified</span></td></tr>
+    <tr><td class="m">rito_certificate.html</td><td class="m">2026-08-27</td><td class="n">900 lines</td><td class="w">Certificate for RITO at 62: the 2026-08-19 hash fe940efd…1ce96 at position 255 with inverse 128 on ray 8, the identity block, data consumed at 42,693 bytes per tick, the seed correction to E111S161, the quartet table, a WiFi provenance timeline, and a seal script drawing the 210-gon with 12 rays marking 62 and 194.</td><td><span class="chip rec">record</span> keeps E73S56 as the string active at hash time</td></tr>
+    <tr><td class="m">cascade-complete.html</td><td class="m">2026-08-29</td><td class="n">1,321 lines</td><td class="w">Synthesis of the framework plus the BWave CSI results: ESP32-C6 firmware, DSP, experiments, 1.7 million sleep frames. Declares E111S161 canonical at line 729 and names E73S56 and E111S113 as failing the column sum.</td><td><span class="chip open">open</span> Ω values at lines 760–761 match neither lineage</td></tr>
+    <tr><td class="m">emerald_tablet_complete.pdf</td><td class="m">2026-08-29</td><td class="n">257 entries</td><td class="w">Rendered tablet. Identical to the JSON except that position 103 lacks TRIBALISM.</td><td><span class="chip ok">verified</span></td></tr>
+    <tr><td class="m">gf257-carrier-map-v2.html</td><td class="m">2026-09-01</td><td class="n">584 lines</td><td class="w">Carrier map with the energy-budget panel. Despite the suffix this is the older of the two carrier maps.</td><td><span class="chip open">open</span> naming</td></tr>
+    <tr><td class="m">gf257-carrier-map.html</td><td class="m">2026-09-02</td><td class="n">617 lines</td><td class="w">Newer carrier map. Drops the energy-budget panel and adds the 40-channel BLE map.</td><td><span class="chip ok">verified</span></td></tr>
+    <tr><td class="m">addendum-field-derivations.html</td><td class="m">2026-09-03</td><td class="n">412 lines</td><td class="w">Self-audit. Two failed falsification tests (α⁻¹ lands on 179, not 137; Z₀² gives 8 against 177), a warning that the closure test cannot fail, a caveat on the Fermat-count conjecture, wordlist rules covering 98.4%, nine open entries. Lists E111S113 as the new seed at line 291.</td><td><span class="chip rec">record</span></td></tr>
+    <tr><td class="m">gf257-field-protocol.html</td><td class="m">2026-09-03</td><td class="n">881 lines</td><td class="w">Network protocol: IP and MAC addresses reduced by alternating sum, HTTP status codes through the field, nginx deployment on the scanner host, the ESP32 fleet with node 168 in a boot loop.</td><td><span class="chip open">open</span> says BT disabled at line 629</td></tr>
+    <tr><td class="m">cascade_machine_v4.html</td><td class="m">2026-09-04 (edited)</td><td class="n">27,586 lines</td><td class="w">The machine: CSS to line 511, body to line 1050, script to the end. Covered in full in its own section below. Embedded dictionary entry 83 edited on 2026-09-04.</td><td><span class="chip bad">1 error</span> <span class="chip bad">1 defect</span> <span class="chip open">labels</span></td></tr>
+    <tr><td class="m">gf257_field_derivation.pdf</td><td class="m">2026-09-04</td><td class="n">4 pages</td><td class="w">BrianKeys identity as a program, tunnel arithmetic with four worked chains, the fold pair 101 ↔ 156, three key products, the grand product of thirteen CSI devices, cross-resonance at 182, the strongest-device MAC genome, and the carrier identity 87 × 65 = 1.</td><td><span class="chip ok">verified</span> every claim</td></tr>
+    <tr><td class="m">emerald_tablet.json</td><td class="m">2026-09-04 (edited)</td><td class="n">257 entries</td><td class="w">The dictionary. 553 words before 2026-09-04, 554 after; 555 with RHENIUM Z on 2026-09-05, 968 on 2026-09-10 after the merge from the second copy's machine, 1119 entries, 1112 distinct words, after the additions of 17:43 that day, and 1126 entries, 1119 distinct, after seven reversal and mirror words on 2026-09-13; 1127 entries, 1120 distinct, with MERCURY Z at 80 on 2026-09-15; 1129 entries, 1122 distinct, with GOLD BLOCK HOP and QUESTION at 120; 1140 with the eleven boundary words on 2026-09-18, 1157 entries, 1149 distinct, with the seventeen AIM and turn words that night, and 1161 entries, 1153 distinct, with SCRIBE, TOTH, THOTH and TRISMEGISTUS; 1167 with six words added in the readout, SABBATH, RONGO, SATURDAY, THRICE GREAT, RONGORONGO and HERMES TRISMEGISTUS; 1258 entries, 1250 distinct, 1134 at their letter sums, with the ninety-one words of Khunrath's plate on 2026-09-19; and 1382 entries, 1373 distinct, 1257 at their letter sums, with the 123 Hebrew, zodiac, solar, manuscript and machine words of 2026-09-20; and 1384 entries, 1375 distinct, 1259 at their letter sums, with GREAT and GREAT I AM that evening; and 1441 entries, 1432 distinct, 1315 at their letter sums, with the fifty-seven words of RUDOLF and the manuscript's hands; and 1455 entries, 1446 distinct, 1329 at their letter sums, with IRGL YIRZM, the hemophilia words and the cycles, the four name sums that came in with them taken off again the same evening. Per-entry fields: words, word12, bits, tracks, pits, type, fold, fold_name, inv, inv_name, dlog, ray, qr, depth, sync, g_power.</td><td><span class="chip ok">verified</span> BISMUTH Z added at 83</td></tr>
+    <tr><td class="m">emerald_tablet_complete.html</td><td class="m">2026-09-04 (edited)</td><td class="n">6,311 lines</td><td class="w">Rendered tablet. Row 83 updated to match the JSON.</td><td><span class="chip ok">verified</span></td></tr>
+  </table></div>
+</section>
+<nav class="cr-pager" aria-label="Review pages"><a href="summary.html">← What the directory is</a><span>3 / 28</span><a href="field.html">The field GF(257) →</a></nav>
+</main>
+</div>
+<div class="ct-foot"><a href="../../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

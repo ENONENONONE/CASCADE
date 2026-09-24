@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terminal commands · cascade.training</title>
+<meta name="description" content="Corpus Review · Instrument · terminal · Terminal commands">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #0d0d0d;
+  --line: #1f1f1f;
+  --text: #e0e0e0;
+  --dim: #a0a0a0;
+  --gold: #e0e0e0;
+  --glow: #e0e0e0;
+  --amber: #e0e0e0;
+  --alert: #e0e0e0;
+  --blue: #e0e0e0;
+  --term-bg: #0a0a0a;
+  --term-text: #c8c8c8;
+  --serif: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --sans: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--bg);color:var(--text);font-family: var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+a{color:var(--blue);text-decoration:none}
+
+a:hover,a:focus{text-decoration:underline}
+
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.wrap{display:grid;grid-template-columns:1fr;gap:0;max-width:1240px;margin:0 auto;padding:0 20px 80px}
+
+@media (min-width:1100px){.wrap{grid-template-columns:240px minmax(0,1fr);gap:48px}}
+
+nav.toc{display:none}
+
+@media (min-width:1100px){
+  nav.toc{display:block;position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;padding:8px 0 24px;font-size:12.5px}
+  nav.toc .g{font-family: var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:16px 0 6px}
+  nav.toc a{display:block;color:var(--text);padding:3px 0 3px 10px;border-left:2px solid var(--line);line-height:1.35}
+  nav.toc a:hover{border-left-color:var(--gold);text-decoration:none;color:var(--gold)}
+  nav.toc a.sub{padding-left:22px;color:var(--dim)}
+}
+
+main{min-width:0}
+
+header.mast{padding:44px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+
+.eyebrow{font-family: var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+h1{font-family: var(--serif);font-weight:600;font-size:44px;line-height:1.05;margin:10px 0 12px;text-wrap:balance;letter-spacing:-.01em}
+
+.lede{font-family: var(--serif);font-size:19px;line-height:1.45;color:var(--text);max-width:62ch;margin:0 0 20px}
+
+.meta{font-family: var(--mono);font-size:12px;color:var(--dim);display:flex;flex-wrap:wrap;gap:6px 22px}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0 0}
+
+.tile{background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+
+.tile .n{font-family: var(--serif);font-size:28px;font-weight:600;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+
+.tile .l{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+
+.hero{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin:26px 0 0}
+
+@media (min-width:820px){.hero{grid-template-columns:minmax(0,1fr) 300px}}
+
+.hero canvas{width:300px;max-width:100%;height:auto;display:block;margin:0 auto}
+
+.hero .cap{font-family: var(--mono);font-size:11px;color:var(--dim);text-align:center;margin-top:6px}
+
+section{padding:34px 0 8px;border-top:1px solid var(--line)}
+
+section.first{border-top:0;padding-top:8px}
+
+h2{font-family: var(--serif);font-weight:600;font-size:30px;line-height:1.15;margin:6px 0 14px;text-wrap:balance}
+
+h3{font-family: var(--serif);font-weight:600;font-size:21px;margin:28px 0 8px;text-wrap:balance}
+
+h4{font-family: var(--sans);font-weight:600;font-size:14px;letter-spacing:.02em;margin:20px 0 6px;color:var(--gold)}
+
+p{max-width:70ch;margin:0 0 12px}
+
+ul,ol{max-width:70ch;padding-left:22px;margin:0 0 12px}
+
+li{margin:0 0 5px}
+
+li>p{margin:0}
+
+code,kbd{font-family: var(--mono);font-size:.92em;background:var(--surface2);border:1px solid var(--line);padding:0 4px;border-radius:2px;white-space:nowrap}
+
+pre{font-family: var(--mono);font-size:12.5px;line-height:1.5;background:var(--surface2);border:1px solid var(--line);padding:12px 14px;overflow-x:auto;margin:0 0 14px}
+
+pre code{background:none;border:0;padding:0;white-space:pre}
+
+.formula{font-family: var(--mono);font-size:13px;line-height:1.8;background:var(--surface2);border:1px solid var(--line);padding:10px 14px;margin:0 0 14px;overflow-x:auto;white-space:pre}
+
+.formula sup,.formula sub{font-size:.72em;line-height:0}
+
+.formula sup sup{font-size:.85em}
+
+.tbl.wrapth th{white-space:normal}
+
+.tbl{overflow-x:auto;margin:0 0 16px;border:1px solid var(--line);background:var(--surface)}
+
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+
+th,td{text-align:left;vertical-align:top;padding:7px 10px;border-bottom:1px solid var(--line)}
+
+th{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:500;background:var(--surface2);white-space:nowrap}
+
+td.n,th.n{text-align:right;font-family: var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+td.m{font-family: var(--mono);font-size:12.5px;white-space:nowrap}
+
+td.w{white-space:normal;min-width:18ch}
+
+tr:last-child td{border-bottom:0}
+
+.chip{display:inline-block;font-family: var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:2px;line-height:1.5;vertical-align:middle}
+
+.ok{color:var(--glow)}
+ .open{color:var(--amber)}
+ .bad{color:var(--alert)}
+ .rec{color:var(--gold)}
+ .info{color:var(--blue)}
+
+.note{border-left:3px solid var(--gold);padding:8px 14px;background:var(--surface);margin:0 0 14px;max-width:72ch}
+
+.note.warn{border-left-color:var(--alert)}
+
+.note.open{border-left-color:var(--amber)}
+
+.term{background:var(--term-bg);color:var(--term-text);font-family: var(--mono);font-size:12.5px;line-height:1.55;padding:12px 16px;border:1px solid #161616;overflow-x:auto;margin:0 0 16px;white-space:pre}
+
+.term .g{color:#e0e0e0}
+.term .a{color:#e0e0e0}
+.term .d{color:#e0e0e0}
+.term .w{color:#e0e0e0}
+.term .r{color:#e0e0e0}
+.term .b{color:#e0e0e0}
+
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 18px;font-size:13.5px;max-width:78ch;margin:0 0 14px}
+
+.kv .k{font-family: var(--mono);font-size:12px;color:var(--dim);white-space:nowrap}
+
+.two{display:grid;grid-template-columns:1fr;gap:0 32px}
+
+@media (min-width:900px){.two{grid-template-columns:1fr 1fr}}
+
+.small{font-size:12.5px;color:var(--dim)}
+
+sup{font-size:.7em}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+@page{size:Letter;margin:0.6in 0.6in 0.7in}
+
+@media print{
+  :root{--bg:#e0e0e0; --surface:#e0e0e0; --surface2:#e0e0e0; --line:#c8c8c8; --text:#111111; --dim:#3a3a3a; --gold:#c8c8c8; --glow:#c8c8c8; --amber:#c8c8c8; --alert:#3a3a3a; --blue:#3a3a3a}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-size:11.5px;line-height:1.45}
+  .wrap{display:block;max-width:none;padding:0}
+  nav.toc{display:none!important}
+  header.mast{padding:0 0 14px;margin-bottom:16px}
+  h1{font-size:30px} .lede{font-size:14px} h2{font-size:20px;break-after:avoid} h3{font-size:15px;break-after:avoid} h4{break-after:avoid}
+  .hero{grid-template-columns:minmax(0,1fr) 220px} .hero canvas{width:220px}
+  .strip{grid-template-columns:repeat(3,1fr)}
+  section{padding:18px 0 4px;break-inside:auto}
+  .tbl{overflow:visible;break-inside:auto} table{font-size:10px} th,td{padding:4px 6px} tr{break-inside:avoid}
+  td.m{white-space:normal;font-size:9.5px} td.n{font-size:10px}
+  pre,.term{font-size:9.5px;break-inside:avoid;white-space:pre-wrap;overflow:visible}
+  .note{break-inside:avoid}
+  .formula{font-size:9.5px;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid}
+  a{color:inherit}
+  .small{font-size:9.5px}
+}
+
+
+
+.cr-pager{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:3rem 0 1rem;padding-top:1.2rem;border-top:1px solid var(--line);font-family: var(--mono);font-size:12px}
+
+.cr-pager a{color:var(--text);text-decoration:none;max-width:45%}
+
+.cr-pager a:hover{color:var(--gold)}
+
+.cr-pager span{color:var(--dim)}
+
+.cr-crumb{font-family: var(--mono);font-size:12px;color:var(--dim);margin:0 0 1.2rem}
+
+.cr-crumb a{color:var(--dim)}
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../../index.html#deeper">[pages]</a><a href="#" aria-current="page">terminal commands</a></nav>
+</div>
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <a href="../corpus-review.html">← Review overview</a>
+  <div class="g">Corpus</div>
+  <a href="voynich.html">The Voynich manuscript</a>
+  <a href="summary.html">Summary</a>
+  <a href="inventory.html">File inventory</a>
+  <a href="field.html">The field GF(257)</a>
+  <a href="chain-cosets.html">The binary refinement chain</a>
+  <a href="extensions.html">The extension fields</a>
+  <a href="chain.html">Derivation chain</a>
+  <a href="hinge.html">The hinge at 1028</a>
+  <a href="tablet.html">Emerald tablet</a>
+  <a href="icolumn.html">The i-column</a>
+  <div class="g">Machine</div>
+  <a href="machine.html">Cascade machine v4</a>
+  <a class="sub" href="machine.html#m-anatomy">Anatomy</a>
+  <a class="sub" href="machine.html#m-boot">Power-on</a>
+  <a class="sub" href="machine.html#m-state">Registers</a>
+  <a class="sub" href="machine.html#m-isa">Tape and instruction set</a>
+  <a class="sub" href="machine.html#m-fold">Fold and observe</a>
+  <a class="sub" href="#m-commands">Terminal commands</a>
+  <a class="sub" href="m-nano2.html">NanO₂ messaging</a>
+  <a class="sub" href="m-bridge.html">Hardware bridge</a>
+  <a class="sub" href="m-radio.html">BLE, serial, RF</a>
+  <a class="sub" href="m-settle.html">Settlement and mesh</a>
+  <a class="sub" href="m-disc.html">Phi disc phonograph</a>
+  <a class="sub" href="m-model.html">Model bridges</a>
+  <a class="sub" href="m-display.html">Display and export</a>
+  <div class="g">Findings</div>
+  <a href="second-copy.html">The second copy</a>
+  <a href="ledger.html">Verification ledger</a>
+  <a href="register.html">Discrepancy register</a>
+  <a href="audits.html">The corpus's own audits</a>
+  <a href="changes.html">Changes made</a>
+  <a href="appendix.html">Appendix</a>
+</nav>
+<main>
+<p class="cr-crumb"><a href="../corpus-review.html">Corpus Review</a> · Instrument · terminal</p>
+<section id="m-commands">
+  <div class="eyebrow">Instrument · terminal</div>
+  <h2>Terminal commands</h2>
+  <p>Six keydown listeners share the single input line. The base handler, registered first, is a bubble-phase listener. Five later handlers (hardware bridge, settlement, mesh and analysis, model bridge, NPU) are capture-phase listeners, and on the target element capture listeners run before bubble listeners, so every add-on handler gets first refusal and returns after <code>stopImmediatePropagation</code>. Among the add-ons, registration order decides. Three consequences are visible from the keyboard:</p>
+  <ul>
+    <li><code>TOWER</code> alone reaches the Fermat layer tower in the analysis handler; the base handler's Galois tower answers only <code>TOWER k</code> with a number.</li>
+    <li><code>TAPE</code> alone reaches the hardware-bridge handler's tape-structure readout for the current position; the phonograph answers every <code>TAPE &lt;sub&gt;</code> form.</li>
+    <li><code>HANDSHAKE</code> with a network name and a hex key goes to settlement; <code>HANDSHAKE 72</code> with a field value goes to NanO₂. <code>SEND text</code> with hardware connected and an identity active is signed on the device; otherwise it is the NanO₂ send.</li>
+  </ul>
+  <p>Anything unmatched is treated as a word lookup: exact match first, then substring, and the machine navigates there. A bare number 0–256 navigates directly and prints the position's dlog, inverse and fold.</p>
+
+  <div class="tbl"><table>
+    <tr><th>Group</th><th>Command</th><th>Effect</th></tr>
+    <tr><td>Navigate</td><td class="m">0 … 256</td><td class="w">Go to a position. Prints /pos/WORD/, dlog, inv, fold, lattice label, π digit, field notes.</td></tr>
+    <tr><td></td><td class="m">&lt;word&gt;</td><td class="w">Search the dictionary; exact then substring.</td></tr>
+    <tr><td></td><td class="m">STEP · RUN · STOP</td><td class="w">One tick; free-run at the slider speed; stop.</td></tr>
+    <tr><td></td><td class="m">DIR · TREE · CD</td><td class="w">Full filesystem view of the position: identity/ orbit/ neighbors/ lattice/ protocol/ fibonacci/ notes/ and a navigation footer.</td></tr>
+    <tr><td></td><td class="m">LS · PWD</td><td class="w">Compact listing with the directory names.</td></tr>
+    <tr><td></td><td class="m">CAT &lt;section&gt;</td><td class="w">One directory in depth. <code>tape</code> requires the COMPUTE or EMIT observer and shows the lookback window and digit frequencies.</td></tr>
+    <tr><td>Field ops</td><td class="m">NEG · FLIP</td><td class="w">Go to 257 − pc.</td></tr>
+    <tr><td></td><td class="m">INV · FIELD</td><td class="w">Go to pc⁻¹ with the full analysis.</td></tr>
+    <tr><td></td><td class="m">ORBIT · DLOG</td><td class="w">Squaring orbit; discrete log with orbit neighbours.</td></tr>
+    <tr><td></td><td class="m">×N · +N · −N · MUL a b</td><td class="w">Arithmetic on the position, then navigate. ×3 is one generator step, ×86 one step back.</td></tr>
+    <tr><td>Structure</td><td class="m">DOUBLE</td><td class="w">2ᵏ orbit, ascent and descent, the ADAM+EVE Fibonacci walk, the square descent with sums and product.</td></tr>
+    <tr><td></td><td class="m">FIB a b · PISANO</td><td class="w">Fibonacci mod 257 from any seed with period detection; the Pisano structure and the M(257) eigenvalues. Both print F(n) two indices early, see the register.</td></tr>
+    <tr><td></td><td class="m">ARTIN · CYCLOTOMIC · TOWER [k]</td><td class="w">Primes with 257 as primitive root; Φₖ(257) factorisations; Galois tower prime-entry map (with k) or Fermat layer tower (bare).</td></tr>
+    <tr><td>Protocol</td><td class="m">HTTP [code]</td><td class="w">Any status code through the field: identity, duality, orbit neighbourhood, factorisation, Fibonacci hits, plus essays for 200, 301, 302, 403, 404, 450, 500.</td></tr>
+    <tr><td></td><td class="m">AUTH [AXIOM|NULL|RECEIVED|RETURN|COMPUTE|EMIT]</td><td class="w">Set the F and PM bits and the observer CF frame; bare AUTH prints the protocol, truth table and vocabulary. Contains the dlog(83) = 56 error.</td></tr>
+    <tr><td>System</td><td class="m">SYNC · EMIT · STATE · SESSION · SLICE · BOOTS</td><td class="w">Sync to the date field; print the state string; registers; session id and elapsed; the daily self-referential slice; stored boot history.</td></tr>
+    <tr><td></td><td class="m">PROGRAM · PRIMORIAL · MOD 210 · INTERSECT · ANALOG</td><td class="w">Run the analysis walker from the position; primorial lattice views; complex impedance R + jX for the position and its fold.</td></tr>
+    <tr><td></td><td class="m">FOLD · FOLD STATUS</td><td class="w">Arm or disarm the fold operator; report the walk and polarity.</td></tr>
+    <tr><td></td><td class="m">&lt;seed string&gt;</td><td class="w">F1-R1-CF…-PM1 loads the instruction registers.</td></tr>
+    <tr><td>Codecs</td><td class="m">OCTET &lt;text|ip|w.w.w.w&gt;</td><td class="w">Bytes ↔ words. Text to positions, IPv4 to words, dotted words to bytes.</td></tr>
+    <tr><td></td><td class="m">CIPHER &lt;glyphs&gt; · CIPHER ENCODE pos… · CIPHER TABLE</td><td class="w">The 16-glyph genome charset: decode glyph pairs to positions with ray, residue, π op, TL op and fold mirror; encode positions; print the table.</td></tr>
+    <tr><td></td><td class="m">OBSERVE [N|word|ALL|C E S D]</td><td class="w">The unit operator and fold∘observe; seed involution with round-trip check.</td></tr>
+    <tr><td></td><td class="m">IP &lt;addr&gt; · IP KEY s · IP FOLD|INV|*N|+N|^N addr · IP TAPE [name [op]] · IP ENC|DEC addr</td><td class="w">Octet arithmetic through the field, named octet configs (OBSERVERS, LAMBDA, GAMMA, CHARPOLY, ED25519, NODES, DENSITY, IMPEDANCE, PITS, FRUN, SYMBOLS, TRACKORDER, FOLD, WALK, FIBONACCI, DATES, MASTER), NanO₂ encryption of octets.</td></tr>
+    <tr><td></td><td class="m">APPLE2 [OPCODES|VECTORS|MEM|BITS|SEED]</td><td class="w">The 6502 and Apple II address space through mod 257; SEED recomputes the AXIOM string and the quartet sums live.</td></tr>
+    <tr><td>Tunnel</td><td class="m">TUNNEL · TUNNEL SCAN · TUNNEL BOARD · TUNNEL —</td><td class="w">PIT→LAND→PIT barrier detection on live data, on all 257 positions, the X-ray board profile, or a MAC's bytes, with Π×T, χ, 𝟙 and W for each tunnel.</td></tr>
+    <tr><td>NanO₂</td><td class="m">ID name · KEYGEN · KEY · NANO</td><td class="w">Create an identity with a random secret and public key 3ˢ; regenerate; show keys; status.</td></tr>
+    <tr><td></td><td class="m">HANDSHAKE peerPub · ENCODE text · DECODE p.p.p · SEND text · RECV packet · CHANNEL</td><td class="w">Shared secret peerPubˢ; words to positions; back; packet transmit; packet receive and decrypt; message log.</td></tr>
+    <tr><td>Hardware</td><td class="m">CONNECT [ip] · DISCONNECT · SCAN [subnet|BLE|BLE ALL|PEERS] · NODES · PORTS [ALL|NEW]</td><td class="w">Entity poll, then WebSerial, or WebSocket to an IP; subnet ping sweep; Bluetooth picker or passive scan; discovered nodes; serial port list and grant.</td></tr>
+    <tr><td></td><td class="m">BRIDGE · MINE · CHAIN · SIGN msg · PHASH text · TX to amount</td><td class="w">Both bridge statuses; mine a block on the device; list the chain; Ed25519 sign; Pisot hash; signed transaction.</td></tr>
+    <tr><td>Settlement</td><td class="m">NETWORKS · DERIVE net · SETTLE net amount address · HANDSHAKE net hexpub · SEND.net text · RECV.net hex</td><td class="w">Five secp256k1 networks; derive a keypair from the identity; sign and route a settlement; ECDH to AES-256-GCM; encrypted send and receive.</td></tr>
+    <tr><td>Mesh</td><td class="m">MESH · OFFER · ANSWER sdp · ACCEPT sdp · PEERS · TXPOOL</td><td class="w">BroadcastChannel and WebRTC transport status; manual SDP exchange; peers; transaction lifecycle pending → sent → delivered → confirmed.</td></tr>
+    <tr><td>π</td><td class="m">PI [pos] · PI-SCAN</td><td class="w">Cross-reference chain: find the position's decimal string in π, take the index mod 257, repeat; the full 257-node web with fixed points, mutual pairs and in-degree.</td></tr>
+    <tr><td>Disc</td><td class="m">LOAD [RELOAD] · TRACK n · DISC</td><td class="w">Load the phi_disc folder; per-track pits, lands, transitions and Γ range; the disc's summary.</td></tr>
+    <tr><td></td><td class="m">TAPE PLAY|STOP|SPEED n|FULL|FIELD|NATURAL|FIXED|BPM n|GOTO n|LAYERS|DNA|EXPORT|LOAD digits|CLEAR|SHOW</td><td class="w">The phonograph, see below.</td></tr>
+    <tr><td>Analysis</td><td class="m">GENOME [n] · TIMELINE · CUBE · IMPEDANCE · SPIRAL · VERTICES · FIRMWARE · WORK</td><td class="w">Metallic-ratio genomes with IEEE 754 dates; the 2003 timeline; the eight-vertex cube; the Fresnel spectrometer; the golden-angle tape; dual-word positions; the C firmware layout; the sixteen session findings.</td></tr>
+    <tr><td></td><td class="m">EXPANSION [n] · LAYER · COUPLING</td><td class="w">The sixteen-step chain with per-step detail; cross-layer CESD at GF(257), p₂₀₄₈, p₄₀₉₆; the seventeen coupling residues.</td></tr>
+    <tr><td>Model</td><td class="m">BRIDGE CONNECT ws://host:8257 · BRIDGE DISCONNECT · BRIDGE STATUS · CHAT text · ASK text</td><td class="w">WebSocket to cascade_bridge.py; each turn folds the query and the response through the field and animates the ring.</td></tr>
+    <tr><td></td><td class="m">NPU · NPU CONNECT [host] · NPU PREDICT · NPU AUTO · NPU STOP · NPU text</td><td class="w">RK3588 NPU oracle over HTTP; predict from the trail; let the oracle drive the cascade.</td></tr>
+    <tr><td>Help</td><td class="m">HELP · COMMANDS · MAN</td><td class="w">The built-in reference. It lists most but not all of the above.</td></tr>
+  </table></div>
+</section>
+<nav class="cr-pager" aria-label="Review pages"><a href="machine.html">← Cascade machine v4</a><span>13 / 28</span><a href="m-nano2.html">NanO₂ messaging →</a></nav>
+</main>
+</div>
+<div class="ct-foot"><a href="../../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

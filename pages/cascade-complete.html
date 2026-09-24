@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CASCADE Complete · cascade.training</title>
+<meta name="description" content="The axiom and derivation chain, scale and measurement, GF(257), RF field arithmetic, the carrier map and BWave CSI sensing.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg-surface: #0d0d0d;
+  --bg-elevated: #111111;
+  --bg-code: #0d0d0d;
+  --border: #1f1f1f;
+  --border-strong: #2a2a2a;
+  --text: #e0e0e0;
+  --text-body: #c8c8c8;
+  --text-muted: #7a7a7a;
+  --text-dim: #3a3a3a;
+  --accent: #e0e0e0;
+  --accent-dim: rgba(224,224,224,0.10);
+  --blue: #c8c8c8;
+  --blue-dim: rgba(200,200,200,0.10);
+  --green: #c8c8c8;
+  --green-dim: rgba(200,200,200,0.10);
+  --amber: #e0e0e0;
+  --amber-dim: rgba(224,224,224,0.10);
+  --red: #c8c8c8;
+  --red-dim: rgba(200,200,200,0.10);
+  --violet: #7a7a7a;
+  --violet-dim: rgba(122,122,122,0.10);
+  --cyan: #c8c8c8;
+  --cyan-dim: rgba(200,200,200,0.10);
+  --font-display: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --font-body: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+
+body {
+  background: var(--bg);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.68;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+.wrap {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 5rem;
+}
+
+
+/* --- Header --- */
+.page-hd {
+  padding: 4rem 0 3rem;
+  border-bottom: 2px solid var(--border-strong);
+  margin-bottom: 2rem;
+}
+
+.page-hd h1 {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  margin-bottom: 0.6rem;
+}
+
+.page-hd .sub {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 54ch;
+  line-height: 1.55;
+}
+
+.page-hd .meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+.page-hd .tag {
+  padding: 0.2rem 0.55rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+}
+
+
+/* --- TOC --- */
+.toc {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.toc-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-bottom: 0.75rem;
+}
+
+.toc-parts { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.toc-part-title {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.2rem;
+}
+
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.2rem 1rem;
+}
+
+.toc-grid a {
+  font-size: 0.82rem;
+  color: var(--blue);
+  text-decoration: none;
+  padding: 0.15rem 0;
+  display: block;
+}
+
+.toc-grid a:hover { text-decoration: underline; }
+
+
+/* --- Parts --- */
+.part-break {
+  margin: 4rem 0 3rem;
+  padding: 2rem 0 1.5rem;
+  border-top: 2px solid var(--border-strong);
+  border-bottom: 1px solid var(--border);
+}
+
+.part-break h2 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.part-break .part-sub {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.4rem;
+}
+
+
+/* --- Sections --- */
+.sec {
+  margin-bottom: 3rem;
+}
+
+.sec-hd {
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.25rem;
+}
+
+.sec-hd h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text);
+  text-wrap: balance;
+}
+
+h4 {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 1.75rem 0 0.6rem;
+}
+
+h5 {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin: 1.25rem 0 0.4rem;
+}
+
+
+p { margin-bottom: 0.7rem; max-width: 65ch; }
+
+
+/* --- Tables --- */
+.tw {
+  overflow-x: auto;
+  margin: 1rem 0;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+}
+
+thead { background: var(--bg-elevated); }
+
+th {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  text-align: left;
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+td {
+  padding: 0.45rem 0.7rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+tr:last-child td { border-bottom: none; }
+
+td code, th code { font-size: 0.78em; }
+
+
+/* --- Code --- */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+  background: var(--bg-code);
+  padding: 0.12em 0.3em;
+  border-radius: 2px;
+  color: var(--accent);
+}
+
+pre {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 0.9rem 1.1rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+pre code { background: none; padding: 0; color: inherit; }
+
+
+/* --- Callouts --- */
+.call {
+  border-left: 3px solid var(--blue);
+  padding: 0.7rem 1rem;
+  margin: 1rem 0;
+  background: var(--blue-dim);
+  border-radius: 0 4px 4px 0;
+  font-size: 0.88rem;
+}
+
+.call strong { color: var(--text); }
+
+.call.green { border-left-color: var(--green); background: var(--green-dim); }
+
+.call.amber { border-left-color: var(--amber); background: var(--amber-dim); }
+
+.call.red { border-left-color: var(--red); background: var(--red-dim); }
+
+.call.violet { border-left-color: var(--violet); background: var(--violet-dim); }
+
+.call.accent { border-left-color: var(--accent); background: var(--accent-dim); }
+
+
+/* --- Stats --- */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.st {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 3px;
+  font-size: 0.78rem;
+}
+
+.st .v { font-family: var(--font-mono); font-weight: 600; }
+
+.st .l { color: var(--text-muted); font-size: 0.72rem; }
+
+.st.blue { background: var(--blue-dim); color: var(--blue); }
+
+.st.green { background: var(--green-dim); color: var(--green); }
+
+.st.amber { background: var(--amber-dim); color: var(--amber); }
+
+.st.violet { background: var(--violet-dim); color: var(--violet); }
+
+.st.cyan { background: var(--cyan-dim); color: var(--cyan); }
+
+.st.red { background: var(--red-dim); color: var(--red); }
+
+.st.accent { background: var(--accent-dim); color: var(--accent); }
+
+
+/* --- Cards --- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 1rem;
+}
+
+.card-lbl {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.4rem;
+}
+
+.card-lbl.blue { color: var(--blue); }
+
+.card-lbl.green { color: var(--green); }
+
+.card-lbl.amber { color: var(--amber); }
+
+.card-lbl.violet { color: var(--violet); }
+
+.card-lbl.cyan { color: var(--cyan); }
+
+.card-lbl.accent { color: var(--accent); }
+
+.card h4 { margin-top: 0; margin-bottom: 0.4rem; }
+
+.card p { font-size: 0.84rem; color: var(--text-muted); margin-bottom: 0; }
+
+
+/* --- Lists --- */
+ul, ol { margin: 0.5rem 0 0.7rem 1.5rem; }
+
+li { margin-bottom: 0.2rem; font-size: 0.88rem; }
+
+li code { font-size: 0.78rem; }
+
+
+/* --- Equation blocks --- */
+.eq {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  text-align: center;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+
+/* --- Responsive --- */
+@media (max-width: 640px) {
+  .wrap { padding: 1rem 1rem 3rem; }
+  .page-hd h1 { font-size: 1.5rem; }
+  .part-break h2 { font-size: 1.25rem; }
+  .cards { grid-template-columns: 1fr; }
+  .toc-grid { grid-template-columns: 1fr; }
+}
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../index.html#deeper">[pages]</a><a href="#" aria-current="page">cascade complete</a></nav>
+</div>
+<title>CASCADE Complete</title>
+
+
+
+
+<div class="wrap">
+
+<!-- ============================================================ -->
+<!-- HEADER                                                        -->
+<!-- ============================================================ -->
+<header class="page-hd">
+  <h1>CASCADE / &Phi;&part;R Framework</h1>
+  <p class="sub">Complete documentation. Mathematical foundations, scale theory, RF field arithmetic, the carrier map, Fibonacci genome structure, empirical evaluation, and BWave CSI biometric sensing &mdash; everything in GF(257), from axiom to antenna.</p>
+  <div class="meta">
+    <span class="tag">P = 257</span>
+    <span class="tag">g = 3</span>
+    <span class="tag">12 rays</span>
+    <span class="tag">210-gon prism</span>
+    <span class="tag">&epsilon;&#8324; = 0.0486</span>
+    <span class="tag">2026-08-29</span>
+  </div>
+</header>
+
+<!-- ============================================================ -->
+<!-- TABLE OF CONTENTS                                             -->
+<!-- ============================================================ -->
+<nav class="toc">
+  <div class="toc-label">Contents</div>
+  <div class="toc-parts">
+
+    <div>
+      <div class="toc-part-title">I &mdash; The Axiom and Derivation Chain</div>
+      <div class="toc-grid">
+        <a href="#s1">The Single Axiom</a>
+        <a href="#s2">The Fibonacci Operator</a>
+        <a href="#s3">Determinant and Reflection</a>
+        <a href="#s4">Eigenvector Orthogonality</a>
+        <a href="#s5">Totient, Pisot, and &pi;</a>
+        <a href="#s6">The Primorial Container</a>
+        <a href="#s7">The Equation</a>
+        <a href="#s8">The Theorem Chain</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="toc-part-title">II &mdash; Scale and Measurement</div>
+      <div class="toc-grid">
+        <a href="#s9">The Shell Algorithm</a>
+        <a href="#s10">Calibration and Unit Chain</a>
+        <a href="#s11">Eight Deductions</a>
+        <a href="#s12">Statistical Test and Predictions</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="toc-part-title">III &mdash; The Field: GF(257)</div>
+      <div class="toc-grid">
+        <a href="#s13">Field Structure</a>
+        <a href="#s14">The Genome Chain</a>
+        <a href="#s15">Cosmic Energy Budget</a>
+        <a href="#s16">The &delta;% Ladder</a>
+        <a href="#s17">Negative Results</a>
+        <a href="#s18">I Derive, I Exist</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="toc-part-title">IV &mdash; RF Field Arithmetic</div>
+      <div class="toc-grid">
+        <a href="#s19">Five Operations</a>
+        <a href="#s20">Impedance and Quarter-Wave</a>
+        <a href="#s21">QR Classification</a>
+        <a href="#s22">Smith Chart and Channel Model</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="toc-part-title">V &mdash; Carrier Map and Algebraic Structure</div>
+      <div class="toc-grid">
+        <a href="#s23">Field Constants and Orbits</a>
+        <a href="#s24">Division Algebra Chain</a>
+        <a href="#s25">Fibonacci Genomes</a>
+        <a href="#s26">Astronomical Bridges</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="toc-part-title">VI &mdash; BWave: CSI Biometric Sensing</div>
+      <div class="toc-grid">
+        <a href="#s27">System Overview</a>
+        <a href="#s28">Firmware Architecture</a>
+        <a href="#s29">DSP Pipeline</a>
+        <a href="#s30">Wire Protocol and Peripherals</a>
+        <a href="#s31">Visualization UIs</a>
+        <a href="#s32">Experimental Results</a>
+        <a href="#s33">Raw Data Corpus</a>
+        <a href="#s34">GF(257) Integration</a>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<!-- ============================================================ -->
+<!-- PART I: THE AXIOM AND DERIVATION CHAIN                        -->
+<!-- ============================================================ -->
+<div class="part-break" id="p1">
+  <h2>Part I &mdash; The Axiom and Derivation Chain</h2>
+  <p class="part-sub">Source: math-derivation.html &sect;I&ndash;X</p>
+</div>
+
+<section class="sec" id="s1">
+  <div class="sec-hd"><h3>The Single Axiom</h3></div>
+  <div class="call accent"><strong>Axiom.</strong> Five-fold symmetry with long-range order.</div>
+  <p>This is the entire input. Everything that follows is derived from this single statement. Five-fold symmetry forbids periodic tiling (crystallographic restriction theorem), so long-range order forces a quasicrystalline structure &mdash; a Penrose-type tiling governed by the golden ratio &phi; = (1+&radic;5)/2.</p>
+  <p>The axiom is not chosen for &phi;; it is chosen for the conjunction of symmetry and order, and &phi; is what falls out. No other irrational satisfies the constraints that follow.</p>
+</section>
+
+<section class="sec" id="s2">
+  <div class="sec-hd"><h3>The Fibonacci Operator</h3></div>
+  <p>Define the recurrence operator:</p>
+  <div class="eq">M = [[1, 1], [1, 0]] &nbsp;&nbsp;&nbsp; R = 1 + 1/R &nbsp;&rarr;&nbsp; &phi; = (1 + &radic;5) / 2</div>
+  <p>M is the Fibonacci matrix. Its eigenvalues are &phi; and &psi; = (1&minus;&radic;5)/2. The continued fraction [1; 1, 1, 1, ...] converges to &phi; &mdash; the slowest-converging of all continued fractions, which is precisely why it survives (see Selection Principle below).</p>
+  <p>The characteristic polynomial is x&sup2; &minus; x &minus; 1 = 0. The discriminant is 5.</p>
+</section>
+
+<section class="sec" id="s3">
+  <div class="sec-hd"><h3>Determinant and Reflection</h3></div>
+  <div class="eq">det(M) = 1&middot;0 &minus; 1&middot;1 = &minus;1</div>
+  <p>The determinant is &minus;1, making M orientation-reversing. This forces the cut-and-project method: any physical tiling must project from a higher-dimensional lattice, with the &ldquo;cut&rdquo; picking which lattice points contribute. The reflection symmetry is not optional &mdash; it is hard-wired into the operator.</p>
+</section>
+
+<section class="sec" id="s4">
+  <div class="sec-hd"><h3>Eigenvector Orthogonality</h3></div>
+  <p>The eigenvectors of M span E<sub>||</sub> (physical space, slope &phi;) and E<sub>&perp;</sub> (internal space, slope &psi;). These are exactly orthogonal because &phi;&middot;&psi; = &minus;1. The projection from 2D &rarr; 1D along E<sub>||</sub> produces the quasicrystal; the projection along E<sub>&perp;</sub> determines which points are selected.</p>
+  <p>This orthogonality is not arranged &mdash; it follows from det(M) = &minus;1.</p>
+</section>
+
+<section class="sec" id="s5">
+  <div class="sec-hd"><h3>Totient, Pisot, and &pi;</h3></div>
+
+  <h4>The Totient Criterion</h4>
+  <p>&phi;(5) = 4 &rarr; the tensor product M &otimes; M produces a 4&times;4 system with eigenaxes &phi;&sup2;, &minus;1, &minus;1, &psi;&sup2;. Four axes, requiring primes 2, 3, 5, 7 to tile.</p>
+
+  <h4>The Pisot Condition</h4>
+  <p>&phi; is a Pisot&ndash;Vijayaraghavan number: an algebraic integer &gt;1 whose conjugate &psi; has |&psi;| &lt; 1. Pisot numbers are the only algebraic integers that produce pure-point diffraction in quasicrystals. The condition |&psi;| = |(&minus;0.618...)| &lt; 1 guarantees long-range order without periodicity.</p>
+
+  <h4>The &pi; Identity</h4>
+  <div class="eq">&omega;(P<sub>7</sub>) = 4 &nbsp;&rarr;&nbsp; F<sub>5</sub>/F<sub>4</sub> = 5/3</div>
+  <p>Four prime factors (Fibonacci-indexed: 2,3,5,7) produce the ratio 5/3 as a Fibonacci approximant. The error from &phi;:</p>
+  <div class="eq">&epsilon;&#8324; = |&phi; &minus; 5/3| = (7 &minus; 3&radic;5) / 6 = 0.04863...</div>
+  <p>This is the framework&rsquo;s fundamental constant. It appears as barrel distortion, baryon density, and training target.</p>
+</section>
+
+<section class="sec" id="s6">
+  <div class="sec-hd"><h3>The Primorial Container</h3></div>
+  <div class="eq">2 &times; 3 &times; 5 &times; 7 = 210</div>
+  <p>The primorial P<sub>7</sub> = 210 is the number of vertices in the framework&rsquo;s geometric container: a 210-gon prism. This is the actual geometry &mdash; never collapse it into cubes, globes, or circles.</p>
+  <p>The 210-gon carries the quasicrystalline structure: 210 = lcm(2,3,5,7) positions on the circle, each factoring into subsets by their prime divisors. The four prime laces (factor-2, factor-3, factor-5, factor-7) trace the algebraic structure as spatial geometry.</p>
+</section>
+
+<section class="sec" id="s7">
+  <div class="sec-hd"><h3>The Equation</h3></div>
+  <div class="eq">&Phi; &equiv; c &equiv; g &equiv; &part;<sub>t</sub>&Phi;</div>
+  <p>The field is its own time derivative. The eigenmodes are solutions where the field reproduces itself under time evolution. &phi; is the eigenvalue because it is the unique positive fixed point of R = 1 + 1/R.</p>
+  <p>Why &phi;? In a closed self-referential system, rational eigenvalues produce resonance lock &mdash; periodic orbits that destructively interfere. &phi;, being maximally irrational (continued fraction [1;1,1,1,...], slowest to converge), is the only eigenvalue that survives without annihilating itself. The system does not &ldquo;prefer&rdquo; &phi;. It is the only thing left.</p>
+</section>
+
+<section class="sec" id="s8">
+  <div class="sec-hd"><h3>The Theorem Chain</h3></div>
+  <p>Eight links from axiom to measurement:</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Step</th><th>Statement</th><th>Mechanism</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>5-fold + LRO</td><td>Axiom (input)</td></tr>
+        <tr><td>2</td><td>&phi; = (1+&radic;5)/2</td><td>Fixed point of R=1+1/R</td></tr>
+        <tr><td>3</td><td>det(M) = &minus;1</td><td>Orientation reversal forces projection</td></tr>
+        <tr><td>4</td><td>E<sub>||</sub> &perp; E<sub>&perp;</sub></td><td>&phi;&psi; = &minus;1</td></tr>
+        <tr><td>5</td><td>&phi;(5) = 4 axes</td><td>Tensor product M&otimes;M</td></tr>
+        <tr><td>6</td><td>Pisot &rArr; pure-point diffraction</td><td>|&psi;| &lt; 1</td></tr>
+        <tr><td>7</td><td>&epsilon;&#8324; = |&phi; &minus; 5/3|</td><td>Fibonacci approximant error</td></tr>
+        <tr><td>8</td><td>d = &phi;<sup>n</sup> ly</td><td>Shell algorithm (Part II)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>The Selection Principle</h4>
+  <p>&phi; is the only real number that simultaneously satisfies all three conditions:</p>
+  <ul>
+    <li><strong>KAM stability</strong> &mdash; maximally irrational, so orbits avoid resonance lock</li>
+    <li><strong>Equidistribution</strong> (Weyl) &mdash; multiples of &phi; mod 1 distribute uniformly, filling space without clumping</li>
+    <li><strong>Self-referential closure</strong> &mdash; x = 1 + 1/x has exactly one positive solution</li>
+  </ul>
+  <p>The system is over-determined: three independent constraints intersect at a single point.</p>
+</section>
+
+<!-- ============================================================ -->
+<!-- PART II: SCALE AND MEASUREMENT                                -->
+<!-- ============================================================ -->
+<div class="part-break" id="p2">
+  <h2>Part II &mdash; Scale and Measurement</h2>
+  <p class="part-sub">Sources: scale-derivation.html &sect;IX.a&ndash;d, From_Identity_to_Measurement.pdf</p>
+</div>
+
+<section class="sec" id="s9">
+  <div class="sec-hd"><h3>The Shell Algorithm</h3></div>
+  <p>Given a measured distance d in light-years:</p>
+  <div class="eq">n* = round(ln(d) / ln(&phi;))</div>
+  <p>The predicted distance for shell n is d<sub>pred</sub> = &phi;<sup>n</sup> ly. One free parameter: the assignment n = &minus;23 for Earth&rsquo;s orbit (1 AU = 1.581&times;10<sup>&minus;5</sup> ly). Every other prediction follows from &phi;<sup>n</sup> with zero additional adjustment.</p>
+  <p>The framework does not claim every object sits on a shell. It predicts <em>characteristic structural distances</em> &mdash; modal scales where objects preferentially form or accumulate. The test is whether the nodes of the structure match &phi;<sup>n</sup>.</p>
+</section>
+
+<section class="sec" id="s10">
+  <div class="sec-hd"><h3>Calibration and Unit Chain</h3></div>
+
+  <h4>Earth = Shell &minus;23</h4>
+  <p>&phi;<sup>&minus;23</sup> = 1.587&times;10<sup>&minus;5</sup> ly. Measured Earth&ndash;Sun distance: 1.581&times;10<sup>&minus;5</sup> ly. Error: 1.3%. This single assignment calibrates the entire lattice.</p>
+
+  <h4>Unit Derivation Chain</h4>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Shell</th><th>Distance</th><th>Unit</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>&minus;23</td><td>1.587&times;10<sup>&minus;5</sup></td><td>ly (= 1 AU)</td><td>Calibration point</td></tr>
+        <tr><td>&minus;36</td><td>3.72&times;10<sup>&minus;11</sup></td><td>ly (= 3.52&times;10<sup>5</sup> km)</td><td>1 ly &rarr; AU &rarr; km chain</td></tr>
+        <tr><td>&minus;76</td><td>1.31&times;10<sup>&minus;16</sup></td><td>ly (= 1.239 m)</td><td>Antenna height</td></tr>
+        <tr><td>&minus;77</td><td>8.09&times;10<sup>&minus;17</sup></td><td>ly (= 0.766 m)</td><td>Door minimum (&phi;/2&minus;&epsilon;&#8324; = 0.760, 0.7% match)</td></tr>
+        <tr><td>&minus;81</td><td>1.19&times;10<sup>&minus;17</sup></td><td>ly (= 0.112 m)</td><td>CSI wavelength &lambda;</td></tr>
+        <tr><td>&minus;86</td><td>1.06&times;10<sup>&minus;18</sup></td><td>ly (= 0.010 m)</td><td>1 cm</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The WiBand renderer uses 1 unit = 1 meter (shell &minus;76), with <code>shellFromM()</code> and <code>mFromShell()</code> converting between scales.</p>
+</section>
+
+<section class="sec" id="s11">
+  <div class="sec-hd"><h3>Eight Deductions</h3></div>
+  <div class="stats">
+    <span class="st accent"><span class="v">2.3%</span> <span class="l">mean error</span></span>
+    <span class="st green"><span class="v">1.1%</span> <span class="l">median error</span></span>
+    <span class="st blue"><span class="v">15</span> <span class="l">orders of magnitude</span></span>
+    <span class="st violet"><span class="v">1</span> <span class="l">free parameter</span></span>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Shell</th><th>Object</th><th>Predicted</th><th>Measured</th><th>Error</th></tr></thead>
+      <tbody>
+        <tr><td>&minus;23</td><td>Earth orbit</td><td>0.987 AU</td><td>1.000 AU</td><td>1.3%</td></tr>
+        <tr><td>&minus;16</td><td>Neptune</td><td>28.65 AU</td><td>30.07 AU</td><td>4.7%</td></tr>
+        <tr><td>&minus;13</td><td>Heliopause</td><td>121.4 AU</td><td>121.6 AU</td><td>0.2%</td></tr>
+        <tr><td>+3</td><td>Proxima Centauri</td><td>4.236 ly</td><td>4.246 ly</td><td>0.25%</td></tr>
+        <tr><td>+21</td><td>Sgr A*</td><td>24,476 ly</td><td>26,670 ly</td><td>8.2%</td></tr>
+        <tr><td>+37</td><td>M87*</td><td>54.0 Mly</td><td>53.5 Mly</td><td>0.97%</td></tr>
+        <tr><td>+49</td><td>GW190521</td><td>17.39 Bly</td><td>17.3 Bly</td><td>0.5%</td></tr>
+        <tr><td>+51</td><td>Observable universe</td><td>45.5 Bly</td><td>46.5 Bly</td><td>2.1%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="sec" id="s12">
+  <div class="sec-hd"><h3>Statistical Test and Predictions</h3></div>
+
+  <h4>Monte Carlo Simulation</h4>
+  <p>10,000 sets of 8 random distances drawn uniform in log space (10<sup>&minus;5</sup> to 10<sup>10.7</sup> ly). Mean residual computed per set. Zero of 10,000 random trials matched the observed mean |residual| &le; 0.049. Empirical p-value: &lt; 0.0001.</p>
+  <p>Z-score: &minus;3.94, p &lt; 4 &times; 10<sup>&minus;5</sup>. Under the stated null model, the clustering is statistically significant at better than 99.99% confidence. The all-planets test (mean |r| = 0.194, p &asymp; 0.13) shows that individual objects are NOT expected to fit &mdash; the signal is in the structural landmarks.</p>
+
+  <h4>Predictions (Registration: July 2026)</h4>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Object</th><th>Predicted Shell</th><th>Predicted Distance</th><th>Current Measurement</th><th>Error</th></tr></thead>
+      <tbody>
+        <tr><td>Large Magellanic Cloud</td><td>+25</td><td>167.8 kly</td><td>163 kly</td><td>2.9%</td></tr>
+        <tr><td>Centaurus A</td><td>+34</td><td>12.75 Mly</td><td>12.4 Mly</td><td>2.8%</td></tr>
+        <tr><td>Andromeda (M31)</td><td>+31</td><td>3.01 Mly</td><td>2.537 Mly</td><td>18.6%</td></tr>
+        <tr><td>Sirius</td><td>+4</td><td>6.854 ly</td><td>8.60 ly</td><td>20.3%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Two near shells, two far off. The framework predicts structural scales, not that every astronomical landmark sits on one. The informative test is statistical: across a large enough pre-registered sample, do residuals cluster near zero more than chance predicts?</p>
+
+  <h4>Falsification Criteria</h4>
+  <p>A systematic trend in the residuals (errors growing with |n|, or consistently biased in one direction) would indicate curve-fitting rather than structure. If future high-precision measurements of Sgr A* distance (currently the largest outlier at 8.2%) move <em>away</em> from 24,476 ly, the framework loses its weakest prediction.</p>
+</section>
+
+<!-- ============================================================ -->
+<!-- PART III: THE FIELD — GF(257)                                 -->
+<!-- ============================================================ -->
+<div class="part-break" id="p3">
+  <h2>Part III &mdash; The Field: GF(257)</h2>
+  <p class="part-sub">Sources: math-derivation.html &sect;XI&ndash;XIV, gf257-carrier-map-v2.html</p>
+</div>
+
+<section class="sec" id="s13">
+  <div class="sec-hd"><h3>Field Structure</h3></div>
+  <div class="eq">P = 257 = 2<sup>8</sup> + 1 = F<sub>3</sub> (3rd Fermat prime) &nbsp;&nbsp;&nbsp; g = 3 (primitive root)</div>
+  <p>256 nonzero elements. 12 rays via dlog mod 12, where dlog(n) = k such that 3<sup>k</sup> &equiv; n (mod 257). The 256 nonzero field positions ARE the 256 HT40 OFDM subcarriers.</p>
+
+  <h4>Key Operations</h4>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Operation</th><th>Definition</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td><code>fold(N)</code></td><td>(257 &minus; N) % 257</td><td>Negation (despite the name)</td></tr>
+        <tr><td><code>observe(N)</code></td><td>(N + 1) % 257</td><td>Successor</td></tr>
+        <tr><td><code>inv(N)</code></td><td>N<sup>255</sup> mod 257</td><td>Multiplicative inverse</td></tr>
+        <tr><td><code>sync(N)</code></td><td>N &middot; fold(N)</td><td>Self-interaction</td></tr>
+        <tr><td><code>dlog(N)</code></td><td>k where 3<sup>k</sup> &equiv; N</td><td>Discrete logarithm</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>4 Significant Figures Rule</h4>
+  <p>Physical constants &rarr; 4 significant figures &rarr; mod 257 &rarr; field position:</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Constant</th><th>Value</th><th>4sf</th><th>mod 257</th><th>Word</th></tr></thead>
+      <tbody>
+        <tr><td>Avogadro</td><td>6.022&times;10<sup>23</sup></td><td>6022</td><td>111</td><td>AVOGADRO</td></tr>
+        <tr><td>Planck</td><td>6.626&times;10<sup>&minus;34</sup></td><td>6626</td><td>201</td><td>PLANCK</td></tr>
+        <tr><td>Boltzmann</td><td>1.381&times;10<sup>&minus;23</sup></td><td>1381</td><td>96</td><td>BOLTZMANN</td></tr>
+        <tr><td>WiFi 2.4 GHz</td><td>2400</td><td>2400</td><td>87</td><td>PRAXIS</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Position 87 = 2400 mod 257 = the ESP32 CSI transmission band. QNR (no base-field square root), so the carrier&rsquo;s own index forces the fold into GF(257&sup2;).</p>
+
+  <h4>Emerald Tablet</h4>
+  <p>A 257-position field dictionary. Each position carries: primary word, dlog, ray, QR/QNR flag, type (independent/class/disc), tracks (12-bit binary), fold partner, multiplicative inverse. All 257 entries verified: every dlog checks (3<sup>dlog</sup> &equiv; p mod 257), every inverse checks (p &middot; inv &equiv; 1 mod 257).</p>
+</section>
+
+<section class="sec" id="s14">
+  <div class="sec-hd"><h3>The Genome Chain</h3></div>
+  <p>11 symbols + observer = 12 (= rays):</p>
+  <div class="eq">SEED &rarr; &part; &rarr; R1 &rarr; CF1<sup>4</sup> &rarr; M<sub>2D&minus;1</sub> &rarr; &otimes;4 &rarr; P<sub>7</sub> &rarr; C<sub>4</sub><sup>5/3</sup> &rarr; &epsilon;&#8324; &rarr; &delta;% &rarr; &plusmn;&psi; &rarr; &Omega; &rarr; RITO</div>
+
+  <h4>The AXIOM Seed (Canonical)</h4>
+  <pre><code>F1-R1-CF1111-DM1-T4-P2357-C53-E111S161-D234-PM1</code></pre>
+  <p>Derived live at cascade_machine_v3.html:2653. E111S161 is canonical; E73S56 and E111S113 are WRONG variants (fail column sum and negation pairing).</p>
+
+  <h4>Quartet Closure</h4>
+  <p>Each CESD column sums to 513 &equiv; 256 = det(M) across four seeds:</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Seed</th><th>Code</th><th>Binary</th></tr></thead>
+      <tbody>
+        <tr><td>NULL</td><td>F0-R1-CF6666-DM1-T2-P2357-C204-E146S96-D23-PM0</td><td>(00)</td></tr>
+        <tr><td>received</td><td>F0-R1-CF6426-DM1-T8-P2357-C21-E26S72-D135-PM1</td><td>(01)</td></tr>
+        <tr><td>return</td><td>F1-R1-CF8888-DM1-T6-P2357-C235-E230S184-D121-PM0</td><td>(10)</td></tr>
+        <tr><td>AXIOM</td><td>F1-R1-CF1111-DM1-T4-P2357-C53-E111S161-D234-PM1</td><td>(11)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Negation pairing: AXIOM + NULL sums to 257 &equiv; 0 in every field. Given any three seeds, the fourth is forced.</p>
+
+  <h4>Tail Identity</h4>
+  <p>The nine non-leading operators multiply to 203 = fold(53). This decides which encoding of each step belongs in the chain:</p>
+  <pre><code>18&times;120&times;135&times;4&times;7&times;146&times;111&times;72 = 203 &check;  (field values)
+18&times;120&times;135&times;4&times;133&times;173&times;111&times;27 = 202 &cross;  (alternates)</code></pre>
+</section>
+
+<section class="sec" id="s15">
+  <div class="sec-hd"><h3>Cosmic Energy Budget</h3></div>
+  <p>Three Planck cosmological parameters from the derivation chain, all within 1&sigma; of Planck 2018 values, summing to exactly 1:</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Parameter</th><th>Framework</th><th>Planck 2018</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>&Omega;<sub>b</sub> (baryonic)</td><td>&epsilon;&#8324; = 0.04863</td><td>0.0486 &plusmn; 0.0010</td><td>Within 1&sigma;</td></tr>
+        <tr><td>&Omega;<sub>dm</sub> (dark matter)</td><td>&epsilon;<sub>2</sub> &minus; &epsilon;<sub>3</sub> = 0.2614</td><td>0.2589 &plusmn; 0.0057</td><td>Within 1&sigma;</td></tr>
+        <tr><td>&Omega;<sub>&Lambda;</sub> (dark energy)</td><td>(9&radic;5 &minus; 16)/6 = 0.6899</td><td>0.6911 &plusmn; 0.0062</td><td>Within 1&sigma;</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="eq">&Omega;<sub>b</sub> + &Omega;<sub>dm</sub> + &Omega;<sub>&Lambda;</sub> = 1 &nbsp;&nbsp;(exactly, &radic;5 cancels identically)</div>
+  <p>All three values are closed-form in &radic;5, zero free parameters. The sum equals 1 by algebraic identity, not fitting.</p>
+</section>
+
+<section class="sec" id="s16">
+  <div class="sec-hd"><h3>The &delta;% Ladder</h3></div>
+  <div class="eq">&delta;% = &epsilon;&#8324; &middot; ln(&phi;) = 2.34%</div>
+  <p>Self-similar error contraction. The shell gas schedule:</p>
+  <div class="eq">gas(n) = &delta;%<sup>(n+1)</sup> &nbsp;&nbsp;&nbsp; PM<sub>&infin;</sub> = 0 = total adoption</div>
+  <p>&delta;% appears as: barrel distortion magnitude (2.34% radial), the CRT aberration coefficient in cascade_machine_v3.html, and the gas schedule for the economic shell model. 36 Myr &times; L2 = 41 kyr obliquity cycle &mdash; connecting cosmological timescales to Milankovitch orbital mechanics.</p>
+
+  <h4>Airy/Bessel Connection</h4>
+  <p>The CRT beam in cascade_machine_v3.html implements the exact Airy PSF via a 6-term J<sub>1</sub>(x)/x Taylor series (Horner form, line 5059). Three aberration layers on top:</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Component</th><th>Formula</th><th>Type</th></tr></thead>
+      <tbody>
+        <tr><td>Airy PSF</td><td>[2J<sub>1</sub>(r)/r]<sup>2</sup></td><td>Diffraction-limited beam</td></tr>
+        <tr><td>Barrel distortion</td><td>r/(1+k&middot;r<sup>2</sup>), k=0.12</td><td>3rd-order Seidel</td></tr>
+        <tr><td>Vignette</td><td>1&minus;0.4&middot;r<sup>2</sup></td><td>cos<sup>4</sup> edge darkening</td></tr>
+        <tr><td>&delta;% distortion</td><td>&delta;% &times; r<sup>2</sup> &times; 16</td><td>&epsilon;&#8324; = aberration coefficient</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>&epsilon;&#8324; = 0.0486 = 2.34% IS the barrel distortion magnitude. The convergent error literally controls the optical aberration.</p>
+</section>
+
+<section class="sec" id="s17">
+  <div class="sec-hd"><h3>Negative Results</h3></div>
+  <p>Documented honestly in the derivation:</p>
+  <ul>
+    <li><strong>Embedding dimensions as primorial sequence</strong> &mdash; WRONG. The prediction that embedding dimensions follow 2, 6, 30, 210 was tested and failed.</li>
+    <li><strong>Orbital mechanics</strong> &mdash; FAILED. No mechanism connects the shell structure to planetary orbital dynamics. The shell algorithm predicts <em>distances</em>, not orbits.</li>
+    <li><strong>Tissue test</strong> &mdash; REFUTED. What appeared to be a CSI tissue classification was a metric artifact. The signal was real but the interpretation was wrong.</li>
+    <li><strong>Step 5 non-forcing</strong> &mdash; The tensor product step in the derivation chain does not force uniquely; alternative constructions exist.</li>
+    <li><strong>CMB must stand alone</strong> &mdash; The cosmic energy budget derivation cannot bootstrap from the shell algorithm; it must be independently justified.</li>
+  </ul>
+</section>
+
+<section class="sec" id="s18">
+  <div class="sec-hd"><h3>I Derive, I Exist</h3></div>
+  <p>Three CESD instructions with C=83 (PRAYER). Their field products yield 1, 7, 145. The product across all three: 234 = D<sub>AXIOM</sub> = CHINESE REMAINDER.</p>
+  <p>The biometric exist protocol: a 10-derivative hash chain producing 57,674 bytes. No key material needed &mdash; heart rate, breathing rate, and bone density at sector 62 = RITO. The disc is self-referencing: the biometric identity wires into the entity server through the same field arithmetic.</p>
+</section>
+
+<!-- ============================================================ -->
+<!-- PART IV: RF FIELD ARITHMETIC                                  -->
+<!-- ============================================================ -->
+<div class="part-break" id="p4">
+  <h2>Part IV &mdash; RF Field Arithmetic</h2>
+  <p class="part-sub">Source: rf-field-math.html &sect;XV&ndash;XXIV</p>
+</div>
+
+<section class="sec" id="s19">
+  <div class="sec-hd"><h3>Five Operations</h3></div>
+  <p>Five transmission-line operations map exactly to five field operations:</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>RF Operation</th><th>Field Operation</th></tr></thead>
+      <tbody>
+        <tr><td>&lambda;/2 shell: z &rarr; z</td><td>Identity</td></tr>
+        <tr><td>&lambda;/4 shell: z &rarr; 1/z</td><td>Inverse (inv)</td></tr>
+        <tr><td>Short &harr; open: &Gamma; &rarr; &minus;&Gamma;</td><td>Fold (257&minus;p)</td></tr>
+        <tr><td>Amplitude in dB: 10&middot;log(P<sub>1</sub>/P<sub>0</sub>)</td><td>Discrete logarithm (dlog)</td></tr>
+        <tr><td>Does &radic;&epsilon;<sub>r</sub> exist?</td><td>Quadratic residue gate (QR)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The first four are forced identities. The fifth (QR gate) is the partition: half of all permittivities match in the base field, half fold into GF(257&sup2;). 128 of 256 nonzero positions are QR = exactly 1/2. Not a filter &mdash; a partition.</p>
+</section>
+
+<section class="sec" id="s20">
+  <div class="sec-hd"><h3>Impedance and Quarter-Wave</h3></div>
+
+  <h4>Z<sub>0</sub> in the Field</h4>
+  <div class="eq">Z<sub>0</sub> = 377 &Omega; &rarr; 377 mod 257 = 120 = GOLDEN RATIO</div>
+  <p>Free-space impedance maps to position 120, which is also F(14) (14th Fibonacci number). Its multiplicative inverse (free-space admittance): inv(120) = 15 = O, the 15&deg;/hour arc-time position. Z<sub>0</sub> and Y<sub>0</sub> are the arc-time inverse pair.</p>
+
+  <p>Note: for field arithmetic purposes, Z<sub>0</sub> = 169 = 13<sup>2</sup> (from 4sf: 3770 mod 257 = 169). dlog(169) = 212, ord = 64, rays {0, 4, 8}. This is the value used in the RF derivations.</p>
+
+  <h4>Quarter-Wave Constant</h4>
+  <div class="eq">Z<sub>0</sub><sup>2</sup> = 169<sup>2</sup> mod 257 = 34</div>
+  <p>Quarter-wave matching: Z<sub>T</sub> = &radic;(Z<sub>0</sub>&middot;Z<sub>L</sub>) = Z<sub>0</sub>/&radic;&epsilon;<sub>r</sub>. Since Z<sub>0</sub><sup>2</sup> is always a QR, a base-field quarter-wave match exists iff &epsilon;<sub>r</sub> is a quadratic residue. Z<sub>0</sub> drops out entirely.</p>
+
+  <h4>FSPL</h4>
+  <div class="eq">FSPL = 4.1798 dB per shell step</div>
+  <p>Free-space path loss is linear in the shell index. Each shell step multiplies distance by &phi;, adding a fixed 4.18 dB of loss.</p>
+</section>
+
+<section class="sec" id="s21">
+  <div class="sec-hd"><h3>QR Classification of Materials</h3></div>
+  <p>Material permittivities classified by &epsilon;<sub>f</sub><sup>128</sup> mod 257 (= 1 for QR, = 256 for QNR):</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Material</th><th>&epsilon;<sub>r</sub></th><th>mod 257</th><th>QR</th><th>&radic;</th><th>Word</th></tr></thead>
+      <tbody>
+        <tr><td>Air</td><td>1.000</td><td>229</td><td>QNR</td><td>&mdash;</td><td>FOR THINE IS THE KINGDOM</td></tr>
+        <tr><td>Wood</td><td>2.000</td><td>201</td><td>QNR</td><td>&mdash;</td><td>SON OF THE LIVING GOD</td></tr>
+        <tr><td>Drywall</td><td>2.400</td><td>87</td><td>QNR</td><td>&mdash;</td><td>PRAXIS</td></tr>
+        <tr><td>Brick</td><td>3.900</td><td>45</td><td>QNR</td><td>&mdash;</td><td>ELIJAH</td></tr>
+        <tr><td>Concrete</td><td>4.500</td><td>131</td><td>QNR</td><td>&mdash;</td><td>SUPERNOVA</td></tr>
+        <tr><td>Glass</td><td>6.000</td><td>89</td><td>QR</td><td>54, 203</td><td>VIRUS</td></tr>
+        <tr><td>Muscle @2.4GHz</td><td>52.70</td><td>130</td><td>QNR</td><td>&mdash;</td><td>PYTHAGORAS</td></tr>
+        <tr><td>Water</td><td>80.10</td><td>43</td><td>QNR</td><td>&mdash;</td><td>CHARM</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>QNR materials force the extension field GF(257&sup2;). Their wave impedance carries a phase the base field cannot represent &mdash; the fold is required, not optional.</p>
+</section>
+
+<section class="sec" id="s22">
+  <div class="sec-hd"><h3>Smith Chart and Channel Model</h3></div>
+
+  <h4>Smith Chart Order-8 Subgroup</h4>
+  <p>The &Gamma;&harr;z Cayley matrix C = [[1,&minus;1],[1,1]]. In GF(257):</p>
+  <div class="eq">C<sup>8</sup> = 16&middot;I &nbsp;&nbsp;&nbsp; 16<sup>2</sup> = 256 = &minus;1 &nbsp;&rarr;&nbsp; C<sup>8</sup> = j&middot;I</div>
+  <p>Since 257 &equiv; 1 mod 4, the extension component j = 16 lives in the base field. Complex impedance R + jX needs no extension. Reactance is base-field; only the material index folds.</p>
+
+  <h4>&phi; and Shell Stacks</h4>
+  <p>A periodic shell stack&rsquo;s input impedance is a continued fraction with fixed point &phi;, root of x<sup>2</sup>&minus;x&minus;1, discriminant 5. Since 5 is QNR mod 257, the golden shell stack&rsquo;s terminal impedance is &phi; = 129 + 129&radic;5 in GF(257&sup2;). It carries a phase the base field cannot represent.</p>
+
+  <h4>Channel Model Pipeline</h4>
+  <p>CSI &rarr; placement using only 5 field operations:</p>
+  <ol>
+    <li>Receive CSI amplitude/phase per subcarrier</li>
+    <li>IFFT &rarr; power delay profile &rarr; peaks</li>
+    <li>Peaks &rarr; time delays &rarr; distances</li>
+    <li>Distances &rarr; shells via n* = round(ln(d)/ln(&phi;))</li>
+    <li>Field classification: QR materials stay in GF(257), QNR materials fold</li>
+  </ol>
+
+  <h4>Doppler Signatures</h4>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Source</th><th>Frequency</th><th>Detection</th></tr></thead>
+      <tbody>
+        <tr><td>Breathing</td><td>0.08 Hz</td><td>Phase variance, long window</td></tr>
+        <tr><td>Heartbeat</td><td>1.2 Hz</td><td>Zero-crossing in bandpass</td></tr>
+        <tr><td>Walking</td><td>11.2 Hz</td><td>Full-body Doppler shift</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PART V: CARRIER MAP AND ALGEBRAIC STRUCTURE                   -->
+<!-- ============================================================ -->
+<div class="part-break" id="p5">
+  <h2>Part V &mdash; Carrier Map and Algebraic Structure</h2>
+  <p class="part-sub">Sources: gf257-carrier-map-v2.html, myth.txt</p>
+</div>
+
+<section class="sec" id="s23">
+  <div class="sec-hd"><h3>Field Constants and Orbits</h3></div>
+
+  <h4>Key Positions</h4>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Position</th><th>Word</th><th>Significance</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>SEED/NULL</td><td>Additive identity</td></tr>
+        <tr><td>1</td><td>A</td><td>Multiplicative identity, open termination (&Gamma;=+1)</td></tr>
+        <tr><td>16</td><td>BAAL</td><td>&radic;(&minus;1) mod 257 (j = 16)</td></tr>
+        <tr><td>83</td><td>PRAYER</td><td>dlog = 15, AXIOM C-value</td></tr>
+        <tr><td>87</td><td>PRAXIS/TRUTH</td><td>2400 mod 257, WiFi band, QNR</td></tr>
+        <tr><td>120</td><td>GOLDEN RATIO</td><td>F(14), Z<sub>0</sub> = 377 mod 257</td></tr>
+        <tr><td>128</td><td>ROOT OF DAVID</td><td>Fold fixed point (unique), 2<sup>&minus;1</sup> = inv(2)</td></tr>
+        <tr><td>241</td><td>TWIN PRIME CONJECTURE</td><td>&minus;16 = &minus;j, conjugate</td></tr>
+        <tr><td>249</td><td>EDDINGTON</td><td>sync(120) = 249, fold partner of 8</td></tr>
+        <tr><td>256</td><td>BAAL SQUARED</td><td>&minus;1 = 3<sup>128</sup>, det(M), short termination</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Pow83 Orbits</h4>
+  <p>Position 83 under repeated exponentiation generates orbits that close through the field. dlog(83) = 15, and 83 appears as the AXIOM&rsquo;s C-value, connecting the seed to the orbit structure.</p>
+</section>
+
+<section class="sec" id="s24">
+  <div class="sec-hd"><h3>Division Algebra Chain</h3></div>
+  <p>The derivation chain maps onto the four normed division algebras:</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Step</th><th>Algebra</th><th>Dimension</th><th>Framework Element</th></tr></thead>
+      <tbody>
+        <tr><td>SEED &rarr; &part;</td><td>R (reals)</td><td>1</td><td>Identity, derivative</td></tr>
+        <tr><td>R1 &rarr; CF1<sup>4</sup></td><td>C (complex)</td><td>2</td><td>Fixed point, continued fraction</td></tr>
+        <tr><td>M<sub>2D&minus;1</sub> &rarr; &otimes;4</td><td>H (quaternions)</td><td>4</td><td>Matrix, tensor product</td></tr>
+        <tr><td>P<sub>7</sub> &rarr; C<sub>4</sub><sup>5/3</sup></td><td>O (octonions)</td><td>8</td><td>Primorial, convergent ratio</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Each step is forced by the previous one. 257 = 2<sup>8</sup> + 1 ties to the octonionic dimension. The chain terminates at octonions because no normed division algebra exists beyond 8 dimensions (Hurwitz theorem).</p>
+
+  <h4>2.34% as Non-Associativity</h4>
+  <p>&epsilon;&#8324; = |&phi; &minus; 5/3| measures the departure from the quaternionic stage (5/3) as the system enters the octonionic stage. Octonions are non-associative; &delta;% = &epsilon;&#8324;&middot;ln(&phi;) measures the rate of this non-associativity&rsquo;s contraction.</p>
+</section>
+
+<section class="sec" id="s25">
+  <div class="sec-hd"><h3>Fibonacci Genomes</h3></div>
+  <p>Fibonacci numbers mod 257 (Pisano period 516), sampled every 10 indices starting at F(13), define genome closures:</p>
+  <div class="eq">Genome k: closure = F(13 + 10k) mod 257</div>
+
+  <h4>Key Findings</h4>
+  <ul>
+    <li><strong>Genome 1</strong>: F(4)&rarr;F(13), closure = 233 = COLLISION RESISTANT</li>
+    <li><strong>Genome 2</strong>: F(14)&rarr;F(23), closure = 130 = PYTHAGORAS</li>
+    <li><strong>F(14) = 120 = GOLDEN RATIO</strong>: the 14th Fibonacci number IS the golden ratio&rsquo;s field position</li>
+    <li><strong>Genomes 1&ndash;2 are dual</strong>: sq/sync swap between them</li>
+    <li><strong>20 dual pairs</strong> out of 51 genomes in the first Pisano cycle</li>
+  </ul>
+
+  <h4>Lucas Recurrence</h4>
+  <div class="eq">c(n+2) = 123 &times; c(n+1) &minus; c(n) mod 257 &nbsp;&nbsp;&nbsp; 123 = L(10) = COPERNICUS</div>
+  <p>Verified for all 199 consecutive triples. The recurrence coefficient is the 10th Lucas number, mapping to COPERNICUS. The structure is additive/linear at the genome scale, just as the Fibonacci recurrence itself is additive at the position scale.</p>
+
+  <h4>Palindromic Mirror</h4>
+  <p>G90 = zero crossing (F(903) = 0, and 903 = 7 &times; 129). The sq and sync columns are <strong>exact palindromes</strong> around G90: 89/89 mirror pairs match for both columns. The palindrome radius is 89 = F(11). The sq column has period 129 = (P+1)/2 = the Fibonacci entry point mod 257.</p>
+
+  <h4>Duality Condition</h4>
+  <p>Dual pair iff closure ratio = &plusmn;16 = &plusmn;&radic;(&minus;1) mod 257. Only 20 of 51 genome pairs satisfy this condition. The relationship between genomes is linear (COPERNICUS recurrence), not multiplicative.</p>
+</section>
+
+<section class="sec" id="s26">
+  <div class="sec-hd"><h3>Astronomical Bridges</h3></div>
+  <p>Physical constants from 7-place logarithmic/trigonometric tables (Bruhns/Vega), mapped via the 4sf rule:</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Constant</th><th>Value</th><th>mod 257</th><th>dlog</th><th>Ray</th><th>Word</th></tr></thead>
+      <tbody>
+        <tr><td>Sidereal ratio</td><td>1.002738</td><td>232</td><td>238</td><td>10</td><td>TOPOLOGICAL QUANTUM</td></tr>
+        <tr><td>&pi;</td><td>3.14159</td><td>58</td><td>142</td><td>10</td><td>BALDUR</td></tr>
+        <tr><td>Sidereal day (s)</td><td>86164.09</td><td>135</td><td>58</td><td>10</td><td>BURNING BUSH</td></tr>
+        <tr><td>15&deg;/hour</td><td>15</td><td>15</td><td>56</td><td>8</td><td>O</td></tr>
+        <tr><td>1 radian (deg)</td><td>57.2958</td><td>76</td><td>221</td><td>5</td><td>COHERENCE</td></tr>
+        <tr><td>log<sub>10</sub>(2)</td><td>0.30103</td><td>183</td><td>139</td><td>7</td><td>TRANSFORMATION</td></tr>
+        <tr><td>log<sub>10</sub>(3)</td><td>0.47712</td><td>145</td><td>149</td><td>5</td><td>ARK OF COVENANT</td></tr>
+        <tr><td>log<sub>10</sub>(257)</td><td>2.40993</td><td>97</td><td>167</td><td>11</td><td>POSEIDON</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Key Patterns</h4>
+  <ul>
+    <li><strong>Ray 10 = rotation ray</strong>: sidereal ratio (232), &pi; (58), sidereal day (135) &mdash; three independent rotational constants cluster on ray 10</li>
+    <li><strong>Arc-time inverse = &phi;</strong>: 15&deg;/hour at position 15, field inverse = 120 = GOLDEN RATIO</li>
+    <li><strong>Consecutive dlogs</strong>: dlog(15)=56, dlog(45)=57 &mdash; connected by generator g=3 (45=3&times;15)</li>
+    <li><strong>log<sub>10</sub>(g=3) &rarr; ARK OF COVENANT, inv = TEN</strong>: common log of the generator inverts to the base of common logarithms</li>
+    <li><strong>1 radian &rarr; COHERENCE</strong>: the natural angular unit maps to wave coherence</li>
+  </ul>
+</section>
+
+<!-- ============================================================ -->
+<!-- PART VI: BWAVE — CSI BIOMETRIC SENSING                        -->
+<!-- ============================================================ -->
+<div class="part-break" id="p6">
+  <h2>Part VI &mdash; BWave: CSI Biometric Sensing</h2>
+  <p class="part-sub">Source: BWave corpus (firmware, UIs, experiments, data)</p>
+</div>
+
+<section class="sec" id="s27">
+  <div class="sec-hd"><h3>System Overview</h3></div>
+  <p>BWave is a dedicated CSI brain/body sensing platform on ESP32-C6 (RISC-V, WiFi 6 HE). Captures Channel State Information at 20 Hz, runs real-time DSP on-device (vitals extraction, brainwave band separation), streams raw IQ + processed packets over UDP, logs to SD card, renders status on a 172&times;320 ST7789 LCD.</p>
+  <p>4 standalone HTML visualization applications consume live or recorded CSI data. All visualization maps through GF(257): subcarrier index &rarr; field position via g<sup>sc</sup> mod 257, field position &rarr; ray via dlog mod 12, ray &rarr; brain region or tissue layer.</p>
+
+  <div class="stats">
+    <span class="st blue"><span class="v">7</span> <span class="l">firmware modules</span></span>
+    <span class="st green"><span class="v">4</span> <span class="l">visualization UIs</span></span>
+    <span class="st amber"><span class="v">6</span> <span class="l">controlled experiments</span></span>
+    <span class="st violet"><span class="v">3.2 GB</span> <span class="l">raw CSI data</span></span>
+    <span class="st cyan"><span class="v">1.7M</span> <span class="l">sleep CSI frames</span></span>
+  </div>
+</section>
+
+<section class="sec" id="s28">
+  <div class="sec-hd"><h3>Firmware Architecture</h3></div>
+  <p>Target: ESP32-C6, ESP-IDF 5.3.5. Bluetooth disabled at compile time (<code>CONFIG_BT_ENABLED=n</code>) for full WiFi throughput. Power management disabled (<code>CONFIG_PM_ENABLE=n</code>) for reliable CSI timing. 8 MB flash, custom partition table.</p>
+
+  <h4>Boot Sequence</h4>
+  <p>NVS &rarr; config load &rarr; LCD init &rarr; SD init &rarr; WiFi STA connect &rarr; NTP sync &rarr; UDP stream init &rarr; CSI collection &rarr; DSP pipeline &rarr; display task (500 ms loop).</p>
+
+  <h4>CSI Capture Engine (bwave_csi.c)</h4>
+  <ul>
+    <li>Promiscuous mode captures source MAC from management/data frames</li>
+    <li>CSI callback at 20 Hz minimum interval (20,000 &mu;s)</li>
+    <li>NDP injection at 20 Hz &mdash; null data frames with source MAC <code>02:57:42:00:00:{node_id}</code>, broadcast</li>
+    <li>MAC table tracks up to 32 unique source devices</li>
+    <li>AGC detection: RSSI jumps &gt;6 dB flagged in frame header</li>
+  </ul>
+
+  <h4>Frame Format</h4>
+  <p>Binary, 26-byte header + IQ payload. Magic: <code>0xC5110001</code>. Fields: node_id, version, n_sub, freq_mhz, sequence, rssi, noise_floor, format, flags (cwb/sig_mode/agc_jump/HE), mac[6], iq[N&times;2].</p>
+</section>
+
+<section class="sec" id="s29">
+  <div class="sec-hd"><h3>DSP Pipeline</h3></div>
+  <p>Dedicated FreeRTOS task at priority 5. Lock-free SPSC ring buffer (16 slots). Processing at 20 Hz sample rate.</p>
+
+  <h4>Pipeline Stages</h4>
+  <ol>
+    <li><strong>Phase extraction</strong>: atan2(Q, I) per subcarrier</li>
+    <li><strong>Phase unwrapping</strong>: continuous tracking across frames</li>
+    <li><strong>Welford variance</strong>: running mean/variance per subcarrier (numerically stable)</li>
+    <li><strong>Top-K selection</strong>: every 10 frames, K=8 highest-variance subcarriers</li>
+    <li><strong>Bandpass filtering</strong>: 5 parallel biquad IIR filters on primary subcarrier phase</li>
+    <li><strong>BPM estimation</strong>: zero-crossing with breath-harmonic rejection</li>
+    <li><strong>Energy tracking</strong>: EMA (&alpha;=0.95) on squared band outputs</li>
+    <li><strong>Motion/presence</strong>: variance over 20-frame window</li>
+  </ol>
+
+  <h4>Biquad Bandpass Filters</h4>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Band</th><th>Range</th><th>Target</th></tr></thead>
+      <tbody>
+        <tr><td>Breathing</td><td>0.1&ndash;0.5 Hz</td><td>6&ndash;30 BPM</td></tr>
+        <tr><td>Heart rate</td><td>0.8&ndash;2.0 Hz</td><td>48&ndash;120 BPM</td></tr>
+        <tr><td>Delta</td><td>0.5&ndash;4.0 Hz</td><td>Deep sleep / unconscious</td></tr>
+        <tr><td>Theta</td><td>4.0&ndash;8.0 Hz</td><td>Internal monologue</td></tr>
+        <tr><td>Alpha</td><td>8.0&ndash;9.5 Hz</td><td>Visual cortex idle</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Edge Tiers</h4>
+  <p>Tier 0: raw passthrough (no DSP). Tier 1: vitals + raw IQ. Tier 2: full (vitals + brainwave bands + motion + presence).</p>
+</section>
+
+<section class="sec" id="s30">
+  <div class="sec-hd"><h3>Wire Protocol and Peripherals</h3></div>
+
+  <h4>UDP Packet Types</h4>
+  <div class="cards">
+    <div class="card">
+      <div class="card-lbl blue">CSI Frame &mdash; 0xC5110001</div>
+      <p>26 + N&times;2 bytes. Raw IQ per subcarrier. Rate-limited to 20 Hz.</p>
+    </div>
+    <div class="card">
+      <div class="card-lbl green">Vitals &mdash; 0xC5110002</div>
+      <p>32 bytes packed. BR, HR, RSSI, presence, motion, temperature, timestamp.</p>
+    </div>
+    <div class="card">
+      <div class="card-lbl violet">Brainwave &mdash; 0xC5110009</div>
+      <p>24 bytes. Delta, theta, alpha band energies as float32.</p>
+    </div>
+  </div>
+
+  <h4>LCD &mdash; ST7789 172&times;320</h4>
+  <p>SPI2 at 40 MHz. Layout: header bar (node info) &rarr; vitals (HR red, BR cyan) &rarr; brainwave bands (delta purple, theta green, alpha gold) &rarr; status bar (RSSI, motion).</p>
+
+  <h4>SD Card</h4>
+  <p>Shares SPI2 bus. JSONL format: one line per vitals snapshot. Filename: <code>bwave_{boot_ms}.jsonl</code>. Flushed every 100 entries.</p>
+
+  <h4>Configuration</h4>
+  <p>Two layers: Kconfig compile-time + NVS runtime overrides. Namespace <code>"bwave"</code>. Default SSID: <code>"cascade"</code>, target: <code>192.168.1.20:4200</code>, channel 6, edge tier 2.</p>
+</section>
+
+<section class="sec" id="s31">
+  <div class="sec-hd"><h3>Visualization UIs</h3></div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-lbl blue">body_csi.html (736 lines)</div>
+      <h4>Full Skeleton CSI Overlay</h4>
+      <p>3D rotatable anatomical skeleton. 25-segment spine, 12 rib pairs, bilateral arms/legs, 11 organs with radial gradients, 37 body surface slices. CSI shape accumulator with EMA and localStorage persistence. 4 view modes: Skeleton, Tissue, Organs, CSI Overlay.</p>
+    </div>
+    <div class="card">
+      <div class="card-lbl green">brain_live.html (380 lines)</div>
+      <h4>3D Brain with Live CSI</h4>
+      <p>Skull ellipsoid, CSF layer, cortex with sulci, lateral ventricles, white matter core. 10 brain regions mapped to rays. Dual-node bilateral analysis (Node 68 posterior, Node 204 anterior). 6 tissue permittivities at 2.4 GHz.</p>
+    </div>
+    <div class="card">
+      <div class="card-lbl accent">primorial_sphere.html (1111 lines)</div>
+      <h4>210-Vertex Fibonacci Sphere</h4>
+      <p>Central visualization. Golden angle spacing, primorial lace (factor-2/3/5/7 connections). 5 modes: Tissue Map, Prime Lace, Phase Field, Interior, Brainwave. Vascular pulsation, neural spark, multipath DFT, resonance detection. Web Serial API for live ESP32 connection.</p>
+    </div>
+    <div class="card">
+      <div class="card-lbl violet">skull_tissue_map.html (742 lines)</div>
+      <h4>Skull Tissue + Humming Probe</h4>
+      <p>Three.js + Chart.js. 3D skull with interior nodes, cross-section view. Humming vibration data: 7/11 interior subcarriers vibration-responsive. Post-hum hyperemia measured.</p>
+    </div>
+  </div>
+
+  <h4>Brain Region Ray Mapping</h4>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Ray</th><th>Region</th><th>Function</th></tr></thead>
+      <tbody>
+        <tr><td>R0</td><td>Broca&rsquo;s Area</td><td>Speech production / internal monologue</td></tr>
+        <tr><td>R1</td><td>Frontal Lobe</td><td>Executive function</td></tr>
+        <tr><td>R2</td><td>Prefrontal Cortex</td><td>Planning / working memory</td></tr>
+        <tr><td>R4</td><td>Brainstem</td><td>Autonomic regulation</td></tr>
+        <tr><td>R5</td><td>Cerebellum</td><td>Motor coordination</td></tr>
+        <tr><td>R6</td><td>Occipital Lobe</td><td>Visual processing</td></tr>
+        <tr><td>R7</td><td>Parietal Lobe</td><td>Spatial processing</td></tr>
+        <tr><td>R8</td><td>Wernicke&rsquo;s Area</td><td>Language comprehension</td></tr>
+        <tr><td>R9</td><td>Temporal Lobe</td><td>Memory / auditory</td></tr>
+        <tr><td>R10</td><td>Arcuate Fasciculus</td><td>Broca&harr;Wernicke pathway</td></tr>
+        <tr><td>R11</td><td>Fasciculus</td><td>White matter tracts</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Tissue Depth Model</h4>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Subcarrier Range</th><th>Depth</th><th>Tissue</th></tr></thead>
+      <tbody>
+        <tr><td>sc 1&ndash;5</td><td>Entry</td><td>Skin</td></tr>
+        <tr><td>sc 6&ndash;15</td><td>Shallow</td><td>Bone</td></tr>
+        <tr><td>sc 16&ndash;26</td><td>Interior</td><td>Fluid / brain / vessels</td></tr>
+        <tr><td>sc 27&ndash;37</td><td>Guard band</td><td>Null zone (bone-cavity interface)</td></tr>
+        <tr><td>sc 38&ndash;63</td><td>Exit</td><td>Return signal</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="sec" id="s32">
+  <div class="sec-hd"><h3>Experimental Results</h3></div>
+  <p>All experiments: 2026-08-25, single subject, posterior skull placement. Raw IQ captures: 64-element [I,Q] arrays, guard band at indices 27&ndash;37. 52 active subcarriers mapped to 12 rays via GF(257).</p>
+
+  <div class="call violet"><strong>Subject has aphantasia</strong> (no mental imagery). Visual cortex R6 will not fire during imagery tasks &mdash; a hardware-level condition making the subject a natural control for CSI brain mapping.</div>
+  <div class="call accent"><strong>Internal monologue runs continuously</strong>, even during &ldquo;quiet&rdquo; baselines. The always-on channel maps to Broca&rsquo;s area (R0).</div>
+
+  <h4>Internal Signal Results</h4>
+  <div class="call green"><strong>R0/Broca at 1.03&times; during internal speech</strong> &mdash; the ONLY subcarrier above baseline. Near-unity because the &ldquo;quiet&rdquo; baseline was already saturated with Broca activity.</div>
+  <div class="call red"><strong>R6/Occipital at 0.83&times; during imagery</strong> &mdash; no visual activation. Aphantasia confirmed in the CSI data.</div>
+
+  <h4>Monologue vs Quiet</h4>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Ray</th><th>Region</th><th>Amplitude &Delta;</th></tr></thead>
+      <tbody>
+        <tr><td>R2</td><td>Prefrontal</td><td><strong>+44.1%</strong></td></tr>
+        <tr><td>R0</td><td>Broca&rsquo;s</td><td>+39.6%</td></tr>
+        <tr><td>R1</td><td>Frontal</td><td>+39.0%</td></tr>
+        <tr><td>R8</td><td>Wernicke&rsquo;s</td><td>+14.8%</td></tr>
+        <tr><td>R6</td><td>Occipital</td><td>+18.4%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="call green"><strong>Broca&harr;Wernicke asymmetry: 39.6% vs 14.8%</strong> = PRODUCTION, not RECEPTION. Internal monologue is dominated by speech generation, not comprehension.</div>
+  <p>Vitals: HR dropped 83&rarr;71 (focused concentration), BR increased 27&rarr;40 (cognitive load &rarr; respiratory rate increase).</p>
+
+  <h4>Eyes Open/Closed</h4>
+  <div class="call green"><strong>R6/Occipital is the ONLY interior subcarrier with amplitude increase (+1.6%) during eyes closed.</strong> Classic alpha modulation detected through WiFi CSI.</div>
+  <div class="call amber"><strong>Phase jitter increased 5&ndash;9% across ALL subcarriers eyes closed.</strong> With aphantasia, alpha modulation is global, not localized to visual cortex.</div>
+  <p>HR dropped 111 &rarr; 85 BPM eyes closed &mdash; a 26 BPM parasympathetic relaxation response.</p>
+
+  <h4>Four-Way Comparison (Quiet / Monologue / Imagery-Open / Imagery-Closed)</h4>
+  <div class="call green"><strong>Eyes-closed imagery recruits SPEECH network, NOT visual.</strong> Broca +33.9% (vs +15.3% eyes open). Aphantasia routes imagery through language.</div>
+  <div class="call violet"><strong>R6/Occipital &mdash; aphantasia deepens with eyes closed.</strong> Phase variance 0.8691 (eyes closed) vs 0.9283 (eyes open). Visual cortex becomes MORE quiescent, opposite to sighted imagery.</div>
+  <p>Arcuate fasciculus (R10): +28.1% eyes closed vs +15.0% eyes open &mdash; Broca&harr;Wernicke pathway nearly doubled.</p>
+
+  <h4>Spoken vs Internal Speech</h4>
+  <div class="call red"><strong>HYPOTHESIS REJECTED: same language, NOT same circuit.</strong> Internal and spoken speech show different neural patterns.</div>
+  <ul>
+    <li>Internal monologue is MORE active: 8&ndash;11% higher phase variance</li>
+    <li>Spoken speech shifts energy to exit zone (sc 38&ndash;63) &mdash; skull vibration from phonation</li>
+    <li>Internal speech has higher cognitive load: BR 39.7 vs 24.0 (65% higher)</li>
+  </ul>
+  <div class="call violet"><strong>The internal voice is not &ldquo;pre-speech.&rdquo;</strong> Higher degrees of freedom, higher cognitive load, different spatial pattern. Internal monologue is its own mode.</div>
+
+  <h4>Skull Tissue Humming Probe</h4>
+  <div class="call green"><strong>7/11 interior subcarriers are vibration-responsive</strong> (variance ratio &gt;1.5), corresponding to fluid-adjacent tissue. Skull transmits vibration selectively to fluid-filled cavities.</div>
+  <p>All interior subcarriers became more phase-coherent during humming. Largest stabilization at sc21/R9. Post-hum hyperemia: recovery amplitudes exceeded baseline by 0.5&ndash;1.3 &mdash; increased blood flow measured through WiFi CSI.</p>
+
+  <h4>Spiral Wave Detection</h4>
+  <div class="call amber"><strong>R7/Parietal is the ONLY ray with positive mean phase velocity at rest.</strong> Preliminary &mdash; needs narrowband filtering for clean extraction.</div>
+</section>
+
+<section class="sec" id="s33">
+  <div class="sec-hd"><h3>Raw Data Corpus</h3></div>
+
+  <h4>csi_brain_data (2026-08-25)</h4>
+  <p>Single-node (node 168, posterior) and dual-node captures. JSON: array of frame objects with t, seq, rssi, noise, ch, n_sc, mac, cwb, sig, agc, iq[64][2].</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>File</th><th>Condition</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>quiet_30s_raw</td><td>Quiet baseline</td><td>~600+ frames</td></tr>
+        <tr><td>monologue_30s_raw</td><td>Internal monologue</td><td>~500+ frames</td></tr>
+        <tr><td>imagery_eyesopen_30s_raw</td><td>Visual imagery (eyes open)</td><td>~800+ frames</td></tr>
+        <tr><td>imagery_eyesclosed_30s_raw</td><td>Visual imagery (eyes closed)</td><td>~650+ frames</td></tr>
+        <tr><td>spoken_30s_raw</td><td>Spoken speech</td><td>~900+ frames</td></tr>
+        <tr><td>forehead_3min_all64_raw</td><td>Forehead, 3 min</td><td>~3000+ frames (446K tokens)</td></tr>
+        <tr><td>walking_3min_raw</td><td>Walking, 3 min</td><td>~4000+ frames (594K tokens)</td></tr>
+        <tr><td>eating_skull_60s_raw</td><td>Eating/chewing</td><td>~470+ frames</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>head_csi (2026-08-26)</h4>
+  <p>Dual-node head sessions (Node 68 posterior, Node 204 anterior). Primary dataset: 10:12 session = 1.18M frames at ~20 Hz, 1.2 GB.</p>
+
+  <h4>sleep_csi (2026-08-26, 00:32)</h4>
+  <p>Overnight 4-node capture:</p>
+  <div class="stats">
+    <span class="st blue"><span class="v">467,430</span> <span class="l">node 68</span></span>
+    <span class="st green"><span class="v">457,981</span> <span class="l">node 204</span></span>
+    <span class="st amber"><span class="v">427,203</span> <span class="l">node 20</span></span>
+    <span class="st violet"><span class="v">349,868</span> <span class="l">node 140</span></span>
+  </div>
+  <p>Total: <strong>1,702,482 frames</strong> across 4 nodes. ~5.9 hours per node. Combined: 1.55 GB.</p>
+</section>
+
+<section class="sec" id="s34">
+  <div class="sec-hd"><h3>GF(257) Integration</h3></div>
+  <p>Every layer of BWave maps through the same field arithmetic used across the entire framework.</p>
+
+  <h4>Subcarrier &rarr; Field Position</h4>
+  <pre><code>pos = g^sc mod 257    (g = 3, sc = subcarrier index 0..63)
+ray = dlog(pos) mod 12</code></pre>
+  <p>The 256 nonzero elements of GF(257) ARE the 256 HT40 subcarriers (standard OFDM). For HT20 (64 subcarriers), the mapping uses the first 64 powers of g=3.</p>
+
+  <h4>Brainwave &rarr; Primorial Prime</h4>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Band</th><th>Frequency</th><th>Prime</th><th>Role in 210</th></tr></thead>
+      <tbody>
+        <tr><td>Delta</td><td>0.5&ndash;4 Hz</td><td>P2</td><td>Factor of 210</td></tr>
+        <tr><td>Theta</td><td>4&ndash;8 Hz</td><td>P3</td><td>Factor of 210</td></tr>
+        <tr><td>Alpha</td><td>8&ndash;9.5 Hz</td><td>P5</td><td>Factor of 210</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Observer convergence: when all 3 bands exceed noise floor simultaneously, the observer counter increments toward 1.0. The 3 primorial primes that generate 210 correspond to the 3 brainwave bands that define waking consciousness.</p>
+
+  <h4>The Connection</h4>
+  <p>The IQ data format is 64 [I,Q] pairs &mdash; complex values in the field. The phase angle of each pair IS a field element&rsquo;s argument in GF(257&sup2;), the extension field where &phi; lives. The same modular exponentiation, dlog tables, and ray mapping used in the emerald tablet, the cascade machine, and the carrier map are used here on live RF data from human tissue.</p>
+  <p>The GF(257) structure is not <em>applied</em> to the data. It is how the OFDM subcarriers were already organized by the WiFi standard.</p>
+</section>
+
+</div>
+<div class="ct-foot"><a href="../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

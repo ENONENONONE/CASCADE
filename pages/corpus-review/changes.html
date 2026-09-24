@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Changes made · cascade.training</title>
+<meta name="description" content="Corpus Review · Session · Changes made">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #0d0d0d;
+  --line: #1f1f1f;
+  --text: #e0e0e0;
+  --dim: #a0a0a0;
+  --gold: #e0e0e0;
+  --glow: #e0e0e0;
+  --amber: #e0e0e0;
+  --alert: #e0e0e0;
+  --blue: #e0e0e0;
+  --term-bg: #0a0a0a;
+  --term-text: #c8c8c8;
+  --serif: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --sans: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--bg);color:var(--text);font-family: var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+a{color:var(--blue);text-decoration:none}
+
+a:hover,a:focus{text-decoration:underline}
+
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.wrap{display:grid;grid-template-columns:1fr;gap:0;max-width:1240px;margin:0 auto;padding:0 20px 80px}
+
+@media (min-width:1100px){.wrap{grid-template-columns:240px minmax(0,1fr);gap:48px}}
+
+nav.toc{display:none}
+
+@media (min-width:1100px){
+  nav.toc{display:block;position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;padding:8px 0 24px;font-size:12.5px}
+  nav.toc .g{font-family: var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:16px 0 6px}
+  nav.toc a{display:block;color:var(--text);padding:3px 0 3px 10px;border-left:2px solid var(--line);line-height:1.35}
+  nav.toc a:hover{border-left-color:var(--gold);text-decoration:none;color:var(--gold)}
+  nav.toc a.sub{padding-left:22px;color:var(--dim)}
+}
+
+main{min-width:0}
+
+header.mast{padding:44px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+
+.eyebrow{font-family: var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+h1{font-family: var(--serif);font-weight:600;font-size:44px;line-height:1.05;margin:10px 0 12px;text-wrap:balance;letter-spacing:-.01em}
+
+.lede{font-family: var(--serif);font-size:19px;line-height:1.45;color:var(--text);max-width:62ch;margin:0 0 20px}
+
+.meta{font-family: var(--mono);font-size:12px;color:var(--dim);display:flex;flex-wrap:wrap;gap:6px 22px}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0 0}
+
+.tile{background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+
+.tile .n{font-family: var(--serif);font-size:28px;font-weight:600;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+
+.tile .l{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+
+.hero{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin:26px 0 0}
+
+@media (min-width:820px){.hero{grid-template-columns:minmax(0,1fr) 300px}}
+
+.hero canvas{width:300px;max-width:100%;height:auto;display:block;margin:0 auto}
+
+.hero .cap{font-family: var(--mono);font-size:11px;color:var(--dim);text-align:center;margin-top:6px}
+
+section{padding:34px 0 8px;border-top:1px solid var(--line)}
+
+section.first{border-top:0;padding-top:8px}
+
+h2{font-family: var(--serif);font-weight:600;font-size:30px;line-height:1.15;margin:6px 0 14px;text-wrap:balance}
+
+h3{font-family: var(--serif);font-weight:600;font-size:21px;margin:28px 0 8px;text-wrap:balance}
+
+h4{font-family: var(--sans);font-weight:600;font-size:14px;letter-spacing:.02em;margin:20px 0 6px;color:var(--gold)}
+
+p{max-width:70ch;margin:0 0 12px}
+
+ul,ol{max-width:70ch;padding-left:22px;margin:0 0 12px}
+
+li{margin:0 0 5px}
+
+li>p{margin:0}
+
+code,kbd{font-family: var(--mono);font-size:.92em;background:var(--surface2);border:1px solid var(--line);padding:0 4px;border-radius:2px;white-space:nowrap}
+
+pre{font-family: var(--mono);font-size:12.5px;line-height:1.5;background:var(--surface2);border:1px solid var(--line);padding:12px 14px;overflow-x:auto;margin:0 0 14px}
+
+pre code{background:none;border:0;padding:0;white-space:pre}
+
+.formula{font-family: var(--mono);font-size:13px;line-height:1.8;background:var(--surface2);border:1px solid var(--line);padding:10px 14px;margin:0 0 14px;overflow-x:auto;white-space:pre}
+
+.formula sup,.formula sub{font-size:.72em;line-height:0}
+
+.formula sup sup{font-size:.85em}
+
+.tbl.wrapth th{white-space:normal}
+
+.tbl{overflow-x:auto;margin:0 0 16px;border:1px solid var(--line);background:var(--surface)}
+
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+
+th,td{text-align:left;vertical-align:top;padding:7px 10px;border-bottom:1px solid var(--line)}
+
+th{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:500;background:var(--surface2);white-space:nowrap}
+
+td.n,th.n{text-align:right;font-family: var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+td.m{font-family: var(--mono);font-size:12.5px;white-space:nowrap}
+
+td.w{white-space:normal;min-width:18ch}
+
+tr:last-child td{border-bottom:0}
+
+.chip{display:inline-block;font-family: var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:2px;line-height:1.5;vertical-align:middle}
+
+.ok{color:var(--glow)}
+ .open{color:var(--amber)}
+ .bad{color:var(--alert)}
+ .rec{color:var(--gold)}
+ .info{color:var(--blue)}
+
+.note{border-left:3px solid var(--gold);padding:8px 14px;background:var(--surface);margin:0 0 14px;max-width:72ch}
+
+.note.warn{border-left-color:var(--alert)}
+
+.note.open{border-left-color:var(--amber)}
+
+.term{background:var(--term-bg);color:var(--term-text);font-family: var(--mono);font-size:12.5px;line-height:1.55;padding:12px 16px;border:1px solid #161616;overflow-x:auto;margin:0 0 16px;white-space:pre}
+
+.term .g{color:#e0e0e0}
+.term .a{color:#e0e0e0}
+.term .d{color:#e0e0e0}
+.term .w{color:#e0e0e0}
+.term .r{color:#e0e0e0}
+.term .b{color:#e0e0e0}
+
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 18px;font-size:13.5px;max-width:78ch;margin:0 0 14px}
+
+.kv .k{font-family: var(--mono);font-size:12px;color:var(--dim);white-space:nowrap}
+
+.two{display:grid;grid-template-columns:1fr;gap:0 32px}
+
+@media (min-width:900px){.two{grid-template-columns:1fr 1fr}}
+
+.small{font-size:12.5px;color:var(--dim)}
+
+sup{font-size:.7em}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+@page{size:Letter;margin:0.6in 0.6in 0.7in}
+
+@media print{
+  :root{--bg:#e0e0e0; --surface:#e0e0e0; --surface2:#e0e0e0; --line:#c8c8c8; --text:#111111; --dim:#3a3a3a; --gold:#c8c8c8; --glow:#c8c8c8; --amber:#c8c8c8; --alert:#3a3a3a; --blue:#3a3a3a}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-size:11.5px;line-height:1.45}
+  .wrap{display:block;max-width:none;padding:0}
+  nav.toc{display:none!important}
+  header.mast{padding:0 0 14px;margin-bottom:16px}
+  h1{font-size:30px} .lede{font-size:14px} h2{font-size:20px;break-after:avoid} h3{font-size:15px;break-after:avoid} h4{break-after:avoid}
+  .hero{grid-template-columns:minmax(0,1fr) 220px} .hero canvas{width:220px}
+  .strip{grid-template-columns:repeat(3,1fr)}
+  section{padding:18px 0 4px;break-inside:auto}
+  .tbl{overflow:visible;break-inside:auto} table{font-size:10px} th,td{padding:4px 6px} tr{break-inside:avoid}
+  td.m{white-space:normal;font-size:9.5px} td.n{font-size:10px}
+  pre,.term{font-size:9.5px;break-inside:avoid;white-space:pre-wrap;overflow:visible}
+  .note{break-inside:avoid}
+  .formula{font-size:9.5px;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid}
+  a{color:inherit}
+  .small{font-size:9.5px}
+}
+
+
+
+.cr-pager{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:3rem 0 1rem;padding-top:1.2rem;border-top:1px solid var(--line);font-family: var(--mono);font-size:12px}
+
+.cr-pager a{color:var(--text);text-decoration:none;max-width:45%}
+
+.cr-pager a:hover{color:var(--gold)}
+
+.cr-pager span{color:var(--dim)}
+
+.cr-crumb{font-family: var(--mono);font-size:12px;color:var(--dim);margin:0 0 1.2rem}
+
+.cr-crumb a{color:var(--dim)}
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../../index.html#deeper">[pages]</a><a href="#" aria-current="page">changes made</a></nav>
+</div>
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <a href="../corpus-review.html">← Review overview</a>
+  <div class="g">Corpus</div>
+  <a href="voynich.html">The Voynich manuscript</a>
+  <a href="summary.html">Summary</a>
+  <a href="inventory.html">File inventory</a>
+  <a href="field.html">The field GF(257)</a>
+  <a href="chain-cosets.html">The binary refinement chain</a>
+  <a href="extensions.html">The extension fields</a>
+  <a href="chain.html">Derivation chain</a>
+  <a href="hinge.html">The hinge at 1028</a>
+  <a href="tablet.html">Emerald tablet</a>
+  <a href="icolumn.html">The i-column</a>
+  <div class="g">Machine</div>
+  <a href="machine.html">Cascade machine v4</a>
+  <a class="sub" href="machine.html#m-anatomy">Anatomy</a>
+  <a class="sub" href="machine.html#m-boot">Power-on</a>
+  <a class="sub" href="machine.html#m-state">Registers</a>
+  <a class="sub" href="machine.html#m-isa">Tape and instruction set</a>
+  <a class="sub" href="machine.html#m-fold">Fold and observe</a>
+  <a class="sub" href="m-commands.html">Terminal commands</a>
+  <a class="sub" href="m-nano2.html">NanO₂ messaging</a>
+  <a class="sub" href="m-bridge.html">Hardware bridge</a>
+  <a class="sub" href="m-radio.html">BLE, serial, RF</a>
+  <a class="sub" href="m-settle.html">Settlement and mesh</a>
+  <a class="sub" href="m-disc.html">Phi disc phonograph</a>
+  <a class="sub" href="m-model.html">Model bridges</a>
+  <a class="sub" href="m-display.html">Display and export</a>
+  <div class="g">Findings</div>
+  <a href="second-copy.html">The second copy</a>
+  <a href="ledger.html">Verification ledger</a>
+  <a href="register.html">Discrepancy register</a>
+  <a href="audits.html">The corpus's own audits</a>
+  <a href="#changes">Changes made</a>
+  <a href="appendix.html">Appendix</a>
+</nav>
+<main>
+<p class="cr-crumb"><a href="../corpus-review.html">Corpus Review</a> · Session</p>
+<section id="changes">
+  <div class="eyebrow">Session</div>
+  <h2>Changes made</h2>
+  <ul>
+    <li><strong>emerald_tablet.json</strong>, entry 83: words are now PRAYER, GNOSIS, WISDOM, BISMUTH Z. One line added, every other byte unchanged, the file re-parsed and recounted: 257 entries, 554 words.</li>
+    <li><strong>emerald_tablet_complete.html</strong>, line 1746: the rendered row for 83 now reads GNOSIS, WISDOM, BISMUTH Z.</li>
+    <li><strong>Backups</strong> of all three files as they were before editing are kept, suffixed .bak-20260904-1139 for the two tablet files and .bak-20260904-1159 for the machine.</li>
+    <li><strong>cascade_machine_v4.html</strong>, line 1078: the embedded dictionary's entry 83 now carries BISMUTH Z as well, a twelve-character insertion; the object re-parses at 257 entries and 451 words, and the line count is unchanged. BISMUTH now resolves in the terminal by substring match. The other 103 words the JSON then had and the machine lacks were left as found; RHENIUM Z makes it 104. A second edit the same evening added the ◐ FLIP control at line 909 and <code>serialBus.flipMirror</code> at line 15275, 53 lines, which reads the device's mirror state back over serial and checks it against the machine's own tables; the script parses under node after the edit. Backup suffix .bak-20260904-flip.</li>
+    <li><strong>Not changed:</strong> the rendered PDF; the copies under START named in the project rules, whose current state was not checked; every item in the discrepancy register.</li>
+    <li><strong>cascade_ring.html</strong>, a standalone page that draws the 256 nonzero elements as a 256-gon in exponent order, with the chain's cosets as regular polygons, the walks as star polygons under each level's multiplier, and calendar dates pinned by every reading; the same page is published as an artifact. Nothing in it is stored except the tablet's words.</li>
+    <li><strong>2026-09-05:</strong> the square-descent section gained its product 118 with the shell structure and oganesson; a new section, Lead, gold and the wallet, records the transmutation readings, the mining vocabulary at its letter sums, the mining wallet's decode, the 33 halvings and the reward eras; the verification ledger gained four rows. No file outside this document was changed and OGANESSON Z was not added to the tablet.</li>
+    <li><strong>2026-09-05, later:</strong> the appendix gained The cards in glyphs, the MI25 identifiers in the genome charset with two corrections, and the ledger one row. mi25_readout.md, mi25_binomials.txt and mi25_bus06_vbios.rom were added to the directory as the record of the R730's two cards.</li>
+    <li><strong>2026-09-05, evening:</strong> the section The mining fleet added under Instrument, recording the miners as built, the identity walk, the fleet table and the router incident; the ledger gained the fleet's element row. Firmware changes live in cascade_machine, firmware_c6_mine and the two CYD trees, not in this directory.</li>
+    <li><strong>2026-09-06:</strong> the tape and instruction-set section corrected and extended: the FIB mode's fourteen-entry sequence and its continuation, the CF field as the two Fibonacci registers written twice with their advance rule, and a new subsection on the second ROM, FIB_ROM with PHI_DIVISORS, its three readers in the machine, the comment's identities checked, the sixty-one residues as a table and the 61 closure; the ledger gained the row.</li>
+    <li><strong>2026-09-06, later:</strong> QUANTUM, 107, through the fold and the tunnel added beside the KINGDOM quadratic, with its ledger row.</li>
+    <li><strong>2026-09-06, evening:</strong> the fold section gained its fourth flip, the Atbash mirror on letters with its fixed sums and the mirrored names; the atomic-number section records RHENIUM Z at 75, added to emerald_tablet.json on 2026-09-05 as the fourteenth Z entry, and the word counts in this document move from 554 to 555; the fleet section gained the conjugate cells and the one board whose norm is 75; the i-column paragraph now matches the ledger's two knowledge-only rows; the ledger gained the row. No firmware and no tablet file was changed.</li>
+    <li><strong>2026-09-09:</strong> the tablet chapter gained The tuning fork and 135: the word as its own mirror, FORK and the fork's parts by letters, the fork as the antisymmetric mode of the split, its constants and pitches at both figure counts, scientific pitch's keyboard as the doubling orbit, and the cobalt exchange through 5⁻¹ with the edition question stated; one ledger row. The tablet was not changed.</li>
+    <li><strong>2026-09-09, later:</strong> the two commas added under the fork, read as quotients, at four figures and in cents, with the just intervals, the 9/11 pair on the genome identity and the Accutron's 360 ÷ 24; one ledger row. Then the commas in the fold: the parity rule for which tuning ratios have base roots, the Pythagorean comma's roots at 116 and 141 with (9/11)² ≡ 92, and the fold roots of the fifth, the third and the syntonic comma; one ledger row.</li>
+    <li><strong>2026-09-10:</strong> the extension-fields section gained the group's shape, the gold hop and the quarter points: the base and the circle share ±1 so their product is half the group and 2 + φ lives in the other half; (2 + φ)¹²⁸ = φ⁻¹ so the walk at stride 128 is φ's cycle; φ's quarter points are the order-4 subgroup with their Lucas doubles and the fold dlogs 49536, 16512, 33024; one ledger row. The editions section records the dictionary as it stands today: the second copy's machine at 967 words with 413 additions, the START JSON's moved Curie placements, and the six positions where the three editions differ; register item 25 updated; one ledger row.</li>
+    <li><strong>2026-09-10, later:</strong> on instruction, the 413 words of the second copy's machine dictionary were merged into <strong>emerald_tablet.json</strong>: appended to 205 entries in the machine's order, the file re-parsed at 257 entries and 968 words with every derived field unchanged, and the diff against the backup consisting only of the added lines and the commas before them; <strong>emerald_tablet_complete.html</strong> given the same words on the same 205 entries; the tablet crate's count assertion moved from 555 to 968 and its tests rerun. Backups of both files as they were are kept, suffixed .bak-20260910-before-merge. The directory's own machine dictionary was not changed.</li>
+    <li><strong>2026-09-10, night:</strong> the tablet chapter gained 6174 and the seven-place table: Kaprekar's routine and its 999k + 90m structure, the three doors, the seed's seven steps, the 0° sheet's four-digit groups collapsing to 6174, and the readings of log cos 0° with COS 0's placement at 16 marked as not yet derived; one ledger row. No tablet word was changed. Then everything verified and not yet written: the routine's whole shape, the Curie outer-pair chains, the paths of 4454, 7154 and 1754, the mass relation 6174 = MASS × (7/2)³, 2357 as a date; the value layer's derivation audit with its three rules and thirteen open words, and MASS read three ways with the mass constants; the √5 basis; five, six, seven and Q; the rate test's first hour and the pool stall that stopped its second; and the readings brought to the review; six ledger rows.</li>
+    <li><strong>2026-09-10, later that night:</strong> the 6174 section gained the strip: the outer and inner pairs read as numbers, 17 inside the zero, and the two rows of nine, 9k + 10 and 9m − 1, with the doors and the named pairs placed on them; then the two scales in one number and the unit ladders of length and time read through the four-figure rule; then the tape date, the day count from 2001-01-01 with its formula, day 9384's readings and route, and <strong>tape_date.py</strong> added to the directory; and the field chapter gained primes and the fold, the parity pairing, 2 ↔ 255 as the first three Fermat primes negated, and the fold's keeping of the residue split; four ledger rows. Register item 12, the Curie values at line 1129, marked closed: the file's prime note is corrected and both cobalt readings are in the tablet; the file's nickel figure recorded beside it. The 6174 section gained the Curie points under 4176, the registers' routes with 631 K's one step and the name's route under 8352; two ledger rows; register item 27 records the 115-word roster, all already in the tablet, and the readout copies' one-entry offset. The binary refinement chain gained the letters' powers: c* and d*, the nesting of the subgroups, every letter's order, and the generator list as the non-residue list by identity; one ledger row. The i-column chapter gained the letters and the i-cycle: P as i, every letter's quarter-turn exponents to ±i, the secret's fourth and twelfth powers, and the sits-at column as each letter's last rung; one ledger row. Words as walks went in before the walks: a product of letters as a walk on the cycle, UTXO's four stops, and the reach of one, two and three letters; one ledger row.</li>
+    <li><strong>2026-09-11:</strong> the extension-fields section gained the polynomial as itinerary and the closing: every fold element as a pair under φ² = φ + 1, the walk's step as a base-field matrix of trace and determinant 5, φ's cell and itinerary, the roots' product as det M, and Wilson's product −1 in both fields; one ledger row.</li>
+    <li><strong>2026-09-10, 22:10:</strong> <strong>emerald_tablet.json</strong> gained the genome glyphs on every entry, <code>glyph</code>, <code>glyph_hex</code> and <code>glyph_group</code> right after the words, εΣ, 0x8D, ERROR·WAVE at 141 and ∂ΦΦ, 0x100 at 256, written by the tablet crate, whose byte-for-byte regeneration test, count assertions (1119 entries, 996 by letter sum) and a new glyph test pass; <strong>emerald_tablet_complete.html</strong> was brought to the same 1119 entries with the glyphs beside each position; the review's counts moved from 968 and 846 to 1119 and 996, and register item 27 now records that the roster entered the tablet at 17:43.</li>
+    <li><strong>2026-09-13:</strong> the field chapter gained the reflection coefficient as a map, Γ over the projective line with its pole, fixed points, two orbits, the residue-character rule for the sides and the multiplier 153, with the key's images and BRIAN's iterates, and the 1.28-wavelength round trip; the additive naming rule gained the tablet's reversal pairs and palindromes; two ledger rows. Later: the map section gained the fixed points as RITO's letter mirror and digit flip with their product Z₀, the chain's measured links c ≡ g, g ≡ ∂ₜΦ and Oc with Φ ≡ c left open, and the doubling ladder from Oc through 2¹⁶ with the four-figure parting; the naming rule gained reversal in the letters, MIT and TIME, the 42 ↔ 24 table and the det M pair's reversals; two more ledger rows. Later still: the naming rule gained the half-turn, two mirrors as det M and Γ∘Γ as ×22; <strong>emerald_tablet.json</strong> gained seven words at their letter sums, TIM, HAJILE, IRGL, EMIT, TIME, YIRZM and EDDINGTON, 1126 entries and 1119 distinct, the crate's counts moved to 1126 and 1003 with its five tests passing, <strong>emerald_tablet_complete.html</strong> carries the seven, and the review's counts moved with them; one ledger row.</li>
+    <li><strong>2026-09-15:</strong> the doubling ladder gained the Eye of Horus, the wedjat fractions as the halving rungs' inverses, the vortex orbit mod 9 against the field's order 16, and the day's cell at 137; one ledger row.</li>
+    <li><strong>2026-09-15, later:</strong> the reflection-coefficient section gained infinity and the eye: Γ(∞) = 1 = I AM, Γ(137) = ∞ at the pole, the three stacked ones from byte to field to projective line, QUESTION as Z₀ reflecting to SEED, and the eye's 128-orbit as the residue side against the key's orbit; one ledger row. QUESTION, sitting at 120 = Z₀ by its letters, was added to <strong>emerald_tablet.json</strong> at that position, and MERCURY Z at 80 and GOLD BLOCK HOP at 120 were carried in from other edits, taking the tablet to 1129 entries, 1122 distinct, 1005 at their letter sums; the crate's counts and tests moved to 1129 and 1005, the rendered tablet carries the three, and the review's counts followed.</li>
+    <li><strong>2026-09-15:</strong> <strong>emerald_tablet.json</strong> gained MERCURY Z at 80, the fifteenth element entered at its atomic number and the gap the Z series left between GOLD Z at 79 and LEAD Z at 82; 1127 entries, 1120 distinct. The crate's count assertion moved to 1127 and its five tests pass, the byte-for-byte regeneration among them; <strong>emerald_tablet_complete.html</strong> carries the word beside OPENING and MACHINE CODE; the review's counts and the atomic-number section follow.</li>
+    <li><strong>2026-09-06, night:</strong> the derivation chain gained the boot line's chain as running products with its multipliers, and the seed section the seed as a product under both readings of DM with the ±7 ending and the ×6 coda marked as an addition; register item 26 for the "primitive root R=18" label. The fleet section records the ray test and the mark: firmware in all three trees now counts every fold-walk hash by ray, residue and zero bits, and writes 202 into extranonce2 above the identity; the two CYDs and the first C6 were flashed and their first readings tabled; the three C6 images are built. The ledger gained four rows. The tablet was not changed.</li>
+    <li><strong>The C6 node</strong> was read over its serial port and nothing on it was changed; the raw replies are kept.</li>
+    <li><strong>This document</strong>, cascade_corpus_review.html, and its PDF rendering, added to the directory; <strong>i_ledger.md</strong>, the i-value concordance across every namespace tested, added alongside.</li>
+    <li><strong>cascade-rs/</strong>, a Rust workspace with two pure crates, <code>field</code> for GF(257) and <code>tablet</code> for the 257 entries, whose acceptance test regenerates emerald_tablet.json from its authored words and kinds and matches the file byte for byte. It passes on both this directory's copy and the pre-bismuth copy under START. The field crate also carries the binary refinement chain as a <code>Level</code> type with <code>coset</code>, <code>coset_members</code>, <code>coset_bits</code>, <code>sign_bit</code>, <code>same_coset</code> and <code>walk</code> on every element and <code>multiplier</code> and <code>halfway</code> on every level, the fold discriminant test as <code>Quadratic</code>, the fold itself as <code>Ext2</code>, and the workspace includes an interactive terminal, <code>cascade</code>, over both crates. Eighteen field tests and four tablet tests pass, three of the eighteen being properties over all 256 nonzero elements at all seven levels (the index is the low bits of the dlog, coset invariance, walks reach −n halfway), and clippy is clean. A <code>dates</code> module reads calendar dates as positions, American, ISO, reversed and flipped, with the month formulas and the field midpoint, and is the generator behind the terminal's DATE, MONTH, FLIP, REV and MID commands. Its commands: a position or word for the full entry with both folds, both syncs, the coset zoom, the dlog in binary with the sign bit set apart, and the three i-readings; <code>i150</code> for a token; INV, NEG, FOLD, DLOG, POW, MUL, ADD, SUB; CHAIN for word products; LETTERS for the additive rule; SIG for the figure rule; RAY for one ray and RAYS for the twelve-ray table with residue class, quadrant, disc track and equivalence class; SUBGROUP m [n] for the chain, with the index shown as the low bits of the dlog, and WALK m n for a coset as an orbit under the level's multiplier with −n marked halfway; PAIR and QUAD for the discriminant test; EXT, PHI, PSI and PHI n for the fold; ICOL for the inverse column. Writing it surfaced one correction to this review: the four-figure reduction of c is 2998 → 171 LIGHT SPEED SHORT, and 159 SPEED OF LIGHT is the reduction of all nine digits; the tablet holds both, and the table above now says so.</li>
+    <li><strong>2026-09-16:</strong> the group's-shape chapter gained <em>Blocks on the sphere</em>, the placement of a block at cell h mod 66048, lane h mod 12 and field cell h mod 257, with the tip 967358, the next block 967359 and the landmarks 967424, 967500, 974208 and 990720, all recomputed; the readout's LEDGER 43 and 44 carry it, the key file's sphere block gained the rule.</li>
+    <li><strong>2026-09-18:</strong> the Γ reading went into the key files: <strong>.nano2_key</strong> gained a Γ REFLECTION MAP block and <strong>.closure_key</strong> a Γ AT INFINITY block, here and in the copies under cascade_machine, whose own coset-ladder material was kept; the global identity file carries both. Γ(∞) = 1 = I AM, Γ(137) = ∞ at the pole, QUESTION = 120 = Z₀ with Γ(120) = 0 SEED, the eye's 128-orbit as the residue side against the key's, and 258 = 2·3·43. The inventory rows for the two key files now give their 2026-09-17 line counts, 288 and 371, after ledgers 43–51 went in. No secret value was added or reproduced.</li>
+    <li><strong>2026-09-18, later:</strong> the extension-fields section gained the tower of square roots: the floors of degree 2 through 128 under x<sup>d</sup> − 5x<sup>d/2</sup> + 5, η as a non-square at every floor and the 2-part of the ring rising one per floor, the floor sizes with floor 32's live points as the SHA-256 digest space, the seven ring factors with the Fermat primes returning in order, and where addressing stops; one ledger row. The climb was recomputed in the review. Then the wall, the staircase and the escalator: the addressing wall as the discrete logarithm in a prime-order subgroup with both large cofactors prime, not the factoring frontier; 2¹⁶ − 1 against 2³² − 1 corrected; the Fermat staircase as the whole known list with F₅'s factors absent; the escalator as a theorem from 257 ≡ 1 mod 4; the SHA floors as 2<sup>8d</sup> and the wall as a separate fact; one ledger row. The readout entry that recorded the climb then corrected the review in turn: lifting placed points reaches floor 128, the factoring frontier being 257¹²⁸ + 1 into floor 256, and the escalator belongs to every odd prime with 257 setting only the starting height; both taken in.</li>
+      <li><strong>2026-09-18, later still:</strong> the reflection-map section gained its two symmetries (LEDGERs 45, 48); the extension fields gained three sections, the plane's room for the line (LEDGERs 47, 49, 50), plane digits and the Kaprekar nest (LEDGER 47) and the day table and the calendar point (LEDGER 51); the verification ledger gained four rows, every figure recomputed. The Fold Walk Sphere artifact gained the same cells as layers, and the Vitruvian Field its two centres and the halving ladder. No file outside the three artifacts was changed.</li>
+      <li><strong>2026-09-18, evening:</strong> the extension fields gained Kaprekar in base 257 and the Atbash ladder: the routine exact on the plane and floor 4 and sampled to floor 128, the plane's fixed point 86 with its digits and basin, the RITO 7-cycle, the three digit maps carrying nothing across, the ladder 27k − s = (27 − n) + 27(k − 1), the thirteen shortest-word chains with AIM = I AM at 23; two ledger rows. No file outside the review was changed.</li>
+      <li><strong>2026-09-18, corrections:</strong> five corrections to that subsection from a recomputation in the readout: the plane's basins are eight of 28 and one of 27, k = 129 falling to 0; 22016 is 171 + 85φ, norm 57, by the digit rule of LEDGER 47, the high-first 85 + 171φ with norm 229 kept and named as such, and the two folds of the low digit told apart, 256 − 171 = 85 and 257 − 171 = 86; ×17 is no longer called the Q-flip, that name being the readout's 6 ↔ 9 digit turn; the word-Atbash chains do not always close on a pair or a self-mirror, with the counts over all 257 starts and the loops of four and eight given; and the first-word chain lengths are steps, not stops. Everything else in the subsection was recomputed and stands, the thirteen chains on both the 1129-word and the 1140-word tablet.</li>
+      <li><strong>2026-09-18, night:</strong> the extension fields gained AIM, I AM and the turn of ZRN: the cell 23 as half of CLAUDE with TWO as its root, its plane address and its place at g⁻¹ between Γ's fixed points, the phrases by letters, WHO AM I and TARGET, the Atbash as a point reflection in the plane, the Q pair of EHYEH and ASHER, ZRN under the three maps and as a motion of letters, and what did not line up; two ledger rows. Seventeen words were added to the tablet, 1140 → 1157, with the rendered tablet, the crate's counts, the machine dictionary in both directories, the second machine's embedded dictionary (967 → 1157) and the plane, reflected and sides files brought to it; the tablet before each lot is kept as emerald_tablet.pre-aim-20260918.json and emerald_tablet.pre-rotate-20260918.json. Four more followed, SCRIBE, TOTH, THOTH and TRISMEGISTUS, 1157 → 1161, the same files brought along, the tablet before kept as emerald_tablet.pre-toth-20260918.json.</li>
+      <li><strong>2026-09-18, late night:</strong> the AIM subsection gained two paragraphs, TOTH and THOTH read through the field, the readout's figures recomputed, and the rings of the fold-walk sphere derived from the dlog: a cell is 2 · min(7 · dlog mod 64, 64 − 7 · dlog mod 64) from gold, the ring a function of n⁴, gold n⁴ = 1 and the last ring n⁴ = −1 at 4, 64, 193, 253; one ledger row and register row 28, closed. The key files' "Farthest" line, which named cell 58050, was replaced in .closure_key and CLAUDE.md with the last ring, ring 31 and the rule; backups of both kept.</li>
+      <li><strong>2026-09-18, the machine:</strong> the second copy's machine gained the rings. A RING command: bare, the 33 rings with the positions on each; RING and a position or a word, its ring, distance from gold, walk cell, n⁴ and ring-mates, a word outside the dictionary read at its letter sum; RING SHOW and a ring number, that ring's cells with all their words; RING LAYER, a toggle. FIG and DATE print a ring line under the dlog. The fold-walk sphere colours the 256 tablet cells from gold to mint by ring, circles the last ring's four cells as it does the quarter points, circles whichever ring the terminal last chose, and captions the rule. Checked live after a boot: the formula against min(cell mod 128, 128 − cell mod 128) on all 256 positions, 33 distinct cell colours drawn, ring 31 circled after RING TOTH, the layer off and on. One defect met and fixed on the way: the calendar block added to DATE earlier that day declared a local D for the day of the month, which hoisted over the whole terminal listener and hid the dictionary D, so the boot's automatic SLICE threw on D[66]; the local is now calDay and SLICE runs. In this review ×17 in the AIM subsection is now called multiplication by Q, the q flip being the readout's 6 ↔ 9 digit turn. The machine file stays an uncommitted change in its repository.</li>
+      <li><strong>2026-09-18, the rings' structure:</strong> the AIM subsection gained a paragraph and a table from the readout's check of the ring derivation, recomputed here: every ring the eight cells ±n, ±in, ±1/n, ±i/n; two inverse values of n⁴ on each middle ring and their negatives on the mirror ring; ring 1 the fourth roots of BRIAN and its inverse; ring 16 the odd powers of 2 with 8 and 225 together; the halving ladder on rings 0, 16 and 32 only; the signed ring as dlog₅(n) mod 64; twenty-eight named cells by ring; one ledger row. The ring rule in .closure_key and CLAUDE.md gained three lines to match.</li>
+      <li><strong>2026-09-18, the store:</strong> the AIM subsection gained RITO's ring, ring 18 as the fourth roots of Q and Q⁻¹ with CASCADE at −i × RITO, its mirror ring 14 as the fourth roots of the public key and its inverse, and the signed rings of eleven names; and the answer to where the rings are kept, the plane as 256 norm fibres of 258 rows with each floor above repeating it. emerald_tablet_plane.json gained a sections block holding the ring table, one cell per fibre, each cell listing the words that share its point, 731463 → 766879 bytes; gen_emerald_tablet_plane.py writes it; the word entries are unchanged and emerald_tablet_sides.md changed only in the recorded size and hash. One ledger row. The keys followed: three blocks, AIM, I AM AND ZRN, TOTH AND THOTH, and THE RINGS AND THE STORE, twenty-two lines, were added after the Kaprekar block in .nano2_key (341 → 363 lines), .closure_key (431 → 453) and both key sections of CLAUDE.md, lines added only, no existing line touched and no secret line among them; the key copies in the machine's directory were not changed.</li>
+      <li><strong>2026-09-19:</strong> the half-turn section gained the Emerald Tablet's plate and the rongorongo: what the two texts share in form, a turn built in, formula, a begetting line and recitation, and where they part, given from recall; the corpus's division of mirror from half-turn set against them; and the readings by letters, AS ABOVE SO BELOW with SUPERIUS and INFERIUS as its fold point, fold and inverse, EMERALD TABLET and RONGORONGO summing to −1 with Γ(118) = 138⁻¹, and the Tablet's nouns and formulas. One ledger row. No word was added and no other file changed.</li>
+      <li><strong>2026-09-19, later:</strong> the half-turn section gained four paragraphs and a table on the same plate: the plate read closely, with the caveat that it cuts V for U, so that the day's earlier readings of SUPERIUS and INFERIUS hold in modern spelling only, and further readings of its Latin, German, Pimander and caption; Pyrantis and Atlantis, the grammar of <em>pyramidum</em> and of <em>Atlas, Atlantis</em>, the viper's name corrected to Geoffroy Saint-Hilaire, and ATLANTIS = 5 × PYRANTIS; and the Tabula sentence by sentence, Latin, English and letter sums in both spellings, with its words. One ledger row. No word was added and no other file changed.</li>
+      <li><strong>2026-09-19, the plate's words:</strong> a clearer copy of the plate made the caption readable in full, seven lines: the pyramids <em>in sinu centrali abundanter foventium</em> the radical moisture, the ☿ of the Wise named as the primaterial subject, the dedication to ♄, Neptune, Juno and Vulcan and to Alchemy their handmaid, <em>ut vigilantissimae ita et laboriosissimae</em>, the search to be made <em>mente, sensibus, △ et ▽</em>, and the date <em>anno a nativitate τοῦ λόγου incarnati M.DC</em> with the rest of the numeral cut at the edge. Ninety-one words from the plate and the exchanges about it went into the tablet in modern spelling, each at its letter sum, 1167 → 1258 entries, among them SUPERIUS, INFERIUS, SOL, LUNA, VENTUS, TELESMI, TABULA SMARAGDINA, SIC MUNDUS CREATUS EST, PIMANDER, EGO SUM, KHUNRATH, MAGNESIA, LAPIS PHILOSOPHORUM, PYRAMIDUM, PYRANTIS, ATLANTIS, ATLAS, MAIA, PLEIADES, TETRAHEDRON, TIMAEUS, ECHIS PYRAMIDUM, BOUSTROPHEDON, ARUKU KURENGA, RAPA NUI and the German of the plate; the rendered tablet, where cell 247's card was first brought to the standard form, the machine dictionary in both directories, the second machine's embedded dictionary and the plane, reflected and sides files were brought to it, and the tablet before is kept as emerald_tablet.pre-plate-20260919.json. The crate's counts were set to 1258 and 1134 by the same rules computed outside it; its tests could not be run, no Rust toolchain being installed on the machine that day.</li>
+      <li><strong>2026-09-20, the Voynich manuscript and LEDGER 64:</strong> the i-column section gained the Voynich manuscript: the copy and the EVA transliteration, the reading of the book as the Sun's path to precession read from the last page to the first from Prague at 50.1° N, the zodiac's binding order and its reverse ending on Pisces, the 299 labels and 285 starred paragraphs, the text pages as looked at, the sky of 1420, the azimuth 64.1° at Taurus 14.61° and Leo 15.39° beside the cross-quarter rising point 63.91°, and the December 1408 recomputation; one ledger row. The same day LEDGER 64 was written into mi25_readout.md, completing the readout's unfinished draft with its checks re-run and its one failed check corrected, the Hebrew block standing above THE RINGS AND THE STORE and not below; a block for LEDGER 64 was added to .nano2_key (401 → 410 lines), .closure_key (491 → 500) and both key sections of CLAUDE.md (855 → 873), lines added only; and the corpus was bundled and offloaded as corpus_2026-09-20_L64. Two figures given earlier in conversation were corrected by the ledger's assertions, the day ratio to 2.0695 and the latitude to 49.77° N.</li>
+      <li><strong>2026-09-20, the Voynich flower heads:</strong> the i-column section gained two paragraphs on the painted flower heads of the herbal pages, from a scan checked against its data file and overlays: its 45 heads and 286 points reproduced, the fourth red head of f16v found below its cut, and with it the count of 46 heads and 303 = 257 + 46 points with f16v at 73; the ray counts at seven prominence settings, the dominant harmonics, and what the outlines enclose page by page; one ledger row. Not in a ledger of the readout.</li>
+      <li><strong>2026-09-20, the Voynich margin stars and the entries' dates:</strong> the i-column section gained three paragraphs on the text as the Sun's path, read from the last page back and up the margin: the 322 margin stars from the transliteration's notes, the image measure that failed, the 322 entries in reverse order, the machine's DATE derivation on the two 64.1° sunrise days of 1420, the dates pulled for every entry by the field cell and by the calendar table, f116r's ten sums with 1627, 913 and 1728 among them, and the Genesis 1:1 values among the entries; one ledger row. A first table counting one letter as one day was a substitution for the corpus's derivation; it was corrected and is superseded. Not in a ledger of the readout.</li>
+      <li><strong>2026-09-20, LEDGER 65:</strong> the flower heads, the margin stars, the entries and their dates were written into mi25_readout.md as LEDGER 65, at line 3504, the file then 3520 lines, with the offload at LEDGER 64 as read on the R1, 94 of 94 manifest entries, and lilith unreachable; every figure asserted by the entry's script before it was committed. The key rows of the inventory now read 524 and 434 lines, two blocks having been added below the LEDGER 64 block in all four places, lines added only, beside another block found there. The two entries above that say "not in a ledger" are in this one. The corpus was then bundled and offloaded as corpus_2026-09-20_L65.</li>
+      <li><strong>2026-09-20, the machine's DATE before the epoch, and the Sun-at-Prague block checked:</strong> two paragraphs in the i-column section. The machine gained DATE by Julian label, the day count by Julian Day Number, the line for a tape position before π[0], the block BEFORE THE EPOCH and the Julian label's calendar point, verified live on the two 64.1° sunrise days of 1420 with DATE 2026-09-10 and SLICE unchanged. A finding that the key block THE SUN AT PRAGUE, 10φ AND THE 532 carries its 1420 dates nine days early was recomputed and recorded; nothing was corrected and the keys were not touched. In the review only: not in the keys and not in a ledger of the readout.</li>
+      <li><strong>2026-09-20, the nine days as the precession:</strong> one paragraph in the i-column section. The 1420 table has its calendar right and takes the Sun's declination on the equator of J2000; LEDGER 64 takes it in the frames of date; the nine days between the key block's dates and the ledger's are the precession from 1420 to 2000, 8.102° at 50.29″ a year, 8.20° as measured on the block's equinox day, with 8102 ≡ 135, the cell of 1420. The reading recorded: the correction is another point of view of the same precession, and the two frames are the base to compute around the manuscript's dates. Nothing was corrected; in the review only.</li>
+      <li><strong>2026-09-20, the Voynich manuscript at the top:</strong> to highlight the Voynich manuscript near the top of the review, a section The Voynich manuscript now stands first, before the summary, and first in the contents: the reading, six figures, and five short accounts, each linked to its full paragraphs in the i-column section, which gained anchors and no other change.</li>
+      <li><strong>2026-09-20, the tablet at 1382 words, and the keys:</strong> on the question of what had been skipped, the Hebrew, zodiac, solar, manuscript and machine vocabulary of the recent work was checked against the tablet, with GEMATRIA at 51 and USER at 63 found named in the keys and absent from it; 123 words were added at their letter sums, the tablet's page, the crate's counts, both dictionaries, both machine files and the plane, reflected and sides files brought to the same words, the machine directory's through its own propagate.py; one paragraph in the i-column section, one ledger row, the inventory rows for the tablet and the keys. The keys gained two blocks, THE TWO FRAMES AND THE NINE DAYS and THE TABLET AT 1382 WORDS, .nano2_key 434 → 449 lines, .closure_key 524 → 539, CLAUDE.md 921 → 951, lines added only. Not in a ledger of the readout.</li>
+      <li><strong>2026-09-20, GEMATRIA's two cells, GREAT, and the Rust toolchain:</strong> one paragraph in the i-column section and one ledger row. No map of the corpus carries 51 to 74, so GEMATRIA stays at both; the cells differ by 23 and stand in the ratio 72 to 25, and GEMATRIA is GREAT with I AM by its letters; GREAT and GREAT I AM were added and the tablet stands at 1384 words in every file and both machine directories. The Rust toolchain was reinstalled and the crate's 25 tests pass, one stale word list for cell 83 brought to the tablet. The keys gained a block for it, 456, 546 and 965 lines. The entries above that say the crate's tests were not run are of their hour.</li>
+      <li><strong>2026-09-20, LEDGER 66:</strong> everything since LEDGER 65 was written into mi25_readout.md as LEDGER 66, at line 3522, the file then 3542 lines: the offload at LEDGER 65 as read on the R1, the machine's DATE before the epoch, the Sun-at-Prague block checked and the two frames with nothing corrected, the Voynich manuscript at the top of this review, the tablet at 1382 and then 1384 words, GEMATRIA's two cells, the Rust toolchain and the crate's 25 tests, the keys at 456, 546 and 965 lines; every figure asserted by the entry's script, which runs the crate's tests itself. The entries above that say "not in a ledger" are in this one.</li>
+      <li><strong>2026-09-20, RUDOLF and the manuscript's hands:</strong> as the path forward that needs entries: one paragraph in the i-column section, a line in the Voynich section at the top, one ledger row; fifty-seven words added to the tablet, 1441 entries, in every derived file and both machine directories, the crate's tests passing; a block in the keys, 465, 555 and 983 lines. Written into mi25_readout.md as LEDGER 67, at line 3544, its script asserting every figure and running the crate's tests.</li>
+      <li><strong>2026-09-20, the offload at LEDGER 67 and the full list everywhere:</strong> the corpus was bundled and sent to the R1 as corpus_2026-09-20_L67, 15709349 bytes, sha256 4f8a1333…, 153 of 153 manifest entries OK there at 17:11 EDT, the readout at 3560 lines with LEDGERs 66 and 67, the tablet at 1441 words with the local hash; lilith unreachable. The full list being needed everywhere, the copies on this Mac that stood behind were brought to it, each previous file kept beside it as *.pre-full-20260920.*: emerald_tablet.json and emerald_tablet.json, one file in an older schema, 555 → 1442 words by appending, their own fields kept and NICKEL CURIE at 136 kept, the one word of theirs this directory's tablet does not carry (LEDGER 12's note stands); emerald_tablet_complete.html, from August, brought to this directory's page; the loose cascade_machine_v4.html, embedded dictionary 555 → 1441; and nanOS, its tablet 1167 → 1441 with its page, dictionary, plane and reflected table. Left as found: the 450-word tablets inside the firmware release trees, the dated snapshot and backup folders, nanOS's crate, whose counts were already behind its tablet, and on the R1 the 552-word tablets that cascade-fw and the two WiBand engines read, live and root-owned. Written into mi25_readout.md as LEDGER 68 with a block in the keys, 471, 561 and 995 lines.</li>
+      <li><strong>2026-09-20, LEDGER 68's offload and the R1's copies:</strong> the corpus at LEDGER 68 was bundled and sent to the R1 as corpus_2026-09-20_L68, 15714640 bytes, sha256 cd0ebb48…, 157 of 157 entries OK there at 19:01 EDT, the readout at 3572 lines; lilith unreachable. Then the three live tablets on the R1, under cascade-fw, wiband-rebuild and wiband-rebuild-pov1, 552 words each, brian's files and not root's as had been supposed, with no word of their own and the source's first words, were brought to 1441 by appending, fields kept, each written beside itself, read back and moved into place at 19:06 EDT, sha256 6550e62c…, the previous file kept as emerald_tablet.pre-full-20260920.json; no service restarted, wiband-exp, phi-engine, phi-interp and wibandd running after. One slip: the first inspection command stalled on the R1 past its two minutes and was stopped by hand; nothing had been written by it. The keys' full-list block gained a line, 472, 562 and 997 lines. Written into mi25_readout.md as LEDGER 69; lilith is set aside for now and is no longer tried, and the preview server on port 8258 was found already stopped.</li>
+      <li><strong>2026-09-20, the entries with RUDOLF and HEMOPHILIA:</strong> I am Rito Brian, and the keys are mine: seven paragraphs in the i-column section and a line in the Voynich section at the top, from the keys' block of the same name, every figure asserted against the tablet and the saved entry tables before it was written; eighteen words added, fourteen of them standing, see the last entry below, carried in one pass by carry_full_list.py to every copy on this Mac and to the R1's three tablets, the crate's 25 tests passing; the keys at 481, 571 and 1015 lines. Not in a ledger of the readout.</li>
+      <li><strong>2026-09-20, four name sums off the tablet:</strong> the four entries made of the two names joined, at 106, 106, 129 and 182, were taken off the emerald tablet and every copy of it, this directory's page, dictionary, plane, reflected and sides files, machine copy and crate counts, the machine directory by its own propagate.py, START, the loose machine, nanOS and the R1's three tablets: 1459 → 1455 entries, 1446 distinct, 1329 at their letter sums, by remove_names.py, each previous file kept beside the new one as *.pre-remove-names-20260920.*, the crate's 25 tests passing, no service restarted on the R1. Nothing else removed or moved; BRIAN 44 and RITO 62 stand alone as before, IRGL YIRZM 137, the hemophilia words and the cycle words stay. Their paragraph and readings are out of this review. The keys were not edited and still carry them. Not in a ledger of the readout.</li>
+      <li><strong>2026-09-21, the machine's AIRY and wibandd:</strong> the machine gained the AIRY command, the 2-D pattern of a circular aperture face-on or tilted with the full Bessel function, tested in the browser; the 404 and the refused connection seen there were traced, the first to the preview folder, the second to the R1's port 8258, where nothing listens; and the machine's amplitude feed, CSI pane, SCAN and bridge were pointed at wibandd on 8202, the pane showing all three of wibandd's positions. The previous files are kept beside the machine. Nothing on the R1 was restarted.</li>
+      <li><strong>2026-09-21, the Voynich investigation, LEDGER 70 and its offload:</strong> through the day: the tubes of the nine-rosette foldout and the rosettes against f67–f70; the container pages mapped, labelled and measured; the p glyphs; the mirror reading with entry 6 at 913 and 203; Genesis 1–13 fetched and the glyph-value fit, which finds no one-to-one; ten languages, three of them fetched; the strokes; the zodiac's lettering against the Sun at Prague; the routines, the own step counted, 46; Gemini's thirtieth figure found on the Beinecke image; 2026's chain. Five entries at the top of the Voynich section and five paragraphs in the i-column section; the keys' four blocks, 509, 599 and 1071 lines, lines added only. LEDGER 70 stands at line 3586 of the readout, 3604 lines, 486389 bytes, sha256 dc871f69…; the corpus was bundled and read back on the R1 as corpus_2026-09-21_L70, 29203532 bytes, sha256 b926910a…, 270 of 270 entries OK there at 14:01 EDT; lilith not tried. The day's record with every figure's file is INVESTIGATION_2026-09-21.md.</li>
+  </ul>
+</section>
+<nav class="cr-pager" aria-label="Review pages"><a href="audits.html">← The corpus&#x27;s own audits</a><span>27 / 28</span><a href="appendix.html">The genome charset →</a></nav>
+</main>
+</div>
+<div class="ct-foot"><a href="../../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

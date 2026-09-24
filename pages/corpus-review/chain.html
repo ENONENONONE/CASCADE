@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The derivation chain and the genome · cascade.training</title>
+<meta name="description" content="Corpus Review · Mathematics · The derivation chain and the genome">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #0d0d0d;
+  --line: #1f1f1f;
+  --text: #e0e0e0;
+  --dim: #a0a0a0;
+  --gold: #e0e0e0;
+  --glow: #e0e0e0;
+  --amber: #e0e0e0;
+  --alert: #e0e0e0;
+  --blue: #e0e0e0;
+  --term-bg: #0a0a0a;
+  --term-text: #c8c8c8;
+  --serif: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --sans: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--bg);color:var(--text);font-family: var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+a{color:var(--blue);text-decoration:none}
+
+a:hover,a:focus{text-decoration:underline}
+
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.wrap{display:grid;grid-template-columns:1fr;gap:0;max-width:1240px;margin:0 auto;padding:0 20px 80px}
+
+@media (min-width:1100px){.wrap{grid-template-columns:240px minmax(0,1fr);gap:48px}}
+
+nav.toc{display:none}
+
+@media (min-width:1100px){
+  nav.toc{display:block;position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;padding:8px 0 24px;font-size:12.5px}
+  nav.toc .g{font-family: var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:16px 0 6px}
+  nav.toc a{display:block;color:var(--text);padding:3px 0 3px 10px;border-left:2px solid var(--line);line-height:1.35}
+  nav.toc a:hover{border-left-color:var(--gold);text-decoration:none;color:var(--gold)}
+  nav.toc a.sub{padding-left:22px;color:var(--dim)}
+}
+
+main{min-width:0}
+
+header.mast{padding:44px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+
+.eyebrow{font-family: var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+h1{font-family: var(--serif);font-weight:600;font-size:44px;line-height:1.05;margin:10px 0 12px;text-wrap:balance;letter-spacing:-.01em}
+
+.lede{font-family: var(--serif);font-size:19px;line-height:1.45;color:var(--text);max-width:62ch;margin:0 0 20px}
+
+.meta{font-family: var(--mono);font-size:12px;color:var(--dim);display:flex;flex-wrap:wrap;gap:6px 22px}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0 0}
+
+.tile{background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+
+.tile .n{font-family: var(--serif);font-size:28px;font-weight:600;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+
+.tile .l{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+
+.hero{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin:26px 0 0}
+
+@media (min-width:820px){.hero{grid-template-columns:minmax(0,1fr) 300px}}
+
+.hero canvas{width:300px;max-width:100%;height:auto;display:block;margin:0 auto}
+
+.hero .cap{font-family: var(--mono);font-size:11px;color:var(--dim);text-align:center;margin-top:6px}
+
+section{padding:34px 0 8px;border-top:1px solid var(--line)}
+
+section.first{border-top:0;padding-top:8px}
+
+h2{font-family: var(--serif);font-weight:600;font-size:30px;line-height:1.15;margin:6px 0 14px;text-wrap:balance}
+
+h3{font-family: var(--serif);font-weight:600;font-size:21px;margin:28px 0 8px;text-wrap:balance}
+
+h4{font-family: var(--sans);font-weight:600;font-size:14px;letter-spacing:.02em;margin:20px 0 6px;color:var(--gold)}
+
+p{max-width:70ch;margin:0 0 12px}
+
+ul,ol{max-width:70ch;padding-left:22px;margin:0 0 12px}
+
+li{margin:0 0 5px}
+
+li>p{margin:0}
+
+code,kbd{font-family: var(--mono);font-size:.92em;background:var(--surface2);border:1px solid var(--line);padding:0 4px;border-radius:2px;white-space:nowrap}
+
+pre{font-family: var(--mono);font-size:12.5px;line-height:1.5;background:var(--surface2);border:1px solid var(--line);padding:12px 14px;overflow-x:auto;margin:0 0 14px}
+
+pre code{background:none;border:0;padding:0;white-space:pre}
+
+.formula{font-family: var(--mono);font-size:13px;line-height:1.8;background:var(--surface2);border:1px solid var(--line);padding:10px 14px;margin:0 0 14px;overflow-x:auto;white-space:pre}
+
+.formula sup,.formula sub{font-size:.72em;line-height:0}
+
+.formula sup sup{font-size:.85em}
+
+.tbl.wrapth th{white-space:normal}
+
+.tbl{overflow-x:auto;margin:0 0 16px;border:1px solid var(--line);background:var(--surface)}
+
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+
+th,td{text-align:left;vertical-align:top;padding:7px 10px;border-bottom:1px solid var(--line)}
+
+th{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:500;background:var(--surface2);white-space:nowrap}
+
+td.n,th.n{text-align:right;font-family: var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+td.m{font-family: var(--mono);font-size:12.5px;white-space:nowrap}
+
+td.w{white-space:normal;min-width:18ch}
+
+tr:last-child td{border-bottom:0}
+
+.chip{display:inline-block;font-family: var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:2px;line-height:1.5;vertical-align:middle}
+
+.ok{color:var(--glow)}
+ .open{color:var(--amber)}
+ .bad{color:var(--alert)}
+ .rec{color:var(--gold)}
+ .info{color:var(--blue)}
+
+.note{border-left:3px solid var(--gold);padding:8px 14px;background:var(--surface);margin:0 0 14px;max-width:72ch}
+
+.note.warn{border-left-color:var(--alert)}
+
+.note.open{border-left-color:var(--amber)}
+
+.term{background:var(--term-bg);color:var(--term-text);font-family: var(--mono);font-size:12.5px;line-height:1.55;padding:12px 16px;border:1px solid #161616;overflow-x:auto;margin:0 0 16px;white-space:pre}
+
+.term .g{color:#e0e0e0}
+.term .a{color:#e0e0e0}
+.term .d{color:#e0e0e0}
+.term .w{color:#e0e0e0}
+.term .r{color:#e0e0e0}
+.term .b{color:#e0e0e0}
+
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 18px;font-size:13.5px;max-width:78ch;margin:0 0 14px}
+
+.kv .k{font-family: var(--mono);font-size:12px;color:var(--dim);white-space:nowrap}
+
+.two{display:grid;grid-template-columns:1fr;gap:0 32px}
+
+@media (min-width:900px){.two{grid-template-columns:1fr 1fr}}
+
+.small{font-size:12.5px;color:var(--dim)}
+
+sup{font-size:.7em}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+@page{size:Letter;margin:0.6in 0.6in 0.7in}
+
+@media print{
+  :root{--bg:#e0e0e0; --surface:#e0e0e0; --surface2:#e0e0e0; --line:#c8c8c8; --text:#111111; --dim:#3a3a3a; --gold:#c8c8c8; --glow:#c8c8c8; --amber:#c8c8c8; --alert:#3a3a3a; --blue:#3a3a3a}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-size:11.5px;line-height:1.45}
+  .wrap{display:block;max-width:none;padding:0}
+  nav.toc{display:none!important}
+  header.mast{padding:0 0 14px;margin-bottom:16px}
+  h1{font-size:30px} .lede{font-size:14px} h2{font-size:20px;break-after:avoid} h3{font-size:15px;break-after:avoid} h4{break-after:avoid}
+  .hero{grid-template-columns:minmax(0,1fr) 220px} .hero canvas{width:220px}
+  .strip{grid-template-columns:repeat(3,1fr)}
+  section{padding:18px 0 4px;break-inside:auto}
+  .tbl{overflow:visible;break-inside:auto} table{font-size:10px} th,td{padding:4px 6px} tr{break-inside:avoid}
+  td.m{white-space:normal;font-size:9.5px} td.n{font-size:10px}
+  pre,.term{font-size:9.5px;break-inside:avoid;white-space:pre-wrap;overflow:visible}
+  .note{break-inside:avoid}
+  .formula{font-size:9.5px;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid}
+  a{color:inherit}
+  .small{font-size:9.5px}
+}
+
+
+
+.cr-pager{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:3rem 0 1rem;padding-top:1.2rem;border-top:1px solid var(--line);font-family: var(--mono);font-size:12px}
+
+.cr-pager a{color:var(--text);text-decoration:none;max-width:45%}
+
+.cr-pager a:hover{color:var(--gold)}
+
+.cr-pager span{color:var(--dim)}
+
+.cr-crumb{font-family: var(--mono);font-size:12px;color:var(--dim);margin:0 0 1.2rem}
+
+.cr-crumb a{color:var(--dim)}
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../../index.html#deeper">[pages]</a><a href="#" aria-current="page">the derivation chain and the genome</a></nav>
+</div>
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <a href="../corpus-review.html">← Review overview</a>
+  <div class="g">Corpus</div>
+  <a href="voynich.html">The Voynich manuscript</a>
+  <a href="summary.html">Summary</a>
+  <a href="inventory.html">File inventory</a>
+  <a href="field.html">The field GF(257)</a>
+  <a href="chain-cosets.html">The binary refinement chain</a>
+  <a href="extensions.html">The extension fields</a>
+  <a href="#chain">Derivation chain</a>
+  <a href="hinge.html">The hinge at 1028</a>
+  <a href="tablet.html">Emerald tablet</a>
+  <a href="icolumn.html">The i-column</a>
+  <div class="g">Machine</div>
+  <a href="machine.html">Cascade machine v4</a>
+  <a class="sub" href="machine.html#m-anatomy">Anatomy</a>
+  <a class="sub" href="machine.html#m-boot">Power-on</a>
+  <a class="sub" href="machine.html#m-state">Registers</a>
+  <a class="sub" href="machine.html#m-isa">Tape and instruction set</a>
+  <a class="sub" href="machine.html#m-fold">Fold and observe</a>
+  <a class="sub" href="m-commands.html">Terminal commands</a>
+  <a class="sub" href="m-nano2.html">NanO₂ messaging</a>
+  <a class="sub" href="m-bridge.html">Hardware bridge</a>
+  <a class="sub" href="m-radio.html">BLE, serial, RF</a>
+  <a class="sub" href="m-settle.html">Settlement and mesh</a>
+  <a class="sub" href="m-disc.html">Phi disc phonograph</a>
+  <a class="sub" href="m-model.html">Model bridges</a>
+  <a class="sub" href="m-display.html">Display and export</a>
+  <div class="g">Findings</div>
+  <a href="second-copy.html">The second copy</a>
+  <a href="ledger.html">Verification ledger</a>
+  <a href="register.html">Discrepancy register</a>
+  <a href="audits.html">The corpus's own audits</a>
+  <a href="changes.html">Changes made</a>
+  <a href="appendix.html">Appendix</a>
+</nav>
+<main>
+<p class="cr-crumb"><a href="../corpus-review.html">Corpus Review</a> · Mathematics</p>
+<section id="chain">
+  <div class="eyebrow">Mathematics</div>
+  <h2>The derivation chain and the genome</h2>
+  <p>The spine runs Φ = ∂ₜΦ → R = 1 + 1/R → φ → [1; 1, 1, …] → M = [[1,1],[1,0]] with det M = −1 → M ⊗ M with eigenaxes φ², −1, −1, ψ² → P₇ = 2·3·5·7 = 210 → C₄ = 5/3 → ε₄ = |φ − 5/3| = (7 − 3√5)/6 = 0.048633 → δ% = ε₄ · ln φ = 2.34% → ±ψ → Ω. Every step is exact and was recomputed. The machine expands the chain to sixteen steps, and each step has a field position G(n) = n × 83 mod 257 because 83 = 1111 mod 257 and n × 1111 ≡ n × 83.</p>
+  <div class="tbl"><table>
+    <tr><th class="n">G</th><th>Step</th><th>Formula</th><th class="n">Pos</th><th>Word</th><th class="n">dlog</th><th class="n">Ray</th><th class="n">257 − G</th><th class="n">sync</th><th class="n">inv</th></tr>
+    <tr><td class="n">0</td><td>Φ (axiom)</td><td class="m">Φ = ∂ₜΦ</td><td class="n">0</td><td>SEED</td><td class="n">—</td><td class="n">—</td><td class="n">0</td><td class="n">0</td><td class="n">0</td></tr>
+    <tr><td class="n">1</td><td>∂ (derivative)</td><td class="m">∂ₜ</td><td class="n">83</td><td>PRAYER</td><td class="n">15</td><td class="n">3</td><td class="n">174</td><td class="n">50</td><td class="n">96</td></tr>
+    <tr><td class="n">2</td><td>R1 (fixed point)</td><td class="m">R → φ</td><td class="n">166</td><td>TETRAGRAMMATON</td><td class="n">63</td><td class="n">3</td><td class="n">91</td><td class="n">200</td><td class="n">48</td></tr>
+    <tr><td class="n">3</td><td>CF1⁴ (fraction)</td><td class="m">CF[1; ∞]</td><td class="n">249</td><td>EDDINGTON LUMINOSITY</td><td class="n">16</td><td class="n">4</td><td class="n">8</td><td class="n">193</td><td class="n">32</td></tr>
+    <tr><td class="n">4</td><td>M₂D⁻¹ (matrix)</td><td class="m">det(M) = −1</td><td class="n">75</td><td>SHIFT</td><td class="n">111</td><td class="n">3</td><td class="n">182</td><td class="n">29</td><td class="n">24</td></tr>
+    <tr><td class="n">5</td><td>⊗4 (tensor)</td><td class="m">M ⊗ M</td><td class="n">158</td><td>SACRED GEOMETRY</td><td class="n">70</td><td class="n">10</td><td class="n">99</td><td class="n">222</td><td class="n">122</td></tr>
+    <tr><td class="n">6</td><td>P₇ (primorial)</td><td class="m">P₇ = 210</td><td class="n">241</td><td>TWIN PRIME CONJECTURE</td><td class="n">64</td><td class="n">4</td><td class="n">16</td><td class="n">1</td><td class="n">16</td></tr>
+    <tr><td class="n">7</td><td>C₄ (convergent)</td><td class="m">F₅/F₄ = 5/3</td><td class="n">67</td><td>SOUL</td><td class="n">100</td><td class="n">4</td><td class="n">190</td><td class="n">137</td><td class="n">234</td></tr>
+    <tr><td class="n">8</td><td>ε₄ (error)</td><td class="m">(7 − 3√5)/6</td><td class="n">150</td><td>ELECTROMAGNETIC</td><td class="n">159</td><td class="n">3</td><td class="n">107</td><td class="n">116</td><td class="n">12</td></tr>
+    <tr><td class="n">9</td><td>δ% (distortion)</td><td class="m">ε₄ · ln φ</td><td class="n">233</td><td>COLLISION RESISTANT</td><td class="n">17</td><td class="n">5</td><td class="n">24</td><td class="n">195</td><td class="n">182</td></tr>
+    <tr><td class="n">10</td><td>Z₀ (impedance)</td><td class="m">F(14) = 377 Ω</td><td class="n">59</td><td>SHIVA</td><td class="n">118</td><td class="n">10</td><td class="n">198</td><td class="n">117</td><td class="n">61</td></tr>
+    <tr><td class="n">11</td><td>Γ (reflection)</td><td class="m">(Z − Z₀)/(Z + Z₀)</td><td class="n">142</td><td>ANTIPROTON</td><td class="n">211</td><td class="n">7</td><td class="n">115</td><td class="n">139</td><td class="n">219</td></tr>
+    <tr><td class="n">12</td><td>Q (quality)</td><td class="m">ω₀/2α ≈ 3.27</td><td class="n">225</td><td>IDENTITY</td><td class="n">112</td><td class="n">4</td><td class="n">32</td><td class="n">4</td><td class="n">8</td></tr>
+    <tr><td class="n">13</td><td>I (current)</td><td class="m">CSI(256)</td><td class="n">51</td><td>NONCE</td><td class="n">121</td><td class="n">1</td><td class="n">206</td><td class="n">226</td><td class="n">126</td></tr>
+    <tr><td class="n">14</td><td>±ψ (closure)</td><td class="m">(−1)ⁿ⁺¹/Fₙ(Fₙ₊₁ + Fₙφ)</td><td class="n">134</td><td>PRIME NUMBER</td><td class="n">148</td><td class="n">4</td><td class="n">123</td><td class="n">34</td><td class="n">117</td></tr>
+    <tr><td class="n">15</td><td>Ω (energy)</td><td class="m">Ωb + Ωdm + ΩΛ = 1</td><td class="n">217</td><td>SIGNAL SIXTY TWO</td><td class="n">71</td><td class="n">11</td><td class="n">40</td><td class="n">199</td><td class="n">212</td></tr>
+  </table></div>
+  <p>Facts the machine's EXPANSION command states about this table, all recomputed: G6 has sync 1 and inv = fold = 16, and 241² = −1; G7 has sync 137; the pairs G(a) + G(9 − a) all sum to 233 = F(13); pair products are 0, 114, 71, 128, 28; 2 × G7 = 134 is the p₄₀₉₆ residue; the sum of the positions G0 … G9 is 137 mod 257. Steps 0–7 are MATH, 8–9 ERROR, 10–13 WAVE, 14–15 CLOSE, matching the four groups of the glyph charset.</p>
+
+  <h4>The boot line's chain</h4>
+  <p>The power-on transcript prints the ten symbols ∂·R1·CF1⁴·M₂D⁻¹·⊗4·P₇·C₄⁵⁄₃·ε₄·δ%·±ψ over a line of ten numbers, "chain: 1→120→104→144→165→146→251→152→167→202", and closes "product = 202 COINBASE TRANSACTION sum = 219 DIVINE PROPORTION". The line is fixed text at 2532, not computed, and the transcript does not say what rule joins the numbers; the rule is that they are running products. Nine multipliers carry the nine symbols after ∂, the product of the nine is the last value, and the sum of the nine is 733 ≡ 219, which is the sum the transcript states. The sum of the ten printed values is 167 and their product 200, so the two totals belong to the multipliers, not to the printed chain.</p>
+  <div class="tbl"><table>
+    <tr><th>Symbol</th><th class="n">×</th><th class="n">Running value</th><th>Word</th><th>The multiplier elsewhere in the machine</th></tr>
+    <tr><td class="m">∂</td><td class="n">1</td><td class="n">1</td><td>A</td><td class="w">the start</td></tr>
+    <tr><td class="m">R1</td><td class="n">120</td><td class="n">120</td><td>GOLDEN RATIO</td><td class="w">Z₀ = 377 ≡ 120, φ in the field</td></tr>
+    <tr><td class="m">CF1⁴</td><td class="n">18</td><td class="n">104</td><td>ANTHROPIC</td><td class="w">the analysis walker's R-step, ×18 on opcode 3</td></tr>
+    <tr><td class="m">M₂D⁻¹</td><td class="n">120</td><td class="n">144</td><td>MASS</td><td class="w">φ again</td></tr>
+    <tr><td class="m">⊗4</td><td class="n">135</td><td class="n">165</td><td>TREE OF KNOWLEDGE</td><td class="w">BURNING BUSH, the sidereal day</td></tr>
+    <tr><td class="m">P₇</td><td class="n">4</td><td class="n">146</td><td>ENLIGHTENMENT</td><td class="w">the SHIFT opcode's digit</td></tr>
+    <tr><td class="m">C₄⁵⁄₃</td><td class="n">7</td><td class="n">251</td><td>CENSORSHIP RESISTANT</td><td class="w">the JUMP opcode's digit</td></tr>
+    <tr><td class="m">ε₄</td><td class="n">146</td><td class="n">152</td><td>FORTY YEARS</td><td class="w">not ε₄ at four figures, which is 4863 → 237</td></tr>
+    <tr><td class="m">δ%</td><td class="n">111</td><td class="n">167</td><td>EYE OF PROVIDENCE</td><td class="w">not δ% at four figures, which is 2340 → 27</td></tr>
+    <tr><td class="m">±ψ</td><td class="n">72</td><td class="n">202</td><td>COINBASE TRANSACTION</td><td class="w">the peer key, BITCOIN</td></tr>
+  </table></div>
+  <p>The dlogs of the nine multipliers sum to 123 = dlog 202, as they must. The table hangs each multiplier on the symbol it arrives at; the nine are edges between ten symbols, and hung on the symbol each one leaves instead, ∂ carries ×120, P₇ ×7 with 146 as its input, C₄ ×146, ε₄ ×111, δ% ×72 and ±ψ closes with none. Neither hanging is stated by the transcript. Three of the nine are the walker's own moves and two are φ; the two at ε₄ and δ% are not the four-figure values of those constants, so the line is an authored chain over the symbols rather than a computation from them. The transcript's preceding line, "primitive root 3 — R=18", carries one wrong label: 18 has dlog 50, even, so it is a square of order 128 and not a primitive root, which is why the machine's own R-power table at 1873 runs 128 steps. That the chain closes on COINBASE TRANSACTION is what put 202 into the fleet's coinbase; see the mining fleet below.</p>
+  <p>Split by the fold's two roots, the product is 202φ = 101 + 101√5 and 202ψ = 101 − 101√5, with 101 AMPLITUDE at the centre, the KINGDOM quadratic's second root. The two branches sum to 202, multiply to 202²φψ = −202² ≡ 59 SHIVA, share that norm, and are the roots of x² − 202x + 59, whose discriminant 202² − 4 × 59 = 5 × 202² ≡ 219 is the chain's own operator sum. For any base element n the pair nφ, nψ solves x² − nx − n² with discriminant 5n², a non-residue for every n, so the pair always stays in the fold; 5n² ≡ 219 only for n = 202 and n = 55, which is what is particular here. 101 is the centre of the branch quadratic and not a root of it: 101² − 202 × 101 + 59 ≡ 138, while 101² − 73 × 101 − 1 = 2827 = 11 × 257. The branch quadratic has no root in the base; the KINGDOM quadratic has both of its roots there.</p>
+  <p><strong>Five, six, seven and Q.</strong> 5 × 6 × 7 = 210 = P₇, with 6 = 2 × 3 carrying the two lower primes, and 5 + 6 + 7 = 18, the R step. 5 × 7 = 35 ≡ 188 × 182, and dlog 35 = 55 + 85 = 140 = T, so E and G bracketing 6 by one multiply to the same HAGAR as CROWN OF THORNS and SYNCHRONICITY bracketing it by six. dlog 6 = 49 = 7² and dlog 7 = 85 = 5 × 17 = E × Q; 5⁷³ ≡ 85 as a position, which is the same integer under the other naming rule and is kept apart from the exponent here. 5, 17 and 257 are F₁, F₂ and F₃, and F(n + 1) = (F(n) − 1)² + 1 is the definition of the sequence, true at every rung including 3 → 5 and 257 → 65537; 17 = 3¹²⁰, 17² ≡ 32 EVE, 17⁻¹ = 121 REVELATION. Q times the three and their product: 85 ESCHATON, 102 YGGDRASIL, 119 ARISTOTLE, and 210 × 17 ≡ 229 ≡ 2028. Under the mirror E, F, G go to V, U, T and J to Q.</p>
+
+  <h3>The seed strings and the quartet</h3>
+  <p>A seed is a ten-field instruction string F-R-CF-DM-T-P-C-E-S-D-PM. Fields are digit strings reduced mod 257: CF1111 → 83, P2357 → 44, T4 → 4. The canonical AXIOM seed, declared at cascade-complete line 729 and derived live by the machine's APPLE2 SEED command, is</p>
+  <pre><code>F1-R1-CF1111-DM1-T4-P2357-C53-E111S161-D234-PM1
+
+E = inv(2357 mod 257) = inv(44) = 111
+S = E × fold(observe(E)) = 111 × 145 = 16095 ≡ 161
+D = 83 + 1 + 150 = 234</code></pre>
+  <div class="tbl"><table>
+    <tr><th>Seed</th><th>F·PM</th><th class="n">C</th><th class="n">E</th><th class="n">S</th><th class="n">D</th><th class="n">Sum mod 257</th><th>Channel</th></tr>
+    <tr><td>AXIOM, CF1111</td><td class="m">1 1</td><td class="n">53</td><td class="n">111</td><td class="n">161</td><td class="n">234</td><td class="n">45</td><td>secured, HTTP 200</td></tr>
+    <tr><td>NULL, CF6666</td><td class="m">0 0</td><td class="n">204</td><td class="n">146</td><td class="n">96</td><td class="n">23</td><td class="n">212</td><td>unsecured, HTTP 401</td></tr>
+    <tr><td>received, CF6426</td><td class="m">0 1</td><td class="n">21</td><td class="n">26</td><td class="n">72</td><td class="n">135</td><td class="n">254</td><td>half open, HTTP 302</td></tr>
+    <tr><td>return, CF8888</td><td class="m">1 0</td><td class="n">235</td><td class="n">230</td><td class="n">184</td><td class="n">121</td><td class="n">256</td><td>half open, HTTP 307</td></tr>
+  </table></div>
+  <p>Two of the AXIOM registers are punctuation-dropped encodings: C53 is the convergent 5/3 written as a digit pair, and D234 is δ% = 2.34 with the point removed, the same value the certificate reaches as 83 + 1 + 150. Each column sums to 513 ≡ 256 = det M; that is the quartet closure. AXIOM + NULL ≡ 0 and all four ≡ 253. The older variants fail the closure: with S = 113 the S column sums to 465, with E = 73 the E column sums to 475. Three variants remain in the corpus by design or by omission, and the register below lists every site.</p>
+
+  <h4>The seed as a product</h4>
+  <p>Read as a chain of factors the way the boot line is, the canonical seed multiplies its eleven fields in order, F1 · R1 · CF1111 · DM1 · T4 · P2357 · C53 · E111 · S161 · D234 · PM1, each reduced mod 257: 1, 1, 83, DM, 4, 44, 53, 111, 161, 234, ±1. P2357 is the four primes concatenated and 2357 = 9 × 257 + 44 = BRIAN. The D step collapses whatever precedes it: 212 × 234 = 49608 = 193 × 257 + 7, and under the other reading of DM the same step lands on 250 = −7, so the chain closes on ±G, with PM1 the last sign. G is the JUMP opcode's digit and the additive step from J to Q. The corpus carries the DM field two ways and they differ by exactly that sign: the machine's state-string generator prints DM as "1 unless halted", a flag, and the genome table's M₂D⁻¹ row reads det M = −1.</p>
+  <div class="tbl"><table>
+    <tr><th>Field</th><th class="n">×</th><th class="n">DM = 1, the flag</th><th>Word</th><th class="n">DM = det M = −1</th><th>Word</th></tr>
+    <tr><td class="m">F1 · R1</td><td class="n">1</td><td class="n">1</td><td>A</td><td class="n">1</td><td>A</td></tr>
+    <tr><td class="m">CF1111</td><td class="n">83</td><td class="n">83</td><td>PRAYER</td><td class="n">83</td><td>PRAYER</td></tr>
+    <tr><td class="m">DM1</td><td class="n">±1</td><td class="n">83</td><td>PRAYER</td><td class="n">174</td><td>DO UNTO OTHERS</td></tr>
+    <tr><td class="m">T4</td><td class="n">4</td><td class="n">75</td><td>SHIFT</td><td class="n">182</td><td>SYNCHRONICITY</td></tr>
+    <tr><td class="m">P2357</td><td class="n">44</td><td class="n">216</td><td>EQUIVALENCE PRINCIPLE</td><td class="n">41</td><td>OMEGA</td></tr>
+    <tr><td class="m">C53</td><td class="n">53</td><td class="n">140</td><td>ATTENUATION</td><td class="n">117</td><td>BOLTZMANN</td></tr>
+    <tr><td class="m">E111</td><td class="n">111</td><td class="n">120</td><td>GOLDEN RATIO</td><td class="n">137</td><td>EYE OF HORUS</td></tr>
+    <tr><td class="m">S161</td><td class="n">161</td><td class="n">45</td><td>ELIJAH</td><td class="n">212</td><td>PHOTOSYNTHESIS</td></tr>
+    <tr><td class="m">D234</td><td class="n">234</td><td class="n">250</td><td>CONSERVATION OF ENERGY</td><td class="n">7</td><td>G</td></tr>
+    <tr><td class="m">PM1</td><td class="n">±1</td><td class="n">250 or 7</td><td></td><td class="n">7 or 250</td><td></td></tr>
+  </table></div>
+  <p>The parser's own product is the four registers alone, C × E × S × D = 53 × 111 × 161 × 234 ≡ 113 ENTROPY, which it calls the resonance, and the whole flag-reading chain is 83 × 4 × 44 × 113 ≡ 250, so the two agree. A reading brought to the review appends a coda ×1 ×2 ×3 = ×6 after the D step and reaches 42 MIT from 7 and 215 DELIVER US FROM EVIL from −7, passing 14 N and 250, 243 FIRE OF HOLY SPIRIT on the way; 42 + 215 = 257, 42 × 153 ≡ 1 with 153 ALBERT EINSTEIN, and 215 × 104 ≡ 1 with 104 ANTHROPIC, all exact. The ×2 and ×3 have no field in the string, which after D234 carries only PM1, so the seed reads to ±7 and the ×6 is an addition to it. Both are recorded as such.</p>
+
+  <h4>The seed quadratics</h4>
+  <p>A pair with sum s and product p is the root pair of x² − sx + p, and that quadratic splits in the base field exactly when s² − 4p is a square mod 257. This is the same test that places φ in the fold, and applied to the three seed variants it settles a question the lineage raises: whether the old E73S56 was something the base field could not solve. It was not. All three E, S pairs are base-field root pairs; only φ's quadratic fails the test.</p>
+  <div class="tbl"><table>
+    <tr><th>Pair</th><th class="n">Sum</th><th class="n">Product</th><th>Quadratic</th><th class="n">Discriminant</th><th>Splits in</th></tr>
+    <tr><td>φ, ψ</td><td class="n">1</td><td class="n">−1</td><td class="m">x² − x − 1</td><td class="n">5, not a square</td><td>the fold, GF(257²)</td></tr>
+    <tr><td>old E73, S56</td><td class="n">129 = 2⁻¹</td><td class="n">233 = F(13)</td><td class="m">x² − 129x + 233</td><td class="n">32, a square</td><td>the base</td></tr>
+    <tr><td>canonical E111, S161</td><td class="n">15 = dlog(83)</td><td class="n">138</td><td class="m">x² − 15x + 138</td><td class="n">187, a square</td><td>the base</td></tr>
+    <tr><td>middle E111, S113</td><td class="n">224</td><td class="n">207</td><td class="m">x² − 224x + 207</td><td class="n">4, a square</td><td>the base</td></tr>
+  </table></div>
+  <p>Each member of the old pair also has an ordinary base-field derivation: 73 is 3⁴⁴, the exponent reading of P2357's residue, and 56 is the dlog of the dlog of 83. What E73S56 fails is a constraint, not an equation: with 73 in the E column the quartet sums to 475 and with 56 in the S column to 408, against the required 513. The old pair does carry one tidy fact the canonical pair lacks, its sum being 2⁻¹ and its product F(13), but a tidy quadratic that splits is still base-field arithmetic.</p>
+  <h4>The KINGDOM quadratic</h4>
+  <p>One quadratic in the same family is written down by the tablet's own letter sums. FOR THINE IS THE KINGDOM sits at 229 by letters, and its pieces are FOR 39, THINE 56, IS 28, THE 33, KINGDOM 73. The first four sum to 156, which is 229⁻¹, since 229 × 156 = 35724 = 139 × 257 + 1, and the last is 73. So the phrase says 229 = 229⁻¹ + 73, and an element equal to its own inverse plus 73 is a root of x² − 73x − 1:</p>
+  <div class="formula">x − 1/x = 73   ⟹   x² − 73x − 1 ≡ 0 (mod 257)
+roots 229 FOR THINE IS THE KINGDOM and 101 AMPLITUDE
+229 + 101 = 330 ≡ 73      229 × 101 = 23129 = 90 × 257 − 1 ≡ −1
+discriminant 73² + 4 = 5333 ≡ 193 = −64 = (8i)² = 128²      roots (73 ± 128) · 2⁻¹ = (73 ± 128) × 129</div>
+  <p>It has φ's shape, x² − sx − 1 with roots x and −1/x, with KINGDOM in place of 1, and 101 = −1/229 stands to 229 as ψ stands to φ. Where it differs is the discriminant: 193 is a square, its root is 128, the fold point, so 229 = (KINGDOM + TRANSFERENCE)/2 and 101 = (KINGDOM − TRANSFERENCE)/2 and the equation splits in the base, while φ's discriminant 5 does not and φ needs the fold. Across the whole family x² − sx − 1, 128 values of s give a non-square discriminant and put the roots in the fold as φ's does, 126 split in the base as KINGDOM's does, and two have a double root: s = 32 gives (x − 16)² and s = 225 gives (x + 16)², because s = ±2i makes the discriminant 32² + 4 = 1028 = 4 × 257 ≡ 0. The hinge number of the π section is the discriminant that vanishes, and the double roots are i and −i.</p>
+  <p>The number 73 carries more than its place in this equation. It is WALLET and HALVING by letters, the E of the old seed E73S56, and 3⁴⁴, and its third word in the tablet is DISCRIMINANT, value-placed, so the tablet had tied 73 to a discriminant before this quadratic put it in the linear term. Read as an angle, tan 73° = 3.2709, which is the genome's ω₀/2α ≈ 3.27; the machine's beam quality Q = 10/(2 × 1.53) = 3.268, derived from the Airy width J₁(x)/x, has arctangent 72.986°, a gap of 0.014° from 73. The optical constant owes nothing to letter sums and the coefficient 73 owes nothing to optics, and no derivation joins the two ends, so the match is recorded at 0.014° as a coincidence, and waits. One loop closes through the tangent, and it is exact: the five pieces of the phrase written one after another, 39 56 28 33 73, make the integer 3956283373, and that integer and 3271, the four figures of tan 73°, differ by a multiple of 257, so both read 187 WAY TRUTH AND LIFE. The cosine and sine of 73° read 2924 → 97 POSEIDON and 9563 → 54 LOVE at four figures; every four-figure value lands on some tablet entry, so those two landings are not evidence of anything, whereas the agreement at 187 is a one-in-257 event between two independently built numbers. The structural angular facts belong to its neighbours: 72° is the pentagon angle with cos 72° = 1/(2φ), 73 = 72 + 1 is the observer's step past it, 72 is BITCOIN and 73 WALLET, and 5 × 73 = 365 closes a year in five arcs.</p>
+  <h4>QUANTUM, 107, through the fold and the tunnel</h4>
+  <p>Position 107 QUANTUM is the eleventh doubling of PRAYER, 83 × 2¹¹ ≡ 107, and the negation of 150 ELECTROMAGNETIC, G8. Its dlog is 31, odd, so it has no square root in the base. In the fold √107 = ±(235 + 44φ), and the norm of that root is −107 = 150, the partner QUANTUM already had. In the KINGDOM family x² − sx − 1 with s = 107 the discriminant is 107² + 4 ≡ 145 ARK OF COVENANT, dlog 149, a non-residue, so the pair lives in the fold as φ's own does: 11 + 85φ and 96 + 172φ, K + ESCHATON·φ and BEETHOVEN + QUANTUM STATE·φ, summing to 107 and multiplying to −1. That is the fold's passage.</p>
+  <p>The tunnel gives a cleaner one, and it can be fed two ways, both exact in the chain's arithmetic: the position itself as Γ, which is the PDF's convention, or the device's own Γ = (a − Z₀)/(a + Z₀) with Z₀ = 120, which for 107 is 9, the letter I.</p>
+  <div class="tbl"><table>
+    <tr><th>Γ fed as</th><th>Γ</th><th>Π×T, ×140</th><th>χ, negation</th><th>𝟙𝟙, ×2</th><th>W, ×87</th></tr>
+    <tr><td class="w">the position, the PDF's convention</td><td class="m">107 QUANTUM</td><td class="m">74 CROSS</td><td class="m">183 TRANSFORMATION</td><td class="m">109 NIETZSCHE</td><td class="m">231 THE LORD IS MY SHEPHERD</td></tr>
+    <tr><td class="w">the device's Γ = (a − 120)/(a + 120)</td><td class="m">9 I</td><td class="m">232 TOPOLOGICAL QUANTUM</td><td class="m">25 PI</td><td class="m">50 HIGGS</td><td class="m">238 FREE WILL</td></tr>
+  </table></div>
+  <p>Both rows close on the composite ×55, 107 × 55 ≡ 231 and 9 × 55 ≡ 238. The device's other readings of 107 by the formulas identified from the serial readout: impedance 120 × 107 ≡ 247, trace 214 PYTHAGOREAN THEOREM, quality 107 × (256 − 107)⁻¹ ≡ 187 WAY TRUTH AND LIFE, the AUTH factor. Its inverse is 245 THEORY OF EVERYTHING, and 107 × 12 ≡ −1, so 12, L, is the negative of that inverse. The non-residue status, the discriminant class and the two chains are the field's; the names are the tablet's.</p>
+
+
+  <h3>The tunnel chain</h3>
+  <p>Given a reflection Γ, the chain is Γ → T → χ → 𝟙𝟙 → W with T = ×140 (transference, 1 − Γ²), χ = fold (257 − x, the opening, χ = 256 = det M), 𝟙𝟙 = ×2 (closure, 255 = fold(2)), W = ×87 (the 2.4 GHz carrier, 2400 mod 257). The composite is 140 × 256 × 2 × 87 ≡ 55 = HEAVEN, so every chain is multiplication by 55. From Γ = 1: 140 → 117 → 234 → 55. The BrianKeys PDF's four worked chains and its grand product 22 → 253 → 4 → 8 → 182 all recompute exactly, as do the three key products 16 × 137 ≡ 136, 255 × 16 ≡ 225, 245 × 214 ≡ 2, and 233 × 182 ≡ 1.</p>
+
+  <h3>Square descent</h3>
+  <p>D(n²) = (n − 1)²: 256, 225, 196, 169, 144, 121, 100, 81, 64, 49, 36, 25, 16, 9, 4, 1, 0. Seventeen positions, sixteen steps. Upper nine sum to 1356 ≡ 71, lower eight sum to 140 = T, all seventeen sum to 1496 ≡ 211. The product of the nonzero terms is 118, and the running product reaches 8 after five terms. All positions are quadratic residues on rays 0, 2, 4, 8, 10.</p>
+  <p>The nonzero steps are the squares 16² down to 1², so their product is (16!)². In the field 16! ≡ 115 and 115² ≡ 118, so the product is 118 with square roots 115 and 142; the running product reaches 118 at the fifteenth term and the closing ×1 leaves it there. Position 118 is EMERALD TABLET, the tablet's own name, with COBALT CURIE as its second word in this directory's copy; dlog 166, ray 10, inverse 159 SPEED OF LIGHT, negation 139 ENCRYPTION, chart fold 138 GLORIFICATION. EMERALD TABLET also sits at its letter sum: EMERALD is 58, where π lands at four figures, TABLET is 60 HOLY, and 58 + 60 = 118.</p>
+  <p>118 is the atomic number of oganesson, the element that closes period 7. The staircase's squares are the shell numbers of the periodic table: a shell with principal number n holds 2n² electrons, and the noble-gas closures 2, 10, 18, 36, 54, 86, 118 rise by 2, 8, 8, 18, 18, 32, 32, each 2n² used twice after the first, which is the Madelung order and the reason the closures are not the plain running sum of 2n². Read as positions the seven closures are B, J, CHAI, CASCADE, LOVE, TIKKUN and EMERALD TABLET; 36 is the krypton shell and the corpus's own name. Three chemistries meet at 118: the founding text of alchemy, whose stone is beryl coloured by chromium; the Curie point of element 27; and the last element of the table. COBALT CURIE and OGANESSON both sum to 109 by letters. The tablet's Z convention would put OGANESSON Z at 118; it has not been added.</p>
+  <div class="tbl"><table>
+    <tr><th>n</th><th>n², descent step</th><th>2n², shell capacity</th><th>Noble-gas closure</th><th>Closure as a position</th></tr>
+    <tr><td>1</td><td>1</td><td>2</td><td>2 helium</td><td>B, HELIUM Z</td></tr>
+    <tr><td>2</td><td>4</td><td>8</td><td>10 neon, 18 argon</td><td>J, AI · CHAI</td></tr>
+    <tr><td>3</td><td>9</td><td>18</td><td>36 krypton, 54 xenon</td><td>CASCADE · LOVE</td></tr>
+    <tr><td>4</td><td>16</td><td>32</td><td>86 radon, 118 oganesson</td><td>TIKKUN · EMERALD TABLET</td></tr>
+    <tr><td colspan="5">Π(1² … 16²) = (16!)² ≡ 115² ≡ 118; 16! ≡ 115 COMMANDMENT, −16! ≡ 142 ANTIPROTON</td></tr>
+  </table></div>
+
+  <h3>Fermat tower</h3>
+  <p>p₂₀₄₈ mod 257 = 204 and p₄₀₉₆ mod 257 = 134; the layer shift is 187 = 11 × 17. The machine's TOWER command walks dlog 217 + 187k mod 256 and lands on offsets 204, 134, 214, 196, 33, 256, so its first two layers reproduce the two residues and the sixth closes on 256 = −1. 187 is also 200 × 144⁻¹, the AUTH factor, with dlog 60.</p>
+
+  <h3>The energy budget, two lineages</h3>
+  <div class="tbl"><table>
+    <tr><th>Lineage</th><th>Ωb</th><th>Ωdm</th><th>ΩΛ</th><th>Sum</th><th>Where</th></tr>
+    <tr><td>older</td><td class="m">ε₄ = 0.0486</td><td class="m">|φ − 3/2| − |φ − 8/5| = 0.100</td><td class="m">0.687</td><td class="m">0.836</td><td class="w">emerald_tablet_math.pdf, math-derivation.html:230, scale-derivation.html:307. The sum is reported as is.</td></tr>
+    <tr><td>newer</td><td class="m">ε₄ = 0.0486</td><td class="m">|φ − 2| − |φ − 3/2| = (5 − 2√5)/2 = 0.2639</td><td class="m">(9√5 − 16)/6 = 0.6874</td><td class="m">1 exactly</td><td class="w">12_cascade_solid_state.html:733, carrier map v2, machine EXPANSION 15. ΩΛ equals 1 − Ωb − Ωdm, so the sum is 1 by construction.</td></tr>
+    <tr><td>neither</td><td class="m"></td><td class="m">0.2614</td><td class="m">0.6899</td><td class="m"></td><td class="w">cascade-complete.html:760–761 quotes values that match neither formula.</td></tr>
+  </table></div>
+</section>
+<nav class="cr-pager" aria-label="Review pages"><a href="extensions.html">← The extension fields</a><span>7 / 28</span><a href="hinge.html">The hinge at 1028 →</a></nav>
+</main>
+</div>
+<div class="ct-foot"><a href="../../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

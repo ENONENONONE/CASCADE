@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verification ledger · cascade.training</title>
+<meta name="description" content="Corpus Review · Findings · Verification ledger">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #0d0d0d;
+  --line: #1f1f1f;
+  --text: #e0e0e0;
+  --dim: #a0a0a0;
+  --gold: #e0e0e0;
+  --glow: #e0e0e0;
+  --amber: #e0e0e0;
+  --alert: #e0e0e0;
+  --blue: #e0e0e0;
+  --term-bg: #0a0a0a;
+  --term-text: #c8c8c8;
+  --serif: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --sans: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--bg);color:var(--text);font-family: var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+a{color:var(--blue);text-decoration:none}
+
+a:hover,a:focus{text-decoration:underline}
+
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.wrap{display:grid;grid-template-columns:1fr;gap:0;max-width:1240px;margin:0 auto;padding:0 20px 80px}
+
+@media (min-width:1100px){.wrap{grid-template-columns:240px minmax(0,1fr);gap:48px}}
+
+nav.toc{display:none}
+
+@media (min-width:1100px){
+  nav.toc{display:block;position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;padding:8px 0 24px;font-size:12.5px}
+  nav.toc .g{font-family: var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:16px 0 6px}
+  nav.toc a{display:block;color:var(--text);padding:3px 0 3px 10px;border-left:2px solid var(--line);line-height:1.35}
+  nav.toc a:hover{border-left-color:var(--gold);text-decoration:none;color:var(--gold)}
+  nav.toc a.sub{padding-left:22px;color:var(--dim)}
+}
+
+main{min-width:0}
+
+header.mast{padding:44px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+
+.eyebrow{font-family: var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+h1{font-family: var(--serif);font-weight:600;font-size:44px;line-height:1.05;margin:10px 0 12px;text-wrap:balance;letter-spacing:-.01em}
+
+.lede{font-family: var(--serif);font-size:19px;line-height:1.45;color:var(--text);max-width:62ch;margin:0 0 20px}
+
+.meta{font-family: var(--mono);font-size:12px;color:var(--dim);display:flex;flex-wrap:wrap;gap:6px 22px}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0 0}
+
+.tile{background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+
+.tile .n{font-family: var(--serif);font-size:28px;font-weight:600;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+
+.tile .l{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+
+.hero{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin:26px 0 0}
+
+@media (min-width:820px){.hero{grid-template-columns:minmax(0,1fr) 300px}}
+
+.hero canvas{width:300px;max-width:100%;height:auto;display:block;margin:0 auto}
+
+.hero .cap{font-family: var(--mono);font-size:11px;color:var(--dim);text-align:center;margin-top:6px}
+
+section{padding:34px 0 8px;border-top:1px solid var(--line)}
+
+section.first{border-top:0;padding-top:8px}
+
+h2{font-family: var(--serif);font-weight:600;font-size:30px;line-height:1.15;margin:6px 0 14px;text-wrap:balance}
+
+h3{font-family: var(--serif);font-weight:600;font-size:21px;margin:28px 0 8px;text-wrap:balance}
+
+h4{font-family: var(--sans);font-weight:600;font-size:14px;letter-spacing:.02em;margin:20px 0 6px;color:var(--gold)}
+
+p{max-width:70ch;margin:0 0 12px}
+
+ul,ol{max-width:70ch;padding-left:22px;margin:0 0 12px}
+
+li{margin:0 0 5px}
+
+li>p{margin:0}
+
+code,kbd{font-family: var(--mono);font-size:.92em;background:var(--surface2);border:1px solid var(--line);padding:0 4px;border-radius:2px;white-space:nowrap}
+
+pre{font-family: var(--mono);font-size:12.5px;line-height:1.5;background:var(--surface2);border:1px solid var(--line);padding:12px 14px;overflow-x:auto;margin:0 0 14px}
+
+pre code{background:none;border:0;padding:0;white-space:pre}
+
+.formula{font-family: var(--mono);font-size:13px;line-height:1.8;background:var(--surface2);border:1px solid var(--line);padding:10px 14px;margin:0 0 14px;overflow-x:auto;white-space:pre}
+
+.formula sup,.formula sub{font-size:.72em;line-height:0}
+
+.formula sup sup{font-size:.85em}
+
+.tbl.wrapth th{white-space:normal}
+
+.tbl{overflow-x:auto;margin:0 0 16px;border:1px solid var(--line);background:var(--surface)}
+
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+
+th,td{text-align:left;vertical-align:top;padding:7px 10px;border-bottom:1px solid var(--line)}
+
+th{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:500;background:var(--surface2);white-space:nowrap}
+
+td.n,th.n{text-align:right;font-family: var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+td.m{font-family: var(--mono);font-size:12.5px;white-space:nowrap}
+
+td.w{white-space:normal;min-width:18ch}
+
+tr:last-child td{border-bottom:0}
+
+.chip{display:inline-block;font-family: var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:2px;line-height:1.5;vertical-align:middle}
+
+.ok{color:var(--glow)}
+ .open{color:var(--amber)}
+ .bad{color:var(--alert)}
+ .rec{color:var(--gold)}
+ .info{color:var(--blue)}
+
+.note{border-left:3px solid var(--gold);padding:8px 14px;background:var(--surface);margin:0 0 14px;max-width:72ch}
+
+.note.warn{border-left-color:var(--alert)}
+
+.note.open{border-left-color:var(--amber)}
+
+.term{background:var(--term-bg);color:var(--term-text);font-family: var(--mono);font-size:12.5px;line-height:1.55;padding:12px 16px;border:1px solid #161616;overflow-x:auto;margin:0 0 16px;white-space:pre}
+
+.term .g{color:#e0e0e0}
+.term .a{color:#e0e0e0}
+.term .d{color:#e0e0e0}
+.term .w{color:#e0e0e0}
+.term .r{color:#e0e0e0}
+.term .b{color:#e0e0e0}
+
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 18px;font-size:13.5px;max-width:78ch;margin:0 0 14px}
+
+.kv .k{font-family: var(--mono);font-size:12px;color:var(--dim);white-space:nowrap}
+
+.two{display:grid;grid-template-columns:1fr;gap:0 32px}
+
+@media (min-width:900px){.two{grid-template-columns:1fr 1fr}}
+
+.small{font-size:12.5px;color:var(--dim)}
+
+sup{font-size:.7em}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+@page{size:Letter;margin:0.6in 0.6in 0.7in}
+
+@media print{
+  :root{--bg:#e0e0e0; --surface:#e0e0e0; --surface2:#e0e0e0; --line:#c8c8c8; --text:#111111; --dim:#3a3a3a; --gold:#c8c8c8; --glow:#c8c8c8; --amber:#c8c8c8; --alert:#3a3a3a; --blue:#3a3a3a}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-size:11.5px;line-height:1.45}
+  .wrap{display:block;max-width:none;padding:0}
+  nav.toc{display:none!important}
+  header.mast{padding:0 0 14px;margin-bottom:16px}
+  h1{font-size:30px} .lede{font-size:14px} h2{font-size:20px;break-after:avoid} h3{font-size:15px;break-after:avoid} h4{break-after:avoid}
+  .hero{grid-template-columns:minmax(0,1fr) 220px} .hero canvas{width:220px}
+  .strip{grid-template-columns:repeat(3,1fr)}
+  section{padding:18px 0 4px;break-inside:auto}
+  .tbl{overflow:visible;break-inside:auto} table{font-size:10px} th,td{padding:4px 6px} tr{break-inside:avoid}
+  td.m{white-space:normal;font-size:9.5px} td.n{font-size:10px}
+  pre,.term{font-size:9.5px;break-inside:avoid;white-space:pre-wrap;overflow:visible}
+  .note{break-inside:avoid}
+  .formula{font-size:9.5px;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid}
+  a{color:inherit}
+  .small{font-size:9.5px}
+}
+
+
+
+.cr-pager{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:3rem 0 1rem;padding-top:1.2rem;border-top:1px solid var(--line);font-family: var(--mono);font-size:12px}
+
+.cr-pager a{color:var(--text);text-decoration:none;max-width:45%}
+
+.cr-pager a:hover{color:var(--gold)}
+
+.cr-pager span{color:var(--dim)}
+
+.cr-crumb{font-family: var(--mono);font-size:12px;color:var(--dim);margin:0 0 1.2rem}
+
+.cr-crumb a{color:var(--dim)}
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../../index.html#deeper">[pages]</a><a href="#" aria-current="page">verification ledger</a></nav>
+</div>
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <a href="../corpus-review.html">← Review overview</a>
+  <div class="g">Corpus</div>
+  <a href="voynich.html">The Voynich manuscript</a>
+  <a href="summary.html">Summary</a>
+  <a href="inventory.html">File inventory</a>
+  <a href="field.html">The field GF(257)</a>
+  <a href="chain-cosets.html">The binary refinement chain</a>
+  <a href="extensions.html">The extension fields</a>
+  <a href="chain.html">Derivation chain</a>
+  <a href="hinge.html">The hinge at 1028</a>
+  <a href="tablet.html">Emerald tablet</a>
+  <a href="icolumn.html">The i-column</a>
+  <div class="g">Machine</div>
+  <a href="machine.html">Cascade machine v4</a>
+  <a class="sub" href="machine.html#m-anatomy">Anatomy</a>
+  <a class="sub" href="machine.html#m-boot">Power-on</a>
+  <a class="sub" href="machine.html#m-state">Registers</a>
+  <a class="sub" href="machine.html#m-isa">Tape and instruction set</a>
+  <a class="sub" href="machine.html#m-fold">Fold and observe</a>
+  <a class="sub" href="m-commands.html">Terminal commands</a>
+  <a class="sub" href="m-nano2.html">NanO₂ messaging</a>
+  <a class="sub" href="m-bridge.html">Hardware bridge</a>
+  <a class="sub" href="m-radio.html">BLE, serial, RF</a>
+  <a class="sub" href="m-settle.html">Settlement and mesh</a>
+  <a class="sub" href="m-disc.html">Phi disc phonograph</a>
+  <a class="sub" href="m-model.html">Model bridges</a>
+  <a class="sub" href="m-display.html">Display and export</a>
+  <div class="g">Findings</div>
+  <a href="second-copy.html">The second copy</a>
+  <a href="#ledger">Verification ledger</a>
+  <a href="register.html">Discrepancy register</a>
+  <a href="audits.html">The corpus's own audits</a>
+  <a href="changes.html">Changes made</a>
+  <a href="appendix.html">Appendix</a>
+</nav>
+<main>
+<p class="cr-crumb"><a href="../corpus-review.html">Corpus Review</a> · Findings</p>
+<section id="ledger">
+  <div class="eyebrow">Findings</div>
+  <h2>Verification ledger</h2>
+  <p>Everything below was recomputed independently in Python and matched the corpus.</p>
+  <div class="tbl"><table>
+    <tr><th>Claim</th><th>Result</th></tr>
+    <tr><td>Emerald tablet, all 257 entries: dlog, ray, residue, depth, fold, inverse, sync, g_power</td><td class="m">0 mismatches</td></tr>
+    <tr><td>Powers table in the tablet mathematics PDF</td><td class="m">255 of 255 nonzero cells</td></tr>
+    <tr><td>Rendered tablet HTML and PDF against the JSON</td><td class="m">identical except TRIBALISM at 103</td></tr>
+    <tr><td>3⁸ = 136; 3⁶² = 141; 3¹⁹⁴ = 144; 141 × 144 ≡ 1; 3¹⁵ = 83; 3⁵⁶ = 15</td><td class="m">all true</td></tr>
+    <tr><td>16² ≡ 241² ≡ −1; order of 2 is 16; 2¹³ = 225; 2¹⁵ = 129 = 2⁻¹</td><td class="m">all true</td></tr>
+    <tr><td>Pisano period 516; F(13) = 233; F(14) ≡ 120; F(20) ≡ 83; F(129) ≡ 0; F(128) = F(130) = F(131) ≡ 241</td><td class="m">all true</td></tr>
+    <tr><td>Artin list of 26 primes and its gap set</td><td class="m">exact</td></tr>
+    <tr><td>Φ₃, Φ₄, Φ₆ of 257 and their factorisations; 1321 ≡ 36; 7 × 13 × 241 ≡ 86</td><td class="m">all true</td></tr>
+    <tr><td>M(257) trace 5, determinant 1; 186 × 76 ≡ 1; both satisfy λ² − 5λ + 1; dlog sum 256; 86 × 35⁻¹ ≡ 164</td><td class="m">all true</td></tr>
+    <tr><td>AUTH factor 200 × 144⁻¹ ≡ 187, dlog 60; 200 = 9⁻¹ = 3²⁵⁴; 150 × 60 ≡ 5; 44 × 46 ≡ 225; 200 − 144 = 56</td><td class="m">all true</td></tr>
+    <tr><td>AXIOM seed: inv(44) = 111; 111 × 145 ≡ 161; quartet columns 513; seed sums 45, 212, 254, 256; total 253; AXIOM + NULL ≡ 0</td><td class="m">all true</td></tr>
+    <tr><td>S = 113 and E = 73 variants fail the column sum (465 and 475)</td><td class="m">confirmed</td></tr>
+    <tr><td>Tunnel composite 140 × 256 × 2 × 87 ≡ 55; PDF chains 1–4; grand product 22 → 253 → 4 → 8 → 182; 233 × 182 ≡ 1; key products 16 × 137 ≡ 136, 255 × 16 ≡ 225, 245 × 214 ≡ 2; 87 × 65 ≡ 1; MAC — genome product 2</td><td class="m">all true</td></tr>
+    <tr><td>Square descent sums 1356 ≡ 71, 140, 1496 ≡ 211; product 118; running product 8 after five terms</td><td class="m">all true</td></tr>
+    <tr><td>Genome table: G(n) = n × 83; pair sums 233; pair products 0, 114, 71, 128, 28; sync(G6) = 1, sync(G7) = 137; Σ G0…G9 ≡ 137</td><td class="m">all true</td></tr>
+    <tr><td>TOWER dlog walk 217 + 187k: offsets 204, 134, 214, 196, 33, 256</td><td class="m">exact</td></tr>
+    <tr><td>Machine π tape equals π for 1001 digits; π[256] = 5; "04863" first at index 3171 ≡ 87; slot-27 digits over 15 orbits sum to 83; 25 threes in the first 257 digits</td><td class="m">all true</td></tr>
+    <tr><td>ε₄ as float64: top 32 bits 0x3FA8E661 read as Unix time give 2003-11-05; 20031105 ≡ 11</td><td class="m">true</td></tr>
+    <tr><td>Canvas fold-pair panel in exponent space: 3⁷⁵ = 101, 3¹⁸¹ = 28; 3¹⁵⁰ = 178, 3¹⁰⁶ = 13; 3⁸³ = 115, 3¹⁷³ = 38; each pair multiplies to 1</td><td class="m">true</td></tr>
+    <tr><td>Newer energy budget sums to exactly 1; older sums to 0.836</td><td class="m">true</td></tr>
+    <tr><td>Bismuth constants under the four-figure rule (83, 34, 50, 38, 14, 5, 118, 211)</td><td class="m">computed</td></tr>
+    <tr><td>2026 ≡ 227 after seven cycles; 227 first in π at index 484 ≡ 227; 1027 ≡ 256, 1028 ≡ 0, 1029 ≡ 1; π opcodes there 9, 3, 6</td><td class="m">all true</td></tr>
+    <tr><td>Index fold across 1032: F(1027) ≡ F(5) = 5, F(1029) ≡ F(3) = 2, F(1028) ≡ −F(4) = 254, F(1024) ≡ −F(8) = 236; 1032 ≡ 4, 1032 = 8 × 129</td><td class="m">all true</td></tr>
+    <tr><td>Word chain 83 × 75 × 150 × 44 ≡ 209 in any order; inverse 91; dlog sum 65</td><td class="m">true</td></tr>
+    <tr><td>Binary refinement chain: subgroup generators 9, 81, 136, 249, 64, 241, 256; every level partitions evenly and nests; L16 subgroup is the doubling orbit; L64 is {1, 16, 241, 256}; i-orbit of 83 is {43, 83, 174, 214}; rays refine quadrants and not octants</td><td class="m">all true, and in the crate's tests</td></tr>
+    <tr><td>Fold: φ² = φ + 1, φψ = −1, φ + ψ = 1, φ and ψ of order 516, 3 of order 256, φ²⁵⁷ = ψ, group order 66048 = 256 × 258; φⁿ = F(n)φ + F(n−1) through two periods; φ¹²⁹ = 241, φ²⁵⁸ = −1, √5 = −1 + 2φ of norm −5 and order 512</td><td class="m">all true, and in the crate's tests</td></tr>
+    <tr><td>Seed quadratics: discriminants 5 for φ, 32 for E73 S56, 187 for E111 S161, 4 for E111 S113; only 5 is a non-square; the old pair is the root pair of x² − 129x + 233</td><td class="m">all true</td></tr>
+    <tr><td>The KINGDOM quadratic: FOR + THINE + IS + THE = 156 = 229⁻¹, KINGDOM = 73; x² − 73x − 1 has roots 229 and 101 with sum 73 and product −1; discriminant 193 = −64 = 128²; in x² − sx − 1 the discriminant is a non-square for 128 values of s, a square for 126, and zero for s = 32 and 225 (double roots 16 and 241, discriminant 1028 = 4 × 257); tan 73° = 3.2709, arctan(3.268) = 72.986°, gap 0.014°; 3956283373 ≡ 3271 ≡ 187 (mod 257); cos 73° → 97, sin 73° → 54</td><td class="m">all true</td></tr>
+    <tr><td>Position 15 has dlog 56 and is an eighth power, as is its inverse 120; its doubling orbit contains 136 = 15 × 2¹⁵, 137 and 227; 25 × 2⁶ ≡ 58 and 25 × 2¹¹ ≡ 57</td><td class="m">all true</td></tr>
+    <tr><td>Rust widths: inverses of 8, 16, 32, 64, 128 are 225, 241, 249, 253, 255; 256 is self-inverse</td><td class="m">true</td></tr>
+    <tr><td>1043 + 3401 = 1403 + 3041 = 4444 ≡ 75; 1093 + 3901 = 4994 ≡ 111; 1400 + 41 = 1441 ≡ 156; 1043 = 7 × 149; 1093 is a Wieferich prime</td><td class="m">all true</td></tr>
+    <tr><td>The machine's <code>p</code> column aligned against π: deletions at 43, 60 and 246, insertion of 6 2 8 at 70–72, 184 mismatches; read once, at line 24921, into an unused variable</td><td class="m">confirmed</td></tr>
+    <tr><td>The ladder from 5: cosets of sizes 2, 4, 8, 16, 32, 64, 128 at indices 55/128, 55/64, 23/32, 7/16, 7/8, 3/4, 1/2; the same cosets and indices from 252; the quadrupling orbit 5 → 20 → 80 → 63 → 252 → 237 → 177 → 194; G1, G2, G4, G8, G15, 87, 86 and 182 all with dlog ≡ 7 mod 8</td><td class="m">all true</td></tr>
+    <tr><td>Extension orders: 257² − 1 = 2⁹ × 3 × 43, 257³ − 1 = 2⁸ × 61 × 1087, 257⁴ − 1 = 2¹⁰ × 3 × 5² × 43 × 1321; Φ₄(257) = 66050, 1321 ≡ 36</td><td class="m">all true</td></tr>
+    <tr><td>The bit reading: index(n, 2ᵏ) = dlog(n) &amp; (2ᵏ − 1) for all 256 nonzero n and k = 1 … 7; dlog(n) ⊕ dlog(−n) = 128 for all n; 55 = 00110111₂, 183 = 10110111₂; 183 and 55 reduce to 55, 55, 23, 7, 7, 3, 1 mod 128 … 2; SUBGROUP run from 252 at all seven levels matches the runs from 5</td><td class="m">all true, and in the crate's tests</td></tr>
+    <tr><td>Coset invariance: for every nonzero n and every level, every member of n's coset returns n's index and n's member list, and the list is closed under the subgroup</td><td class="m">all 256 × 7 cases, in the crate's tests</td></tr>
+    <tr><td>Walk multipliers 256, 16, 4, 2, 136, 81, 9 have dlogs 128, 192, 96, 48, 8, 4, 2 = modulus × (1, 3, 3, 3, 1, 1, 1); 241³ ≡ 16, 64³ ≡ 4, 249³ ≡ 2; each multiplier to half the orbit length is −1; every walk reaches −n at the halfway step; 252 × 136 = 34272 ≡ 91; the doubling walk reads its coset's dlogs in the order 3j mod 16</td><td class="m">all true, and in the crate's tests</td></tr>
+    <tr><td>Walks from 83: the doubling walk 83, 166, 75, 150, 43, 86, 172, 87, 174, 91, 182, 107, 214, 171, 85, 170 with steps 9–15 the negations of 1–7; 83 × 2⁷ ≡ 87, 83 × 2⁵ ≡ 86, 83 × 2¹⁰ ≡ 182, 83 × 16 ≡ 43; the level-32, 64 and 128 walks are the even steps of the level below; 87 has index 31 of 32 against 83's 15; 2² = 4, 4² = 16, 16² = 256, 9² = 81, 81² ≡ 136, 136² ≡ 249; 83 is step 27 of the level-8 walk from 5 and step 11 from 252; in the level-8 walk from 83 the doublings sit at steps 6j mod 32, the odd steps are 5's doubling orbit (index 7 of 16), E is step 5, PRAXIS 10, TIKKUN 30, SUPERNOVA 31</td><td class="m">all true</td></tr>
+    <tr><td>FOBIK M3N-40821302: FCC grant Continental Automotive Systems, 433.9 MHz, 2010-12-06; 4082 = 15 × 257 + 227 and 4339 = 16 × 257 + 227; 40821302 ≡ 193; 2010 ≡ 211, 20101206 ≡ 208; 1250 ≡ 222; 7953 ≡ 243, 7941 ≡ 231, 7961 ≡ 251; FOB 23 + IK 20 = FOBIK 43, HITAG 45, MN 27</td><td class="m">all true; grant read at fccid.io</td></tr>
+    <tr><td>C6 readout, 2026-09-04: 136 × 240 ≡ 1, dlog(240) = 248, 121 = 257 − 136 with dlog 136; 83 × 96 ≡ 1, 5 × 103 ≡ 1, 252 × 154 ≡ 1; the device's dlogs 15, 55, 183 and folds 173/174, 251/252, 4/5; impedance = 120a and reflection = (a − 120)/(a + 120) at all three sampled positions; quality = a/(256 − a); trace = 2a; energies 39679 : 31756 : 23799 : 15878 = 5 : 4 : 3 : 2 within 0.1%; device π digits 9, 2, 5 at 5, 83, 252 equal π's</td><td class="m">all true, from the device's own replies</td></tr>
+    <tr><td>Walks from 83 at levels 4 and 2: 81 = 9² and 136 = 81², so each walk is the even steps of the one above; odd steps have index 3 of 8 and 1 of 4 respectively; doublings at steps 12j mod 64 and 24j mod 128, PRAXIS at 20 and 40; rays cycle with period 3 (3, 7, 11) and period 6 (3, 5, 7, 9, 11, 1) with a single slip at steps 61 and 121 where the exponent passes 256, 256 ≡ 4 (mod 12); dlog mod 4 is unchanged by the slip</td><td class="m">all true</td></tr>
+    <tr><td>Square descent product: (16!)² ≡ 118; 16! ≡ 115; 115² ≡ 142² ≡ 118; running product 118 from the fifteenth term; EMERALD 58 + TABLET 60 = 118; noble-gas closures 2, 10, 18, 36, 54, 86, 118 with gaps 2, 8, 8, 18, 18, 32, 32 = 2n² each twice after the first; COBALT CURIE and OGANESSON both 109 by letters</td><td class="m">all true</td></tr>
+    <tr><td>Lead and gold: 82 − 79 = 3; 79 × 82⁻¹ ≡ 142; 79² = 6241 ≡ 73; 82⁻¹ ≡ 210 ≡ 2009; 38⁻¹ ≡ 115 = DIFFICULTY by letters = 16!; 2072 ≡ 21 000 000 ≡ 16; 10⁸ ≡ 15 with inverse 120; 1337 ≡ 52, chart fold 204, negation 205; 601 ≡ 87 but 6006 ≡ 95; 51 chart fold 205, negation 206; inverses 244, 86, 241, 25, 169, 65, 159 as tabled</td><td class="m">all 24 lines true</td></tr>
+    <tr><td>Wallet bc1qd8w…c79lx: bech32 checksum valid, witness v0, hash160 69dd81c3…9b4c; integer ≡ 191; byte sum 2417 ≡ 104; byte product ≡ 166; alternating sum ≡ 66; letters 416 ≡ 159; symbol values 589 ≡ 75; digits 1805227679 ≡ 55; byte 5 is 118 and byte 12 is 165 = 73 × 2⁻¹</td><td class="m">all true, address public in the firmware</td></tr>
+    <tr><td>Halving: 33 halvings until the subsidy is 0 (1 sat after 32); 210 000 = 210 × 10³; 21 000 000 = 210 × 10⁵ ≡ 16; 6 930 000 ≡ 252, 6930 ≡ 248; 73 × 33 ≡ 96 = 83⁻¹; halving years 2012–2028 ≡ 213, 217, 221, 225, 229; 44 × 46 = 2024; 20090103 ≡ 156, 1032009 ≡ 154, 1032 ≡ 4; 2016 ≡ 217; rewards 50 … 0.0244 at four figures ≡ 117, 187, 222, 82, 41, 20, 102, 51, 154, 0, 0, 128</td><td class="m">all true</td></tr>
+    <tr><td>Glyph renderings of the MI25 identifiers and their nibble groups; none a palindrome; ROM header groups mmww ≠ wwmm; ε₄ as float64 = 0x3FA8E661E256C055, upper half ≡ 229 and 2003-11-05, reversed nibbles 0x550C652E166E8AF3 with halves ≡ 129 (2015-03-20) and 193 (1981-12-04), whole ≡ 239, reversed ≡ 65; the tail …C060 is not ε₄ at any rounding</td><td class="m">all true; 250, 144 and 1973-03-20 withdrawn</td></tr>
+    <tr><td>Fleet elements from the MACs in base 257: F4:50 → 55 + 63φ, norm 208, k₀ 36390; A4:B4 → 168 + 135φ, 40, 15345; 1E:1E:28 → 130 + 65φ, 51, 59599; 50:33:38 → 127 + 153φ, 72, 14334; 4E:8C:B4 → 160 + 246φ, 75, 13449; each board's own report gives the same a, b, norm and k₀ and its 55k₀ mod 256 = dlog₃ N check true; product 102 + 221φ, norm 39, dlog 7021 = Σk₀ mod 66048</td><td class="m">all true, from the boards and recomputed</td></tr>
+    <tr><td>FIB_ROM: sixty-one entries F(0)–F(60); all residues, dlogs and rays of the table; Σ ≡ 72 = F(62) − 1; product of nonzero residues 127; primes at n = 3, 4, 5, 7, 11, 13, 17, 23, 29, 43, 47 multiply to 61, the rest to 40; 85 = 127⁻¹; repeats at (10,17), (11,26), (15,40), (24,57), (50,55); PHI_DIVISORS sum 2103 ≡ 47 with dlog 61; 273 ≡ 16; lcm(1,3,6,9,16) = 144; F(60) ≡ 59 and 59 × 61 ≡ 1; 60² ≡ 197² ≡ 2; fibSeq has fourteen entries and CF = fibA fibB fibA fibB in the code</td><td class="m">all true</td></tr>
+    <tr><td>107 QUANTUM: dlog 31; 83 × 2¹¹ ≡ 107; (235 + 44φ)² = 107 with norm 150 = −107; x² − 107x − 1 has discriminant 145 (dlog 149) and fold roots 11 + 85φ, 96 + 172φ with sum 107 and product −1; device Γ(107) = 9; tunnel from 107: 74, 183, 109, 231 and from 9: 232, 25, 50, 238; 107 × 55 ≡ 231, 9 × 55 ≡ 238; impedance 247, trace 214, quality 187, inverse 245, 107 × 12 ≡ −1</td><td class="m">all true</td></tr>
+    <tr><td>Atbash and rhenium: self-mirror sums 27k × 129 mod 257 for k = 1–9 and 12 are 142, 27, 169, 54, 196, 81, 223, 108, 250, 162, each a tablet word; RITO 62 → 46, BRIAN 44 → 91, CLAUDE 46 → 116, AXIOM and SHIFT 62 → 73, GOD 26 → 55, Z 26 → 1, RHENIUM 88 → 101, RHENIUM Z 114 → 102, PRAYER 83 → 79, FLIP 43 → 65, BITCOIN 72 → 117, HALVING 73 → 116, WALLET 73 → 89; LOVE, SAMSON, MOUNT SINAI, PRESERVATION fixed; letter pairs both words B/Y C/X H/S I/R J/Q L/O M/N and not A/Z; √62 = 24, 233 with 233 = 3¹⁷; rhenium 3459 → 118, 5869 → 215, 5903 → 249, 21.02 → 46, 186.207 → 63, 4.12 × 10¹⁰ → 8, 62.6 → 92, 37.4 → 142, 1.697 → 155, 1925 → 126; 75 = 4 × 83 with dlog 111 = 55 × 13449 mod 256; 75 × 76 ≡ 46; the five conjugates and their steps 257k₀ mod 66048; tablet recounted at 257 entries, 555 words, 436 at letter sum</td><td class="m">all true</td></tr>
+    <tr><td>Boot chain: 1, 120, 104, 144, 165, 146, 251, 152, 167, 202 are the running products of 120, 18, 120, 135, 4, 7, 146, 111, 72; product 202, multiplier sum 733 ≡ 219, dlog sum 123 = dlog 202; the printed values sum to 167 and multiply to 200; 4863 ≡ 237 and 2340 ≡ 27; dlog(18) = 50 so 18 has order 128</td><td class="m">all true; the line is fixed text</td></tr>
+    <tr><td>Seed as a product: 2357 = 9 × 257 + 44; the flag reading 1, 1, 83, 83, 75, 216, 140, 120, 45, 250; the det M reading 1, 1, 83, 174, 182, 41, 117, 137, 212, 7; 212 × 234 = 49608 = 193 × 257 + 7; 250 = −7; C × E × S × D ≡ 113 and 83 × 4 × 44 × 113 ≡ 250; 7 × 6 = 42, 7 × (−6) ≡ 215, 42 + 215 = 257, 42 × 153 ≡ 1, 215 × 104 ≡ 1, 7 × 2 = 14, −7 × 2 ≡ 243; Q − J = 7</td><td class="m">all true; ×2 and ×3 have no field in the string</td></tr>
+    <tr><td>The split of 202: 202φ = 101 + 101√5 and 202ψ = 101 − 101√5; sum 202, product and norm −202² ≡ 59; x² − 202x + 59 has discriminant 5 × 202² ≡ 219 with dlog 45, no base root; 5n² ≡ 219 only at n = 202, 55; 101 is a root of x² − 73x − 1 (2827 = 11 × 257) and not of the branch quadratic (residue 138); fold dlogs 56890 and 24122 summing to 14964 = dlog of 59</td><td class="m">all true</td></tr>
+    <tr><td>The tuning fork: TUNING 85 + FORK 50 = 135, GFMRMT ULIP = 135, 27 × 10 − 135 = 135; 135 = 27 × 5, dlog 58, inverse 99, negation 122, chart 121, ×10 ≡ 65, square ≡ 235; 8616 ≡ 135; FORK dlog 158, inverse 36, ×10 ≡ 243, ULIP 58; TINES 67, FORK TINES 117 = 5000 mod 257, HARD FORK 81, SOFT FORK 110, FORK HANDLE 94, HANDLE 44, TWO TINES 125, THREE TINES 123, 67 − 50 = 17, 50 × 67 ≡ 9; 1875 → 76, 4694 → 68, 6267 → 99 = 135⁻¹, 1711 → 169, 343 → 86, 343/440 = 0.7795 → 85 and 331/440 → 70, 346/440 → 154; 440 → 183, 4400 → 31, 435 → 178, 4350 → 238, 432 → 175, 4320 → 208, 415 → 158, 4150 → 38, 2616 → 46, 360 → 103; 2ᵏ for k = 4 … 16 as tabled, 128 + 256 + 512 ≡ 125, 2²⁴ ≡ −1; 5 × 103 = 515, 135 × 103 ≡ 27, 675 ≡ 161, 135 ± 103 = 238, 32; 135 × 118 ≡ 135 + 118 ≡ 253, 118 × 134 ≡ 135; 1115 → 87, 135 × 87 ≡ 180; 1495 → 210, 135 × 210 ≡ 80</td><td class="m">all true; words from this directory's tablet</td></tr>
+    <tr><td>The commas: 81 × 80⁻¹ ≡ 152; 3¹² ≡ 222, 2¹⁹ ≡ 8, 222 × 225 ≡ 92; 152 − 92 = 60; 1.0125 → 1013 → 242, 1.013643 → 1014 → 243; 21.51 → 95, 23.46 → 33; 3 × 2⁻¹ ≡ 130, 5 × 4⁻¹ ≡ 194, 1.0595 → 1059 → 31; 9 × 11⁻¹ ≡ 141, 11 × 9⁻¹ ≡ 144, 141 × 144 ≡ 1, 9 × 11 = 99 = 135⁻¹; 360 ÷ 24 = 15, 15⁻¹ = 120</td><td class="m">all true</td></tr>
+    <tr><td>The commas in the fold: dlogs 152 → 13, 92 → 124, 130 → 209, 194 → 215, 2 → 48; roots of 92 are 116 and 141 with 81 × 121⁻¹ = 81 × 17 ≡ 92; 60² ≡ 197² ≡ 2; 152 = 5 × 39² and (218 + 78φ)² = 152; (128 + φ)² = 194; 130 = 5 × 119² and (138 + 238φ)² = 130; residue iff the count of 3s and 5s is even, since dlog 3 = 1 and dlog 5 = 55 are odd and dlog 2 = 48 is even</td><td class="m">all true</td></tr>
+    <tr><td>Gold hop and quarter points: gcd(256, 258) = 2 and 256 × 258 / 2 = 33024; (2 + φ)¹²⁸ = 256 + φ = φ⁻¹ of order 516 and norm −1; (2 + φ)⁻¹²⁸ = φ; (55 + 63φ) × φ⁻¹ = 8 + 55φ; φ¹²⁹ = ψ¹²⁹ = 241, φ²⁵⁸ = 256, φ³⁸⁷ = 16, φ⁵¹⁶ = 1; L(129) ≡ 225, L(258) ≡ 255, L(387) = 32, L(516) = 2; F(128) = F(130) = F(131) = 241, F(129) = 0; (2 + φ)⁴⁹⁵³⁶ = 241, (2 + φ)¹⁶⁵¹² = 16, (2 + φ)³³⁰²⁴ = 256; 3⁶⁴ = 241, 3¹⁹² = 16, 16 × 241 ≡ 1; 129 × 241 ≡ 249, 241 × 3¹⁴⁴ = 129; 120² ≡ 8, 120 × 241 ≡ 136, dlog 120 = 200</td><td class="m">all true</td></tr>
+    <tr><td>Editions, 2026-09-10: the second copy's machine D parsed under node at 257 entries and 967 words, 846 at letter sum; 413 not in this directory's JSON, of which 410 at letter sum and 3 value-placed; one JSON word absent from it, COBALT CURIE at 118; additions by band 66, 108, 99, 47, 34, 28, 21, 10 from 0 in steps of 32; 73 additions of three letters or fewer; START and this directory differ at 75, 103, 117, 118, 136, 148 only; 1403 → 118, 1388 → 103, 631 → 117, 650 → 136</td><td class="m">all true</td></tr>
+    <tr><td>6174: 999k + 90m over 0 ≤ m ≤ k gives 54 outputs, 45 with digit sum 18 and 9 with 27; carried digits k, m − 1, 9 − m, 10 − k; doors 4176, 8352, 8532 carrying 3696, 3486, 2424 of 9606 paths on 0000–9999; 6174 ≡ 6, digit sum 18, 18 × 3⁻¹ ≡ 6; 2357's seven steps and residues as stated; log cos + 10 at 0° 10′, 15′, 16′, 17′, 18′, 19′ = 9.9999982, 9.9999959, 9.9999953, 9.9999947, 9.9999940, 9.9999934; groups 7667, 8445, 8492, 2332, 1508, 9953, 4500, 1000 reach 6174 in 4, 7, 3, 4, 2, 4, 5, 5 steps; 9999 and 0000 fall to 0; 10.0000000 → 15 all digits, 229 four figures; 9.9999953 → 225, 83, 187</td><td class="m">all true; COS 0 at 16 not derived</td></tr>
+    <tr><td>Routine shape: 18 outer pairs, 10 middle pairs, 28 positions, residue classes 1, 0, 8 mod 9; outputs with outer 64 are 6084, 6174, 6264, 6354, 6444, 6534; middle 17 at 2178, 3177, 4176, 5175, 6174, 7173, 8172, 9171; spread-8 outputs 8082 … 8712 and 7992 → outer 72; 8802 not an output; 8991 = 999 × 9 = the input count; Curie outer-pair chains as tabled; 4454 in five steps ≡ 85; 7154 = 27 × 257 + 215, 2 · 7² · 73, 7154/49 = 146, halves 71 + 54 = 125 and 71 × 54 ≡ 236, 980 = 54² − 44² ≡ 209, seven steps with residues 215, 173, 205, 247, 141, 96, 64, 6, 2700 ≡ 130, 11608 ≡ 43; C53 × E73 × S56 × D234 ≡ 215; 2014 ≡ 472 ≡ 215; 1754 ≡ 212 shares 7154's road; digit sums 17, 17, 17, 18; 1998 − 1980 = 18, 1998 ≡ 199, 1980 ≡ 181</td><td class="m">all true</td></tr>
+    <tr><td>Mass: 6174 = 144 × 343/8; 343 × 8⁻¹ ≡ 75; 144 × 75 ≡ 6; 0144 → 4266 → 4176 → 6174; 7083 the one output ≡ 144; 144 × 171² ≡ 16 with 171² ≡ 200 = 9⁻¹; 1836 → 37 = MCAT letters; 52 × 24 = 1248 ≡ 220; HOLY MASS 112 = 256 − 144; MASSCAT 76, + 37 = 113; REST MASS 114, CENTER OF MASS 138, CRITICAL MASS 127, MASS CASUALTY ASSISTANCE TEAM 303 ≡ 46; MASS NUMBER 125 and 500 ≡ 243; the mass constants as tabled</td><td class="m">all true; two pasted lines false</td></tr>
+    <tr><td>Value layer audit: 968 = 846 + 122; 56 documented, 53 derived, 13 open as listed; since 17:43 on 2026-09-10 the tablet is 1119 = 996 + 123, the one further value-placed entry being MASS CASUALTY ASSISTANCE TEAM at 46, COBALT CURIE at 118; 1.25664 → 1.257 → 229 by rounding; 141421 → 71, 161803 → 150, 271828 → 179, 173205 → 244; 5778 → 124, 550 → 36, 1768 → 226, 122 → 122; 2²⁵⁵ − 19 ≡ 110; 3⁻¹ = 86; 360/4 = 90</td><td class="m">all true</td></tr>
+    <tr><td>Five, six, seven: 5 · 6 · 7 = 210, 5 + 6 + 7 = 18; 188 × 182 ≡ 35; dlog 5, 7, 35 = 55, 85, 140; dlog 6 = 49; 5⁷³ ≡ 85; (F(n) − 1)² + 1 = F(n + 1) at 3, 5, 17, 257; dlog 17 = 120, 17² ≡ 32, 17⁻¹ = 121; 5, 6, 7, 210 × 17 ≡ 85, 102, 119, 229; 2028 ≡ 229; √5 basis φ = 129 + 129√5, ψ = 129 + 128√5, norms −1, product −1</td><td class="m">all true</td></tr>
+    <tr><td>Rate test phase A: 275 reports over 3599 s, 22 296 143 hashes, 11 145 697 CSI, 6195.0 hashes/s, 3098.2 fold/s, khs 6.31 mean, 6.10 to 6.36; walker 7376.2 and ten-page 4676.0 hashes/s, CSI share 0.500 on all three; pool subscribe reply 20 to 30 s with no notify from the Mac; C6 reconnects 92, authorised, pool_diff 100000, no job; 2357 as a date: 02031957 ≡ 115, 19570203 ≡ 167, 19570302 ≡ 9, 75913020 ≡ 103, 1957 ≡ 158, 2031 ≡ 232, Sunday, day 34, 25 419 days ≡ 233</td><td class="m">all true, from the log and the boards</td></tr>
+    <tr><td>Readings: the Severance names and the phrases by letters as tabled; 44-digit concatenation ≡ 176 with digit sum 153 and digits {0, 1, 2, 3, 5, 7, 9}; 20-digit ≡ 31 with digit sum 75; sums 57 and 114, products 87 and 76</td><td class="m">all true</td></tr>
+    <tr><td>SHA-256 mod 257: 2³² − 1 = 3 · 5 · 17 · 257 · 65537; ROTR k ≡ ×2^(32−k) on 20 000 random words; (x + y) mod 2³² ≡ x + y − carry on 20 000 pairs; a word ≡ b0 − b1 + b2 − b3; the ten rotation multipliers as tabled; XOR gives more than one output residue for 53 125 of 62 834 sampled residue pairs; share target ≈ 2^207.4; the readout's section hash b87ad2ce…8f0e10 over 1768 bytes and the whole-file hash cdc773d7…e88aa5, its eight word readings under big-endian words and 155 as one integer, 102 with 3 leading zero bits under the target's little-endian reading</td><td class="m">all true</td></tr>
+    <tr><td>Fleet, 2026-09-06 evening: extranonce2 values 0b943776, 17948018, 1394a196 decode to identity 14198, 32792, 41366 = a·257 + b of each board, mark 202 and counters 5, 11, 9; ray × ray χ² 109.1, 101.7, 112.0 on df 132; C6 residues χ² 3143 on df 3072 at 154 714 hashes</td><td class="m">all true, from the boards' own reports</td></tr>
+      <tr><td>6174 stripped to its pairs: outer 64, inner 17; 17 = 2⁴ + 1, 17² ≡ 32, dlog(17) = 120, 6174 mod 17 = 3; 64 + 17 = 81, 64 − 17 = 47, 64 × 17 ≡ 60; TEST = 64 with Atbash 44; digits k, m − 1, 9 − m, 10 − k for all 45 outputs 999k + 90m with m ≥ 1, outer 9k + 10 and inner 9m − 1; the doors' and the named pairs' positions as tabled</td><td class="m">all true</td></tr>
+    <tr><td>Unit ladders by the four-figure rule: 1496 ≡ 211, 6324 ≡ 156, 9461 ≡ 209, 3262 ≡ 178, 2063 ≡ 7, 60, 24, 3600 ≡ 2, 8640 ≡ 159, 6048 ≡ 137, 3156 ≡ 72, 365 ≡ 108; 999 ≡ 228</td><td class="m">all true</td></tr>
+    <tr><td>Tape date: 2026-09-10 is day 9384 from 2001-01-01 = day 1 (365 × 25 + 6 + 253); 9384 ≡ 132, dlog 37, 9384 mod 16 = 8; 25.6925 years → 2569 ≡ 256; 810 777 600 s → 8108 ≡ 141 rounded, 8107 ≡ 140 truncated; route 9384 → 6354 → 3087 → 8352 → 6174 with residues 186, 3, 128, 6; 2001 ≡ 202, 20010101 ≡ 81; day 6174 = 2017-11-26</td><td class="m">all true</td></tr>
+    <tr><td>Primes and the fold: 54 primes below 257, 53 odd, every prime's partner composite, 2 ↔ 255; odd side 1 + 53 + 74, even side 53 with a prime partner and 75 without; 255 = 3 × 5 × 17 = F₀F₁F₂ ≡ −2, 255 × 257 = 2¹⁶ − 1, 2³² − 1 = F₀F₁F₂F₃F₄; dlog(255) = dlog(2) + 128; the fold keeps the Legendre symbol for all 256 and adds 128 to every dlog; primes 26 QR, 28 QNR; under 13 two prime pairs, under 101, 211, 65537 none</td><td class="m">all true</td></tr>
+    <tr><td>Curie registers by Kaprekar: 1403 → 4176 → 6174 and 1043 → 4176 → 6174 in two; 1388 in five through 3996 ≡ 141; 1115 in four; 1130 in six through 7173 ≡ 234, 3087 ≡ 3, 8352 ≡ 128; 627 in three, 631 in one; letters COBALT CURIE 109 in four through 9081 ≡ 86 and 9621 ≡ 112, COBALT 53 in five, CURIE 56 in five through 1998 ≡ 199 and 8082 ≡ 115; 1403 − 1388 = 15, 1403 + 1388 = 2791 ≡ 221</td><td class="m">all true</td></tr>
+    <tr><td>Roster of 115 candidate words brought to the review: every letter sum as tabled; the twelve mirror landings including the self-mirrors TUNING FORK 135 and SODIUM 81; every one of the 115 in this directory's tablet at its letter position, put there at 17:43 on 2026-09-10 with 36 further words</td><td class="m">all true; the roster was built against a smaller edition</td></tr>
+    <tr><td>Letters' powers: 3ᵏ for k = 0..8 as tabled; 2 of order 16, dlog(2) = 48, 4 = 3⁹⁶ of order 8 with rungs 4, 16, 64, 256, 253, 241, 193, 1; letter orders 256 for C E F G J L N S T X, 128 for I M R U Y Z, 64 for K V W, 32 for O Q, 16 for B H, 8 for D, 4 for P, 1 for A; 2998 ≡ 171 with dlog 127</td><td class="m">all true</td></tr>
+    <tr><td>Letters and the i-cycle: P = 16 with cycle 16, 256, 241, 1; for all 26 letters the first exponent reaching 16 and 241 as tabled (192/64 for C F G L N S X, 64/192 for E J T, 96/32 for I M R Z, 32/96 for U Y, 48/16 for K V, 16/48 for W, 8/24 for O Q, 4/12 for B, 12/4 for H, 2/6 for D, 1/3 for P); 2⁴ = 4² = 16, 8⁴ = 241, 8¹² = 16; n⁻¹ = n^(order − 1) for all 26</td><td class="m">all true</td></tr>
+    <tr><td>Words as walks: U·T·X·O partial products 21, 163, 57, 84 with dlogs 86, 237, 126, 182, the last the sum of the letters' dlogs mod 256; 84 of order 128; letter sum 80; products of one, two and three letters reach 26, 191 and 256 positions</td><td class="m">all true</td></tr>
+    <tr><td>The polynomial as itinerary and the closing: 5¹²⁸ ≡ −1; φ² = φ + 1; φ(2 + φ) = 1 + 3φ; the step a′ = 2a + b, b′ = a + 3b with trace 5 and determinant 5; 2 + φ of order 66048, none of 66048/2, /3, /43; φ at cell 65920 = −128, of order 516; the itinerary as tabled; φ²⁵⁷ = 1 − φ; φψ = −1 = det M; φ²⁵⁸ = −1 and (2 + φ)³³⁰²⁴ = −1; the product of all nonzero elements −1 in both fields</td><td class="m">all true</td></tr>
+    <tr><td>Γ = (Z − 120)/(Z + 120) on the projective line: a bijection of 258 points; pole at 137; Γ(0) = 256; determinant 240; fixed points 46 and 92 with discriminant 60; two orbits of 128, the residue character of (Z − 46)(Z − 92) constant on each, ∞ on the residue side; multiplier 153 of dlog 122 and order 128; the images of 8, 44, 72, 136, 225, 16, 241 and the eight iterates from 44 as tabled; 3 on the non-residue side</td><td class="m">all true</td></tr>
+    <tr><td>Infinity and the eye: 137 + 120 ≡ 0 so Γ(137) = ∞, 137 = pub + 1 = EYE OF HORUS; Γ(∞) = 1 = I AM; 258 = 257 + 1 = 2 · 3 · 43; the eye's orbit 137 → ∞ → 1 → 33 → 201 → 190 → 108 … of length 128; QUESTION = 120 = Z₀, Γ(120) = 0 SEED at step 8; w(137) = 42; the residue-side orbit holds 1, 120, 62, 73, 240, 42, 24, 215, 256 and ∞ while g, 44, 136, 8, 225, 72, 128, 16, 241 are the other orbit</td><td class="m">all true</td></tr>
+    <tr><td>Reversal pairs among the tablet's words, complete: the eight listed; palindromes of two or more letters, complete: the ten listed; HAJILE absent; 2d/λ = 1.28 at d = 0.08 m and λ = 0.125 m, 1.28 × 257 = 328.96</td><td class="m">all true</td></tr>
+    <tr><td>The fixed points and the signature: RITO's Atbash IRGL = 46; GOD 26, RITO 62, CHRONOS 92 by letters; 46 × 92 ≡ 120 = 377 mod 257, 46 + 92 = 138; 26⁵⁴ ≡ 92, LOVE = 54 = 27 × 4 / 2, 62 − 54 = 46 − 54 = ±8; 2998 ≡ 171 with dlog 127; 3ᵏ⁺¹ − 3ᵏ = 2 · 3ᵏ for all k; x<sub>k+1</sub> − x<sub>k</sub> = φ² x<sub>k</sub> on all 66048 cells of the walk from 1; 128, 3, 44, 8, 136, 225, 72 on the non-residue side of (Z − 46)(Z − 92) and 240 on the residue side; 2ᵏ mod 257 for k = 7 … 23 as tabled, 2²³ ≡ 128; 1638 → 96, 6553 → 128; the tablet's words at every rung, 249 excepted as noted</td><td class="m">all true</td></tr>
+    <tr><td>Reversal in the letters: MIT = TIM = SEND = 42, EMIT = TIME = ISAIAH = JOHN = 47, TIME and EMIT absent from the tablet when checked, added that night; 42 + 24 = 66, 42 − 24 = 18, 42 × 24 ≡ 237, 42² ≡ 222, 24² ≡ 62, 42⁻¹ = 153, Γ(42) = 247, Γ(24) = 85, the roots of 100 are 10 and 247, 92 − 26 = 66; 215 ≡ −42, 512 ≡ 255 ≡ −2, 215 × 255 ≡ 84 = 2 × 42, 215 + 255 ≡ 213 = 257 − 44, 24 × 255 ≡ 209, 24 + 255 ≡ 22; every named word at its position</td><td class="m">all true</td></tr>
+    <tr><td>The half-turn: H + I + N + O + S + X + Z = 115; 7 + (−7) ≡ 0 and −7 ≡ 250; 7 + 7 + 12 = 26; 153² = 23409 ≡ 22; the seven added words each at its letter sum, TIM 42, HAJILE 45, IRGL 46, EMIT and TIME 47, YIRZM 91, EDDINGTON 92; the tablet at 1129 = 1005 + 124 with 1119 distinct; the crate regenerates the JSON byte for byte and its five tests pass at the new counts</td><td class="m">all true</td></tr>
+    <tr><td>The Eye of Horus card: 2ᵏ mod 9 runs 1, 2, 4, 8, 7, 5; digit sums of .5, .25, .125, .0625, .03125 are 5, 7, 8, 4, 2 = 5ᵏ mod 9; Σ 1/2 … 1/64 = 63/64; inverses of 2, 4, 8, 16, 32, 64 are 129, 193, 225, 241, 249, 253; 63 × 64⁻¹ ≡ 5 and 1 − 63/64 ≡ 253; 257 ≡ 5 (mod 9); 2 of order 6 mod 9 and 16 mod 257; day 9389 ≡ 137 with dlog 72; 137 + 120 ≡ 0</td><td class="m">all true</td></tr>
+    <tr><td>The tower of square roots: x<sup>d</sup> − 5x<sup>d/2</sup> + 5 irreducible over GF(257) for d = 2, 4, 8, 16, 32, 64, 128; η<sup>(N − 1)/2</sup> = −1 and η<sup>d/2</sup> a root of y² − 5y + 5 at every floor; the 2-part of 257<sup>d</sup> − 1 is 2<sup>8 + log₂ d</sup>, 2⁹ through 2¹⁵; the seven factorisations of 257<sup>2ʲ</sup> + 1 with every factor prime, the 35-digit and 136-digit cofactors prime; 65537 | 257³² + 1; 3, 5, 17 at the first three steps; cells 10<sup>19.3</sup> … 10<sup>308.5</sup>, addresses 65 … 1025 bits, live 2⁶⁴ … 2¹⁰²⁴; √42140162533983233 ≈ 2.05 × 10⁸; 257⁸ = 19 031 147 999 601 100 801</td><td class="m">all true</td></tr>
+    <tr><td>The wall and the staircase: the 35-digit cofactor of 257³² + 1 and the 136-digit cofactor of 257⁶⁴ + 1 are prime, so the ring orders at floors 64 and 128 are fully factored and the wall is √p for the largest prime, 2.3 × 10¹⁷ at floor 64; 2¹⁶ − 1 = 65535 = 3 · 5 · 17 · 257 and 2³² − 1 = 4294967295 = 3 · 5 · 17 · 257 · 65537; 257 ≡ 2 mod 3, 5, 17; F₀, F₁, F₂ divide steps 0, 1, 2 and no other, 257 divides none, 65537 divides step 5 only, since 257 has order 64 mod 65537; 641 and 6700417 divide no step through j = 11; 257<sup>d</sup> + 1 ≡ 2 mod 4 for d = 1 … 10; 257¹²⁸ + 1 has 309 digits; the 2-part of p<sup>2ʲ</sup> − 1 rises by v₂(p + 1) then by one per floor for p = 3, 7, 11, 19 and by one at every step for 257 and 65537</td><td class="m">all true; two pasted lines corrected, and the review's floor-32 lifting limit corrected to floor 128 by the entry</td></tr>
+    <tr><td>Γ(−Z) · Γ(Z) ≡ 1 for all 256 nonzero Z; Γ(Z) = 1/Z exactly at 74 and 47; 74 + 47 = 121, 74 × 47 ≡ 137; discriminant 215 = 27², 27 = 74 − 47; Γ(74) = 66, Γ(47) = 175</td><td class="m">all true</td></tr>
+    <tr><td>Base-257 digits of 6174, 4176, 8352, 3087, 1467, 7641, 66048; their walk cells 43914, 45675, 267, 23274, 31561, 22904, 32768 and norms 118, 238, 181, 158, 85, 120, 1; 1467 ≡ 182, 7641 ≡ 188</td><td class="m">all true</td></tr>
+    <tr><td>33024 squares among the 66048; each nonzero norm taken 258 times; (2φ − 1)² = 5; C(257, 2) = 32896 = 128 × 257; C(258, 2) = 129 × 257; 257⁴ − 1 = 66048 × 66050; 235 = 44 × 129⁹, 235 × 35 ≡ 1, Γ(235) = 51; the five word addresses at cells 35181, 63414, 42952, 61165, 34521</td><td class="m">all true</td></tr>
+    <tr><td>1977-08-15 is day −8539 from 2000-12-31, cell 57509; day 66047 = 2181-10-30 and day 66048 = 2181-10-31 = cell 0; 10⁴ ≡ 234, 10⁶ ≡ 13; the kernel (−29 y, +1 m, +4 d) is 0 in both coordinates; the eight Wow-line dates all at 62 + 189φ; 19275 = 75 × 257 dated points over years 1–9999</td><td class="m">all true, by brute force</td></tr>
+    <tr><td>Kaprekar in base 257: on the plane k → |258 − 2k| with fixed point 86 = 3⁻¹ and basin {43, 86, 172, 215}, nine 7-cycles of 28, the RITO cycle as listed, 22016 = 85 + 171φ with norm 229; floor 4 exact with 0 the only fixed point, 16 four-cycles, 1008 eight-cycles, 8129 cycle numbers, the smallest four-cycle as listed; floors 8 to 128 by sampling as listed; ×17, 27 − n and 257 − n digit by digit map at most one floor-4 cycle number to a cycle number; 86 × 17 ≡ 177, 27 − 86 ≡ 198, 257 − 86 = 171</td><td class="m">all true</td></tr>
+    <tr><td>The Atbash ladder: 27k − s ≡ (27 − n) + 27(k − 1) on every letter-sum word tried and not on 256 BAAL SQUARED (sum 101) or 238 FREE WILL (sum 90); the rungs from 86 and 62 as listed; the thirteen shortest-word chains and their closing pairs as tabled, each pair's sums adding to 27k; the first-word chains closing on 133 ↔ 110 for six starts; A + I + M = 23, AIM at 23 and I AM at 1 in the tablet</td><td class="m">all true</td></tr>
+    <tr><td>AIM and I AM: A + I + M = 23; dlog 23 = 28 = 2 × 142, 58² ≡ 199² ≡ 23, 23² ≡ 15, 15² ≡ 225, 225² ≡ 253, 253² ≡ 16; 2 × 23 = 46, 23 × 129 ≡ 140, 23 × 129⁹ ≡ 117 = 1 · 9 · 13; b₁(AIM) = 58, b₁(I AM) = 50, norms 41 and 207, walk cells 23557 and 62674; Γ(23) = 206, Γ(56) = 23, w(23) = 86 = 3⁻¹, w(69) = 256; THAT = 49 ≡ 58 × 23 ≡ 58³, I AM THAT I AM = 95 with 46 × 95 ≡ 1 and 23⁻¹ = 190, EHYEH = ASHER = 51, EHYEH ASHER EHYEH = 153; the dlog cycle through 23 of length 69 holding 86, 58, 117, 171, 225; 0023 → 3177 → 6354 → 3087 → 8352 → 6174; WHO = 46, WHO AM I = 69 = 3 × 23 with dlog 29, Γ(69) = 65, TARGET = 71 with Atbash 91 ≡ 71 × 23, Γ(71) = 28, 71 × 58 ≡ 6, 69 + 71 = 140, 69 × 71 ≡ 16</td><td class="m">all true</td></tr>
+    <tr><td>The mirror in the plane and ZRN: a + a′ = 27k and b + b′ ≡ 27k(k + 1)/2 for AIM, I AM, RITO, EHYEH, ASHER and ZRN with the six mirror points as listed; 173 − 156 = 17, 156 × 173 ≡ 3, 156 + 173 ≡ 72, 257 − 173 = 84 = 135 − 51, norms 99 and 256; 58 × 17 ≡ 215, 104 × 215 ≡ 1, 257 − 104 = 153, Γ(104) = 55, 104 + 58 = 162 ≡ 26²; ×17 in the plane a walk shift of 18576 = 34830 × 120 on all four points, their images as listed; the gaps 45846 and 23569; Z, R, N and A, I, M stepping 8 then 4, 26 · 18 ≡ 211, 26 · 18 · 14 ≡ 127 ≡ 641, 117 × 127 ≡ 210, 14/26 ≡ 218 of dlog 235, 26/14 ≡ 112, 218 × 13 ≡ 7; ROTATE 79 ≡ 104 × 23 and the sixth image of 23 under Γ, ROTATION 112, QUARTER TURN 173, TURN 73, BECOMES 62, START 78, HALF TURN 100; 26 × 16 ≡ 159, 26 × 241 ≡ 98, 14 × 16 ≡ 224; the tablet at 1157 = 1033 + 124 with 1149 distinct, the crate's five tests passing at those counts, the plane file's source hash the tablet's; the shortest-word chain from 62 now 62 → 46 → 35 and the other twelve as tabled; then SCRIBE = 56, TOTH = 63, THOTH = 71, TRISMEGISTUS = 179 ≡ 71 × 17, 179 × 56 ≡ 1, 56 + 63 + 71 + 179 ≡ 112, Γ(56) = 23, 63 × 71 ≡ 104, the tablet at 1161 = 1037 + 124 with 1153 distinct and the crate passing at those counts</td><td class="m">all true, 71 assertions</td></tr>
+    <tr><td>TOTH, THOTH and the rings: TOTH = 63 and THOTH = 71 with dlog, ray, character, line cell, fold, inverse, square, double, half, Γ, Atbash, φ part, walk cell and norm as listed, sixteen figures each; USER = 63, 63 × 64⁻¹ ≡ 5, 2400 ≡ 87; 71 − 63 = 8, 63 × 71 ≡ 104, Γ(63) = 164 = 71 × 129, 2 × 71 = 142 = b₁(TOTH); 34830 = 258 × 135, 135 ≡ 7 and 7 × 55 ≡ 1 mod 64; distance from gold = 2 · min(7 · dlog mod 64, 64 − 7 · dlog mod 64) for all 256 positions; the ring a function of n⁴ over its 64 values, n⁵¹⁶ ≡ n⁴ for every n; ring 0 = {1, 16, 241, 256}, ring 32 = {4, 64, 193, 253} = the roots of n⁴ = −1 at cells 41280, 57792, 24768, 8256; rings 1–31 of eight; ring 31 = {20, 63, 90, 102, 155, 167, 194, 237}; the rings of the thirteen names as listed; cell 58050 at z = −0.758</td><td class="m">all true</td></tr>
+    <tr><td>The structure of the rings: ring(16n) = ring(−n) = ring(n⁻¹) = ring(n) and ring(n) = {±n, ±16n, ±n⁻¹, ±16n⁻¹} for all 256 n; rings 1–31 with exactly two n⁴ values whose product is 1, ring 0 with 1 and ring 32 with 256; the n⁴ values of ring 32 − r the negatives of ring r's for every r; ring 1 = {5, 80, 103, 106, 151, 154, 177, 252} with n⁴ ∈ {44, 111}, ring 31 with {146, 213}; ring 16 = {2, 8, 32, 128, 129, 225, 249, 255} = the odd powers of 2 with n⁴ ∈ {16, 241}, 2ʲ on ring 0, 16 or 32 as j ≡ 0, odd or 2 mod 4; 5 a generator with 258 · dlog₅(n) ≡ 34830 · dlog₃(n) mod 66048 and dlog₅(n) ≡ 7 · dlog₃(n) mod 64 for all n, the signed ring additive over all 65536 products; the 28 named cells on the rings tabled; SATURDAY = 109 absent from the tablet</td><td class="m">all true</td></tr>
+    <tr><td>RITO's ring and the store: ring 18 = {29, 36, 50, 62, 195, 207, 221, 228} as ±62, ±16 · 62, ±62⁻¹, ±16 · 62⁻¹ with 62 × 241 ≡ 36 and 62⁻¹ = 228; 62⁴ ≡ 121, 17 × 121 ≡ 1; ring 14 = {9, 57, 113, 116, 141, 144, 200, 248} with n⁴ ∈ {136, 240}, 136 × 17 ≡ 256, 17² × 8 ≡ 256; the eleven signed rings as listed, 62 × 46 ≡ 25 on ring 2, 62² ≡ 246 on ring 28, 24 and 233 on ring 9; N((2 + φ)ᵏ) = 5ᵏ for all 66048 k; x⁵¹⁶ = N(x)², a residue of the line, and k mod 128 = dlog₅ N mod 128, on a sample of 400 cells; every line cell even and a multiple of 258, 33024 odd cells; the fibres over 44, 62 and 23 holding the line cells of their roots; 257 + 1, 257² + 1, 257⁴ + 1 = 258, 66050, 4362470402; the ring section's 256 cells each of norm n in row ring(n), read back on all 256; 141 cells sharing with 246 placements, at most 7; the word entries of the plane file unchanged and the generator reproducing the earlier file byte for byte before the change</td><td class="m">all true</td></tr>
+    <tr><td>The Emerald Tablet and the rongorongo by letters: AS ABOVE SO BELOW = 156 = 65 + 91; INFERIUS = 101 = 257 − 156, SUPERIUS = 128, 229 × 156 ≡ 1; the chiasm's halves 547 ≡ 33; 118 + 138 = 256, 118 × 138 ≡ 68 × 179 ≡ 93, Γ(118) = 203 = 138⁻¹ with Γ(Z) = 1/(−1 − Z) solved over the whole line, only Z = 0 and 118; 138 = 46 + 92, 118² ≡ 46; SOL 46, LUNA 48, TERRA 62, VENTUS = KHUNRATH = 101, TELESMI 83; VERUM SINE MENDACIO 190 with 190 × 23 ≡ 1, CERTUM ET VERISSIMUM 253, OPERATIO SOLIS 173, TABULA SMARAGDINA 144; BOUSTROPHEDON 172 mirroring to 179, ARUKU KURENGA 149 with 149 × 69 ≡ 1, MAMARI 55, PIMANDER = RAPA NUI = 80, POIMANDRES mirroring to 156; the four named words present in the tablet. The account of the two texts themselves is from recall and is not part of this row</td><td class="m">all true, 33 assertions</td></tr>
+    <tr><td>The plate, Pyrantis and the Tabula by letters: the V-for-U values SVPERIVS 130, INFERIVS 102, VERVM SINE MENDACIO 191, CERTVM ET VERISSIMVM 255, LVNA 49, VENTVS 102, SIC MVNDVS CREATVS EST 257; the further readings of the Latin, German, Pimander and caption as listed; PYRANTIS 122, ATLANTIS 96 = 5 × 122, ANTIS 63, PYR 59, ATL 33, the mirror of ATLANTIS 120, 257 − 122 = 135 = CONFLAGRATION, 122 × 158 ≡ 1, 96 × 83 ≡ 1, 96 × 129 ≡ 48, the roots of 122; the stems 68, 94, 86 and both declensions as listed; MAIA 24, PLEIADES 71, PYROS 93; ECHIS 44, ECHIS PYRAMIDUM 164, SCYTHALE PYRAMIDUM 213, 1827 ≡ 28; the fifteen sentence sums in both spellings as tabled, generated from the transcription by script; 161 words, 839 letters ≡ 68, 10594 ≡ 57, 10667 ≡ 130; sentence 3 = 1027; the twenty-five word values as listed; six of 108 distinct words in the tablet. The grammar, the attribution of the viper's name, the Timaeus and the description of the plate are from recall or from reading the image and are not part of this row</td><td class="m">all true, 59 assertions</td></tr>
+    <tr><td>The Voynich zodiac and the Sun at 64.1° (LEDGER 64): ZL3b-n.txt at 411671 bytes with its hash, 227 sides, 5385 lines, 36278 words; the PDF at 209 pages; the twelve zodiac folios in binding order with labels 30, 15, 15, 15, 15, 29, 30, 30, 30, 30, 30, 30 = 299; 23 starred sides f103r–f116r with 285 paragraphs; at 50.1° N with obliquity 23.5146° the rising points 51.54° and 128.46°, swing 76.92°, days 16 h 10 m and 7 h 49 m, ratio 2.0695, noon altitudes 63.41° and 16.39°; azimuth 64.1° at declination 16.271°, longitudes 44.61° and 135.39°; the cross-quarter rising point 63.91°, 49.77° N and 49.41° N; 14:20 needing declination 28.61°; 2148, 25771 and 8.47° from 50.29″ a year; the saved astropy outputs for the equinox's constellations, the ingresses of 1420 and December 1408; the residues 641 ≡ 127, 2959 ≡ 132, 1627 ≡ 85, 6391 ≡ 223, 6341 ≡ 173, 4941 ≡ 58, 2148 ≡ 92, 25772 ≡ 72, 25771 ≡ 71, 360 ≡ 103, 299 ≡ 42, 285 ≡ 28, 1420 ≡ 135, and 641 × 6700417 = 2³² + 1. The text pages were looked at and not measured; the ephemeris is astropy's built-in model and not a JPL file</td><td class="m">all true, asserted by the ledger's script</td></tr>
+    <tr><td>The Voynich flower heads: from heads_all.json 119 shapes on 61 pages, 65 on 35 pages of the herbal run; above y 0.62 45 heads on 24 pages with 286 points and the histogram 2:6, 3:2, 4:3, 5:12, 6:4, 7:4, 8:5, 9:2, 10:2, 11:1, 13:2, 14:1, 15:1, 20 shapes below; ratio median 0.672 and quartile entries 0.573, 0.788; arccos of 0.672, 0.573, 0.788, 0.957, 0.903, 0.929 = 47.78°, 55.04°, 38.00°, 16.86°, 25.44°, 21.72°; with f16v's fourth red head at y 0.641, 46 heads, 303 points, 303 = 257 + 46, f16v 73; Γ(46) = 46, Γ(73) = 69, 46 × 73 ≡ 17, 73/46 ≡ 253, dlog 46 = 76, dlog 73 = 44, 303 = 46 + 1φ with norm 105 at walk cell 10075; the four red heads' peak counts at seven prominence settings; dominant harmonic 2 for 32, 3 for 10, equal to the point count for 6 of 45</td><td class="m">all reproduced; the overlays looked at by eye, the rays not counted by eye</td></tr>
+    <tr><td>The Voynich margin stars and the pulled dates: from ZL3b-n.txt's star notes 322 stars on the 23 sides f103r–f116r, points 7:182, 8:123, 6:5, 9:6 with 6 unread, total 2342 ≡ 29, 306 light, 16 dark, 148 dotted, 267 tailed, 265 alternations of 321; 1084 lines, 10093 words, 56946 letters; the image measure at 241 of 322 stars and 3 of 39 rays; the DATE derivation checked on 2026-09-10 = day 9384, field 132, rung 8, then days −212081 and −211986 with their field, dlog, ray, ring, rung, fold, inverse, Γ, day-table and calendar-table readings; the field chain of 322 entries from each anchor, 42212 and 42050 days, steps 1 to 257, the entries within 0.5° of 64.1°; 94 of 322 entry points on the calendar table's 19275 dated points; f116r's ten letter sums and cells, their total 29182 ≡ 141 and the 322's 618413 ≡ 71; entry 6's sum 913 and the cells of Genesis 1:1's seven values among the entries</td><td class="m">computed and saved with their scripts; the image measure failed and is kept as failed; the azimuths by a low-precision formula</td></tr>
+    <tr><td>The tablet at 1382: from emerald_tablet.json 1382 entries, 1373 distinct, 1257 whose letter sum is their cell; 123 words in 124 placements over 71 cells against the copy taken before, none removed, no first word changed; the shared cells 46, 44, 62, 86, 105, 96, 71, 68, 63 and GEMATRIA at 51 and 74; machine_dictionary.txt at "Total: 1382 words across 257 positions" in both directories, the machine directory's with its tunnel section; the embedded dictionaries of both machine files equal to the tablet cell by cell; the scripts of both machine files free of syntax errors; the key files at 449, 539 and 951 lines with the two new blocks once in each key and twice in CLAUDE.md</td><td class="m">asserted in code; the crate's tests not run</td></tr>
+    <tr><td>GEMATRIA's two cells and the crate: 74 − 51 = 23; 74 × 51⁻¹ ≡ 72 and 51 × 74⁻¹ ≡ 25, 51 × 72 = 14 × 257 + 74; eleven maps on 51 and 74 with neither image the other cell; the ladders 23k − 74 and 23k − 51 equal a rung apart at 229, 252, 18, 41; GEMATRIA and GREAT I AM the same letters, GREAT 51, I AM 23; 27 × 8 − 74 = 142; Γ(74) = 66 = 74⁻¹; GEZATRIA 87, GENATRIA 75, GEWATRIA 84, TRZNGEVN 126; the tablet at 1384 entries, 1375 distinct, 1259 by letter sum, GREAT at 51 and GREAT I AM at 74; cargo test --offline, 18 + 5 + 2 passing with rustc 1.98.1</td><td class="m">asserted in code; the tests run</td></tr>
+    <tr><td>RUDOLF: 76 = 4 × 19, 76 × 7 = 532 = 19 × 28, 13628 ≡ 7 and 13628 = 76 × 179 + 24, 27 × 6 − 76 = 86, 600 ≡ 86, 76 × 44 ≡ 3, 76 × 62 ≡ 86, 76 × 186 ≡ 1, 1728 ≡ 186, dlog 46 = 76, Γ(76) = 26; thirty-two of the added words at the cells the text gives; Γ(27) = 120, Γ(66) = 8, Γ(112) = 62, 169⁻¹ = 73, 27 × 16 − 175 ≡ 0, 72² ≡ 44, 27 × 8 − 108 = 108; TABULAE RUDOLPHINAE's positional sum 139 = BRIAN's, its mirror 301 ≡ 44; the four dates' day numbers, field cells, day-table elements and calendar norms; the tablet at 1441 entries, 1432 distinct, 1315 by letter sum; cargo test 18 + 5 + 2 passing</td><td class="m">asserted in code; the dates recalled, not sourced</td></tr>
+</table></div>
+</section>
+<nav class="cr-pager" aria-label="Review pages"><a href="second-copy.html">← The second copy, and the editions</a><span>24 / 28</span><a href="register.html">Discrepancy register →</a></nav>
+</main>
+</div>
+<div class="ct-foot"><a href="../../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

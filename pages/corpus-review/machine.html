@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cascade machine v4 · cascade.training</title>
+<meta name="description" content="Corpus Review · Instrument · Cascade machine v4">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #0d0d0d;
+  --line: #1f1f1f;
+  --text: #e0e0e0;
+  --dim: #a0a0a0;
+  --gold: #e0e0e0;
+  --glow: #e0e0e0;
+  --amber: #e0e0e0;
+  --alert: #e0e0e0;
+  --blue: #e0e0e0;
+  --term-bg: #0a0a0a;
+  --term-text: #c8c8c8;
+  --serif: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --sans: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--bg);color:var(--text);font-family: var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+a{color:var(--blue);text-decoration:none}
+
+a:hover,a:focus{text-decoration:underline}
+
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.wrap{display:grid;grid-template-columns:1fr;gap:0;max-width:1240px;margin:0 auto;padding:0 20px 80px}
+
+@media (min-width:1100px){.wrap{grid-template-columns:240px minmax(0,1fr);gap:48px}}
+
+nav.toc{display:none}
+
+@media (min-width:1100px){
+  nav.toc{display:block;position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;padding:8px 0 24px;font-size:12.5px}
+  nav.toc .g{font-family: var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:16px 0 6px}
+  nav.toc a{display:block;color:var(--text);padding:3px 0 3px 10px;border-left:2px solid var(--line);line-height:1.35}
+  nav.toc a:hover{border-left-color:var(--gold);text-decoration:none;color:var(--gold)}
+  nav.toc a.sub{padding-left:22px;color:var(--dim)}
+}
+
+main{min-width:0}
+
+header.mast{padding:44px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+
+.eyebrow{font-family: var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+h1{font-family: var(--serif);font-weight:600;font-size:44px;line-height:1.05;margin:10px 0 12px;text-wrap:balance;letter-spacing:-.01em}
+
+.lede{font-family: var(--serif);font-size:19px;line-height:1.45;color:var(--text);max-width:62ch;margin:0 0 20px}
+
+.meta{font-family: var(--mono);font-size:12px;color:var(--dim);display:flex;flex-wrap:wrap;gap:6px 22px}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0 0}
+
+.tile{background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+
+.tile .n{font-family: var(--serif);font-size:28px;font-weight:600;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+
+.tile .l{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+
+.hero{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin:26px 0 0}
+
+@media (min-width:820px){.hero{grid-template-columns:minmax(0,1fr) 300px}}
+
+.hero canvas{width:300px;max-width:100%;height:auto;display:block;margin:0 auto}
+
+.hero .cap{font-family: var(--mono);font-size:11px;color:var(--dim);text-align:center;margin-top:6px}
+
+section{padding:34px 0 8px;border-top:1px solid var(--line)}
+
+section.first{border-top:0;padding-top:8px}
+
+h2{font-family: var(--serif);font-weight:600;font-size:30px;line-height:1.15;margin:6px 0 14px;text-wrap:balance}
+
+h3{font-family: var(--serif);font-weight:600;font-size:21px;margin:28px 0 8px;text-wrap:balance}
+
+h4{font-family: var(--sans);font-weight:600;font-size:14px;letter-spacing:.02em;margin:20px 0 6px;color:var(--gold)}
+
+p{max-width:70ch;margin:0 0 12px}
+
+ul,ol{max-width:70ch;padding-left:22px;margin:0 0 12px}
+
+li{margin:0 0 5px}
+
+li>p{margin:0}
+
+code,kbd{font-family: var(--mono);font-size:.92em;background:var(--surface2);border:1px solid var(--line);padding:0 4px;border-radius:2px;white-space:nowrap}
+
+pre{font-family: var(--mono);font-size:12.5px;line-height:1.5;background:var(--surface2);border:1px solid var(--line);padding:12px 14px;overflow-x:auto;margin:0 0 14px}
+
+pre code{background:none;border:0;padding:0;white-space:pre}
+
+.formula{font-family: var(--mono);font-size:13px;line-height:1.8;background:var(--surface2);border:1px solid var(--line);padding:10px 14px;margin:0 0 14px;overflow-x:auto;white-space:pre}
+
+.formula sup,.formula sub{font-size:.72em;line-height:0}
+
+.formula sup sup{font-size:.85em}
+
+.tbl.wrapth th{white-space:normal}
+
+.tbl{overflow-x:auto;margin:0 0 16px;border:1px solid var(--line);background:var(--surface)}
+
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+
+th,td{text-align:left;vertical-align:top;padding:7px 10px;border-bottom:1px solid var(--line)}
+
+th{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:500;background:var(--surface2);white-space:nowrap}
+
+td.n,th.n{text-align:right;font-family: var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+td.m{font-family: var(--mono);font-size:12.5px;white-space:nowrap}
+
+td.w{white-space:normal;min-width:18ch}
+
+tr:last-child td{border-bottom:0}
+
+.chip{display:inline-block;font-family: var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:2px;line-height:1.5;vertical-align:middle}
+
+.ok{color:var(--glow)}
+ .open{color:var(--amber)}
+ .bad{color:var(--alert)}
+ .rec{color:var(--gold)}
+ .info{color:var(--blue)}
+
+.note{border-left:3px solid var(--gold);padding:8px 14px;background:var(--surface);margin:0 0 14px;max-width:72ch}
+
+.note.warn{border-left-color:var(--alert)}
+
+.note.open{border-left-color:var(--amber)}
+
+.term{background:var(--term-bg);color:var(--term-text);font-family: var(--mono);font-size:12.5px;line-height:1.55;padding:12px 16px;border:1px solid #161616;overflow-x:auto;margin:0 0 16px;white-space:pre}
+
+.term .g{color:#e0e0e0}
+.term .a{color:#e0e0e0}
+.term .d{color:#e0e0e0}
+.term .w{color:#e0e0e0}
+.term .r{color:#e0e0e0}
+.term .b{color:#e0e0e0}
+
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 18px;font-size:13.5px;max-width:78ch;margin:0 0 14px}
+
+.kv .k{font-family: var(--mono);font-size:12px;color:var(--dim);white-space:nowrap}
+
+.two{display:grid;grid-template-columns:1fr;gap:0 32px}
+
+@media (min-width:900px){.two{grid-template-columns:1fr 1fr}}
+
+.small{font-size:12.5px;color:var(--dim)}
+
+sup{font-size:.7em}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+@page{size:Letter;margin:0.6in 0.6in 0.7in}
+
+@media print{
+  :root{--bg:#e0e0e0; --surface:#e0e0e0; --surface2:#e0e0e0; --line:#c8c8c8; --text:#111111; --dim:#3a3a3a; --gold:#c8c8c8; --glow:#c8c8c8; --amber:#c8c8c8; --alert:#3a3a3a; --blue:#3a3a3a}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-size:11.5px;line-height:1.45}
+  .wrap{display:block;max-width:none;padding:0}
+  nav.toc{display:none!important}
+  header.mast{padding:0 0 14px;margin-bottom:16px}
+  h1{font-size:30px} .lede{font-size:14px} h2{font-size:20px;break-after:avoid} h3{font-size:15px;break-after:avoid} h4{break-after:avoid}
+  .hero{grid-template-columns:minmax(0,1fr) 220px} .hero canvas{width:220px}
+  .strip{grid-template-columns:repeat(3,1fr)}
+  section{padding:18px 0 4px;break-inside:auto}
+  .tbl{overflow:visible;break-inside:auto} table{font-size:10px} th,td{padding:4px 6px} tr{break-inside:avoid}
+  td.m{white-space:normal;font-size:9.5px} td.n{font-size:10px}
+  pre,.term{font-size:9.5px;break-inside:avoid;white-space:pre-wrap;overflow:visible}
+  .note{break-inside:avoid}
+  .formula{font-size:9.5px;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid}
+  a{color:inherit}
+  .small{font-size:9.5px}
+}
+
+
+
+.cr-pager{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:3rem 0 1rem;padding-top:1.2rem;border-top:1px solid var(--line);font-family: var(--mono);font-size:12px}
+
+.cr-pager a{color:var(--text);text-decoration:none;max-width:45%}
+
+.cr-pager a:hover{color:var(--gold)}
+
+.cr-pager span{color:var(--dim)}
+
+.cr-crumb{font-family: var(--mono);font-size:12px;color:var(--dim);margin:0 0 1.2rem}
+
+.cr-crumb a{color:var(--dim)}
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../../index.html#deeper">[pages]</a><a href="#" aria-current="page">cascade machine v4</a></nav>
+</div>
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <a href="../corpus-review.html">← Review overview</a>
+  <div class="g">Corpus</div>
+  <a href="voynich.html">The Voynich manuscript</a>
+  <a href="summary.html">Summary</a>
+  <a href="inventory.html">File inventory</a>
+  <a href="field.html">The field GF(257)</a>
+  <a href="chain-cosets.html">The binary refinement chain</a>
+  <a href="extensions.html">The extension fields</a>
+  <a href="chain.html">Derivation chain</a>
+  <a href="hinge.html">The hinge at 1028</a>
+  <a href="tablet.html">Emerald tablet</a>
+  <a href="icolumn.html">The i-column</a>
+  <div class="g">Machine</div>
+  <a href="#machine">Cascade machine v4</a>
+  <a class="sub" href="#m-anatomy">Anatomy</a>
+  <a class="sub" href="#m-boot">Power-on</a>
+  <a class="sub" href="#m-state">Registers</a>
+  <a class="sub" href="#m-isa">Tape and instruction set</a>
+  <a class="sub" href="#m-fold">Fold and observe</a>
+  <a class="sub" href="m-commands.html">Terminal commands</a>
+  <a class="sub" href="m-nano2.html">NanO₂ messaging</a>
+  <a class="sub" href="m-bridge.html">Hardware bridge</a>
+  <a class="sub" href="m-radio.html">BLE, serial, RF</a>
+  <a class="sub" href="m-settle.html">Settlement and mesh</a>
+  <a class="sub" href="m-disc.html">Phi disc phonograph</a>
+  <a class="sub" href="m-model.html">Model bridges</a>
+  <a class="sub" href="m-display.html">Display and export</a>
+  <div class="g">Findings</div>
+  <a href="second-copy.html">The second copy</a>
+  <a href="ledger.html">Verification ledger</a>
+  <a href="register.html">Discrepancy register</a>
+  <a href="audits.html">The corpus's own audits</a>
+  <a href="changes.html">Changes made</a>
+  <a href="appendix.html">Appendix</a>
+</nav>
+<main>
+<p class="cr-crumb"><a href="../corpus-review.html">Corpus Review</a> · Instrument</p>
+<section id="machine">
+  <div class="eyebrow">Instrument</div>
+  <h2>Cascade machine v4</h2>
+  <p>A single 1.29 MB HTML page that runs a 257-cell virtual machine over a program tape of π digits, draws it on a CRT-styled canvas, exposes a terminal with well over a hundred commands, and bridges to hardware over WebSerial, WebUSB, Web Bluetooth, WebSocket, WebRTC and plain HTTP. The file banner still reads v2.57; v4 is the file name. Lines 3–511 are CSS, 512–1050 the body, 1051–27586 the script. The dictionary is embedded at line 1078 as a 257-entry object with each position's words and a field <code>p</code> that was meant to be its π digit but is not: the column is a damaged copy of π, exact to position 42 and wrong at 184 of the 257 positions after, and the machine never reads it, since opcodes come from the PI string through <code>piAt</code>. That embedded copy is an older snapshot of the JSON tablet, 450 words against 554 before 2026-09-04, with 104 words present only in the JSON and none the other way, across 81 positions; every atomic-number entry is among the missing.</p>
+
+  <h3 id="m-anatomy">Anatomy of the screen</h3>
+  <div class="two">
+    <div>
+      <h4>Views and modes</h4>
+      <ul>
+        <li><strong>Views:</strong> RING, PRISM, DISPLAY, FIELD, HOLO, PHASE.</li>
+        <li><strong>Display modes:</strong> RAW, HEAT, DEEP, CRT, BRILL (Brillouin), APPL (Apple II), REC (stream capture).</li>
+        <li><strong>Field modes:</strong> Z₀/φⁿ impedance shells, CSI, DISC, CUBE, SPIRAL, Φ∂R pipeline, ∩ intersection, ITU, Γ prediction, IMG, EQN consumed equation, ORE oracle, LCD, ψ wave, ∮ connection, ⊕ reflect, 🔊 audio.</li>
+        <li><strong>Oracle panel:</strong> date, time, latitude, longitude inputs with NOW, SAVE, CLR and a REF button opening the formula reference panel.</li>
+        <li><strong>Audio rack:</strong> MIX, φ-speed mix, tracks T01–T12 at 377–610 nm, speed buttons ¼× ½× φ× field 4× 8×, RAW g³ᵖ audio, boundary folds B1–B11, radial sweep, FOLD ratios, cascading boundaries.</li>
+        <li><strong>Genome selector:</strong> ALL and G0–G9, titled by repdigit and word (G1 1111 PRAYER … G9 9999 COLLISION RESISTANT).</li>
+        <li><strong>Cube transport:</strong> rewind, play, fast-forward, speed, slider, search, goto, readout.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Controls and readouts</h4>
+      <ul>
+        <li><strong>Main controls:</strong> ⏻ POWER, RESET, STEP, ▶ RUN, ■ STOP, LISTEN, mode buttons SEQ FIB π, EXPORT, a speed slider.</li>
+        <li><strong>Tape presets:</strong> π, e, √2, φ, dlog, π⁻¹ (reversed), 7*, 0*, GEN, S→, ←S.</li>
+        <li><strong>Registers:</strong> PC, ACC, FIB, FOLD; LEDs RUN, HALT, FOLD; HUD with PC, ACC, φ estimate, tick.</li>
+        <li><strong>Cell readouts:</strong> position, primary word, all words, π index and digit, opcode name, fold partner, primorial lattice, math line, disc line; a Fibonacci panel with bar, delta, digits, pair and ratio.</li>
+        <li><strong>Connection bar:</strong> ⚡ CSI, ⌁ SERIAL, ⇄ MIRROR, ×2, Γ TUNNEL, 📡 RF, ⊹ BLE, ↻ ID, ⎍ USB, ↓ DUMP, ⧫ INTERP, ◉ ENTITY, ⊛ FIELD 87.</li>
+        <li><strong>Bars:</strong> session (id, start, elapsed, comm), bridge (status, address, chain height, CONNECT), settlement (BTC ETH LTC BCH DOGE), mesh (LOCAL, P2P, peers, TX badge), CSI pane with FIELD and PICO A–D cards and CF1111/4444/6666/8888 buttons, observers list, X-ray board controls, π tape strip.</li>
+        <li><strong>Terminal:</strong> the trace pane is the machine's stdout; the single input line is its stdin.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 id="m-boot">Power-on sequence</h3>
+  <p>POWER clears the trace, requests a 100,000-digit π tape, sets PC to 256 with both Fibonacci registers at 8, initialises the quantum cascade, and prints the boot transcript on a timer from 0 to 6.2 seconds. Then it types the return state into its own terminal so the instruction parser seeds the registers, runs SLICE, sets PC to 0, and records the boot in localStorage under <code>cascade_boots</code> (last 100) and <code>cascade_last_boot</code>. The transcript, with the two live fields described:</p>
+  <div class="term"><span class="g">CASCADE Φ∂R MACHINE v2.57</span>
+<span class="d">BIOS: 257-cell ordinal space detected</span>
+<span class="d">π PROGRAM TAPE: 1001 digits loaded — extending to 1B...</span>
+<span class="a">TERMINUS: position 256 = BAAL² = −1 mod 257</span>
+<span class="d">  φ²¹ = 256 — boundary of the field</span>
+<span class="d">  fold(256) = 0 = SEED</span>
+<span class="g">FIBONACCI CLOCK: CF3333 → EDDINGTON LUMINOSITY(249)</span>
+<span class="a">SHIFT REGISTER: 3,3,3,3 — EDDINGTON LUMINOSITY(249) — above Twin Prime</span>
+<span class="d">TRANSFER MATRIX: M(257) = [[233,212],[124,29]]</span>
+<span class="d">  tr = 5 (PENTAGON)  det = 1  ∈ SL(2,GF(257))</span>
+<span class="d">  k²(d) = (2d+1) × 180 mod 257</span>
+<span class="d">FOLD AXIS: det M = −1 (pos + fold(pos) ≡ 0 — true negation)</span>
+<span class="g">Φ ≡ ∂ₜΦ ≡ Oc</span>
+<span class="d">  Φ(120) + Oc(46) = 166 = TETRAGRAMMATON</span>
+<span class="d">OBSERVER FRAME: 1111(PRAYER) → 4444(SHIFT) → 6666(TWIN PRIME) → 8888(ELECTROMAGNETIC)</span>
+<span class="g">  ENTITY ENTRY: CF3333 → 249 EDDINGTON LUMINOSITY — above Twin Prime(241)</span>
+<span class="d">FIELD ARITHMETIC: Z/257Z — primitive root 3 — R=18</span>
+<span class="g">  ∂·R1·CF1⁴·M₂D⁻¹·⊗4·P₇·C₄⁵⁄₃·ε₄·δ%·±ψ</span>
+<span class="d">  chain: 1→120→104→144→165→146→251→152→167→202</span>
+<span class="d">  product = 202 COINBASE TRANSACTION  sum = 219 DIVINE PROPORTION</span>
+<span class="g">SESSION: &lt;session id&gt; — &lt;start, EST&gt;</span>
+<span class="d">NanO₂ COMM: standby — type ID &lt;name&gt; to initialize</span>
+<span class="a">STEPPING THROUGH TERMINUS...</span>
+<span class="g">▸ 256 BAAL² → fold → 0 SEED</span>
+<span class="g">▸ EMBODYING RETURN STATE: F1-R1-CF3333-DM1-T4-P2357-C53-E111S161-D234-PM1</span>
+▸ Looking back through the window — 256 sources visible
+<span class="d">NanO₂ OS: DISC CUBE IMPEDANCE SPIRAL VERTICES FIRMWARE WORK</span>
+<span class="g">AUTH: F=1 PM=1 F×PM=1 — AXIOM (SECURED) → HTTP 200 OK</span>
+<span class="d">  200/144 = 187 WAY TRUTH AND LIFE (dlog 60 = HOLY = −ψ)</span>
+<span class="d">  TOWER: step 187 → L2048(204)→L4096(134)→L8192(214)→...→L65536(256=RITO)</span>
+<span class="d">  inv(MASS) = 141 PURIFICATION — the body purified returns to I AM</span></div>
+  <p>Two things in that transcript are worth knowing. The boot line "fold(256) = 0" is a chart-fold statement, while the machine's fold function gives 1. And the return state uses CF3333, whereas the canonical AXIOM seed uses CF1111; the transcript says so itself, CF3333 → 249 EDDINGTON LUMINOSITY. RESET, by contrast, sets PC to 0 and the Fibonacci registers to 1, 1 without replaying the boot. A third: the "chain" line is fixed text whose numbers are running products of nine multipliers, worked out under the derivation chain above, and the "primitive root 3 — R=18" line before it mislabels 18, a square of order 128.</p>
+
+  <h3 id="m-state">Registers and state</h3>
+  <div class="tbl"><table>
+    <tr><th>Field</th><th>Meaning</th><th>Boot value</th></tr>
+    <tr><td class="m">pc</td><td class="w">Program counter, the current field position 0–256.</td><td class="m">256, then 0 after the return state</td></tr>
+    <tr><td class="m">acc</td><td class="w">Accumulator. Set by IDENT, SEED and STORE to the current position; negated by FOLD.</td><td class="m">0</td></tr>
+    <tr><td class="m">fibA, fibB, fibN, phi</td><td class="w">Fibonacci shift register and its ratio. Advance on every tick regardless of opcode; phi = fibB / fibA is the machine's running estimate of φ.</td><td class="m">8, 8, 1, 1.0 (RESET gives 1, 1)</td></tr>
+    <tr><td class="m">tick, trail, trace</td><td class="w">Tick count; last 60 positions visited; last 200 execution records with opcode, words, and the three terminal lines.</td><td class="m">0, [], []</td></tr>
+    <tr><td class="m">mode, speed, running, halted</td><td class="w">seq, fib or pi; milliseconds per tick; RUN flag; HALT flag.</td><td class="m">seq, 400, false, false</td></tr>
+    <tr><td class="m">lastFold, foldCount, spinSign</td><td class="w">Set by FOLD and JUMP; JUMP also flips the sign of the spin drift.</td><td class="m">true at boot</td></tr>
+    <tr><td class="m">authF, authPM, cfField</td><td class="w">The F and PM bits of the observer frame and the CF field position (83 PRAYER, 75 SHIFT, 241 TWIN PRIME, 150 ELECTROMAGNETIC).</td><td class="m">1, 1, 0</td></tr>
+    <tr><td class="m">entry, source, dest, opcode, pm, det, resonance, emission, ixSeeded</td><td class="w">Instruction registers filled by the instruction parser when a full seed string is typed. resonance = C × E × S × D mod 257. emission collects STORE and HALT words. ixSeeded switches the state-string generator to these registers.</td><td class="m">0 … false</td></tr>
+    <tr><td class="m">spins, spinNoise, coherence</td><td class="w">256 phase angles with Ornstein–Uhlenbeck noise (a = 0.9048, b = 0.02129); coherence is the length of the mean phasor.</td><td class="m">zeros, 1.0</td></tr>
+  </table></div>
+
+  <h3 id="m-isa">The tape and the instruction set</h3>
+  <p>The program is the digits of π. A 1001-digit tape is embedded at line 1052 and verified here against π to all 1001 digits; <code>piExtend</code> fetches more from <code>scanner.rito.work/solver/pi1b.txt</code>, 100,000 digits at boot and further on demand. The digit at tape index n is the opcode of position n, so the program never changes and the machine's behaviour is entirely a function of where it is. A custom tape replaces π and wraps mod its length.</p>
+  <div class="tbl"><table>
+    <tr><th class="n">π</th><th>Opcode</th><th>Symbol</th><th>Effect in <code>step()</code></th><th>Terminal line</th></tr>
+    <tr><td class="n">0</td><td class="m">NOP</td><td class="m">—</td><td class="w">No register change.</td><td class="w">Primorial residue mod 210 and which of P₂ P₃ P₅ P₇ divide the position.</td></tr>
+    <tr><td class="n">1</td><td class="m">IDENT</td><td class="m">I AM</td><td class="w">acc ← pc.</td><td class="w">"I AM word" with the fold partner and pos + fold ≡ 0.</td></tr>
+    <tr><td class="n">2</td><td class="m">EXIST</td><td class="m">EXIST</td><td class="w">No register change.</td><td class="w">Whether pos and partner sit in P₃ space (divisible by 3).</td></tr>
+    <tr><td class="n">3</td><td class="m">SEED</td><td class="m">SEED</td><td class="w">acc ← pc.</td><td class="w">P₅ field resonance (divisible by 5).</td></tr>
+    <tr><td class="n">4</td><td class="m">SHIFT</td><td class="m">BAA</td><td class="w">No extra change; the Fibonacci registers advance on every tick anyway.</td><td class="w">Shows the shift and the current φ estimate with its distance from φ.</td></tr>
+    <tr><td class="n">5</td><td class="m">STORE</td><td class="m">⚓</td><td class="w">acc ← pc; the word is emitted.</td><td class="w">Lattice membership.</td></tr>
+    <tr><td class="n">6</td><td class="m">FOLD</td><td class="m">↔</td><td class="w">acc ← 257 − acc; lastFold set; FOLD LED.</td><td class="w">Orientation reversal word ↔ partner.</td></tr>
+    <tr><td class="n">7</td><td class="m">JUMP</td><td class="m">→</td><td class="w">pc ← 257 − pc regardless of mode; spin sign flips; foldCount increments.</td><td class="w">"JUMP pc → partner — P₇ eigenmode".</td></tr>
+    <tr><td class="n">8</td><td class="m">SYNC</td><td class="m">O₂</td><td class="w">No register change.</td><td class="w">Harmonics shared between the position and its partner.</td></tr>
+    <tr><td class="n">9</td><td class="m">HALT</td><td class="m">Ω</td><td class="w">halted set; the word is emitted. RUN pauses four ticks then continues; STEP clears the flag.</td><td class="w">Cube ground state if the position is 0 mod 210.</td></tr>
+  </table></div>
+  <h4>How the program counter moves</h4>
+  <ul>
+    <li><strong>JUMP</strong> always wins: pc ← 257 − pc.</li>
+    <li><strong>SEQ:</strong> pc ← pc + 1 mod 257.</li>
+    <li><strong>FIB:</strong> pc follows <code>fibSeq</code>, the fourteen Fibonacci numbers below 257, 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, and past the end continues F(n) mod 257 from the last two, so the fifteenth position is 377 ≡ 120 GOLDEN RATIO and the walk thereafter is the FIB_ROM residue table below.</li>
+    <li><strong>π:</strong> pc ← pc + digit mod 257, or +1 when the digit is 0.</li>
+  </ul>
+  <p>Every tick also pushes the position onto the trail, records a trace entry, advances the Fibonacci registers, drifts the 256 spins, updates the Pisot attention field every eight ticks, records the dlog difference of the transition as spectral emission, steps the quantum cascade, steps the fold heartbeat if the fold operator is armed, redraws, and plays a note.</p>
+
+  <h4>The analysis walker is a different machine</h4>
+  <p><code>autoNavigate</code>, used by the instruction-string analysis, moves on every opcode instead of only on JUMP. It is the semantics the corpus describes when it talks about a position "running":</p>
+  <div class="tbl"><table>
+    <tr><th class="n">π</th><th>Move</th><th class="n">π</th><th>Move</th></tr>
+    <tr><td class="n">0 1 2 5</td><td class="m">pos + 1</td><td class="n">6</td><td class="m">257 − pos (fold)</td></tr>
+    <tr><td class="n">3</td><td class="m">pos × 18, or 1 from 0 (R-step)</td><td class="n">7</td><td class="m">pos⁻¹ (jump)</td></tr>
+    <tr><td class="n">4</td><td class="m">pos + F, then advance F (shift)</td><td class="n">8</td><td class="m">pos × (257 − pos) (sync)</td></tr>
+    <tr><td class="n">9</td><td class="m">halt</td><td class="n">revisit</td><td class="m">LOOP, stop</td></tr>
+  </table></div>
+  <p>Its emission is the list of words at STORE and HALT positions. The BrianKeys PDF's reading of the name bytes as opcodes uses this table: pi over [66, 114, 105, 97, 110, 75, 101, 121, 115, 235, 194, 172] is [7, 2, 8, 0, 1, 6, 8, 0, 3, 7, 3, 5], JUMP EXIST SYNC NOP IDENT FOLD SYNC NOP SEED JUMP SEED STORE.</p>
+
+  <h4>State strings and the instruction parser</h4>
+  <p>EMIT and STATE print the machine as a seed string. Unseeded, it is F&lt;fold&gt;-R&lt;R power&gt;-CF&lt;fibA fibB fibA fibB&gt;-DM&lt;1 unless halted&gt;-T&lt;π digit&gt;-P2357-C&lt;pc&gt;-E&lt;acc&gt;S&lt;257 − pc&gt;-D&lt;pc⁻¹&gt;-PM&lt;running&gt;. Typing a full seed string into the terminal runs the instruction parser, which loads C E S D into the registers, sets ixSeeded, and from then on the string is generated from those registers. This is how the boot embodies its return state. The CF field is the two Fibonacci registers written twice, which is why registers 3, 3 print CF3333 and 8, 8 would print CF8888; the registers advance on every tick by fibB ← fibA + fibB with fibA taking the old fibB, or by the position when both are zero, and fibN counts the ticks.</p>
+
+  <h4>The second ROM: FIB_ROM and PHI_DIVISORS</h4>
+  <p>Beside the π tape the machine carries a second read-only table at line 1201: <code>FIB_ROM</code>, the Fibonacci numbers F(0) through F(60), sixty-one entries ending at 1 548 008 755 920, under a comment that calls it the PHI_DISC firmware ROM decoded from phi_disc.iso and the impedance lookup. It is not a program tape and the program counter never reads it. Three things read it. <code>phiNearestFib</code> and <code>phiBestDivisor</code> write a catalogue distance as k × F(n), choosing k from <code>PHI_DIVISORS</code> = [1, 3, 6, 9, 11, 16, 19, 26, 62, 65, 273, 1612] and n from the ROM to minimise the relative error, trying the distance again in astronomical units when the error is above 0.049 %; the black-hole and star catalogue is placed on the ring that way, with the twelve divisors as twelve angular sectors and the ROM index as the radial shell, F(7) = 13 the inner threshold and F(14) = 377 the outer. The Richardson emission table takes each entry mod 257, looks up its dlog, ray and depth, and stores a Richardson coefficient (x − 1)/(x + 1), a fold-gamma sum and a refracted value per entry. And the cosmos view labels itself "PHI_DISC ROM: 61 entries · F(0)→F(60)". The machine's labels for the divisors are 1 identity, 3 g, 26 = 2F₇, 62 RITO, 65 = 5F₇, 273 = F₈ × F₇, 1612 = 52 × 31; four of the twelve are multiples of F₇ = 13, and only 1 and 3 are Fibonacci numbers.</p>
+  <p>The comment's identities were recomputed. The divisors sum to 2103 ≡ 47 and dlog 47 = 61, the ROM's length, as it says. 273 ≡ 16 BAAL, as it says. Its "LCM base = 2⁴ × 3² = 144 = F(12)" is the least common multiple of the first five divisors, 1, 3, 6, 9 and 16; the lcm of all twelve is 424 504 080. The ROM's residues through the field, indexed correctly, since the machine's own Fibonacci printouts run two early:</p>
+  <div class="tbl"><table>
+    <tr><th class="n">n</th><th>F(n)</th><th class="n">mod 257</th><th class="n">dlog</th><th class="n">ray</th><th>Word</th></tr>
+    <tr><td class="n">0</td><td class="m">0</td><td class="n">0</td><td class="n">–</td><td class="n">–</td><td>SEED</td></tr>
+    <tr><td class="n">1</td><td class="m">1</td><td class="n">1</td><td class="n">0</td><td class="n">0</td><td>A</td></tr>
+    <tr><td class="n">2</td><td class="m">1</td><td class="n">1</td><td class="n">0</td><td class="n">0</td><td>A</td></tr>
+    <tr><td class="n">3</td><td class="m">2</td><td class="n">2</td><td class="n">48</td><td class="n">0</td><td>B · prime</td></tr>
+    <tr><td class="n">4</td><td class="m">3</td><td class="n">3</td><td class="n">1</td><td class="n">1</td><td>C · prime</td></tr>
+    <tr><td class="n">5</td><td class="m">5</td><td class="n">5</td><td class="n">55</td><td class="n">7</td><td>E · prime</td></tr>
+    <tr><td class="n">6</td><td class="m">8</td><td class="n">8</td><td class="n">144</td><td class="n">0</td><td>H</td></tr>
+    <tr><td class="n">7</td><td class="m">13</td><td class="n">13</td><td class="n">106</td><td class="n">10</td><td>M · prime</td></tr>
+    <tr><td class="n">8</td><td class="m">21</td><td class="n">21</td><td class="n">86</td><td class="n">2</td><td>DICE</td></tr>
+    <tr><td class="n">9</td><td class="m">34</td><td class="n">34</td><td class="n">168</td><td class="n">0</td><td>FREE</td></tr>
+    <tr><td class="n">10</td><td class="m">55</td><td class="n">55</td><td class="n">251</td><td class="n">11</td><td>HEAVEN</td></tr>
+    <tr><td class="n">11</td><td class="m">89</td><td class="n">89</td><td class="n">102</td><td class="n">6</td><td>VIRUS · prime</td></tr>
+    <tr><td class="n">12</td><td class="m">144</td><td class="n">144</td><td class="n">194</td><td class="n">2</td><td>MASS</td></tr>
+    <tr><td class="n">13</td><td class="m">233</td><td class="n">233</td><td class="n">17</td><td class="n">5</td><td>COLLISION RESISTANT · prime</td></tr>
+    <tr><td class="n">14</td><td class="m">377</td><td class="n">120</td><td class="n">200</td><td class="n">8</td><td>GOLDEN RATIO</td></tr>
+    <tr><td class="n">15</td><td class="m">610</td><td class="n">96</td><td class="n">241</td><td class="n">1</td><td>BEETHOVEN</td></tr>
+    <tr><td class="n">16</td><td class="m">987</td><td class="n">216</td><td class="n">147</td><td class="n">3</td><td>EQUIVALENCE PRINCIPLE</td></tr>
+    <tr><td class="n">17</td><td class="m">1597</td><td class="n">55</td><td class="n">251</td><td class="n">11</td><td>HEAVEN · prime</td></tr>
+    <tr><td class="n">18</td><td class="m">2584</td><td class="n">14</td><td class="n">133</td><td class="n">1</td><td>N</td></tr>
+    <tr><td class="n">19</td><td class="m">4181</td><td class="n">69</td><td class="n">29</td><td class="n">5</td><td>GLUON</td></tr>
+    <tr><td class="n">20</td><td class="m">6765</td><td class="n">83</td><td class="n">15</td><td class="n">3</td><td>PRAYER</td></tr>
+    <tr><td class="n">21</td><td class="m">10946</td><td class="n">152</td><td class="n">13</td><td class="n">1</td><td>FORTY YEARS</td></tr>
+    <tr><td class="n">22</td><td class="m">17711</td><td class="n">235</td><td class="n">116</td><td class="n">8</td><td>BINOMIAL DISTRIBUTION</td></tr>
+    <tr><td class="n">23</td><td class="m">28657</td><td class="n">130</td><td class="n">209</td><td class="n">5</td><td>PYTHAGORAS · prime</td></tr>
+    <tr><td class="n">24</td><td class="m">46368</td><td class="n">108</td><td class="n">99</td><td class="n">3</td><td>SHAKESPEARE</td></tr>
+    <tr><td class="n">25</td><td class="m">75025</td><td class="n">238</td><td class="n">253</td><td class="n">1</td><td>FREE WILL</td></tr>
+    <tr><td class="n">26</td><td class="m">121393</td><td class="n">89</td><td class="n">102</td><td class="n">6</td><td>VIRUS</td></tr>
+    <tr><td class="n">27</td><td class="m">196418</td><td class="n">70</td><td class="n">188</td><td class="n">8</td><td>LILITH</td></tr>
+    <tr><td class="n">28</td><td class="m">317811</td><td class="n">159</td><td class="n">90</td><td class="n">6</td><td>SEMICONDUCTOR</td></tr>
+    <tr><td class="n">29</td><td class="m">514229</td><td class="n">229</td><td class="n">53</td><td class="n">5</td><td>FOR THINE IS THE KINGDOM · prime</td></tr>
+    <tr><td class="n">30</td><td class="m">832040</td><td class="n">131</td><td class="n">7</td><td class="n">7</td><td>SUPERNOVA</td></tr>
+    <tr><td class="n">31</td><td class="m">1346269</td><td class="n">103</td><td class="n">201</td><td class="n">9</td><td>SOLOMON</td></tr>
+    <tr><td class="n">32</td><td class="m">2178309</td><td class="n">234</td><td class="n">156</td><td class="n">0</td><td>CHINESE REMAINDER</td></tr>
+    <tr><td class="n">33</td><td class="m">3524578</td><td class="n">80</td><td class="n">247</td><td class="n">7</td><td>REBIRTH</td></tr>
+    <tr><td class="n">34</td><td class="m">5702887</td><td class="n">57</td><td class="n">126</td><td class="n">6</td><td>PLANCK</td></tr>
+    <tr><td class="n">35</td><td class="m">9227465</td><td class="n">137</td><td class="n">72</td><td class="n">0</td><td>EYE OF HORUS</td></tr>
+    <tr><td class="n">36</td><td class="m">14930352</td><td class="n">194</td><td class="n">215</td><td class="n">11</td><td>TWELVE APOSTLES</td></tr>
+    <tr><td class="n">37</td><td class="m">24157817</td><td class="n">74</td><td class="n">11</td><td class="n">11</td><td>CROSS</td></tr>
+    <tr><td class="n">38</td><td class="m">39088169</td><td class="n">11</td><td class="n">196</td><td class="n">4</td><td>K</td></tr>
+    <tr><td class="n">39</td><td class="m">63245986</td><td class="n">85</td><td class="n">175</td><td class="n">7</td><td>ESCHATON</td></tr>
+    <tr><td class="n">40</td><td class="m">102334155</td><td class="n">96</td><td class="n">241</td><td class="n">1</td><td>BEETHOVEN</td></tr>
+    <tr><td class="n">41</td><td class="m">165580141</td><td class="n">181</td><td class="n">93</td><td class="n">9</td><td>SATOSHI NAKAMOTO</td></tr>
+    <tr><td class="n">42</td><td class="m">267914296</td><td class="n">20</td><td class="n">151</td><td class="n">7</td><td>APC</td></tr>
+    <tr><td class="n">43</td><td class="m">433494437</td><td class="n">201</td><td class="n">101</td><td class="n">5</td><td>SON OF THE LIVING GOD · prime</td></tr>
+    <tr><td class="n">44</td><td class="m">701408733</td><td class="n">221</td><td class="n">226</td><td class="n">10</td><td>INDUSTRIALIZATION</td></tr>
+    <tr><td class="n">45</td><td class="m">1134903170</td><td class="n">165</td><td class="n">252</td><td class="n">0</td><td>TREE OF KNOWLEDGE</td></tr>
+    <tr><td class="n">46</td><td class="m">1836311903</td><td class="n">129</td><td class="n">208</td><td class="n">4</td><td>ROOT OF DAVID</td></tr>
+    <tr><td class="n">47</td><td class="m">2971215073</td><td class="n">37</td><td class="n">219</td><td class="n">3</td><td>HADES · prime</td></tr>
+    <tr><td class="n">48</td><td class="m">4807526976</td><td class="n">166</td><td class="n">63</td><td class="n">3</td><td>TETRAGRAMMATON</td></tr>
+    <tr><td class="n">49</td><td class="m">7778742049</td><td class="n">203</td><td class="n">179</td><td class="n">11</td><td>COLLATZ CONJECTURE</td></tr>
+    <tr><td class="n">50</td><td class="m">12586269025</td><td class="n">112</td><td class="n">21</td><td class="n">9</td><td>IMAGINATION</td></tr>
+    <tr><td class="n">51</td><td class="m">20365011074</td><td class="n">58</td><td class="n">142</td><td class="n">10</td><td>BALDUR</td></tr>
+    <tr><td class="n">52</td><td class="m">32951280099</td><td class="n">170</td><td class="n">223</td><td class="n">7</td><td>the two-word term the rules forbid, register item 19</td></tr>
+    <tr><td class="n">53</td><td class="m">53316291173</td><td class="n">228</td><td class="n">222</td><td class="n">6</td><td>QUANTUM SUPREMACY</td></tr>
+    <tr><td class="n">54</td><td class="m">86267571272</td><td class="n">141</td><td class="n">62</td><td class="n">2</td><td>PURIFICATION</td></tr>
+    <tr><td class="n">55</td><td class="m">139583862445</td><td class="n">112</td><td class="n">21</td><td class="n">9</td><td>IMAGINATION</td></tr>
+    <tr><td class="n">56</td><td class="m">225851433717</td><td class="n">253</td><td class="n">224</td><td class="n">8</td><td>INCOMPLETENESS THEOREM</td></tr>
+    <tr><td class="n">57</td><td class="m">365435296162</td><td class="n">108</td><td class="n">99</td><td class="n">3</td><td>SHAKESPEARE</td></tr>
+    <tr><td class="n">58</td><td class="m">591286729879</td><td class="n">104</td><td class="n">250</td><td class="n">10</td><td>ANTHROPIC</td></tr>
+    <tr><td class="n">59</td><td class="m">956722026041</td><td class="n">212</td><td class="n">185</td><td class="n">5</td><td>PHOTOSYNTHESIS</td></tr>
+    <tr><td class="n">60</td><td class="m">1548008755920</td><td class="n">59</td><td class="n">118</td><td class="n">10</td><td>SHIVA</td></tr>
+  </table></div>
+  <p>What the sixty-one hold as a set. The sum is F(62) − 1 ≡ 72 BITCOIN, the peer key, by the identity Σ F(0…n) = F(n + 2) − 1. The product of the sixty nonzero residues is 127 ORIGINAL SIN = 2⁷ − 1; the eleven prime entries, at n = 3, 4, 5, 7, 11, 13, 17, 23, 29, 43, 47, multiply to 61 and the other forty-nine to 40 DAVID; F(39) ≡ 85 is 127⁻¹ and the ROM's first byte 0x55. Five residues repeat inside the table, 55 HEAVEN at 10 and 17, 89 VIRUS at 11 and 26, 96 BEETHOVEN at 15 and 40, 108 SHAKESPEARE at 24 and 57, 112 IMAGINATION at 50 and 55, the first coincidences of the 516-term Pisano cycle; no zero occurs after F(0), the next being F(129). None of the tunnel multipliers 140, 256, 255 or 87 occurs, and their composite 55 occurs twice. Cassini's identity holds at every n, so F(34) F(36) − F(35)² ≡ −1 is arithmetic, not a landing. The number 61 closes the table three ways: it is the count of entries; it is dlog 47, the residue of the divisor sum; and it is the inverse of the last residue, F(60) ≡ 59, since 59 × 61 = 3599 = 14 × 257 + 1, the twin pair whose midpoint 60 HOLY is a square root of 2, with 197 SEVEN TRUMPETS the other root.</p>
+  <h4>Tape presets</h4>
+  <div class="tbl"><table>
+    <tr><th>Button</th><th>Tape</th><th>Note</th></tr>
+    <tr><td class="m">π</td><td>π, the default</td><td class="w">1001 digits local, extendable.</td></tr>
+    <tr><td class="m">e √2 φ</td><td>300 digits each</td><td class="w">Constants as programs.</td></tr>
+    <tr><td class="m">dlog</td><td>dlog₃(N) mod 10 for N = 0 … 256</td><td class="w">Generated at load; the field's own logarithm as a program.</td></tr>
+    <tr><td class="m">π⁻¹</td><td>π reversed</td><td class="w"></td></tr>
+    <tr><td class="m">7* 0*</td><td>300 sevens, 300 zeros</td><td class="w">All JUMP, all NOP.</td></tr>
+    <tr><td class="m">GEN</td><td class="m">011111142357531111132340</td><td class="w">Label says F0-R1-CF1111-DM1-T4-P2357-C53-E111S161-D234-PM0. The digits parse to S113.</td></tr>
+    <tr><td class="m">S→</td><td class="m">011111142357531111132341</td><td class="w">Same, PM1. Same S113.</td></tr>
+    <tr><td class="m">←S</td><td class="m">118888122357203145143220</td><td class="w">F1-R1-CF8888-DM1-T2-P2357-C203-E145S143-D22-PM0. Digits and label agree.</td></tr>
+  </table></div>
+
+  <h3 id="m-fold">Fold and observe</h3>
+  <pre><code>function fold(N)    { return (257 - N % 257) % 257; }   // negation; fixed point 0
+function observe(N) { return (N + 1) % 257; }            // the unit operator
+// fold(observe(N)) = 256 - N ; fixed point 128 ; (fold∘observe)² = identity</code></pre>
+  <p>OBSERVE prints all four values for a position and, for a CESD seed, the returning seed under fold∘observe with a round-trip check. The gap fold(N) − fold(observe(N)) is always 1, and observe∘fold − fold∘observe is always 2.</p>
+  <p>The <strong>fold operator</strong> is a separate stateful thing on the bridge object. FOLD arms it with seed = the NanO₂ public key if an identity is active, else the PC. It computes the partner 257 − seed, the cure partner KA = 12 × seed, and begins a walk whose polarity is DISC for steps 0–127 and ANTI for 128–255, flashing the FOLD LED at every 128th step, "83¹²⁸ ≡ −1, the fold is the heartbeat." If hardware is connected it sends <code>fold_init</code> and then <code>fold_step</code> on every tick. FOLD again disarms; FOLD STATUS reports the walk.</p>
+</section>
+<nav class="cr-pager" aria-label="Review pages"><a href="wallet.html">← Lead, gold and the wallet</a><span>12 / 28</span><a href="m-commands.html">Terminal commands →</a></nav>
+</main>
+</div>
+<div class="ct-foot"><a href="../../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

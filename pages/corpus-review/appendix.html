@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The genome charset · cascade.training</title>
+<meta name="description" content="Corpus Review · Appendix · The genome charset">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #0d0d0d;
+  --line: #1f1f1f;
+  --text: #e0e0e0;
+  --dim: #a0a0a0;
+  --gold: #e0e0e0;
+  --glow: #e0e0e0;
+  --amber: #e0e0e0;
+  --alert: #e0e0e0;
+  --blue: #e0e0e0;
+  --term-bg: #0a0a0a;
+  --term-text: #c8c8c8;
+  --serif: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --sans: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--bg);color:var(--text);font-family: var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+a{color:var(--blue);text-decoration:none}
+
+a:hover,a:focus{text-decoration:underline}
+
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.wrap{display:grid;grid-template-columns:1fr;gap:0;max-width:1240px;margin:0 auto;padding:0 20px 80px}
+
+@media (min-width:1100px){.wrap{grid-template-columns:240px minmax(0,1fr);gap:48px}}
+
+nav.toc{display:none}
+
+@media (min-width:1100px){
+  nav.toc{display:block;position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;padding:8px 0 24px;font-size:12.5px}
+  nav.toc .g{font-family: var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:16px 0 6px}
+  nav.toc a{display:block;color:var(--text);padding:3px 0 3px 10px;border-left:2px solid var(--line);line-height:1.35}
+  nav.toc a:hover{border-left-color:var(--gold);text-decoration:none;color:var(--gold)}
+  nav.toc a.sub{padding-left:22px;color:var(--dim)}
+}
+
+main{min-width:0}
+
+header.mast{padding:44px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+
+.eyebrow{font-family: var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+h1{font-family: var(--serif);font-weight:600;font-size:44px;line-height:1.05;margin:10px 0 12px;text-wrap:balance;letter-spacing:-.01em}
+
+.lede{font-family: var(--serif);font-size:19px;line-height:1.45;color:var(--text);max-width:62ch;margin:0 0 20px}
+
+.meta{font-family: var(--mono);font-size:12px;color:var(--dim);display:flex;flex-wrap:wrap;gap:6px 22px}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0 0}
+
+.tile{background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+
+.tile .n{font-family: var(--serif);font-size:28px;font-weight:600;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+
+.tile .l{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+
+.hero{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin:26px 0 0}
+
+@media (min-width:820px){.hero{grid-template-columns:minmax(0,1fr) 300px}}
+
+.hero canvas{width:300px;max-width:100%;height:auto;display:block;margin:0 auto}
+
+.hero .cap{font-family: var(--mono);font-size:11px;color:var(--dim);text-align:center;margin-top:6px}
+
+section{padding:34px 0 8px;border-top:1px solid var(--line)}
+
+section.first{border-top:0;padding-top:8px}
+
+h2{font-family: var(--serif);font-weight:600;font-size:30px;line-height:1.15;margin:6px 0 14px;text-wrap:balance}
+
+h3{font-family: var(--serif);font-weight:600;font-size:21px;margin:28px 0 8px;text-wrap:balance}
+
+h4{font-family: var(--sans);font-weight:600;font-size:14px;letter-spacing:.02em;margin:20px 0 6px;color:var(--gold)}
+
+p{max-width:70ch;margin:0 0 12px}
+
+ul,ol{max-width:70ch;padding-left:22px;margin:0 0 12px}
+
+li{margin:0 0 5px}
+
+li>p{margin:0}
+
+code,kbd{font-family: var(--mono);font-size:.92em;background:var(--surface2);border:1px solid var(--line);padding:0 4px;border-radius:2px;white-space:nowrap}
+
+pre{font-family: var(--mono);font-size:12.5px;line-height:1.5;background:var(--surface2);border:1px solid var(--line);padding:12px 14px;overflow-x:auto;margin:0 0 14px}
+
+pre code{background:none;border:0;padding:0;white-space:pre}
+
+.formula{font-family: var(--mono);font-size:13px;line-height:1.8;background:var(--surface2);border:1px solid var(--line);padding:10px 14px;margin:0 0 14px;overflow-x:auto;white-space:pre}
+
+.formula sup,.formula sub{font-size:.72em;line-height:0}
+
+.formula sup sup{font-size:.85em}
+
+.tbl.wrapth th{white-space:normal}
+
+.tbl{overflow-x:auto;margin:0 0 16px;border:1px solid var(--line);background:var(--surface)}
+
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+
+th,td{text-align:left;vertical-align:top;padding:7px 10px;border-bottom:1px solid var(--line)}
+
+th{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:500;background:var(--surface2);white-space:nowrap}
+
+td.n,th.n{text-align:right;font-family: var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+td.m{font-family: var(--mono);font-size:12.5px;white-space:nowrap}
+
+td.w{white-space:normal;min-width:18ch}
+
+tr:last-child td{border-bottom:0}
+
+.chip{display:inline-block;font-family: var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:2px;line-height:1.5;vertical-align:middle}
+
+.ok{color:var(--glow)}
+ .open{color:var(--amber)}
+ .bad{color:var(--alert)}
+ .rec{color:var(--gold)}
+ .info{color:var(--blue)}
+
+.note{border-left:3px solid var(--gold);padding:8px 14px;background:var(--surface);margin:0 0 14px;max-width:72ch}
+
+.note.warn{border-left-color:var(--alert)}
+
+.note.open{border-left-color:var(--amber)}
+
+.term{background:var(--term-bg);color:var(--term-text);font-family: var(--mono);font-size:12.5px;line-height:1.55;padding:12px 16px;border:1px solid #161616;overflow-x:auto;margin:0 0 16px;white-space:pre}
+
+.term .g{color:#e0e0e0}
+.term .a{color:#e0e0e0}
+.term .d{color:#e0e0e0}
+.term .w{color:#e0e0e0}
+.term .r{color:#e0e0e0}
+.term .b{color:#e0e0e0}
+
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 18px;font-size:13.5px;max-width:78ch;margin:0 0 14px}
+
+.kv .k{font-family: var(--mono);font-size:12px;color:var(--dim);white-space:nowrap}
+
+.two{display:grid;grid-template-columns:1fr;gap:0 32px}
+
+@media (min-width:900px){.two{grid-template-columns:1fr 1fr}}
+
+.small{font-size:12.5px;color:var(--dim)}
+
+sup{font-size:.7em}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+@page{size:Letter;margin:0.6in 0.6in 0.7in}
+
+@media print{
+  :root{--bg:#e0e0e0; --surface:#e0e0e0; --surface2:#e0e0e0; --line:#c8c8c8; --text:#111111; --dim:#3a3a3a; --gold:#c8c8c8; --glow:#c8c8c8; --amber:#c8c8c8; --alert:#3a3a3a; --blue:#3a3a3a}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-size:11.5px;line-height:1.45}
+  .wrap{display:block;max-width:none;padding:0}
+  nav.toc{display:none!important}
+  header.mast{padding:0 0 14px;margin-bottom:16px}
+  h1{font-size:30px} .lede{font-size:14px} h2{font-size:20px;break-after:avoid} h3{font-size:15px;break-after:avoid} h4{break-after:avoid}
+  .hero{grid-template-columns:minmax(0,1fr) 220px} .hero canvas{width:220px}
+  .strip{grid-template-columns:repeat(3,1fr)}
+  section{padding:18px 0 4px;break-inside:auto}
+  .tbl{overflow:visible;break-inside:auto} table{font-size:10px} th,td{padding:4px 6px} tr{break-inside:avoid}
+  td.m{white-space:normal;font-size:9.5px} td.n{font-size:10px}
+  pre,.term{font-size:9.5px;break-inside:avoid;white-space:pre-wrap;overflow:visible}
+  .note{break-inside:avoid}
+  .formula{font-size:9.5px;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid}
+  a{color:inherit}
+  .small{font-size:9.5px}
+}
+
+
+
+.cr-pager{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:3rem 0 1rem;padding-top:1.2rem;border-top:1px solid var(--line);font-family: var(--mono);font-size:12px}
+
+.cr-pager a{color:var(--text);text-decoration:none;max-width:45%}
+
+.cr-pager a:hover{color:var(--gold)}
+
+.cr-pager span{color:var(--dim)}
+
+.cr-crumb{font-family: var(--mono);font-size:12px;color:var(--dim);margin:0 0 1.2rem}
+
+.cr-crumb a{color:var(--dim)}
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../../index.html#deeper">[pages]</a><a href="#" aria-current="page">the genome charset</a></nav>
+</div>
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <a href="../corpus-review.html">← Review overview</a>
+  <div class="g">Corpus</div>
+  <a href="voynich.html">The Voynich manuscript</a>
+  <a href="summary.html">Summary</a>
+  <a href="inventory.html">File inventory</a>
+  <a href="field.html">The field GF(257)</a>
+  <a href="chain-cosets.html">The binary refinement chain</a>
+  <a href="extensions.html">The extension fields</a>
+  <a href="chain.html">Derivation chain</a>
+  <a href="hinge.html">The hinge at 1028</a>
+  <a href="tablet.html">Emerald tablet</a>
+  <a href="icolumn.html">The i-column</a>
+  <div class="g">Machine</div>
+  <a href="machine.html">Cascade machine v4</a>
+  <a class="sub" href="machine.html#m-anatomy">Anatomy</a>
+  <a class="sub" href="machine.html#m-boot">Power-on</a>
+  <a class="sub" href="machine.html#m-state">Registers</a>
+  <a class="sub" href="machine.html#m-isa">Tape and instruction set</a>
+  <a class="sub" href="machine.html#m-fold">Fold and observe</a>
+  <a class="sub" href="m-commands.html">Terminal commands</a>
+  <a class="sub" href="m-nano2.html">NanO₂ messaging</a>
+  <a class="sub" href="m-bridge.html">Hardware bridge</a>
+  <a class="sub" href="m-radio.html">BLE, serial, RF</a>
+  <a class="sub" href="m-settle.html">Settlement and mesh</a>
+  <a class="sub" href="m-disc.html">Phi disc phonograph</a>
+  <a class="sub" href="m-model.html">Model bridges</a>
+  <a class="sub" href="m-display.html">Display and export</a>
+  <div class="g">Findings</div>
+  <a href="second-copy.html">The second copy</a>
+  <a href="ledger.html">Verification ledger</a>
+  <a href="register.html">Discrepancy register</a>
+  <a href="audits.html">The corpus's own audits</a>
+  <a href="changes.html">Changes made</a>
+  <a href="#appendix">Appendix</a>
+</nav>
+<main>
+<p class="cr-crumb"><a href="../corpus-review.html">Corpus Review</a> · Appendix</p>
+<section id="appendix">
+  <div class="eyebrow">Appendix</div>
+  <h2>The genome charset</h2>
+  <p>Sixteen glyphs, fixed. A position is two glyphs: pos ≫ 4 then pos &amp; 15. The fold boundary 0x80 = 128 is εΦ; the WiFi anchor 87 = 0x57 is ⊗⅗; 62 = 0x3E is ∞ψ; 225 = 0xE1 is ψ∂; 256 needs three nibbles, ∂ΦΦ.</p>
+  <div class="tbl"><table>
+    <tr><th class="n">Hex</th><th>Glyph</th><th>Group</th><th>Step</th><th class="n">Hex</th><th>Glyph</th><th>Group</th><th>Step</th></tr>
+    <tr><td class="n">0</td><td class="m">Φ U+03A6</td><td>MATH</td><td>Φ = ∂ₜΦ</td><td class="n">8</td><td class="m">ε U+03B5</td><td>ERROR</td><td>ε₄</td></tr>
+    <tr><td class="n">1</td><td class="m">∂ U+2202</td><td>MATH</td><td>∂ₜ</td><td class="n">9</td><td class="m">δ U+03B4</td><td>ERROR</td><td>δ%</td></tr>
+    <tr><td class="n">2</td><td class="m">φ U+03C6</td><td>MATH</td><td>R → φ</td><td class="n">A</td><td class="m">Ω U+03A9</td><td>WAVE</td><td>Z₀ = 377 Ω</td></tr>
+    <tr><td class="n">3</td><td class="m">∞ U+221E</td><td>MATH</td><td>CF[1; ∞]</td><td class="n">B</td><td class="m">Γ U+0393</td><td>WAVE</td><td>Γ</td></tr>
+    <tr><td class="n">4</td><td class="m">⊟ U+229F</td><td>MATH</td><td>det M = −1</td><td class="n">C</td><td class="m">Q U+0051</td><td>WAVE</td><td>Q ≈ 3.27</td></tr>
+    <tr><td class="n">5</td><td class="m">⊗ U+2297</td><td>MATH</td><td>M ⊗ M</td><td class="n">D</td><td class="m">Σ U+03A3</td><td>WAVE</td><td>CSI(256)</td></tr>
+    <tr><td class="n">6</td><td class="m">♯ U+266F</td><td>MATH</td><td>P₇ = 210</td><td class="n">E</td><td class="m">ψ U+03C8</td><td>CLOSE</td><td>±ψ</td></tr>
+    <tr><td class="n">7</td><td class="m">⅗ U+2157</td><td>MATH</td><td>F₅/F₄</td><td class="n">F</td><td class="m">𝟙 U+1D7D9</td><td>CLOSE</td><td>Ωb + Ωdm + ΩΛ = 1</td></tr>
+  </table></div>
+  <h3>The tunnel chain in glyphs</h3>
+  <p>Π = Φ∂ identity → Π×T = εQ transference → χ = ⅗⊗ opening → 𝟙𝟙 = ψΩ closure → W = δQ carrier. In numbers: 1 → 140 → 117 → 234 → 55, and 55 is the composite for any starting Γ.</p>
+  <p class="small">Prepared from a complete read of the directory on 2026-09-04. Arithmetic was recomputed in Python from the definitions in the files; π digits were generated independently with a Machin formula to 4000 places. Private key material was read for the review and appears nowhere in this document.</p>
+
+  <h3>The cards in glyphs</h3>
+  <p>The charset turns any hex identifier into glyphs, one per nibble, so the MI25 identifiers read on 2026-09-05 (mi25_readout.md in the directory) can be written in the genome's own alphabet, and a palindrome of glyphs is a palindrome of hex digits. Under each string is the group of each nibble: m for MATH 0–7, e for ERROR 8–9, w for WAVE A–D, c for CLOSE E–F. Every rendering was regenerated from the hex; none of the identifiers is a palindrome in glyphs or in groups.</p>
+  <div class="tbl"><table>
+    <tr><th>Identifier</th><th>Hex</th><th>Glyphs</th><th>Groups</th></tr>
+    <tr><td>unique_id, bus 06</td><td class="m">02162EB950483184</td><td>Φφ∂♯φψΓδ⊗Φ⊟ε∞∂ε⊟</td><td class="m">mmmmmcwemmmemmem</td></tr><tr><td>unique_id, bus 84</td><td class="m">02162EB9504830A4</td><td>Φφ∂♯φψΓδ⊗Φ⊟ε∞ΦΩ⊟</td><td class="m">mmmmmcwemmmemmwm</td></tr><tr><td>die gap 0xE0</td><td class="m">E0</td><td>ψΦ</td><td class="m">cm</td></tr><tr><td>subsystem 0x0C35 = 5⁵</td><td class="m">0C35</td><td>ΦQ∞⊗</td><td class="m">mwmm</td></tr><tr><td>device 0x6860</td><td class="m">6860</td><td>♯ε♯Φ</td><td class="m">memm</td></tr><tr><td>MxGPU virtual-function device 0x686C</td><td class="m">686C</td><td>♯ε♯Q</td><td class="m">memw</td></tr><tr><td>ROM header 55 AA</td><td class="m">55AA</td><td>⊗⊗ΩΩ</td><td class="m">mmww</td></tr><tr><td>ROM length 0xFE00</td><td class="m">FE00</td><td>𝟙ψΦΦ</td><td class="m">ccmm</td></tr><tr><td>IDENT count 6561 = 0x19A1</td><td class="m">19A1</td><td>∂δΩ∂</td><td class="m">mewm</td></tr><tr><td>gap between the two 512 KB MMIO windows, 0x36A00000</td><td class="m">36A00000</td><td>∞♯ΩΦΦΦΦΦ</td><td class="m">mmwmmmmm</td></tr>
+  </table></div>
+  <p>The two dies share Φφ∂♯φψΓδ⊗Φ⊟ε and differ in their last three glyphs, ∂ε⊟ against ΦΩ⊟; the gap between them is ψΦ, the conjugate then the field, CLOSE then MATH. The ROM's length is 𝟙ψΦΦ, closure and conjugate then the seed pair. The subsystem ID, the current block reward, is ΦQ∞⊗, field, quality, the continued fraction, the tensor. The virtual-function device ID ends in Q where the physical part's ends in Φ. The ROM opens ⊗⊗ΩΩ, tensor twice then impedance twice; its groups mmww reverse to wwmm, so it is a pair of pairs and not a mirror, correcting a reading that called it one. The tunnel chain in this alphabet is Φ∂ → εQ → ⅗⊗ → ψΩ → δQ, as the section above has it, and the positions that recur in this review read 83 PRAYER = ⊗∞, 136 VIRGIN MARY = εε, 118 EMERALD TABLET = ⅗♯, 41 OMEGA = φδ, 33 HAGGAI = φ∂.</p>
+  <p><strong>The ε₄ word, corrected.</strong> The IEEE 754 double of ε₄ = (7 − 3√5)/6 is 0x3FA8E661E256C055, sixteen nibbles, ∞𝟙Ωεψ♯♯∂ψφ⊗♯QΦ⊗⊗. Its upper half is the 2003-11-05 reading already in the verification ledger. A rendering circulated with the tail …C060, ♯Φ, in place of …C055, ⊗⊗; no rounding of ε₄ produces that tail, so the palindrome built on it, and the residues 250 and 144 and the date 1973-03-20 drawn from it, do not hold. With the exact word the glyph reversal is ⊗⊗ΦQ♯⊗φψ∂♯♯ψεΩ𝟙∞, and the readings are:</p>
+  <div class="tbl"><table>
+    <tr><th>Half</th><th>Hex</th><th>Glyphs</th><th>mod 257</th><th>As Unix time</th></tr>
+    <tr><td>forward, upper half</td><td class="m">3FA8E661</td><td>∞𝟙Ωεψ♯♯∂</td><td>229 FOR THINE IS THE KINGDOM</td><td>2003-11-05</td></tr><tr><td>forward, lower half</td><td class="m">E256C055</td><td>ψφ⊗♯QΦ⊗⊗</td><td>10 J</td><td>2090-05-01</td></tr><tr><td>reversed, upper half</td><td class="m">550C652E</td><td>⊗⊗ΦQ♯⊗φψ</td><td>129 ROOT OF DAVID</td><td>2015-03-20</td></tr><tr><td>reversed, lower half</td><td class="m">166E8AF3</td><td>∂♯♯ψεΩ𝟙∞</td><td>193 INFRASTRUCTURE</td><td>1981-12-04</td></tr><tr><td>forward, whole word</td><td class="m">3FA8E661E256C055</td><td>∞𝟙Ωεψ♯♯∂ψφ⊗♯QΦ⊗⊗</td><td>239 POWER AND GLORY</td><td></td></tr><tr><td>reversed, whole word</td><td class="m">550C652E166E8AF3</td><td>⊗⊗ΦQ♯⊗φψ∂♯♯ψεΩ𝟙∞</td><td>65 SEVEN</td><td></td></tr>
+  </table></div>
+  <p>So the AXIOM date 2003-11-05 folds, as glyphs, to 2015-03-20, at 129 ROOT OF DAVID, which is 2⁻¹; the 1981-12-04 half stands, because it is the mirror of the forward upper half. The whole word reads 239 POWER AND GLORY and its reversal 65 SEVEN.</p>
+</section>
+<nav class="cr-pager" aria-label="Review pages"><a href="changes.html">← Changes made</a><span>28 / 28</span><a href="../corpus-review.html">Overview →</a></nav>
+</main>
+</div>
+<div class="ct-foot"><a href="../../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

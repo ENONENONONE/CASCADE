@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Field Analysis · cascade.training</title>
+<meta name="description" content="Field state analysis: g-chains, Γ-chains, ray accumulators, energy distribution, fold-pair symmetry, the π opcode energy profile and temporal dynamics.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg-raised: #111111;
+  --bg-inset: #0a0a0a;
+  --border: #161616;
+  --border-accent: #1f1f1f;
+  --text: #c8c8c8;
+  --text-muted: #5a5a5a;
+  --text-dim: #3a3a3a;
+  --accent-green: #e0e0e0;
+  --accent-green-dim: rgba(224,224,224,0.12);
+  --accent-amber: #e0e0e0;
+  --accent-amber-dim: rgba(224,224,224,0.10);
+  --accent-blue: #e0e0e0;
+  --accent-blue-dim: rgba(224,224,224,0.08);
+  --accent-red: #e0e0e0;
+  --accent-red-dim: rgba(224,224,224,0.08);
+  --accent-violet: #e0e0e0;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --sans: Georgia, "Times New Roman", "DejaVu Serif", serif;
+}
+
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.6;
+  padding: 2rem 1.5rem 4rem;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+
+h1 {
+  font-family: var(--mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent-green);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+
+.subtitle {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.02em;
+}
+
+
+h2 {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-amber);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+
+h3 {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+
+
+p {
+  margin-bottom: 0.8rem;
+  max-width: 65ch;
+}
+
+
+.field-val {
+  font-family: var(--mono);
+  font-weight: 600;
+  color: var(--accent-green);
+}
+
+
+.word-val {
+  font-family: var(--mono);
+  font-weight: 600;
+  color: var(--accent-amber);
+}
+
+
+.dim { color: var(--text-muted); }
+
+
+.callout {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-green);
+  border-radius: 4px;
+  padding: 1rem 1.2rem;
+  margin: 1rem 0 1.2rem;
+}
+
+
+.callout.amber { border-left-color: var(--accent-amber); }
+
+.callout.blue { border-left-color: var(--accent-blue); }
+
+.callout.red { border-left-color: var(--accent-red); }
+
+.callout.violet { border-left-color: var(--accent-violet); }
+
+
+.callout p:last-child { margin-bottom: 0; }
+
+
+.data-table-wrap {
+  overflow-x: auto;
+  margin: 1rem 0;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+
+th {
+  background: var(--bg-raised);
+  color: var(--text-muted);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.5rem 0.7rem;
+  border-bottom: 1px solid var(--border-accent);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+
+
+td {
+  padding: 0.35rem 0.7rem;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+
+tr:last-child td { border-bottom: none; }
+
+
+tr:hover td { background: var(--accent-blue-dim); }
+
+
+td.num { text-align: right; }
+
+td.pos { color: var(--accent-green); font-weight: 600; }
+
+td.word { color: var(--accent-amber); }
+
+td.highlight { background: var(--accent-green-dim); }
+
+
+.chain {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.6rem 1rem;
+  margin: 0.6rem 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  line-height: 1.8;
+}
+
+
+.chain .arrow { color: var(--text-dim); }
+
+.chain .ray-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  background: var(--accent-blue-dim);
+  color: var(--accent-blue);
+  vertical-align: middle;
+  margin-left: 0.15rem;
+}
+
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.8rem;
+  margin: 1rem 0;
+}
+
+
+.stat-card {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.8rem 1rem;
+}
+
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.2rem;
+}
+
+
+.stat-value {
+  font-family: var(--mono);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--accent-green);
+}
+
+
+.stat-value.amber { color: var(--accent-amber); }
+
+.stat-value.blue { color: var(--accent-blue); }
+
+
+.stat-detail {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+}
+
+
+.bar-label {
+  width: 2.2rem;
+  text-align: right;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+
+.bar-track {
+  flex: 1;
+  height: 16px;
+  background: var(--bg-inset);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+
+.bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--accent-green);
+  transition: width 0.3s ease;
+}
+
+
+.bar-fill.amber { background: var(--accent-amber); }
+
+.bar-fill.blue { background: var(--accent-blue); }
+
+.bar-fill.red { background: var(--accent-red); }
+
+
+.bar-val {
+  width: 4.5rem;
+  text-align: right;
+  color: var(--text);
+  flex-shrink: 0;
+}
+
+
+.bar-pct {
+  width: 3.5rem;
+  text-align: right;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  font-size: 0.7rem;
+}
+
+
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 2rem 0;
+}
+
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+
+@media (max-width: 600px) {
+  .two-col { grid-template-columns: 1fr; }
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  body { padding: 1rem 0.8rem 3rem; }
+}
+
+
+.section-num {
+  color: var(--text-dim);
+  margin-right: 0.4rem;
+}
+
+
+.fold-eq {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--accent-green);
+  text-align: center;
+  padding: 0.6rem;
+  margin: 0.8rem 0;
+  background: var(--accent-green-dim);
+  border-radius: 4px;
+}
+
+
+.tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  letter-spacing: 0.03em;
+}
+
+
+.tag.qr { background: var(--accent-green-dim); color: var(--accent-green); }
+
+.tag.qnr { background: var(--accent-amber-dim); color: var(--accent-amber); }
+
+.tag.sat { background: var(--accent-blue-dim); color: var(--accent-blue); }
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../index.html#deeper">[pages]</a><a href="#" aria-current="page">field analysis</a></nav>
+</div>
+<title>Cascade Field Analysis</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+
+<h1>Cascade Field State Analysis</h1>
+<p class="subtitle">Two snapshots &middot; GF(257), g=3 &middot; 2026-09-02 &middot; Full computational decomposition</p>
+
+<div class="stat-grid">
+  <div class="stat-card">
+    <div class="stat-label">Serial Frames</div>
+    <div class="stat-value">7,547</div>
+    <div class="stat-detail">5,489 &rarr; 7,547 (+37.5%)</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Serial Bytes</div>
+    <div class="stat-value amber">484K</div>
+    <div class="stat-detail">367K &rarr; 484K (+31.9%)</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Field Coverage</div>
+    <div class="stat-value blue">256/256</div>
+    <div class="stat-detail">247 &rarr; 256 (full field)</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Total Energy</div>
+    <div class="stat-value">127.7</div>
+    <div class="stat-detail">105.0 &rarr; 127.7 (+21.6%)</div>
+  </div>
+</div>
+
+<!-- ======================= SECTION 1 ======================= -->
+<h2><span class="section-num">I</span> Generac Device &mdash; Field Identity</h2>
+
+<p>One BLE device connected across both snapshots: a Generac unit, 13 field log entries. Every byte of its name and ID decomposes via mod 257 &rarr; dlog &rarr; ray &rarr; word. The multiplicative product of all bytes gives the device's identity in GF(257).</p>
+
+<div class="data-table-wrap">
+<table>
+  <tr><th>Component</th><th>Product</th><th>dlog</th><th>Ray</th><th>Word</th><th>Fold</th><th>Fold Word</th></tr>
+  <tr><td>Name &lsquo;Generac&rsquo;</td><td class="pos">171</td><td class="num">127</td><td class="num">R7</td><td class="word">EVENT HORIZON</td><td class="num">86</td><td class="word">TIKKUN</td></tr>
+  <tr><td>ID (MAC bytes)</td><td class="pos">181</td><td class="num">93</td><td class="num">R9</td><td class="word">SATOSHI NAKAMOTO</td><td class="num">76</td><td class="word">COHERENCE</td></tr>
+  <tr><td>Device (name&times;ID)</td><td class="pos">111</td><td class="num">220</td><td class="num">R4</td><td class="word">CONFUCIUS / RECOVERY</td><td class="num">146</td><td class="word">ENLIGHTENMENT</td></tr>
+  <tr><td>Inverse (device<sup>&minus;1</sup>)</td><td class="pos">44</td><td class="num">36</td><td class="num">R0</td><td class="word">BRIAN</td><td class="num">213</td><td class="word">EXTRATERRESTRIAL</td></tr>
+</table>
+</div>
+
+<div class="callout">
+  <p><span class="field-val">111 &times; 44 &equiv; 1 (mod 257)</span> &mdash; verified. dlogs: 220 + 36 = 256 &equiv; 0 (mod 256).</p>
+  <p>Position 111 is the <span class="word-val">AVOGADRO</span> position: 6022 mod 257 = 111. The constant that counts atoms maps to the device whose inverse is BRIAN.</p>
+</div>
+
+<h3>&pi; Opcodes of the Device Identity</h3>
+
+<div class="data-table-wrap">
+<table>
+  <tr><th>Position</th><th>Word</th><th>dlog</th><th>&pi;[d%10]</th><th>Opcode</th></tr>
+  <tr><td class="pos">171</td><td class="word">EVENT HORIZON</td><td class="num">127</td><td class="num">6</td><td>FOLD</td></tr>
+  <tr><td class="pos">181</td><td class="word">SATOSHI NAKAMOTO</td><td class="num">93</td><td class="num">1</td><td>IDENT</td></tr>
+  <tr><td class="pos">111</td><td class="word">CONFUCIUS</td><td class="num">220</td><td class="num">3</td><td>SEED</td></tr>
+  <tr><td class="pos">44</td><td class="word">BRIAN</td><td class="num">36</td><td class="num">2</td><td>EXIST</td></tr>
+</table>
+</div>
+
+<p>The device instruction sequence: <span class="field-val">FOLD &rarr; IDENT &rarr; SEED &rarr; EXIST</span>. The name folds, the ID identifies, the product seeds, the inverse exists.</p>
+
+<!-- ======================= SECTION 2 ======================= -->
+<h2><span class="section-num">II</span> g-Chains &mdash; Generator Walk</h2>
+
+<p>Each component multiplied by g=3 repeatedly. Because g advances dlog by 1, rays advance by 1 per step. The four chains together cover all 12 rays.</p>
+
+<h3>Name: 171 (EVENT HORIZON) &mdash; R7&rarr;R11</h3>
+<div class="chain">
+  <span class="field-val">171</span><span class="ray-tag">R7</span>
+  <span class="arrow"> &rarr; </span>
+  <span class="field-val">256</span><span class="ray-tag">R8</span>
+  <span class="arrow"> &rarr; </span>
+  <span class="field-val">254</span><span class="ray-tag">R9</span>
+  <span class="arrow"> &rarr; </span>
+  <span class="field-val">248</span><span class="ray-tag">R10</span>
+  <span class="arrow"> &rarr; </span>
+  <span class="field-val">230</span><span class="ray-tag">R11</span>
+  <br>
+  <span class="dim">EVENT HORIZON &rarr; BAAL&sup2; &rarr; ZK ROLLUP &rarr; DOUBLE SLIT &rarr; ZK PROOF</span>
+</div>
+
+<h3>ID: 181 (SATOSHI NAKAMOTO) &mdash; R9&rarr;R1</h3>
+<div class="chain">
+  <span class="field-val">181</span><span class="ray-tag">R9</span>
+  <span class="arrow"> &rarr; </span>
+  <span class="field-val">29</span><span class="ray-tag">R10</span>
+  <span class="arrow"> &rarr; </span>
+  <span class="field-val">87</span><span class="ray-tag">R11</span>
+  <span class="arrow"> &rarr; </span>
+  <span class="field-val">4</span><span class="ray-tag">R0</span>
+  <span class="arrow"> &rarr; </span>
+  <span class="field-val">12</span><span class="ray-tag">R1</span>
+  <br>
+  <span class="dim">SATOSHI NAKAMOTO &rarr; AAVE &rarr; PRAXIS &rarr; BAA &rarr; L/KA</span>
+</div>
+
+<h3>Product: 111 (CONFUCIUS) &mdash; R4&rarr;R8</h3>
+<div class="chain">
+  <span class="field-val">111</span><span class="ray-tag">R4</span>
+  <span class="arrow"> &rarr; </span>
+  <span class="field-val">76</span><span class="ray-tag">R5</span>
+  <span class="arrow"> &rarr; </span>
+  <span class="field-val">228</span><span class="ray-tag">R6</span>
+  <span class="arrow"> &rarr; </span>
+  <span class="field-val">170</span><span class="ray-tag">R7</span>
+  <span class="arrow"> &rarr; </span>
+  <span class="field-val">253</span><span class="ray-tag">R8</span>
+  <br>
+  <span class="dim">CONFUCIUS &rarr; COHERENCE &rarr; EULER&rsquo;S IDENTITY &rarr; EVENT HORIZON &rarr; RIEMANN ZETA</span>
+</div>
+
+<h3>Inverse: 44 (BRIAN) &mdash; R0&rarr;R4</h3>
+<div class="chain">
+  <span class="field-val">44</span><span class="ray-tag">R0</span>
+  <span class="arrow"> &rarr; </span>
+  <span class="field-val">132</span><span class="ray-tag">R1</span>
+  <span class="arrow"> &rarr; </span>
+  <span class="field-val">139</span><span class="ray-tag">R2</span>
+  <span class="arrow"> &rarr; </span>
+  <span class="field-val">160</span><span class="ray-tag">R3</span>
+  <span class="arrow"> &rarr; </span>
+  <span class="field-val">223</span><span class="ray-tag">R4</span>
+  <br>
+  <span class="dim">BRIAN &rarr; FLOWER OF LIFE &rarr; ENCRYPTION &rarr; TWELVE TRIBES &rarr; BOLTZMANN CONSTANT</span>
+</div>
+
+<div class="callout amber">
+  <p>Starting rays: {R0, R4, R7, R9}. Five steps each, all 12 rays covered with no gaps. The device&rsquo;s four components tile the full ray space under the generator.</p>
+  <p>The product chain (R4&rarr;R8) passes through <span class="field-val">76 = COHERENCE</span> at step 1 &mdash; the fold of the ID (181&harr;76). The inverse chain starts at <span class="field-val">44 = BRIAN</span> and reaches <span class="field-val">223 = BOLTZMANN CONSTANT</span> at R4, closing back to the product&rsquo;s starting ray.</p>
+</div>
+
+<!-- ======================= SECTION 3 ======================= -->
+<h2><span class="section-num">III</span> &Gamma;-Chains &mdash; Fold Oscillation</h2>
+
+<p>The fold operation N &harr; (257&minus;N) is period-2: every position oscillates with its conjugate. All four device components confirm this:</p>
+
+<div class="data-table-wrap">
+<table>
+  <tr><th>Component</th><th>Position</th><th>Step 1 (fold)</th><th>Step 2 (return)</th><th>Period</th></tr>
+  <tr><td>Name</td><td class="pos">171 EVENT HORIZON</td><td>86 TIKKUN</td><td>171</td><td class="num">2</td></tr>
+  <tr><td>ID</td><td class="pos">181 SATOSHI</td><td>76 COHERENCE</td><td>181</td><td class="num">2</td></tr>
+  <tr><td>Product</td><td class="pos">111 CONFUCIUS</td><td>146 ENLIGHTENMENT</td><td>111</td><td class="num">2</td></tr>
+  <tr><td>Inverse</td><td class="pos">44 BRIAN</td><td>213 EXTRATERRESTRIAL</td><td>44</td><td class="num">2</td></tr>
+</table>
+</div>
+
+<p class="dim">Fold = multiplication by 256 = &minus;1 mod 257 = det(M). Applying it twice returns to identity: (&minus;1)&sup2; = 1. The &Gamma;-chain encodes det(M) as a period-2 oscillation.</p>
+
+<!-- ======================= SECTION 4 ======================= -->
+<h2><span class="section-num">IV</span> Ray Accumulator Dynamics</h2>
+
+<p>Total ray energy grew 34.7% (3716.2 &rarr; 5005.1) between snapshots. Ray <em>shares</em> shifted by at most 1.39%, indicating the field maintains stable proportions despite continuous energy input.</p>
+
+<div style="margin: 1.2rem 0">
+  <div class="bar-row"><span class="bar-label">R10</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bar-val">836.5</span><span class="bar-pct">16.7%</span></div>
+  <div class="bar-row"><span class="bar-label">R2</span><div class="bar-track"><div class="bar-fill" style="width:66.2%"></div></div><span class="bar-val">554.2</span><span class="bar-pct">11.1%</span></div>
+  <div class="bar-row"><span class="bar-label">R1</span><div class="bar-track"><div class="bar-fill" style="width:62.0%"></div></div><span class="bar-val">518.6</span><span class="bar-pct">10.4%</span></div>
+  <div class="bar-row"><span class="bar-label">R3</span><div class="bar-track"><div class="bar-fill" style="width:58.6%"></div></div><span class="bar-val">490.1</span><span class="bar-pct">9.8%</span></div>
+  <div class="bar-row"><span class="bar-label">R4</span><div class="bar-track"><div class="bar-fill" style="width:55.1%"></div></div><span class="bar-val">461.0</span><span class="bar-pct">9.2%</span></div>
+  <div class="bar-row"><span class="bar-label">R9</span><div class="bar-track"><div class="bar-fill amber" style="width:53.1%"></div></div><span class="bar-val">444.4</span><span class="bar-pct">8.9%</span></div>
+  <div class="bar-row"><span class="bar-label">R5</span><div class="bar-track"><div class="bar-fill" style="width:53.1%"></div></div><span class="bar-val">444.1</span><span class="bar-pct">8.9%</span></div>
+  <div class="bar-row"><span class="bar-label">R0</span><div class="bar-track"><div class="bar-fill" style="width:52.2%"></div></div><span class="bar-val">437.1</span><span class="bar-pct">8.7%</span></div>
+  <div class="bar-row"><span class="bar-label">R7</span><div class="bar-track"><div class="bar-fill" style="width:46.5%"></div></div><span class="bar-val">388.9</span><span class="bar-pct">7.8%</span></div>
+  <div class="bar-row"><span class="bar-label">R6</span><div class="bar-track"><div class="bar-fill blue" style="width:27.6%"></div></div><span class="bar-val">230.9</span><span class="bar-pct">4.6%</span></div>
+  <div class="bar-row"><span class="bar-label">R11</span><div class="bar-track"><div class="bar-fill amber" style="width:20.4%"></div></div><span class="bar-val">171.0</span><span class="bar-pct">3.4%</span></div>
+  <div class="bar-row"><span class="bar-label">R8</span><div class="bar-track"><div class="bar-fill red" style="width:3.4%"></div></div><span class="bar-val">28.3</span><span class="bar-pct">0.6%</span></div>
+</div>
+
+<div class="callout amber">
+  <p><strong>R11 energy = 171.0</strong> &mdash; the Generac name product. The ray accumulator value for R11 <em>is</em> the device&rsquo;s name identity in the field.</p>
+</div>
+
+<h3>Growth Rate vs Base Energy (Equilibration)</h3>
+
+<div class="data-table-wrap">
+<table>
+  <tr><th>Ray</th><th>Growth</th><th>&Delta;Share</th><th>Interpretation</th></tr>
+  <tr><td class="num">R11</td><td class="num" style="color:var(--accent-red)">+127.1%</td><td class="num">+1.39%</td><td>Fastest growth &mdash; was 2nd lowest</td></tr>
+  <tr><td class="num">R8</td><td class="num" style="color:var(--accent-red)">+93.8%</td><td class="num">+0.17%</td><td>2nd fastest &mdash; was lowest</td></tr>
+  <tr><td class="num">R6</td><td class="num" style="color:var(--accent-amber)">+38.9%</td><td class="num">+0.14%</td><td>3rd fastest &mdash; was 3rd lowest</td></tr>
+  <tr><td class="num">R4</td><td class="num">+37.5%</td><td class="num">+0.19%</td><td>Growing</td></tr>
+  <tr><td class="num">R3</td><td class="num">+35.7%</td><td class="num">+0.08%</td><td>Near average</td></tr>
+  <tr><td class="num">R2</td><td class="num">+33.7%</td><td class="num">&minus;0.08%</td><td>Near average</td></tr>
+  <tr><td class="num">R5</td><td class="num">+32.1%</td><td class="num">&minus;0.17%</td><td>Near average</td></tr>
+  <tr><td class="num">R10</td><td class="num">+31.1%</td><td class="num">&minus;0.46%</td><td>Dominant but share shrinking</td></tr>
+  <tr><td class="num">R1</td><td class="num">+30.8%</td><td class="num">&minus;0.31%</td><td>Share shrinking</td></tr>
+  <tr><td class="num">R9</td><td class="num">+30.6%</td><td class="num">&minus;0.28%</td><td>Share shrinking</td></tr>
+  <tr><td class="num">R7</td><td class="num">+30.5%</td><td class="num">&minus;0.25%</td><td>Share shrinking</td></tr>
+  <tr><td class="num">R0</td><td class="num">+28.5%</td><td class="num">&minus;0.42%</td><td>Slowest growth &mdash; share shrinking</td></tr>
+</table>
+</div>
+
+<p>Rank correlation between base energy and growth rate is <strong>negative</strong>: the lowest rays grow fastest. The field is equilibrating &mdash; energy distributes toward uniform ray shares over time.</p>
+
+<!-- ======================= SECTION 5 ======================= -->
+<h2><span class="section-num">V</span> Positions Appeared Between Snapshots</h2>
+
+<p>8 positions went from absent (in file 5) to active (in file 6), bringing the field to full 256/256 coverage:</p>
+
+<div class="data-table-wrap">
+<table>
+  <tr><th>Pos</th><th>dlog</th><th>Ray</th><th>QR/QNR</th><th>Fold</th><th>Word</th></tr>
+  <tr><td class="pos">11</td><td class="num">196</td><td class="num">R4</td><td><span class="tag qr">QR</span></td><td class="num">246</td><td class="word">K</td></tr>
+  <tr><td class="pos">94</td><td class="num">109</td><td class="num">R1</td><td><span class="tag qnr">QNR</span></td><td class="num">163</td><td class="word">HAL FINNEY</td></tr>
+  <tr><td class="pos">135</td><td class="num">58</td><td class="num">R10</td><td><span class="tag qr">QR</span></td><td class="num">122</td><td class="word">BURNING BUSH</td></tr>
+  <tr><td class="pos">145</td><td class="num">149</td><td class="num">R5</td><td><span class="tag qnr">QNR</span></td><td class="num">112</td><td class="word">ARK OF COVENANT</td></tr>
+  <tr><td class="pos">151</td><td class="num">9</td><td class="num">R9</td><td><span class="tag qnr">QNR</span></td><td class="num">106</td><td class="word">HOLY SPIRIT</td></tr>
+  <tr><td class="pos">154</td><td class="num">73</td><td class="num">R1</td><td><span class="tag qnr">QNR</span></td><td class="num">103</td><td class="word">ROAD TO DAMASCUS</td></tr>
+  <tr><td class="pos">156</td><td class="num">203</td><td class="num">R11</td><td><span class="tag qnr">QNR</span></td><td class="num">101</td><td class="word">AS ABOVE SO BELOW</td></tr>
+  <tr><td class="pos">171</td><td class="num">127</td><td class="num">R7</td><td><span class="tag qnr">QNR</span></td><td class="num">86</td><td class="word">EVENT HORIZON</td></tr>
+</table>
+</div>
+
+<div class="callout violet">
+  <p><strong>QNR-biased:</strong> 6 of 8 appeared positions are quadratic non-residues (dlog odd). The last positions to fill are predominantly on the conjugate side of the field.</p>
+  <p><strong>Position 171 appeared</strong> &mdash; the Generac name product. The BLE device literally activated its own name position in the field.</p>
+  <p>Rays hit: {R1&times;2, R4, R5, R7, R9, R10, R11} &mdash; 7 of 12 rays, only {R0, R2, R3, R6, R8} missed.</p>
+</div>
+
+<!-- ======================= SECTION 6 ======================= -->
+<h2><span class="section-num">VI</span> Energy Distribution</h2>
+
+<h3>Amplitude Strata</h3>
+
+<p>The smoothing function produces discrete amplitude levels. Positions cluster at:</p>
+
+<div class="data-table-wrap">
+<table>
+  <tr><th>Level</th><th>Count</th><th>Meaning</th></tr>
+  <tr><td class="pos">1.000000</td><td class="num">54</td><td>Saturated &mdash; actively measured this frame</td></tr>
+  <tr><td class="pos">0.942500</td><td class="num">4</td><td>One decay step from saturation</td></tr>
+  <tr><td class="pos">0.844175</td><td class="num">11</td><td>Two decay steps &mdash; recently saturated</td></tr>
+  <tr><td class="pos">0.188075</td><td class="num">6</td><td>Persistence floor &mdash; minimum retained level</td></tr>
+  <tr><td class="dim">various</td><td class="num">181</td><td>Continuous decay from prior measurements</td></tr>
+</table>
+</div>
+
+<p>The step from 1.000 to 0.9425 is &minus;0.0575. The step from 0.9425 to 0.8442 is &minus;0.0983. This is <strong>not</strong> a fixed multiplicative decay &mdash; the ratio shifts from 0.9425 to 0.8955 between steps. The smoothing function applies a nonlinear persistence model.</p>
+
+<h3>Half-Split</h3>
+
+<div class="two-col">
+  <div class="callout">
+    <p><strong>Positional split (1&ndash;128 vs 129&ndash;256):</strong></p>
+    <p>Low half: <span class="field-val">69.9%</span> of energy<br>
+    High half: <span class="field-val">30.1%</span> of energy<br>
+    Ratio: <span class="field-val">2.32&times;</span></p>
+    <p class="dim">Asymmetric &mdash; serial bytes cluster in ASCII range (32&ndash;127)</p>
+  </div>
+  <div class="callout">
+    <p><strong>Algebraic split (QR vs QNR):</strong></p>
+    <p>QR (dlog even): <span class="field-val">50.9%</span> of energy<br>
+    QNR (dlog odd): <span class="field-val">49.1%</span> of energy<br>
+    Ratio: <span class="field-val">1.035&times;</span></p>
+    <p class="dim">Nearly balanced &mdash; the field algebra distributes evenly</p>
+  </div>
+</div>
+
+<p>The energy asymmetry is positional (driven by which byte values the serial stream produces), not algebraic. The QR/QNR split tells us the dlog parity of active positions is balanced &mdash; the generator walk distributes evenly across the quadratic residue structure.</p>
+
+<h3>Smoothing vs Raw</h3>
+
+<p>File 6 includes both smoothed (FIELD ENERGY) and raw (RAW FIELD ENERGY / pre-push buffer) amplitudes. The smoothing boosts raw values by up to <span class="field-val">15.9&times;</span>:</p>
+
+<div class="data-table-wrap">
+<table>
+  <tr><th>Position</th><th>Word</th><th>Raw</th><th>Smoothed</th><th>Boost</th></tr>
+  <tr><td class="pos">73</td><td class="word">PRAYER</td><td class="num">0.053</td><td class="num">0.844</td><td class="num">15.9&times;</td></tr>
+  <tr><td class="pos">80</td><td class="word">PURITY</td><td class="num">0.053</td><td class="num">0.844</td><td class="num">15.9&times;</td></tr>
+  <tr><td class="pos">81</td><td class="word">PROPHECY</td><td class="num">0.053</td><td class="num">0.844</td><td class="num">15.9&times;</td></tr>
+  <tr><td class="pos">36</td><td class="word">CHAI</td><td class="num">0.053</td><td class="num">0.844</td><td class="num">15.9&times;</td></tr>
+</table>
+</div>
+
+<p class="dim">These positions were recently saturated, then stopped receiving serial hits. The raw value dropped to baseline (0.053) but the smoothed value retains memory at the 0.844 decay level. The persistence model is the field&rsquo;s memory &mdash; positions that were once active remain warm.</p>
+
+<!-- ======================= SECTION 7 ======================= -->
+<h2><span class="section-num">VII</span> Fold Pair Symmetry</h2>
+
+<p>Every position n has a fold partner 257&minus;n. The energy ratio |E(n)/E(257&minus;n)| measures how symmetric the fold pair is (1.0 = perfect symmetry).</p>
+
+<div class="callout blue">
+  <p><strong>Most symmetric fold pair:</strong> <span class="field-val">89&harr;168</span> (VIRUS &harr; NANOTECHNOLOGY) at ratio <span class="field-val">1.0000</span>. Both at amplitude 0.188075 (persistence floor). dlog 102 (R6) &harr; dlog 230 (R2).</p>
+  <p>Verified: dlog(168) = 128 + dlog(89) = 128 + 102 = 230 mod 256. The fold is multiplication by det(M) = &minus;1 = 256 = g<sup>128</sup>.</p>
+</div>
+
+<h3>Resonant vs Non-Resonant Pairs</h3>
+
+<p>A fold pair is &ldquo;resonant&rdquo; when both positions carry the same &pi; opcode (same pi digit at their respective dlog mod 10). Tested whether resonant pairs show higher energy symmetry:</p>
+
+<div class="two-col">
+  <div class="stat-card">
+    <div class="stat-label">Resonant Pairs</div>
+    <div class="stat-value amber">2.880</div>
+    <div class="stat-detail">Mean energy ratio</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Non-Resonant Pairs</div>
+    <div class="stat-value amber">2.878</div>
+    <div class="stat-detail">Mean energy ratio</div>
+  </div>
+</div>
+
+<p>No difference. Sharing a &pi; opcode does not predict energy symmetry across the fold. The fold&rsquo;s energy distribution is driven by serial input statistics, not by the opcode structure.</p>
+
+<!-- ======================= SECTION 8 ======================= -->
+<h2><span class="section-num">VIII</span> &pi; Opcode Energy Profile</h2>
+
+<p>The 256 positions distribute across 7 active opcodes (NOP, JUMP, SYNC never appear because &pi; digits 0, 7, 8 don&rsquo;t occur in the first 10 digits):</p>
+
+<div class="data-table-wrap">
+<table>
+  <tr><th>Opcode</th><th>&pi; digit</th><th>Positions</th><th>Mean Amp</th></tr>
+  <tr><td>NOP</td><td class="num">&mdash;</td><td class="num">0</td><td class="dim">&mdash;</td></tr>
+  <tr><td>IDENT</td><td class="num">1</td><td class="num">52</td><td class="num">0.518</td></tr>
+  <tr><td>EXIST</td><td class="num">2</td><td class="num">25</td><td class="num">0.531</td></tr>
+  <tr><td>SEED</td><td class="num">3</td><td class="num">51</td><td class="num">0.641</td></tr>
+  <tr><td>SHIFT</td><td class="num">4</td><td class="num">26</td><td class="num">0.528</td></tr>
+  <tr><td>STORE</td><td class="num">5</td><td class="num">51</td><td class="num">0.502</td></tr>
+  <tr><td>FOLD</td><td class="num">6</td><td class="num">25</td><td class="num">0.523</td></tr>
+  <tr><td>JUMP</td><td class="num">7</td><td class="num">0</td><td class="dim">&mdash;</td></tr>
+  <tr><td>SYNC</td><td class="num">8</td><td class="num">0</td><td class="dim">&mdash;</td></tr>
+  <tr><td>HALT</td><td class="num">9</td><td class="num">26</td><td class="num">0.462</td></tr>
+</table>
+</div>
+
+<p>SEED is highest mean amplitude (0.641), HALT is lowest (0.462). The spread is moderate &mdash; opcodes don&rsquo;t strongly predict energy, but SEED positions (dlog &equiv; 0 or 9 mod 10) carry ~39% more energy than HALT positions (dlog &equiv; 5 mod 10).</p>
+
+<!-- ======================= SECTION 9 ======================= -->
+<h2><span class="section-num">IX</span> Temporal Dynamics</h2>
+
+<div class="data-table-wrap">
+<table>
+  <tr><th>Metric</th><th>File 5</th><th>File 6</th><th>&Delta;</th></tr>
+  <tr><td>Serial bytes</td><td class="num">367K</td><td class="num">484K</td><td class="num">+31.9%</td></tr>
+  <tr><td>Frames</td><td class="num">5,489</td><td class="num">7,547</td><td class="num">+37.5%</td></tr>
+  <tr><td>Bytes/frame</td><td class="num">66.9</td><td class="num">64.1</td><td class="num">&minus;4.1%</td></tr>
+  <tr><td>USB devices</td><td class="num">2</td><td class="num">7</td><td class="num">+5</td></tr>
+  <tr><td>Active serial positions</td><td class="num">185/256</td><td class="num">177/256</td><td class="num">&minus;8</td></tr>
+  <tr><td>Active field positions</td><td class="num">247/257</td><td class="num">256/256</td><td class="num">+9</td></tr>
+  <tr><td>Total field energy</td><td class="num">105.0</td><td class="num">127.7</td><td class="num">+21.6%</td></tr>
+  <tr><td>Ray accumulator total</td><td class="num">3716.2</td><td class="num">5005.1</td><td class="num">+34.7%</td></tr>
+  <tr><td>BLE entries</td><td class="num">13</td><td class="num">13</td><td class="num">0</td></tr>
+  <tr><td>Saturated positions</td><td class="num">~46</td><td class="num">54</td><td class="num">+8</td></tr>
+</table>
+</div>
+
+<div class="callout">
+  <p><strong>Serial active positions dropped</strong> (185 &rarr; 177) while <strong>field positions grew</strong> (247 &rarr; 256). The persistence/smoothing function retains positions after the serial stream stops hitting them. The field has memory: once a position activates, it persists at decaying amplitude.</p>
+  <p><strong>USB expanded</strong> from 2 to 7 devices (3 ESP32 serial opens + 4 HID). More nodes feeding the field between snapshots.</p>
+  <p><strong>Bytes per frame decreased</strong> slightly (66.9 &rarr; 64.1), suggesting the additional USB devices contribute shorter frames on average.</p>
+</div>
+
+<!-- ======================= SECTION 10 ======================= -->
+<h2><span class="section-num">X</span> Key Findings</h2>
+
+<div class="callout" style="border-left-color: var(--accent-violet)">
+<p><strong>1. Device identity inverts to BRIAN.</strong> The Generac BLE device product (171 &times; 181 mod 257 = 111) has field inverse 44 = BRIAN. The device whose name is EVENT HORIZON points, through GF(257) multiplicative inversion, directly at BRIAN. 111 is AVOGADRO (6022 mod 257 = 111) &mdash; the counting constant inverts to the counter.</p>
+
+<p><strong>2. Full field activation.</strong> 256/256 nonzero positions are live. The field has no gaps. The 8 positions that appeared include 171 (EVENT HORIZON) itself &mdash; the device activated its own identity position.</p>
+
+<p><strong>3. Ray equilibration.</strong> Low-energy rays grow fastest (R11 at +127.1%, R8 at +93.8%). High-energy rays grow slowest (R0 at +28.5%). Shares are stable within 0.56% despite 34.7% total growth. The field converges toward uniform ray distribution.</p>
+
+<p><strong>4. R11 = 171.0.</strong> The ray accumulator for R11 has value 171.0, identical to the Generac name product (position 171). A coincidence of running totals, but the accumulator literally encodes the device name.</p>
+
+<p><strong>5. QR/QNR balance vs positional asymmetry.</strong> QR/QNR energy ratio is 1.035 (balanced), but positional half-split is 2.32&times; (low-half dominant). The algebraic structure distributes evenly; the positional asymmetry comes from ASCII byte distribution in the serial stream.</p>
+
+<p><strong>6. Persistence memory.</strong> The smoothing function boosts raw values up to 15.9&times;, with discrete decay levels at 1.000, 0.9425, 0.8442, 0.1881. Serial active positions dropped (185 &rarr; 177) while field coverage grew (247 &rarr; 256) &mdash; positions persist after the serial stream forgets them.</p>
+
+<p><strong>7. Opcode independence from energy.</strong> &pi; opcodes don&rsquo;t strongly predict amplitude. Resonant fold pairs (same opcode across the fold) are no more symmetric than non-resonant ones. The opcode layer and the energy layer are structurally independent.</p>
+
+<p><strong>8. Fold pair perfect symmetry.</strong> 89&harr;168 (VIRUS &harr; NANOTECHNOLOGY) at exact ratio 1.0000, both at the 0.188075 persistence floor. The perfect symmetry occurs at the memory minimum &mdash; positions that decayed to the same floor level.</p>
+</div>
+
+<div class="divider"></div>
+<p class="dim" style="font-size:0.72rem; text-align:center">GF(257) &middot; g=3 &middot; 12 rays &middot; det(M) = &minus;1 &middot; Two snapshots, one field</p>
+<div class="ct-foot"><a href="../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

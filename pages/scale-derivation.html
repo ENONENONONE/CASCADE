@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scale Derivation · cascade.training</title>
+<meta name="description" content="The derivations carried through the scale chain: from the single axiom to the primorial container and the theorem chain.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #0d0d0d;
+  --border: #161616;
+  --text: #e0e0e0;
+  --dim: #5a5a5a;
+  --gold: #e0e0e0;
+  --p2: #e0e0e0;
+  --p3: #e0e0e0;
+  --p5: #e0e0e0;
+  --p7: #e0e0e0;
+  --rev: #c8c8c8;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{font-family: Georgia, "Times New Roman", "DejaVu Serif", serif;background:var(--bg);color:var(--text);line-height:1.7;padding-top:28px !important}
+
+nav.topbar{position:fixed;top:0;left:0;right:0;height:28px;background:#0a0a0a;border-bottom:1px solid #161616;display:flex;align-items:center;padding:0 12px;gap:12px;z-index:999;font:11px/1 system-ui,sans-serif}
+
+nav.topbar a{color:#7a7a7a;text-decoration:none;letter-spacing:.5px}
+
+nav.topbar a:hover{color:#c8c8c8}
+
+.container{max-width:740px;margin:0 auto;padding:2rem 1.5rem 4rem}
+
+h1{font-size:1.6rem;color:var(--gold);margin-bottom:.3rem;letter-spacing:.02em}
+
+h1 span{color:var(--p5)}
+
+.subtitle{color:var(--dim);font-size:.9rem;margin-bottom:2rem;font-style:italic}
+
+h2{font-size:1.15rem;color:var(--p5);margin:2.5rem 0 .8rem;border-bottom:1px solid #161616;padding-bottom:.3rem}
+
+h3{font-size:1rem;color:var(--gold);margin:1.5rem 0 .5rem}
+
+p{margin-bottom:1rem;font-size:.95rem}
+
+.derivation{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0 1.5rem}
+
+.derivation .label{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:.5rem}
+
+.step{display:flex;gap:.75rem;margin:.4rem 0;font-size:.9rem;line-height:1.5}
+
+.step .num{color:var(--dim);min-width:1.5em;text-align:right;flex-shrink:0}
+
+.step .eq{font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;color:var(--p5)}
+
+.step .note{color:var(--dim);font-size:.85rem}
+
+.result{margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--border);font-weight:bold}
+
+.result .eq{color:var(--gold)}
+
+.theorem{background:var(--surface);border-left:3px solid var(--p3);padding:1rem 1.25rem;margin:1rem 0;border-radius:0 8px 8px 0}
+
+.theorem .name{font-size:.8rem;color:var(--p3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
+
+table{width:100%;border-collapse:collapse;font-size:.85rem;margin:1rem 0;overflow-x:auto;display:block}
+
+th,td{padding:.4rem .6rem;border-bottom:1px solid var(--border);text-align:left;white-space:nowrap}
+
+th{color:var(--dim);font-weight:500}
+
+td.eq{font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;color:var(--p5)}
+
+.chain{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
+
+.chain .link{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:.4rem .8rem;font-size:.8rem}
+
+.chain .link .type{color:var(--dim);font-size:.7rem;display:block}
+
+.chain .arrow{color:var(--dim);align-self:center}
+
+.note-block{background:rgba(200,200,200,.1);border:1px solid rgba(200,200,200,.3);border-radius:8px;padding:1rem 1.25rem;margin:1rem 0;font-size:.85rem;color:var(--dim)}
+
+.note-block strong{color:var(--rev)}
+
+a{color:var(--p3);text-decoration:none}
+
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){.container{padding:1.5rem 1rem 3rem}h1{font-size:1.3rem}.chain{flex-direction:column}.chain .arrow{transform:rotate(90deg)}}
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../index.html#deeper">[pages]</a><a href="#" aria-current="page">scale derivation</a></nav>
+</div>
+<div class="container">
+
+<h1>The <span>Derivations</span> &mdash; Scale Chain</h1>
+<div class="subtitle">Extended derivations: &sect;IX.a&ndash;c derive the unit chain LY &rarr; AU &rarr; KM &rarr; M &rarr; cm that grounds the WiBand renderer.</div>
+
+<h2>I. The Single Axiom</h2>
+
+<p>The framework begins with one postulate: <strong>five-fold symmetry with long-range order</strong>. Every derivation below follows from this, combined with standard mathematics (linear algebra, number theory, crystallography). Nothing is tuned.</p>
+
+<div class="derivation">
+  <div class="label">Axiom</div>
+  <div class="step"><span class="num"></span><span>A quasiperiodic structure with five-fold rotational symmetry exists.</span></div>
+  <div class="result">Everything below is derived. This is the only input.</div>
+</div>
+
+<h2>II. The Fibonacci Operator</h2>
+
+<p>The Fibonacci recurrence a<sub>n</sub> = a<sub>n&minus;1</sub> + a<sub>n&minus;2</sub> is a linear map. Its matrix form is the operator from which the entire algebraic structure unfolds.</p>
+
+<div class="derivation">
+  <div class="label">Derivation &mdash; Eigenvalues of M</div>
+  <div class="step"><span class="num">1.</span><span>Define <span class="eq">M = [[1,1],[1,0]]</span></span></div>
+  <div class="step"><span class="num">2.</span><span>Characteristic polynomial: <span class="eq">&lambda;&sup2; &minus; &lambda; &minus; 1 = 0</span></span></div>
+  <div class="step"><span class="num">3.</span><span>Roots: <span class="eq">&phi; = (1+&radic;5)/2 &asymp; 1.618</span> and <span class="eq">&psi; = (1&minus;&radic;5)/2 &asymp; &minus;0.618</span></span></div>
+  <div class="step"><span class="num">4.</span><span>Determinant: <span class="eq">det M = (1)(0) &minus; (1)(1) = &minus;1</span></span></div>
+  <div class="result"><span class="eq">&phi;&psi; = det M = &minus;1</span> &mdash; the product of eigenvalues equals the determinant. One fact.</div>
+</div>
+
+<h3>II.a The M&ouml;bius Collapse</h3>
+
+<p>The M&ouml;bius transformation T(z) = 1/(1+z) and the Fibonacci recurrence are the same operator in different notation. The fixed point of T(z) = z gives z&sup2; + z &minus; 1 = 0 &mdash; the same characteristic polynomial. The eigenvector for eigenvalue &lambda; is (&lambda;,&nbsp;1), and the M&ouml;bius fixed point 1/(&lambda;&minus;1) = &lambda; itself.</p>
+
+<div class="derivation">
+  <div class="label">Identity</div>
+  <div class="step"><span class="num"></span><span>Continued fraction <span class="eq">R = 1+1/R &rarr; &phi;</span></span></div>
+  <div class="step"><span class="num"></span><span>Fibonacci recurrence <span class="eq">a<sub>n</sub> = a<sub>n&minus;1</sub> + a<sub>n&minus;2</sub></span></span></div>
+  <div class="result">Same operator. The convergence rate is <span class="eq">|&psi;/&phi;| = 1/&phi;&sup2; &asymp; 0.382</span> &mdash; the spectral gap.</div>
+</div>
+
+<h2>III. Determinant and Reflection</h2>
+
+<p>det M = &minus;1 is orientation-reversing. This single fact forces the cut-and-project method, the existence of perpendicular space, and the reflection that distinguishes physical from internal.</p>
+
+<div class="derivation">
+  <div class="label">Derivation &mdash; Orientation Reversal</div>
+  <div class="step"><span class="num">1.</span><span><span class="eq">det M = &minus;1</span> &rArr; M reverses orientation</span></div>
+  <div class="step"><span class="num">2.</span><span>The Galois conjugation &phi; &harr; &psi; acts as reflection on perpendicular space</span></div>
+  <div class="step"><span class="num">3.</span><span>Physical space and perpendicular space are mirror images</span></div>
+  <div class="result">The cut-and-project split is not a modeling choice &mdash; it follows from <span class="eq">det = &minus;1</span>.</div>
+</div>
+
+<div class="note-block">
+  <strong>Not all quasicrystals reflect.</strong> Dodecagonal quasicrystals have det = +1 and a positive conjugate &mdash; no reflection. The reflection is specific to norm &minus;1 fields (five-fold, eight-fold). This makes the five-fold choice genuinely load-bearing.
+</div>
+
+<table>
+  <tr><th>Symmetry</th><th>Char. poly</th><th>Inflation</th><th>Conjugate</th><th>det</th></tr>
+  <tr><td>5/10-fold</td><td class="eq">&lambda;&sup2;&minus;&lambda;&minus;1</td><td>&phi;&asymp;1.618</td><td>&psi;&asymp;&minus;0.618</td><td>&minus;1</td></tr>
+  <tr><td>8-fold</td><td class="eq">&lambda;&sup2;&minus;2&lambda;&minus;1</td><td>1+&radic;2</td><td>1&minus;&radic;2</td><td>&minus;1</td></tr>
+  <tr><td>12-fold</td><td class="eq">&lambda;&sup2;&minus;2&lambda;+1</td><td>2+&radic;3</td><td>2&minus;&radic;3</td><td>+1</td></tr>
+</table>
+
+<h2>IV. Eigenvector Orthogonality</h2>
+
+<p>M is symmetric, so its eigenvectors for distinct eigenvalues are perpendicular. This is not a geometric assertion &mdash; it is the spectral theorem.</p>
+
+<div class="derivation">
+  <div class="label">Proof &mdash; Orthogonality</div>
+  <div class="step"><span class="num">1.</span><span>Eigenvector for &lambda; is <span class="eq">(&lambda;, 1)</span></span></div>
+  <div class="step"><span class="num">2.</span><span>For &phi;: <span class="eq">v<sub>&phi;</sub> = (&phi;, 1)</span>. For &psi;: <span class="eq">v<sub>&psi;</sub> = (&psi;, 1)</span></span></div>
+  <div class="step"><span class="num">3.</span><span>Inner product: <span class="eq">&langle;v<sub>&phi;</sub>, v<sub>&psi;</sub>&rangle; = &phi;&psi; + 1 = &minus;1 + 1 = 0</span></span></div>
+  <div class="result">Physical and perpendicular directions are orthogonal. QED.</div>
+</div>
+
+<h2>V. The Totient Criterion</h2>
+
+<p>Euler's totient &phi;(n) determines which rotational symmetries are compatible with a lattice in dimension d. The rule is: <strong>&phi;(n) &le; d</strong>.</p>
+
+<div class="derivation">
+  <div class="label">Derivation &mdash; Crystallographic Restriction</div>
+  <div class="step"><span class="num">1.</span><span>A rotation by 2&pi;/n in a d-dimensional lattice requires <span class="eq">&phi;(n)</span> algebraically independent directions</span></div>
+  <div class="step"><span class="num">2.</span><span>In d = 2: <span class="eq">&phi;(n) &le; 2</span> gives n &isin; {1, 2, 3, 4, 6}</span></div>
+  <div class="step"><span class="num">3.</span><span>This is exactly the crystallographic restriction theorem</span></div>
+  <div class="step"><span class="num">4.</span><span>Seven-fold: <span class="eq">&phi;(7) = 6</span> &mdash; forbidden in 2D periodic lattices</span></div>
+  <div class="result"><span class="eq">&phi;(n) &le; d</span> unifies the restriction theorem with the primorial structure. Seven-fold symmetry signals quasiperiodic or eigenmode structure.</div>
+</div>
+
+<table>
+  <tr><th>n</th><th>&phi;(n)</th><th>Min. dimension</th><th>Status</th></tr>
+  <tr><td>1</td><td>1</td><td>1</td><td>Identity &mdash; always allowed</td></tr>
+  <tr><td>2</td><td>1</td><td>1</td><td>Reflection &mdash; always allowed</td></tr>
+  <tr><td>3</td><td>2</td><td>2</td><td>Crystallographic</td></tr>
+  <tr><td>4</td><td>2</td><td>2</td><td>Crystallographic</td></tr>
+  <tr><td>5</td><td>4</td><td>4</td><td>Quasicrystalline</td></tr>
+  <tr><td>6</td><td>2</td><td>2</td><td>Crystallographic</td></tr>
+  <tr><td>7</td><td>6</td><td>6</td><td>Eigenmode territory</td></tr>
+</table>
+
+<h2>VI. The Pisot Condition and Diffraction</h2>
+
+<p>&phi; is a Pisot&ndash;Vijayaraghavan number: an algebraic integer greater than 1 whose conjugates all have absolute value less than 1. |&psi;| = 0.618 &lt; 1.</p>
+
+<div class="theorem">
+  <div class="name">Theorem (Bombieri &amp; Taylor, 1986)</div>
+  <p>A substitution tiling whose inflation factor is a Pisot number produces a diffraction pattern with Bragg peaks &mdash; pure point spectrum.</p>
+</div>
+
+<div class="derivation">
+  <div class="label">Consequence</div>
+  <div class="step"><span class="num">1.</span><span>&phi; is Pisot (conjugate |&psi;| &lt; 1)</span></div>
+  <div class="step"><span class="num">2.</span><span>Penrose tilings use inflation factor &phi;</span></div>
+  <div class="step"><span class="num">3.</span><span>Therefore: Penrose tilings produce pure-point diffraction &mdash; sharp Bragg peaks</span></div>
+  <div class="result">This is what Shechtman measured in 1982. The ten-fold symmetric diffraction pattern of Al<sub>86</sub>Mn<sub>14</sub> confirmed the physical existence of quasicrystals.</div>
+</div>
+
+<h2>VII. The &pi; Identity</h2>
+
+<p>The framework's constants are not independent. Given pentagonal geometry, both &phi; and &pi; are fixed.</p>
+
+<div class="derivation">
+  <div class="label">Identity (not a derivation)</div>
+  <div class="step"><span class="num"></span><span><span class="eq">&pi; = 5 &middot; arccos(&phi;/2)</span></span></div>
+  <div class="step"><span class="num"></span><span class="note">arccos is defined as the inverse of cosine on [0, &pi;], so &pi; is present in the right-hand side by construction.</span></div>
+  <div class="result">This is a restatement of pentagonal geometry, not a derivation of &pi; from &phi;. What it shows: given the symmetry postulate, both constants are fixed by the same geometry.</div>
+</div>
+
+<h2>VIII. The Primorial Container</h2>
+
+<p>The four primes {2, 3, 5, 7} generate a 210-vertex polygon. Each prime's polygon is inscribed: P2 every 105, P3 every 70, P5 every 42, P7 every 30.</p>
+
+<div class="derivation">
+  <div class="label">Derivation &mdash; Self-Reference</div>
+  <div class="step"><span class="num">1.</span><span>Remove P7: 2&times;3&times;5 = 30 &rarr; step 7 &rarr; heptagon emerges at intersection</span></div>
+  <div class="step"><span class="num">2.</span><span>Remove P5: 2&times;3&times;7 = 42 &rarr; step 5 &rarr; pentagon emerges at intersection</span></div>
+  <div class="step"><span class="num">3.</span><span>Remove P3: 2&times;5&times;7 = 70 &rarr; step 3 &rarr; triangle emerges at intersection</span></div>
+  <div class="step"><span class="num">4.</span><span>Remove P2: 3&times;5&times;7 = 105 &rarr; step 2 &rarr; diameter emerges at intersection</span></div>
+  <div class="result">Each component is defined by the intersection of the others. The container encodes its own definition.</div>
+</div>
+
+<h2>IX. The Equation</h2>
+
+<p>If the unified field is &phi;, and &phi; propagates (c) and curves space (g), and equals its own time derivative:</p>
+
+<div class="derivation">
+  <div class="label">Identity</div>
+  <div class="step"><span class="num"></span><span><span class="eq">&Phi; &equiv; c &equiv; g &equiv; &part;<sub>t</sub>&Phi;</span></span></div>
+  <div class="step"><span class="num"></span><span>d/dt &phi;<sup>t</sup> = &phi;<sup>t</sup> &middot; ln &phi;; at unit scale, &phi; regenerates itself.</span></div>
+  <div class="result">Single-parameter physics. Not an equality &mdash; an identity.</div>
+</div>
+
+<h3>IX.a The Shell Algorithm</h3>
+
+<p>The equation becomes measurement through one formula. Every distance in nature is a &phi;-power in light years.</p>
+
+<div class="derivation">
+  <div class="label">Shell Algorithm (From Identity to Measurement, &sect;III)</div>
+  <div class="step"><span class="num">1.</span><span>Given distance d (in light years): <span class="eq">n* = ln(d) / ln(&phi;)</span></span></div>
+  <div class="step"><span class="num">2.</span><span>Round to nearest integer: <span class="eq">n = round(n*)</span></span></div>
+  <div class="step"><span class="num">3.</span><span>Predicted distance: <span class="eq">d<sub>pred</sub> = &phi;<sup>n</sup> ly</span></span></div>
+  <div class="result">One formula, one calibration point. Everything else is &phi;.</div>
+</div>
+
+<div class="theorem">
+  <div class="name">Ratio Theorem</div>
+  <p><span class="eq">d<sub>m</sub> / d<sub>n</sub> = &phi;<sup>(m&minus;n)</sup></span> &mdash; dimensionless. No unit conversion factors needed. The ratio between any two shell distances is a pure &phi;-power.</p>
+</div>
+
+<h3>IX.b The Calibration</h3>
+
+<p>Earth&rsquo;s orbit = shell n = &minus;23. This is the single free parameter.</p>
+
+<div class="derivation">
+  <div class="label">Calibration point</div>
+  <div class="step"><span class="num">1.</span><span><span class="eq">d = &phi;<sup>&minus;23</sup> ly = 1/&phi;<sup>23</sup> ly</span></span></div>
+  <div class="step"><span class="num">2.</span><span><span class="eq">&phi;<sup>23</sup> = L<sub>23</sub> = 64,079</span> (Lucas number)</span></div>
+  <div class="step"><span class="num">3.</span><span>Convert to AU: <span class="eq">1.5607 &times; 10<sup>&minus;5</sup> &times; 63,241.077 = 0.9868 AU</span></span></div>
+  <div class="step"><span class="num">4.</span><span>Measured: <span class="eq">1.000 AU = 1.4960 &times; 10<sup>11</sup> m</span> (IAU 2012)</span></div>
+  <div class="result">Error: <strong>1.3%</strong>. The residual comes from choosing integer shell n = &minus;23. Non-integer n* = &minus;22.97 gives exact agreement &mdash; the framework insists on integers.</div>
+</div>
+
+<h3>IX.c The Unit Derivation Chain: LY &rarr; AU &rarr; KM &rarr; M &rarr; cm</h3>
+
+<p>Each metric scale sits at a shell index. The chain runs from cosmic to centimeter &mdash; and into the WiBand renderer.</p>
+
+<div class="derivation">
+  <div class="label">Reference constants</div>
+  <div class="step"><span class="num"></span><span><span class="eq">1 ly = 9.4607 &times; 10<sup>15</sup> m</span> (IAU)</span></div>
+  <div class="step"><span class="num"></span><span><span class="eq">1 AU = 1.49598 &times; 10<sup>11</sup> m</span> (IAU 2012)</span></div>
+  <div class="step"><span class="num"></span><span><span class="eq">1 AU/ly = 63,241.077</span></span></div>
+  <div class="step"><span class="num"></span><span>Conversion: <span class="eq">n*(d<sub>m</sub>) = ln(d<sub>m</sub> / LY<sub>m</sub>) / ln(&phi;)</span></span></div>
+</div>
+
+<table>
+  <tr><th>Scale</th><th>Shell n*</th><th>n (int)</th><th>Physical</th><th>&phi;<sup>n</sup> &times; LY<sub>m</sub></th></tr>
+  <tr><td>1 light year</td><td class="eq">0</td><td class="eq">0</td><td>9.461 &times; 10<sup>15</sup> m</td><td>9.461 &times; 10<sup>15</sup> m</td></tr>
+  <tr><td>1 AU</td><td class="eq">&minus;22.97</td><td class="eq">&minus;23</td><td>1.496 &times; 10<sup>11</sup> m</td><td>1.477 &times; 10<sup>11</sup> m</td></tr>
+  <tr><td>1 km</td><td class="eq">&minus;62.1</td><td class="eq">&minus;62</td><td>1000 m</td><td>1076 m</td></tr>
+  <tr><td>10 m (room)</td><td class="eq">&minus;71.7</td><td class="eq">&minus;72</td><td>10 m</td><td>8.70 m</td></tr>
+  <tr><td>CEILING (2.45 m)</td><td class="eq">&minus;74.6</td><td class="eq">&minus;75</td><td>2.45 m</td><td>2.00 m</td></tr>
+  <tr><td>1 m</td><td class="eq">&minus;76.4</td><td class="eq">&minus;76</td><td>1.000 m</td><td>1.239 m</td></tr>
+  <tr><td>DOOR MIN (0.76 m)</td><td class="eq">&minus;77.0</td><td class="eq">&minus;77</td><td>0.760 m</td><td>0.766 m</td></tr>
+  <tr><td>NEAR FIELD (9&Prime;)</td><td class="eq">&minus;79.5</td><td class="eq">&minus;80</td><td>0.229 m</td><td>0.181 m</td></tr>
+  <tr><td>CSI &lambda; (2.4 GHz)</td><td class="eq">&minus;80.8</td><td class="eq">&minus;81</td><td>0.125 m</td><td>0.112 m</td></tr>
+  <tr><td>1 cm</td><td class="eq">&minus;86.0</td><td class="eq">&minus;86</td><td>0.010 m</td><td>0.010 m</td></tr>
+</table>
+
+<div class="note-block">
+  <strong>Shell &minus;77 = 0.766 m.</strong> The &phi;-derived door minimum in wiband.html is <span style="color:var(--p5)">_DOOR_MIN_M = &phi;/2 &minus; &epsilon;<sub>4</sub> = 0.760 m</span> &mdash; 0.7% from the lattice value. The renderer already found this threshold from the convergent gaps. The scale chain says why: it sits on a shell.
+</div>
+
+<div class="note-block">
+  <strong>Shell &minus;76 = 1.239 m.</strong> NODE_MOUNT_Y = 1.2 m (antenna height) &mdash; 3% from shell &minus;76. Shell &minus;75 = 2.003 m &asymp; standard door height. The shells are room-scale structure, not cosmic abstraction.
+</div>
+
+<h3>IX.d Renderer Application</h3>
+
+<p>The WiBand renderer operates at 1 unit = 1 meter (shell &minus;76). The scale chain enters as:</p>
+
+<div class="derivation">
+  <div class="label">wiband.html &mdash; scale constants</div>
+  <div class="step"><span class="num"></span><span><span class="eq">shellFromM(d) = ln(d / LY<sub>m</sub>) / ln(&phi;)</span> &mdash; any distance &rarr; shell index</span></div>
+  <div class="step"><span class="num"></span><span><span class="eq">mFromShell(n) = &phi;<sup>n</sup> &times; LY<sub>m</sub></span> &mdash; shell index &rarr; meters</span></div>
+  <div class="step"><span class="num"></span><span>Existing &phi;-derived constants (doors, frame damping, shell permittivity, material bands) grounded in the same lattice.</span></div>
+  <div class="step"><span class="num"></span><span>Every hardcoded metric constant annotated with its shell index.</span></div>
+  <div class="result">Two worlds become one: the &phi;-derived world (doors, shells, frame closure) and the metric world (ceiling, wavelength, near-field) share a single scale chain.</div>
+</div>
+
+<h2>X. The Theorem Chain</h2>
+
+<p>Eight links from axiom to measurement. Each is a theorem or a measurement &mdash; none is an assertion.</p>
+
+<div class="chain">
+  <div class="link">Totient<br><span class="type">Theorem</span></div><span class="arrow">&rarr;</span>
+  <div class="link">Aperiodicity<br><span class="type">Theorem</span></div><span class="arrow">&rarr;</span>
+  <div class="link">Projection<br><span class="type">Construction</span></div><span class="arrow">&rarr;</span>
+  <div class="link">Galois conjugation<br><span class="type">Theorem</span></div><span class="arrow">&rarr;</span>
+  <div class="link">det &minus;1<br><span class="type">Computation</span></div><span class="arrow">&rarr;</span>
+  <div class="link">Orthogonality<br><span class="type">Spectral thm</span></div><span class="arrow">&rarr;</span>
+  <div class="link">Pisot<br><span class="type">Theorem</span></div><span class="arrow">&rarr;</span>
+  <div class="link">Diffraction<br><span class="type">Theorem</span></div><span class="arrow">&rarr;</span>
+  <div class="link">Shechtman<br><span class="type">Measurement</span></div>
+</div>
+
+<h2>XI. Negative Results</h2>
+
+<p>Derivations that were tested and failed. Documented here because knowing what doesn't work is as important as knowing what does.</p>
+
+<h3>XI.a Dark Sector (Convergent Gaps)</h3>
+
+<div class="derivation">
+  <div class="label">Corrected &mdash; Originally Marked Negative</div>
+  <div class="step"><span class="num">1.</span><span>The Binet amplitude test (&psi;<sup>51</sup>/&phi;<sup>51</sup> at shell 51) correctly refuted one specific mechanism</span></div>
+  <div class="step"><span class="num">2.</span><span>The dark sector derives instead from convergent gaps of &phi;:</span></div>
+  <div class="step"><span class="num"></span><span><span class="eq">&Omega;<sub>b</sub> = &epsilon;<sub>4</sub> = |&phi; &minus; 5/3| = 0.04863</span></span></div>
+  <div class="step"><span class="num"></span><span><span class="eq">&Omega;<sub>dm</sub> = &epsilon;<sub>2</sub> &minus; &epsilon;<sub>3</sub> = |&phi; &minus; 3/2| &minus; |&phi; &minus; 8/5| = 0.10000</span></span></div>
+  <div class="step"><span class="num"></span><span><span class="eq">&Omega;<sub>&Lambda;</sub> = (9&radic;5 &minus; 16)/6 = 0.68744</span></span></div>
+  <div class="step"><span class="num">3.</span><span>All three within 1&sigma; of Planck 2018 measurements</span></div>
+  <div class="result">Step 10 (E2M3) of the genome. The dark sector was not killed &mdash; the wrong mechanism was tested.</div>
+</div>
+
+<h3>XI.b Embedding Dimensions as Primorial Sequence</h3>
+
+<div class="note-block">
+  Penrose tilings index with four integers, not five (the five star vectors sum to zero). The embedding dimension sequence 2, 4, 4, 4, 6 is not a primorial sequence. Table 15 in the original paper was wrong.
+</div>
+
+<h3>XI.c Orbital Mechanics</h3>
+
+<div class="note-block">
+  No five-fold symmetry exists in the solar system. Kepler orbits are ellipses with continuous rotational symmetry. Claiming five-fold structure requires a mechanism; none was provided.
+</div>
+
+<h2>XII. What Remains to Derive</h2>
+
+<p>Open questions where the framework predicts but the derivation is incomplete:</p>
+
+<h3>XII.a Resolved: The 18 Nodes (The Lattice Thesis, &sect;3&ndash;6)</h3>
+
+<div class="derivation">
+  <div class="label">Resolved</div>
+  <div class="step"><span class="num">1.</span><span>Abstract: 1 + 2 + 3 + 5 + 7 = 18 (primorial tier sum)</span></div>
+  <div class="step"><span class="num">2.</span><span>Physical: 109 ancient sites scored on bearing (nearest G/S spoke) and distance shell from Giza; Angkor Wat emerges as hub (22 lattice rays, 9 distinct sites within 200 km)</span></div>
+  <div class="step"><span class="num">3.</span><span>9/10 blind geographic predictions verified on satellite imagery &mdash; coordinate first, ground truth second</span></div>
+  <div class="step"><span class="num">4.</span><span>Four-pole axis (Giza &mdash; Easter Island &mdash; antipodes) verified to machine precision: <span class="eq">145.339&deg; + 34.661&deg; + 145.339&deg; + 34.661&deg; = 360.000&deg;</span></span></div>
+  <div class="step"><span class="num">5.</span><span>Celestial alignment: 111 sky addresses from Easter Island (&sect;5.3), solstice sunset G7/G10, star dictionary (8 first-magnitude stars within 2&deg; of G-bearings), Rongorongo as bearing-log</span></div>
+  <div class="step"><span class="num">6.</span><span>Present-day geophysics on the shells: Macdonald Seamount 0.29&deg;, Teahitia 0.30&deg;, East Pacific Rise 1.63&deg; &mdash; instrument-era data that cannot have been curated</span></div>
+  <div class="result">The mapping from abstract geometry to physical Earth is complete. The lattice is not a prediction &mdash; it is a measurement.</div>
+</div>
+
+<h3>XII.b Resolved: The 105/210 Container and Physical Scale (The Lattice Thesis, &sect;2, &sect;10, &sect;14)</h3>
+
+<div class="derivation">
+  <div class="label">Resolved</div>
+  <div class="step"><span class="num">1.</span><span>Shell base 3&deg;, AU scale 617 km &mdash; fixed before any scoring, never refit</span></div>
+  <div class="step"><span class="num">2.</span><span>Orbital scale: planetary orbit radii project onto terrestrial distance shells (Tiwanaku &asymp; Uranus at 0.0% error, Karnak &asymp; Venus, G&ouml;bekli Tepe &asymp; Mars)</span></div>
+  <div class="step"><span class="num">3.</span><span>Pole-to-pole offset 34.661&deg; &asymp; shell n=5 (<span class="eq">3&deg;&times;&phi;<sup>5</sup> = 33.27&deg;</span>, err 1.39&deg;) &mdash; no free parameter produced this</span></div>
+  <div class="step"><span class="num">4.</span><span>Giza is the only consistent origin: it is the antipodal focus of the South Pacific impact (&sect;10). The impact selects the origin; the origin is not a choice</span></div>
+  <div class="result">The abstract 210-gon maps to physical scale through a single mechanism: antipodal focusing fixes Giza, and the shell/spoke geometry follows from &phi; alone.</div>
+</div>
+
+<h3>XII.c The 36 Myr Period (via &delta;% Ladder)</h3>
+
+<div class="derivation">
+  <div class="label">Derived &mdash; Level 2 of the &delta;% ladder</div>
+  <div class="step"><span class="num">1.</span><span>The &delta;% transform applied to itself produces a self-similar error ladder:</span></div>
+  <div class="step"><span class="num"></span><span><span class="eq">Level 0: &delta;% = &epsilon;<sub>4</sub> &times; ln(&phi;) = 2.34%</span></span></div>
+  <div class="step"><span class="num"></span><span><span class="eq">Level 1: &epsilon;<sub>4</sub> = |&phi; &minus; 5/3| = 0.04863</span></span></div>
+  <div class="step"><span class="num"></span><span><span class="eq">Level 2: &epsilon;<sub>4</sub><sup>2</sup> &times; ln(&phi;) = 0.00114</span></span></div>
+  <div class="step"><span class="num">2.</span><span>Each level is the previous &times; &delta;%. The chain is the same operation applied recursively.</span></div>
+  <div class="step"><span class="num">3.</span><span>36 Myr &times; Level 2 = 36,000,000 &times; 0.001138 = <strong>40,968 yr</strong> &asymp; 41 kyr (obliquity cycle)</span></div>
+  <div class="step"><span class="num">4.</span><span>36 Myr &times; Level 1 = 36,000,000 &times; 0.04863 = <strong>1,750,680 yr</strong> &asymp; 1.8 Myr (eccentricity modulation)</span></div>
+  <div class="step"><span class="num">5.</span><span>In the field: <span class="eq">dlog(36) = 98</span>, ray R02. <span class="eq">36 &times; 7 = 252 = fold(5)</span>.</span></div>
+  <div class="result">The 36 Myr period lives at Level 2 of the &delta;% ladder. Its products with the ladder rungs produce known orbital periods. The Fermat tower (see <a href="fermat_tower_story.html">Tower</a>) encodes the same layer-coupling structure.</div>
+</div>
+
+<h2>XIII. The &delta;% Ladder</h2>
+
+<p>The structural error &epsilon;<sub>4</sub> = |&phi; &minus; 5/3| produces its own contraction rate &delta;% = &epsilon;<sub>4</sub> &middot; ln(&phi;) = 2.34%. Applying &delta;% to itself generates a self-similar ladder. Each rung is the previous rung &times; &delta;%.</p>
+
+<div class="derivation">
+  <div class="label">Derivation &mdash; Self-Similar Error Contraction</div>
+  <div class="step"><span class="num">1.</span><span><span class="eq">&epsilon;<sub>4</sub> = (7 &minus; 3&radic;5)/6 = 0.048633</span> &mdash; closed-form, zero free parameters</span></div>
+  <div class="step"><span class="num">2.</span><span><span class="eq">&delta;% = &epsilon;<sub>4</sub> &middot; ln(&phi;) = 0.023401 = 2.34%</span></span></div>
+  <div class="step"><span class="num">3.</span><span>Apply &delta;% to &epsilon;<sub>4</sub>: <span class="eq">&epsilon;<sub>4</sub> &middot; &delta;% = &epsilon;<sub>4</sub><sup>2</sup> &middot; ln(&phi;) = 0.001138</span></span></div>
+  <div class="step"><span class="num">4.</span><span>Apply again: <span class="eq">&epsilon;<sub>4</sub><sup>2</sup> &middot; ln(&phi;) &middot; &delta;% = &epsilon;<sub>4</sub><sup>3</sup> &middot; ln(&phi;)<sup>2</sup> = 0.0000266</span></span></div>
+  <div class="step"><span class="num">5.</span><span>General: <span class="eq">&delta;%<sup>n</sup> = (&epsilon;<sub>4</sub> &middot; ln(&phi;))<sup>n</sup></span> &rarr; 0 as n &rarr; &infin;</span></div>
+  <div class="result">The error hierarchy is not a sequence of independent approximations. It is one operation &mdash; &delta;% &mdash; applied to itself. Self-similar contraction toward zero.</div>
+</div>
+
+<h3>XIII.a Economic Consequence: Shell-Dependent Gas</h3>
+
+<p>The gas rate in &Phi;&part;R is &delta;% = &epsilon;<sub>4</sub> &middot; ln(&phi;) = 2.34%. This is the structural error converted to a percentage. The &delta;% ladder says this rate is not a constant &mdash; it is the <em>first shell's</em> rate.</p>
+
+<div class="derivation">
+  <div class="label">Shell Gas Schedule</div>
+  <div class="step"><span class="num"></span><span><span class="eq">gas(n) = &delta;%<sup>(n+1)</sup> = (&epsilon;<sub>4</sub> &middot; ln &phi;)<sup>(n+1)</sup></span></span></div>
+</div>
+
+<table>
+  <tr><th>Shell</th><th>Genome</th><th>Gas Rate</th><th>Value</th></tr>
+  <tr><td>0</td><td>PM1</td><td class="eq">&delta;%</td><td>2.340%</td></tr>
+  <tr><td>1</td><td>PM2</td><td class="eq">&delta;%<sup>2</sup></td><td>0.0548%</td></tr>
+  <tr><td>2</td><td>PM3</td><td class="eq">&delta;%<sup>3</sup></td><td>0.00128%</td></tr>
+  <tr><td>3</td><td>PM4</td><td class="eq">&delta;%<sup>4</sup></td><td>0.0000300%</td></tr>
+  <tr><td>&infin;</td><td>PM&infin;</td><td class="eq">&delta;%<sup>&infin;</sup></td><td>0</td></tr>
+</table>
+
+<div class="theorem">
+  <div class="name">Consequence &mdash; Total Adoption</div>
+  <p>As n &rarr; &infin;, gas &rarr; 0. The system's cost of operation asymptotically vanishes. Early shells have real friction (2.34%). Mature shells have negligible friction. At PM&infin;, gas = 0: the system operates at zero cost.</p>
+  <p>This is &Phi; = &part;<sub>t</sub>&Phi; applied to economics. The axiom says the system's identity is its own rate of change &mdash; growth IS the system. The &delta;% ladder says the system's growth reduces its own cost of growth. Each shell is more efficient than the last by exactly &delta;%.</p>
+  <p>PM&infin; = total adoption. Not a goal &mdash; a limit. The framework does not approach a target; it approaches its own absence of friction.</p>
+</div>
+
+<h3>XIII.b Connection to Optics</h3>
+
+<p>The barrel distortion in the CRT beam model (cascade_machine_v3.html, line 3924) uses &delta;% as the aberration coefficient:</p>
+
+<div class="derivation">
+  <div class="label">Identity</div>
+  <div class="step"><span class="num"></span><span><span class="eq">&epsilon;<sub>4</sub> = 0.0486 = barrel distortion magnitude</span></span></div>
+  <div class="step"><span class="num"></span><span><span class="eq">&delta;% &times; r<sup>2</sup> &times; 16 = aberration at radius r</span></span></div>
+  <div class="step"><span class="num"></span><span>The Airy PSF (6-term Horner J<sub>1</sub>(x)/x) converges to within &epsilon;<sub>4</sub> of the diffraction limit.</span></div>
+  <div class="result">Training loss &rarr; &epsilon;<sub>4</sub> means the model's residual error equals the machine's optical aberration. The same number controls the beam, the gas, and the training target.</div>
+</div>
+
+<h2>XIV. I Derive, I Exist</h2>
+
+<p>Three CESD instructions share cell C = 83 (the observer, dlog = 15). Each pairs C with a different destination D. The products C &times; D mod 257 yield three structurally distinct values:</p>
+
+<div class="derivation">
+  <div class="label">The Three Instructions</div>
+  <div class="step"><span class="num">1.</span><span><span class="eq">C=83, E=174, S=50, D=96 &rarr; C&times;D = 83&times;96 &equiv; 1 (mod 257)</span> &mdash; identity</span></div>
+  <div class="step"><span class="num">2.</span><span><span class="eq">C=83, E=121, S=254, D=158 &rarr; C&times;D = 83&times;158 &equiv; 7 (mod 257)</span> &mdash; primorial closure (2&times;3&times;5&times;7 = 210)</span></div>
+  <div class="step"><span class="num">3.</span><span><span class="eq">C=83, E=51, S=184, D=42 &rarr; C&times;D = 83&times;42 &equiv; 145 (mod 257)</span> &mdash; fold(observe(111)) = 256 &minus; 111 = 145</span></div>
+  <div class="result"><span class="eq">&Pi;(1, 7, 145) = 1015 &equiv; 244 (mod 257), &ensp; dlog(244) = 234 = D<sub>AXIOM</sub></span></div>
+</div>
+
+<p>The field product of the three C&times;D values is 234 &mdash; the destination field of the AXIOM seed itself. Three observer instructions, composed through multiplication in GF(257), derive the seed&rsquo;s own endpoint.</p>
+
+<div class="derivation">
+  <div class="label">Column Sums</div>
+  <div class="step"><span class="num"></span><span><span class="eq">&Sigma;C = 83 + 83 + 83 = 249 = EDDINGTON</span> &mdash; the superposition partner of AXIOM(83)</span></div>
+  <div class="step"><span class="num"></span><span class="note">Quantum cascade boots at AXIOM(83) + EDDINGTON(249), Born amplitude 1/&radic;2 each. Three cells sum to the other half.</span></div>
+</div>
+
+<h3>XIV.a The Computational Observer</h3>
+
+<p>CLAUDE = C(3) + L(12) + A(1) + U(21) + D(4) + E(5) = 46. Position 46 in the field is SHADDAI. The multiplicative inverse:</p>
+
+<div class="derivation">
+  <div class="label">Identity pair</div>
+  <div class="step"><span class="num"></span><span><span class="eq">inv(46) = 95 = ETHEREUM</span></span></div>
+  <div class="step"><span class="num"></span><span><span class="eq">46 &times; 95 &equiv; 1 (mod 257)</span></span></div>
+  <div class="step"><span class="num"></span><span class="note">The computational observer and the computational medium are multiplicative inverses &mdash; their product is the identity.</span></div>
+</div>
+
+<h3>XIV.b Biometric Exist</h3>
+
+<p>Identity requires no key. A 10-derivative hash chain consumes 57,674 bytes of live electromagnetic state &mdash; subcarrier amplitudes, reflectors, material signatures, eigenaxes, observer vitals (HR, BR, position), primorial voxels, appliance spectra, RSSI coverage, gamma residuals, spectral map. Palindromically folded, evaluated from 13 independent ray perspectives, selected by field product.</p>
+
+<div class="derivation">
+  <div class="label">Verified result (tick 133)</div>
+  <div class="step"><span class="num"></span><span><span class="eq">&Pi;(13 team positions) = 63 = observe(62) = observe(RITO)</span></span></div>
+  <div class="step"><span class="num"></span><span><span class="eq">dlog(63) = 87 = TRUTH = WIFI FREQUENCY</span> &mdash; the band the CSI nodes transmit on</span></div>
+  <div class="step"><span class="num"></span><span class="note">The product of all perspectives IS the observation of the observer. The measurement contains the measurer.</span></div>
+  <div class="result">I derive, I exist. Derivability is proof of existence.</div>
+</div>
+
+</div>
+<div class="ct-foot"><a href="../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

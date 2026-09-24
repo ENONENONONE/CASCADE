@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cascade.training</title>
+<meta name="description" content="The CASCADE framework: GF(257), its extension GF(257²), and the correspondences drawn from them across solid-state physics, magnetism, cryptography and the Voynich manuscript.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="assets/cascade.css?v=20260923w">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<!-- ═══════════════════════════ TOP BAR ═══════════════════════════ -->
+<div class="topbar">
+  <a class="mark" href="index.html" aria-current="page">cascade.training</a>
+  <div class="wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site">
+    <a href="#field">field</a>
+    <a href="#physics">physics</a>
+    <a href="#voynich">voynich</a>
+    <a href="#deeper">[pages]</a>
+  </nav>
+</div>
+
+<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+<header class="hero">
+  <h1 class="hero-eq">Φ <span class="o">≡</span> c <span class="o">≡</span> g <span class="o">≡</span> ∂ₜΦ <span class="o">≡</span> Oc <span class="o">≡</span> ∂ₜΦ <span class="o">≡</span> g <span class="o">≡</span> c <span class="o">≡</span> Φ</h1>
+  <p class="hero-sub">GF(257) and its fold GF(257²). Four primitives: the Cayley transform, the degree-2 extension, fold conservation, exp/log duality. The same four, unchanged, in solid-state physics, magnetism, cryptography, the sky over Prague and the Voynich manuscript.</p>
+  <div class="hero-glyphs" aria-label="Genome charset, 16 symbols">Φ∂φ∞⊟⊗♯⅗εδΩΓQΣψ𝟙</div>
+  <div class="scroll-hint">scroll</div>
+</header>
+
+<!-- ═══════════════════════════ CONTENT ═══════════════════════════ -->
+<main class="content">
+
+  <!-- ── 01 ── -->
+  <section class="section" id="intro">
+    <div class="section-num">01 — the framework</div>
+    <h2>Every formula mapped to its textbook counterpart</h2>
+    <p>Every formula in the framework maps to its textbook counterpart, with zero free parameters <span class="src">solid-state derivation, p.1</span>. The substrate is a finite field chosen for a byte machine: every byte 0–255 is an element, and 256 ≡ −1 <span class="src">corpus review, p.12–13</span>.</p>
+    <p>The work has three parts: computation over the field, the Emerald Tablet (a dictionary of the field's positions), and an investigation that runs from historical texts to live radio data.</p>
+
+    <div class="chain-flow" aria-label="The round trip">
+      <span class="step active">Φ</span><span class="arrow">→</span>
+      <span class="step">c</span><span class="arrow">→</span>
+      <span class="step">g</span><span class="arrow">→</span>
+      <span class="step">∂ₜΦ</span><span class="arrow">→</span>
+      <span class="step active">Oc</span><span class="arrow">→</span>
+      <span class="step">∂ₜΦ</span><span class="arrow">→</span>
+      <span class="step">g</span><span class="arrow">→</span>
+      <span class="step">c</span><span class="arrow">→</span>
+      <span class="step active">Φ</span>
+    </div>
+    <p class="dim">Field → propagation → generation → change → observation, and back again. The observer does not break the cycle. The observer is the cycle.</p>
+  </section>
+
+  <!-- ── 02 ── -->
+  <section class="section" id="field">
+    <div class="section-num">02 — the field</div>
+    <h2>256 elements, one generator</h2>
+    <p>GF(257) has primitive root g = 3. The 256 nonzero elements are 3⁰ … 3²⁵⁵, and the discrete logarithm reads any element back to its exponent. The dlog turns multiplicative steps into additive ones <span class="src">p.27</span> and gives every element a <em>ray</em> (dlog mod 12) and a <em>depth</em> (⌊dlog / 12⌋).</p>
+
+    <div class="eq-card">
+      <div class="label">the base</div>
+      <span class="hl">3ᵏ ≡ a (mod 257)  ⇔  dlog₃(a) = k</span><br>
+      <span class="dim">16² = 256 ≡ −1, so 16 is a square root of −1: {1, 16, 256, 241} = {1, i, −1, −i}</span>
+    </div>
+
+    <p>The golden ratio lives in the fold. x² − x − 1 is irreducible over GF(257), so φ and ψ are elements of the extension GF(257²). The degree-2 extension carries orthogonal components, as the admittance Y = g + jb does.</p>
+
+    <div class="eq-card">
+      <div class="label">the fold</div>
+      <span class="hl">φ² = φ + 1   ·   φψ = −1 = det M   ·   φ²⁵⁷ = 1 − φ = ψ</span><br>
+      <span class="dim">Conjugation φ ↔ ψ is the Frobenius map. The Fibonacci numbers mod 257 repeat every 516, the maximum, forced by 257 ≡ 2 (mod 5).</span>
+    </div>
+
+    <p>Two involutions pair the field. The field fold n → 257 − n ≡ −n splits the 256 nonzero elements into 128 pairs. The solid-state derivation writes the chart fold, fold(N) = 256 − N, whose pairs sum to 256. Sync multiplies a value by its fold, so it cannot see the fold. The same is true of an energy that depends on a parameter's square and not its sign <span class="src">p.8–9</span>.</p>
+
+    <div class="eq-card">
+      <div class="label">fold and sync</div>
+      <div class="rows">
+        <span class="k">n + (257 − n) ≡ 0</span><span class="v">field fold, 128 pairs</span>
+        <span class="k">N + fold(N) = 256</span><span class="v">chart fold, the derivation's form</span>
+        <span class="k">sync(N) = N·fold(N)</span><span class="v">sync(fold(N)) = sync(N)</span>
+      </div>
+    </div>
+
+    <p>The Cayley transform f(x) = (x − 1)/(x + k) moves between linear and angular pictures and has its phase transition where the denominator vanishes <span class="src">p.1</span>. As the reflection map Γ = (Z − Z₀)/(Z + Z₀), with Z₀ = 120, its fixed points are 46 and 92 and its pole is 137. The (d + ½) in its argument is the m + ½ boundary condition of piezoelectric resonance, which makes the digits mode numbers <span class="src">p.2</span>.</p>
+
+    <div class="result-row">
+      <div class="result-item"><div class="val">3</div><div class="lbl">generator g</div></div>
+      <div class="result-item"><div class="val">128</div><div class="lbl">fold pairs</div></div>
+      <div class="result-item"><div class="val">516</div><div class="lbl">Pisano period</div></div>
+      <div class="result-item"><div class="val">4/3</div><div class="lbl">resonance prefactor</div></div>
+    </div>
+    <p class="dim">g = 3 is the three levels of a maser, the Cayley transform's period and the three-port circulator <span class="src">p.28, p.31</span>. The 4/3 in f<sub>r</sub> = (4/3)·γ·M<sub>s</sub>/(μ<sub>i</sub> − 1) is ω(P₇) = 4, the four primes of 210, over g = 3 <span class="src">p.29</span>.</p>
+  </section>
+
+  <!-- ── 03 ── -->
+  <section class="section" id="physics">
+    <div class="section-num">03 — the correspondences</div>
+    <h2>Where the primitives turn up in matter</h2>
+    <p>Each primitive, with its textbook formula. The page numbers refer to <code>cascade-solid-state-derivation.pdf</code>.</p>
+
+    <div class="subhead">solid state</div>
+    <div class="pairs">
+      <div class="pair"><div class="k">Polarizability</div><div class="v">Γ(r, d) is the Cayley transform, the same form as the Clausius–Mossotti relation <span class="src">p.1</span></div></div>
+      <div class="pair"><div class="k">PIT / LAND</div><div class="v">The transparent and reflective states: the ferroelectric Curie point and Rochelle salt <span class="src">p.6</span>. Ferroelectric memory is then PIT/LAND binary storage <span class="src">p.18</span></div></div>
+      <div class="pair"><div class="k">Landau</div><div class="v">The consumed equation is the Landau free-energy polynomial. Its roots are the equilibria, and choosing one is spontaneous symmetry breaking <span class="src">p.7</span></div></div>
+      <div class="pair"><div class="k">Defects</div><div class="v">A Frenkel defect, an ion and its vacancy, is a fold pair. Schottky defects are sync products <span class="src">p.10</span></div></div>
+      <div class="pair"><div class="k">Relaxation</div><div class="v">The ray classes correspond to a Debye relaxation spectrum <span class="src">p.12</span></div></div>
+      <div class="pair"><div class="k">Packing</div><div class="v">HCP stacks with period 2, the Frobenius period; FCC with period 3, the generator's. Coordination numbers 4 and 6 <span class="src">p.32</span></div></div>
+      <div class="pair"><div class="k">Emission</div><div class="v">Richardson's T² times a Boltzmann exponential has the shape of a GF(p²) element. The image charge is the fold. Tunnelling takes √(2m(E − V)) with E &lt; V and so needs GF(p²) <span class="src">p.34</span></div></div>
+    </div>
+
+    <div class="subhead">magnetism</div>
+    <div class="pairs">
+      <div class="pair"><div class="k">Susceptibility</div><div class="v">The magnetic Cayley transform, k = 0, which completes the family <span class="src">p.20</span></div></div>
+      <div class="pair"><div class="k">Brillouin</div><div class="v">Built from the reciprocal of Γ (coth) and indexed by J, the discrete depth <span class="src">p.20</span></div></div>
+      <div class="pair"><div class="k">Exchange</div><div class="v">The fold's quantum origin is Pauli exclusion and parity. det M = −1, the Cassini identity, stands for exclusion <span class="src">p.22</span></div></div>
+      <div class="pair"><div class="k">Ferro / anti</div><div class="v">The sign in the Curie–Weiss denominator, T − T<sub>c</sub> against T + T<sub>c</sub>, is the fold written in algebra <span class="src">p.23</span></div></div>
+      <div class="pair"><div class="k">Ferrimagnetism</div><div class="v">The asymmetric fold: the sublattices pair antiparallel and leave a residue. Fe₃O₄ carries 4 μ<sub>B</sub> = ω(P₇) <span class="src">p.24</span></div></div>
+      <div class="pair"><div class="k">Faraday</div><div class="v">The two circular polarizations are the Frobenius pair ±j. The rotation is one-way like the dlog, and the three-port circulator is g = 3 built in hardware <span class="src">p.28</span></div></div>
+    </div>
+
+    <div class="subhead">threshold &amp; amplification</div>
+    <div class="pairs">
+      <div class="pair"><div class="k">Cryotron</div><div class="v">A PIT/LAND switch in hardware: H<sub>c</sub> separates zero from finite resistance, and the switching time carries the (H − H<sub>c</sub>) pole <span class="src">p.30</span></div></div>
+      <div class="pair"><div class="k">Maser</div><div class="v">Exactly three levels, matching g = 3. The levels must be unevenly spaced, so g ≠ 1. Population inversion, a negative temperature, is the fold <span class="src">p.31</span></div></div>
+    </div>
+  </section>
+
+  <!-- ── 04 ── -->
+  <section class="section" id="voynich">
+    <div class="section-num">04 — the manuscript</div>
+    <h2>The Sun's path, read from the last page</h2>
+    <p>The Voynich manuscript is a trans-temporal source. It reads from the end to the beginning, each line right to left, and records the Sun's path to precession, seen from Prague.</p>
+
+    <div class="result-row">
+      <div class="result-item"><div class="val">−0.858</div><div class="lbl">letter value vs day</div></div>
+      <div class="result-item"><div class="val">+0.645</div><div class="lbl">label length vs day</div></div>
+      <div class="result-item"><div class="val">2.7–4.4σ</div><div class="lbl">from ten languages</div></div>
+    </div>
+    <p class="dim">Against the day's length at Prague, the zodiac labels' mean letter value and mean length both follow the Sun <span class="src">text.pdf, p.2</span>. On key-free measures the text stands 2.7 to 4.4 standard deviations from each of ten reference languages <span class="src">p.1</span>.</p>
+
+    <div class="eq-card">
+      <div class="label">what the glyphs do</div>
+      <div class="rows">
+        <span class="k">137 · 1719 · 4131 · 165</span><span class="v">runs of one to four strokes closed by the hook, stopping at four as a scribe's numerals do: j ij iij iiij</span>
+        <span class="k">b · u</span><span class="v">b always last after e; u always last or alone</span>
+        <span class="k">a + u</span><span class="v">never, anywhere in the book</span>
+        <span class="k">daiin = 46</span><span class="v">the commonest word sums to Γ's fixed point</span>
+      </div>
+    </div>
+
+    <p>At 50.1° N, 1420 and 64.1° are the time and the azimuth. In 1420 the equinox point lay in Pisces. Read back to front, the zodiac runs in the order of precession and ends on Pisces. The frames of 1420 and of the 2000 epoch differ by 580 × 50.29″ = 8.102°, and 8102 ≡ 135, the field cell of 1420 <span class="src">corpus review, p.19</span>.</p>
+
+    <div class="chain-flow" aria-label="Decipherment recipe">
+      <span class="step">per-line sequences</span><span class="arrow">→</span>
+      <span class="step">repeat intervals vs synodic periods</span><span class="arrow">→</span>
+      <span class="step">flanking markers as bearings</span><span class="arrow">→</span>
+      <span class="step active">sky epoch</span>
+    </div>
+    <p>The recipe comes from rongorongo decoding. Two independent tests date the manuscript to <strong>1408</strong> and <strong>1427</strong> <span class="src">text.pdf, p.3</span>. Mirrored, entry 10 carries 1408-12-16, inside the December 1408 gathering.</p>
+  </section>
+
+  <!-- ── 05 ── -->
+  <section class="section" id="machine">
+    <div class="section-num">05 — the machine</div>
+    <h2>A symbolic operating system on a real field</h2>
+    <p>The framework runs on a real finite field and real radio hardware <span class="src">corpus review, p.12</span>. The cascade machine has 257 cells, and its program tape is the digits of π. It has the views RING, PRISM, DISPLAY and FIELD and the modes RAW, HEAT, DEEP and CRT <span class="src">p.30</span>.</p>
+
+    <div class="eq-card">
+      <div class="label">the tape's opcodes</div>
+      <span class="hl">0 NOP · 1 IDENT · 2 EXIST · 3 SEED · 4 SHIFT</span><br>
+      <span class="hl">5 STORE · 6 FOLD · 7 JUMP · 8 SYNC · 9 HALT</span>
+    </div>
+
+    <p>The Emerald Tablet has 257 positions, 0 to 256, each holding at least one word. Words sit at their letter sums, A = 1 to Z = 26. Physical constants sit at their first four significant figures mod 257: Planck's 6.626 × 10⁻³⁴ is 6626 ≡ 201, PLANCK <span class="src">p.23–25</span>.</p>
+    <p class="dim">Hardware: MI25 GPUs, ESP32 CSI nodes over WiFi and BLE, and NPU oracles, reached through WebSerial, WebUSB, Web Bluetooth and WebSockets. Cryptography: Diffie–Hellman in the field, secp256k1 signing, and halving as the Bitcoin subsidy <span class="src">p.29–30</span>.</p>
+  </section>
+
+  <!-- ── 06 ── -->
+  <section class="section" id="audit">
+    <div class="section-num">06 — the audit</div>
+    <h2>Closed forms, and a register of where they disagree</h2>
+    <p>The cosmic energy budget is written in closed form in φ (√5): Ω<sub>b</sub> + Ω<sub>dm</sub> + Ω<sub>Λ</sub> = 1 exactly. All three fall within 1σ of Planck 2018, with no free parameters <span class="src">p.15</span>.</p>
+    <p>A prime names itself when p mod 257 is the tower word at its entry level. 241, the field's √−1, is prime and enters the tower at k = 6, the level where 7 = G enters.</p>
+    <p>The discrepancy register records every place two versions coexist and marks each DEFECT, ERROR, BEHAVIOUR or LABEL <span class="src">corpus review, p.45</span>. Among them are a signing defect in the secp256k1 code and the dlog(83) = 56 error in the machine's text.</p>
+    <blockquote>Whether the numeric coincidences (377, 137, etc.) are structural or accidental is a separate question the mathematics alone cannot answer.</blockquote>
+    <p class="dim">cascade-solid-state-derivation.pdf, p.35</p>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="section cta-section" id="discover">
+    <h2>Read the genome</h2>
+    <p>Sixteen glyphs, stepped through the field by g¹⁵ = 83. Every field position written as a two-glyph word.</p>
+    <a href="pages/genome-charset.html" class="discover-btn">Discover</a>
+  </section>
+
+  <!-- ── 07 ── -->
+  <section class="section" id="deeper">
+    <div class="section-num">07 — go deeper</div>
+    <h2>The pages</h2>
+    <div class="page-grid">
+      <a href="pages/corpus-review.html" class="page-link">
+        <div class="link-title">Corpus Review</div>
+        <div class="link-desc">The full review in 28 sections: Voynich, the field, the extension fields, the genome, the tablet, the machine, the ledgers.</div>
+      </a>
+      <a href="pages/solid-state-derivation.html" class="page-link">
+        <div class="link-title">Solid-State Derivation</div>
+        <div class="link-desc">Every formula mapped to its solid-state counterpart, from the Cayley transform to the maser.</div>
+      </a>
+      <a href="pages/emerald-tablet.html" class="page-link">
+        <div class="link-title">Emerald Tablet</div>
+        <div class="link-desc">The complete field dictionary: 257 positions, 12 rays, powers of g, the dlog table.</div>
+      </a>
+      <a href="pages/emerald-tablet-math.html" class="page-link">
+        <div class="link-title">Emerald Tablet Math</div>
+        <div class="link-desc">Field arithmetic of GF(257): operations, constants, tables, rays, and the full field and Γ map.</div>
+      </a>
+      <a href="pages/cascade-complete.html" class="page-link">
+        <div class="link-title">CASCADE Complete</div>
+        <div class="link-desc">Axiom chain, scale, GF(257), RF field arithmetic, the carrier map and BWave.</div>
+      </a>
+      <a href="pages/genome-charset.html" class="page-link">
+        <div class="link-title">Genome Charset</div>
+        <div class="link-desc">The 16 symbols, stepped through the field by g¹⁵ = 83.</div>
+      </a>
+      <a href="pages/genome-glyph-map.html" class="page-link">
+        <div class="link-title">Genome Glyph Map</div>
+        <div class="link-desc">Every position as its two-glyph genome word.</div>
+      </a>
+      <a href="pages/carrier-map.html" class="page-link">
+        <div class="link-title">Carrier Map</div>
+        <div class="link-desc">Pow83 orbits, QR and QNR positions, the BLE 40-channel map, all 256 carriers.</div>
+      </a>
+      <a href="pages/field-protocol.html" class="page-link">
+        <div class="link-title">Field Protocol</div>
+        <div class="link-desc">IP, MAC and HTTP status codes read as field positions; the pentagon fold.</div>
+      </a>
+      <a href="pages/field-analysis.html" class="page-link">
+        <div class="link-title">Field Analysis</div>
+        <div class="link-desc">g-chains, Γ-chains, ray accumulators, fold-pair symmetry and π opcode energy.</div>
+      </a>
+      <a href="pages/field-inventory.html" class="page-link">
+        <div class="link-title">Field Inventory</div>
+        <div class="link-desc">Every position with dlog, ray, residue class, π opcode, fold and words.</div>
+      </a>
+      <a href="pages/math-derivation.html" class="page-link">
+        <div class="link-title">Derivations</div>
+        <div class="link-desc">The single axiom to the theorem chain, in eleven steps.</div>
+      </a>
+      <a href="pages/scale-derivation.html" class="page-link">
+        <div class="link-title">Scale Derivation</div>
+        <div class="link-desc">The derivations carried through the scale chain.</div>
+      </a>
+      <a href="pages/physics-math.html" class="page-link">
+        <div class="link-title">Physics Math</div>
+        <div class="link-desc">The solid-state derivation, sections I–XXXIV.</div>
+      </a>
+      <a href="pages/phi-delta-r-architecture.html" class="page-link">
+        <div class="link-title">Φ∂R Architecture</div>
+        <div class="link-desc">The architecture step by step, from the axiom to loop closure.</div>
+      </a>
+      <a href="pages/cascade-ring.html" class="page-link">
+        <div class="link-title">Cascade Ring</div>
+        <div class="link-desc">GF(257)* as twelve rays: angle = dlog mod 12, radius = depth.</div>
+      </a>
+      <a href="pages/i-ledger.html" class="page-link">
+        <div class="link-title">i-ledger</div>
+        <div class="link-desc">One row per position: its inverse, the words at both, the namespaces that reach it.</div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<div class="footer">GF(257) · g = 3 · φ ∈ GF(257²) — from field to observer and back</div>
+
+<script>
+(function () {
+  var sects = document.querySelectorAll('.section');
+  if (!('IntersectionObserver' in window)) { sects.forEach(function (s) { s.classList.add('visible'); }); return; }
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  sects.forEach(function (s) { obs.observe(s); });
+  if (location.hash) { var t = document.querySelector(location.hash); if (t) t.classList.add('visible'); }
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function () { var t = document.querySelector(a.getAttribute('href')); if (t) t.classList.add('visible'); });
+  });
+})();
+</script>
+</body>
+</html>

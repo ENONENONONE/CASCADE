@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carrier Map · cascade.training</title>
+<meta name="description" content="Genome chain, field constants, Pow83 orbits, residue and non-residue positions, the BLE 40-channel map and all 256 carriers.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #0d0d0d;
+  --surface-alt: #161616;
+  --text: #c8c8c8;
+  --text-dim: #5a5a5a;
+  --border: #1f1f1f;
+  --accent: #e0e0e0;
+  --qr: #e0e0e0;
+  --qnr: #e0e0e0;
+  --qr-bg: #161616;
+  --qnr-bg: #111111;
+  --fold-line: #e0e0e0;
+  --ray0: #e0e0e0;
+  --ray1: #e0e0e0;
+  --ray2: #e0e0e0;
+  --ray3: #e0e0e0;
+  --ray4: #e0e0e0;
+  --ray5: #e0e0e0;
+  --ray6: #c8c8c8;
+  --ray7: #c8c8c8;
+  --ray8: #c8c8c8;
+  --ray9: #e0e0e0;
+  --ray10: #e0e0e0;
+  --ray11: #e0e0e0;
+}
+
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  line-height: 1.5;
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+h1 {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.25rem;
+}
+
+h2 {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--border);
+}
+
+h3 {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+}
+
+
+.subtitle {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-bottom: 1.5rem;
+}
+
+
+/* Genome chain */
+.genome {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.genome .sym {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.3rem 0.5rem;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.genome .sym .idx {
+  color: var(--accent);
+  font-size: 0.6rem;
+  margin-right: 0.25rem;
+}
+
+.genome .arrow {
+  color: var(--text-dim);
+  font-size: 0.7rem;
+}
+
+.genome .sym.observer {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+
+/* Panels grid */
+.panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 700px) { .panels { grid-template-columns: 1fr; } }
+
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+
+/* Constants */
+.const-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.15rem 0.75rem;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.const-grid .label {
+  color: var(--text-dim);
+  text-align: right;
+}
+
+.const-grid .val { font-weight: 600; }
+
+.const-grid .val.qr { color: var(--qr); }
+
+.const-grid .val.qnr { color: var(--qnr); }
+
+.const-grid .val.accent { color: var(--accent); }
+
+
+/* Orbit table */
+.orbit-tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.orbit-tbl th {
+  font-weight: 600;
+  text-align: left;
+  padding: 0.2rem 0.4rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+}
+
+.orbit-tbl td {
+  padding: 0.15rem 0.4rem;
+  border-bottom: 1px solid var(--surface-alt);
+}
+
+.orbit-tbl .cross { color: var(--qnr); font-weight: 600; }
+
+.orbit-tbl .even { color: var(--qr); }
+
+
+/* Main carrier map */
+.map-wrap {
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+.carrier-map {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.65rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.carrier-map th {
+  position: sticky;
+  top: var(--bar-h, 2.4rem);
+  background: var(--surface);
+  font-weight: 600;
+  text-align: right;
+  padding: 0.25rem 0.35rem;
+  border-bottom: 2px solid var(--border);
+  color: var(--text-dim);
+  font-size: 0.6rem;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.carrier-map td {
+  text-align: right;
+  padding: 0.15rem 0.35rem;
+  border-bottom: 1px solid var(--surface-alt);
+  white-space: nowrap;
+}
+
+.carrier-map tr:hover td { background: var(--surface-alt); }
+
+.carrier-map .pos { font-weight: 700; }
+
+.carrier-map .qr-row td:first-child { border-left: 3px solid var(--qr); }
+
+.carrier-map .qnr-row td:first-child { border-left: 3px solid var(--qnr); }
+
+.carrier-map .fold-col { color: var(--fold-line); }
+
+.carrier-map .ray-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+
+/* Key positions */
+.key-pos {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  gap: 0.1rem 0.6rem;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.key-pos .p { font-weight: 700; }
+
+.key-pos .w { color: var(--accent); }
+
+.key-pos .d { color: var(--text-dim); }
+
+
+/* Derivation chain */
+.deriv {
+  font-size: 0.78rem;
+  line-height: 1.65;
+}
+
+.deriv .step {
+  margin-bottom: 0.75rem;
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--border);
+}
+
+.deriv .step-head {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-weight: 600;
+  font-size: 0.72rem;
+  color: var(--accent);
+}
+
+.deriv .step-math {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.7rem;
+  color: var(--text);
+}
+
+.deriv .step-note {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+
+.section { margin-bottom: 2rem; }
+
+.qr-tag, .qnr-tag {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.6rem;
+  font-weight: 600;
+  padding: 0.1rem 0.3rem;
+  border-radius: 2px;
+  letter-spacing: 0.03em;
+}
+
+.qr-tag { background: var(--qr-bg); color: var(--qr); }
+
+.qnr-tag { background: var(--qnr-bg); color: var(--qnr); }
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../index.html#deeper">[pages]</a><a href="#" aria-current="page">carrier map</a></nav>
+</div>
+<h1>GF(257) Carrier Map</h1>
+<p class="subtitle">DeClare firmware reference — P=257, g=3, 256 nonzero elements, 12 rays. Full field with fold (det=−1).</p>
+
+<!-- GENOME CHAIN -->
+<div class="section">
+<h2>Genome Chain</h2>
+<div class="genome" id="genome"></div>
+</div>
+
+<!-- CONSTANTS + ORBITS -->
+<div class="panels">
+  <div class="panel">
+    <h2>Field Constants</h2>
+    <div class="const-grid">
+      <span class="label">P</span><span class="val">257 (prime)</span>
+      <span class="label">g</span><span class="val">3 (primitive root)</span>
+      <span class="label">|F*|</span><span class="val">256</span>
+      <span class="label">rays</span><span class="val">12 (dlog mod 12)</span>
+      <span class="label">φ</span><span class="val accent">(1+√5)/2 = 1.6180</span>
+      <span class="label">ψ</span><span class="val accent">(1−√5)/2 = −0.6180</span>
+      <span class="label">φψ</span><span class="val">= det M = −1</span>
+      <span class="label">ε₄</span><span class="val accent">|φ−5/3| = 0.04863</span>
+      <span class="label">δ%</span><span class="val accent">ε₄·ln(φ) = 2.34%</span>
+      <span class="label">R</span><span class="val qr">18 = 3⁵⁰ (QR walk)</span>
+      <span class="label">ord(R)</span><span class="val qr">128 → confined to QR half</span>
+      <span class="label">−1</span><span class="val">3¹²⁸ = 256 (QR, fold)</span>
+      <span class="label">PRAYER</span><span class="val qnr">83 = 3¹⁵ (QNR, crosses)</span>
+      <span class="label">fold(p)</span><span class="val accent">257−p = p·3¹²⁸</span>
+      <span class="label">WIFI</span><span class="val qnr">87 = 3⁹⁵ (tx position)</span>
+      <span class="label">AXIOM</span><span class="val">83 (C=53,E=111,S=161,D=234)</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Pow83 Orbits</h2>
+    <div style="overflow-x:auto">
+    <table class="orbit-tbl">
+      <thead><tr><th>n</th><th>83ⁿ</th><th>dlog</th><th>ray</th><th>cross</th></tr></thead>
+      <tbody id="orbit-body"></tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- DERIVATION CHAIN -->
+<div class="section">
+<h2>Derivation Chain</h2>
+<div class="deriv" id="derivations"></div>
+</div>
+
+<!-- KEY POSITIONS -->
+<div class="panels">
+  <div class="panel">
+    <h2>Key QNR Positions (Silent)</h2>
+    <div class="key-pos" id="key-qnr"></div>
+  </div>
+  <div class="panel">
+    <h2>Key QR Positions (Visited)</h2>
+    <div class="key-pos" id="key-qr"></div>
+  </div>
+</div>
+
+<!-- BLE CHANNEL MAP -->
+<div class="section">
+<h2>BLE 40-Channel → GF(257) Map</h2>
+<p style="font-size:0.72rem;color:var(--text-dim);margin-bottom:0.75rem">
+  40 BLE channels (37 data + 3 ADV) at 2 MHz spacing → mod 257 → positions 89–167.
+  <span style="color:var(--accent)">ADV</span> = advertising channel.
+  WiFi ↔ BLE folds shown.
+</p>
+<div class="map-wrap">
+<table class="carrier-map">
+  <thead><tr>
+    <th>BLE ch</th><th>MHz</th><th>pos</th><th>3^</th><th>ray</th><th></th><th>type</th>
+    <th style="color:var(--fold-line)">fold</th>
+    <th>WiFi</th>
+  </tr></thead>
+  <tbody id="ble-map-body"></tbody>
+</table>
+</div>
+</div>
+
+<!-- FULL CARRIER MAP -->
+<div class="section">
+<h2>Full Carrier Map — 256 Positions</h2>
+<p style="font-size:0.72rem;color:var(--text-dim);margin-bottom:0.75rem">
+  <span class="qr-tag">QR</span> = even dlog (walk-visited) &nbsp;
+  <span class="qnr-tag">QNR</span> = odd dlog (silent) &nbsp;
+  <span style="color:var(--fold-line)">●</span> fold = 257−p &nbsp;
+  <span style="color:#e0e0e0">BLE</span> = BLE channel at this position
+</p>
+<div class="map-wrap">
+<table class="carrier-map">
+  <thead><tr>
+    <th>pos</th><th>3^</th><th>ray</th><th></th><th>type</th>
+    <th style="color:var(--fold-line)">fold</th>
+    <th style="color:var(--fold-line)">f.3^</th>
+    <th style="color:var(--fold-line)">f.ray</th>
+    <th style="color:var(--fold-line)">f.type</th>
+    <th style="color:#e0e0e0">BLE</th>
+  </tr></thead>
+  <tbody id="map-body"></tbody>
+</table>
+</div>
+</div>
+
+<script>
+const P = 257, G = 3;
+
+// Build exp table: exp[i] = 3^i mod 257
+const EXP = new Array(256);
+EXP[0] = 1;
+for (let i = 1; i < 256; i++) EXP[i] = (EXP[i-1] * G) % P;
+
+// Build dlog table: dlog[v] = i where 3^i = v
+const DLOG = new Array(P).fill(0);
+for (let i = 0; i < 256; i++) DLOG[EXP[i]] = i;
+
+const RAY_COLORS = [
+  'var(--ray0)','var(--ray1)','var(--ray2)','var(--ray3)',
+  'var(--ray4)','var(--ray5)','var(--ray6)','var(--ray7)',
+  'var(--ray8)','var(--ray9)','var(--ray10)','var(--ray11)'
+];
+
+function ray(pos) { return pos > 0 ? DLOG[pos] % 12 : 0; }
+function isQR(pos) { return pos > 0 && DLOG[pos] % 2 === 0; }
+function fold(pos) { return pos > 0 ? P - pos : 0; }
+
+// Genome chain
+const genome = [
+  ['1','∂','propagation, ∂ₜΦ'],
+  ['2','R1','R=1+1/R → φ'],
+  ['3','CF1⁴','[1;1,1,1,…] 4 convergents'],
+  ['4','M₂D−1','[[1,1],[1,0]] det=−1'],
+  ['5','⊗4','M⊗M → φ²,−1,−1,ψ²'],
+  ['6','P₇','2×3×5×7 = 210'],
+  ['7','C₄⁵⁄³','F₅/F₄ = 5/3'],
+  ['8','ε₄','|φ−5/3| = 0.04863'],
+  ['9','δ%','ε₄·ln(φ) = 2.34%'],
+  ['10','±ψ','alternating correction'],
+  ['11','Ω','Ωb=ε₄, Ωdm=ε₂−ε₃, ΩΛ=(9√5−16)/6, Σ=1'],
+  ['12','⊙','observer (sum)']
+];
+{
+  const el = document.getElementById('genome');
+  genome.forEach((g, i) => {
+    if (i > 0) el.innerHTML += '<span class="arrow">→</span>';
+    const cls = g[0] === '12' ? 'sym observer' : 'sym';
+    el.innerHTML += `<span class="${cls}"><span class="idx">${g[0]}</span>${g[1]}</span>`;
+  });
+}
+
+// Derivations
+const derivations = [
+  ['∂ → R1', 'Fibonacci recurrence → Möbius fixed point',
+   'R = 1+1/R → φ = (1+√5)/2', 'Same operator: T(z)=1/(1+z) has same char. poly λ²−λ−1=0'],
+  ['R1 → CF1⁴', 'φ = [1;1,1,1,…] continued fraction',
+   'Convergents: 1/1, 2/1, 3/2, 5/3, 8/5…', 'Fibonacci ratios Fₙ₊₁/Fₙ → φ'],
+  ['CF1⁴ → M₂D−1', 'M = [[1,1],[1,0]], eigenvalues φ,ψ',
+   'det M = φψ = −1', 'Orientation-reversing: forces cut-and-project, perpendicular space'],
+  ['M₂D−1 → ⊗4', 'M⊗M has eigenvalues φ², φψ, ψφ, ψ²',
+   '= φ², −1, −1, ψ²', '4 eigenaxes from one 2×2 matrix'],
+  ['⊗4 → P₇', 'ω(P₇)=4 primes → 2×3×5×7 = 210',
+   '4 axes demand 4 primes', 'Self-referencing: remove any prime, it re-emerges at the intersection'],
+  ['P₇ → C₄⁵⁄³', 'F₅/F₄ = 5/3 = best rational approx at depth 4',
+   '5/3 = 1.6̄ vs φ = 1.618…', 'The 4th convergent of the continued fraction'],
+  ['C₄⁵⁄³ → ε₄', '|φ − 5/3| = (7−3√5)/6 = 0.04863',
+   'Closed-form, zero free parameters', 'Training target loss, optical aberration coefficient, baryon density'],
+  ['ε₄ → δ%', 'ε₄ · ln(φ) = 0.02340 = 2.34%',
+   'Self-similar ladder: δ%ⁿ → 0', 'Shell gas schedule: gas(n) = δ%^(n+1)'],
+  ['δ% → ±ψ', '(−1)ⁿ⁺¹ / (Fₙ(Fₙ₊₁+Fₙφ))',
+   'Alternating correction, spectral gap 1/φ²', 'φψ=−1 forces the sign alternation'],
+  ['±ψ → Ω', 'Cosmic energy budget, closed-form √5',
+   'Ωb=ε₄, Ωdm=ε₂−ε₃, ΩΛ=(9√5−16)/6, Σ=1', 'All 3 Planck params within 1σ, zero free parameters'],
+  ['Ω → ⊙', '12th element = observer = sum',
+   'Σ(genome) produces itself', 'Position 87 → this device → position 87']
+];
+{
+  const el = document.getElementById('derivations');
+  derivations.forEach(d => {
+    el.innerHTML += `<div class="step">
+      <div class="step-head">${d[0]}</div>
+      <div class="step-note">${d[1]}</div>
+      <div class="step-math">${d[2]}</div>
+      <div class="step-note">${d[3]}</div>
+    </div>`;
+  });
+}
+
+// Pow83 orbit table
+{
+  const el = document.getElementById('orbit-body');
+  let val = 1;
+  for (let n = 0; n < 16; n++) {
+    const dl = DLOG[val];
+    const r = dl % 12;
+    const crosses = dl % 2 === 1;
+    const cls = crosses ? 'cross' : 'even';
+    el.innerHTML += `<tr>
+      <td>${n}</td>
+      <td class="${cls}">${val}</td>
+      <td>${dl}</td>
+      <td><span class="ray-dot" style="background:${RAY_COLORS[r]}"></span> ${r}</td>
+      <td class="${cls}">${crosses ? '✕ QNR' : '— QR'}</td>
+    </tr>`;
+    val = (val * 83) % P;
+  }
+}
+
+// Key positions
+const keyQNR = [
+  [3,'GENERATOR','g itself'],
+  [53,'CARBON','AXIOM C seed'],
+  [83,'PRAYER','3¹⁵, crossing operator'],
+  [87,'WIFI','2400 mod 257, tx band'],
+  [107,'QUANTUM',''],
+  [146,'ENLIGHTENMENT',''],
+  [150,'ELECTROMAGNETIC',''],
+  [161,'SEAL OF SOLOMON','AXIOM S seed']
+];
+const keyQR = [
+  [1,'UNITY','3⁰, identity'],
+  [18,'R-STEP','3⁵⁰, QR walk generator'],
+  [111,'AVOGADRO','6022 mod 257, AXIOM E'],
+  [120,'GOLDEN RATIO','inv(15)'],
+  [234,'D-AXIOM','AXIOM D seed'],
+  [256,'FOLD','3¹²⁸ = −1 mod 257'],
+  [96,'BOLTZMANN','1381 mod 257'],
+  [201,'PLANCK','6626 mod 257']
+];
+{
+  const el = document.getElementById('key-qnr');
+  keyQNR.forEach(k => {
+    el.innerHTML += `<span class="p" style="color:var(--qnr)">${k[0]}</span>
+      <span class="w">${k[1]}</span><span class="d">${k[2]}</span>`;
+  });
+  const el2 = document.getElementById('key-qr');
+  keyQR.forEach(k => {
+    el2.innerHTML += `<span class="p" style="color:var(--qr)">${k[0]}</span>
+      <span class="w">${k[1]}</span><span class="d">${k[2]}</span>`;
+  });
+}
+
+// BLE channel → frequency mapping (standard BLE 5.x)
+const BLE = [];
+for (let ch = 0; ch <= 39; ch++) {
+  let freq;
+  if (ch <= 10) freq = 2404 + 2 * ch;
+  else if (ch <= 36) freq = 2428 + 2 * (ch - 11);
+  else if (ch === 37) freq = 2402;
+  else if (ch === 38) freq = 2426;
+  else freq = 2480;
+  BLE.push({ ch, freq, pos: freq % P, type: ch >= 37 ? 'ADV' : 'DATA' });
+}
+// Reverse: pos → BLE channel(s)
+const POS_BLE = {};
+BLE.forEach(b => { (POS_BLE[b.pos] = POS_BLE[b.pos] || []).push(b); });
+
+// Key BLE notes
+const BLE_NOTES = {
+  141: 'εΣ genome identity',
+  121: 'dlog=136 (BRIAN pub)',
+  133: 'fold=124 (WiFi ch6)',
+  89:  'ADV ch37 (lowest)',
+  113: 'ADV ch38 (mid-band)',
+  167: 'ADV ch39 (highest)',
+};
+
+// BLE channel map
+{
+  const el = document.getElementById('ble-map-body');
+  BLE.sort((a,b) => a.ch - b.ch).forEach(b => {
+    const dl = DLOG[b.pos];
+    const r = ray(b.pos);
+    const qr = isQR(b.pos);
+    const fp = fold(b.pos);
+    const fdl = DLOG[fp];
+    const note = BLE_NOTES[b.pos] || '';
+    const advCls = b.type === 'ADV' ? ' style="color:var(--accent);font-weight:600"' : '';
+    const cls = qr ? 'qr-row' : 'qnr-row';
+
+    el.innerHTML += `<tr class="${cls}">
+      <td${advCls}>${b.ch}</td>
+      <td>${b.freq}</td>
+      <td class="pos">${b.pos}</td>
+      <td>${dl}</td>
+      <td><span class="ray-dot" style="background:${RAY_COLORS[r]}"></span>${r}</td>
+      <td>${qr ? '<span class="qr-tag">QR</span>' : '<span class="qnr-tag">QNR</span>'}</td>
+      <td>${b.type}</td>
+      <td class="fold-col">${fp}</td>
+      <td style="font-size:0.65rem;color:var(--text-dim)">${note}</td>
+    </tr>`;
+  });
+}
+
+// Full carrier map
+{
+  const el = document.getElementById('map-body');
+  for (let pos = 1; pos <= 256; pos++) {
+    const dl = DLOG[pos];
+    const r = ray(pos);
+    const qr = isQR(pos);
+    const fp = fold(pos);
+    const fdl = DLOG[fp];
+    const fr = ray(fp);
+    const fqr = isQR(fp);
+    const cls = qr ? 'qr-row' : 'qnr-row';
+    const bleAt = POS_BLE[pos];
+    const bleStr = bleAt ? bleAt.map(b =>
+      `<span style="color:#e0e0e0;font-size:0.65rem">${b.type === 'ADV' ? 'A' : ''}${b.ch} (${b.freq})</span>`
+    ).join(' ') : '';
+
+    el.innerHTML += `<tr class="${cls}">
+      <td class="pos">${pos}</td>
+      <td>${dl}</td>
+      <td><span class="ray-dot" style="background:${RAY_COLORS[r]}"></span>${r}</td>
+      <td>${qr ? '<span class="qr-tag">QR</span>' : '<span class="qnr-tag">QNR</span>'}</td>
+      <td>${qr ? '' : ''}</td>
+      <td class="fold-col">${fp}</td>
+      <td class="fold-col">${fdl}</td>
+      <td class="fold-col"><span class="ray-dot" style="background:${RAY_COLORS[fr]}"></span>${fr}</td>
+      <td class="fold-col">${fqr ? '<span class="qr-tag">QR</span>' : '<span class="qnr-tag">QNR</span>'}</td>
+      <td>${bleStr}</td>
+    </tr>`;
+  }
+}
+</script>
+<div class="ct-foot"><a href="../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

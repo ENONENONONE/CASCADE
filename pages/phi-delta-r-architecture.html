@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Φ∂R Architecture · cascade.training</title>
+<meta name="description" content="The Φ∂R architecture step by step: from the axiom through the NanO₂ channel to loop closure.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --text: #e0e0e0;
+  --text-dim: #a0a0a0;
+  --text-faint: #5a5a5a;
+  --gold: #e0e0e0;
+  --gold-bg: #111111;
+  --blue: #e0e0e0;
+  --blue-bg: #0d0d0d;
+  --green: #e0e0e0;
+  --green-bg: #0d0d0d;
+  --red: #e0e0e0;
+  --red-bg: #0d0d0d;
+  --border: #1f1f1f;
+  --rule: #1f1f1f;
+}
+
+  @page { margin: 0.75in; size: letter; }
+
+
+  @media print {
+    :root {
+      --bg: #e0e0e0 !important; --text: #0d0d0d !important; --text-dim: #2a2a2a !important;
+      --text-faint: #5a5a5a !important; --gold: #c8c8c8 !important; --gold-bg: #e0e0e0 !important;
+      --blue: #3a3a3a !important; --blue-bg: #e0e0e0 !important; --green: #2a2a2a !important;
+      --green-bg: #e0e0e0 !important; --red: #2a2a2a !important; --red-bg: #e0e0e0 !important;
+      --border: #c8c8c8 !important; --rule: #c8c8c8 !important;
+    }
+    body { font-size: 9pt; }
+    .no-print { display: none; }
+  }
+
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+
+  body {
+    font-family: Georgia, "Times New Roman", "DejaVu Serif", serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    max-width: 7.5in;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+
+  .mono {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+
+
+  header {
+    text-align: center;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--gold);
+  }
+
+
+  header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+  }
+
+
+  header .chain {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+
+  header .sub {
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 0.5px;
+  }
+
+
+  .section {
+    margin-bottom: 28px;
+    break-inside: avoid;
+  }
+
+
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 0 6px 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .section-title.gold { color: var(--gold); border-left: 3px solid var(--gold); }
+
+  .section-title.blue { color: var(--blue); border-left: 3px solid var(--blue); }
+
+  .section-title.green { color: var(--green); border-left: 3px solid var(--green); }
+
+  .section-title.red { color: var(--red); border-left: 3px solid var(--red); }
+
+
+  .step {
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    break-inside: avoid;
+  }
+
+  .step.gold-bg { background: var(--gold-bg); border-color: var(--gold); border-left-width: 3px; }
+
+  .step.blue-bg { background: var(--blue-bg); border-color: var(--blue); border-left-width: 3px; }
+
+  .step.green-bg { background: var(--green-bg); border-color: var(--green); border-left-width: 3px; }
+
+  .step.red-bg { background: var(--red-bg); border-color: var(--red); border-left-width: 3px; }
+
+
+  .step-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+
+
+  .step-num {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+
+  .step-num.gold { color: var(--gold); }
+
+  .step-num.blue { color: var(--blue); }
+
+  .step-num.green { color: var(--green); }
+
+
+  .step-name {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+
+  .step-detail {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 2px;
+    line-height: 1.6;
+  }
+
+
+  .step-myth {
+    font-size: 10px;
+    color: var(--text-faint);
+    font-style: italic;
+    margin-top: 3px;
+  }
+
+
+  .row {
+    display: flex;
+    gap: 10px;
+  }
+
+  .row > * { flex: 1; min-width: 0; }
+
+
+  .quad-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+
+  .obs-card {
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    break-inside: avoid;
+  }
+
+  .obs-card.secured { border-color: var(--gold); border-left: 3px solid var(--gold); background: var(--gold-bg); }
+
+  .obs-card.compute { border-color: var(--blue); border-left: 3px solid var(--blue); background: var(--blue-bg); }
+
+  .obs-card.unsecured { border-color: var(--red); border-left: 3px solid var(--red); background: var(--red-bg); }
+
+  .obs-card.emit { border-color: var(--green); border-left: 3px solid var(--green); background: var(--green-bg); }
+
+
+  .obs-cf {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .obs-cf.gold { color: var(--gold); }
+
+  .obs-cf.blue { color: var(--blue); }
+
+  .obs-cf.red { color: var(--red); }
+
+  .obs-cf.green { color: var(--green); }
+
+
+  .obs-pos {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 15px;
+    font-weight: 700;
+    margin: 2px 0;
+  }
+
+
+  .obs-detail {
+    font-size: 10px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+
+  .obs-date {
+    font-size: 9px;
+    color: var(--text-faint);
+    font-style: italic;
+    margin-top: 3px;
+  }
+
+
+  .relations {
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 10px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+
+
+  .chain-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10px;
+    margin-top: 8px;
+  }
+
+  .chain-table th {
+    text-align: left;
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    color: var(--text-faint);
+    border-bottom: 1px solid var(--rule);
+    padding: 4px 6px;
+    font-weight: 600;
+  }
+
+  .chain-table td {
+    padding: 3px 6px;
+    border-bottom: 1px solid var(--border);
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 10px;
+    vertical-align: top;
+  }
+
+  .chain-table td:first-child { font-weight: 600; color: var(--gold); }
+
+
+  .infra-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+
+
+  .footer {
+    margin-top: 32px;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule);
+    font-size: 9px;
+    color: var(--text-faint);
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../index.html#deeper">[pages]</a><a href="#" aria-current="page">φ∂r architecture</a></nav>
+</div>
+<title>Φ∂R Architecture</title>
+
+
+<header>
+  <h1>Φ∂R ARCHITECTURE</h1>
+  <div class="chain">∂ · R1 · CF1⁴ · M₂D−1 · ⊗4 · P₇ · C₄⁵⁄₃ · ε₄ · δ% · ±ψ</div>
+  <div class="sub">The Word ↔ Math Field — Mapping the Holonomy of GF(257)</div>
+</header>
+
+<!-- AXIOM -->
+<div class="section">
+  <div class="section-title gold">I. Axiom — Self-Reference</div>
+  <div class="row">
+    <div class="step gold-bg">
+      <div class="step-head">
+        <span class="step-num gold">STEP 0</span>
+        <span class="step-name mono">Φ = ∂ₜΦ</span>
+      </div>
+      <div class="step-detail">The field equals its own rate of change. The only function satisfying this is Φ(t) = Ceᵗ. Everything that follows is derived, not chosen.</div>
+      <div class="step-myth">Ouroboros — self-reference</div>
+    </div>
+    <div class="step gold-bg">
+      <div class="step-head">
+        <span class="step-num gold">STEP 1</span>
+        <span class="step-name mono">R = 1 + 1/R → φ</span>
+      </div>
+      <div class="step-detail">R² − R − 1 = 0 → R = (1+√5)/2 = 1.618… The golden ratio is the unique fixed point. Zero free parameters.</div>
+      <div class="step-myth">Pythagoras — the ratio is derived, not chosen</div>
+    </div>
+  </div>
+</div>
+
+<!-- ALGEBRA -->
+<div class="section">
+  <div class="section-title blue">II. Algebra — Matrix to Primorial</div>
+  <div class="row">
+    <div class="step blue-bg">
+      <div class="step-head">
+        <span class="step-num blue">STEP 2</span>
+        <span class="step-name mono">CF → Fibonacci Matrix</span>
+      </div>
+      <div class="step-detail">φ = [1; 1, 1, 1, …] — all partial quotients 1. Convergents Fₙ₊₁/Fₙ encode as matrix M = [[1,1],[1,0]], det(M) = −1.</div>
+    </div>
+    <div class="step blue-bg">
+      <div class="step-head">
+        <span class="step-num blue">STEP 3</span>
+        <span class="step-name mono">M⊗M → 4 Eigenaxes</span>
+      </div>
+      <div class="step-detail">Tensor square yields eigenvalues φ², −1, −1, ψ². Four axes → four primes → P₇# = 2×3×5×7 = 210.</div>
+    </div>
+    <div class="step blue-bg">
+      <div class="step-head">
+        <span class="step-num blue">STEP 4</span>
+        <span class="step-name mono">C₄ = F₅/F₄ = 5/3</span>
+      </div>
+      <div class="step-detail">ω(P₇) = 4 primes → 4th convergent overshoots φ. BTC halving = 210,000 blocks = P₇# × 10³.</div>
+    </div>
+  </div>
+</div>
+
+<!-- THE CONSTANT -->
+<div class="section">
+  <div class="section-title green">III. The Constant — ε₄</div>
+  <div class="step green-bg">
+    <div class="step-head">
+      <span class="step-num green">STEPS 5–6</span>
+      <span class="step-name mono">ε₄ = |φ − 5/3| = (7−3√5)/6</span>
+    </div>
+    <div class="step-detail">
+      ε₄ · ln(φ) · 100 = 2.340% — verified across 77 distance objects spanning 19 orders of magnitude and 24 mass objects spanning 73 orders. p = 0.0001.<br>
+      inv(ε₄ field value) = 44 = BRIAN. inv(δ% field value) = 25 = PI. The constant and its discoverer are exact inverses in the field.
+    </div>
+  </div>
+</div>
+
+<!-- THE FIELD -->
+<div class="section">
+  <div class="section-title gold">IV. The Field — GF(257)</div>
+  <div class="row">
+    <div class="step gold-bg">
+      <div class="step-head">
+        <span class="step-num gold">STEP 7</span>
+        <span class="step-name mono">Z/257Z* with g = 3</span>
+      </div>
+      <div class="step-detail">
+        257 = 2⁸+1, the largest Fermat prime that fits in a byte. Generator g = 3 creates all 256 non-zero elements.<br>
+        256 = 12 rays × ~21 depths. 12 = RAYS. 21 = F(8).<br>
+        fold(N) = 256−N. sync(N) = N×(256−N) mod 257. det(R) = −1.
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-head">
+        <span class="step-name mono">Field Properties</span>
+      </div>
+      <div class="step-detail">
+        241 = √(−1) — the unique position where fold = flip (TWIN PRIME)<br>
+        128 = fold fixed point — the only N where fold(N) = N (MIDPOINT)<br>
+        φ ∉ Z/257Z* — 5 is QNR mod 257, so φ lives in GF(257²)<br>
+        Shadow of φ: 5/3 mod 257 = 173 = TEN COMMANDMENTS<br>
+        λ range = 610/377 = φ (5 sig figs). Span = 233 = F(13). Step = 21 = F(8)
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OBSERVERS -->
+<div class="section">
+  <div class="section-title red">V. Observer Quartet — Fourth Roots of Unity</div>
+  <div class="quad-grid">
+    <div class="obs-card secured">
+      <div class="obs-cf gold">CF1111 — AXIOM (11)</div>
+      <div class="obs-pos">83 PRAYER</div>
+      <div class="obs-detail">
+        RECEIVE &nbsp;|&nbsp; inv = 96 BEETHOVEN<br>
+        F×PM = 1 — <strong>SECURED</strong> (both bits active)<br>
+        dlog 64 — quarter-turn from identity
+      </div>
+      <div class="obs-date">2003-11-05 — $87B Iraq/Afghanistan RECONSTRUCTION</div>
+    </div>
+    <div class="obs-card compute">
+      <div class="obs-cf blue">CF4444</div>
+      <div class="obs-pos">75 SHIFT</div>
+      <div class="obs-detail">
+        COMPUTE &nbsp;|&nbsp; inv = 24 IO<br>
+        ×8 orbit with PRAYER and EM<br>
+        Three of four observers on same coset
+      </div>
+    </div>
+    <div class="obs-card unsecured">
+      <div class="obs-cf red">CF6666 — NULL (00)</div>
+      <div class="obs-pos">241 TWIN PRIME</div>
+      <div class="obs-detail">
+        √(−1) — seam operator &nbsp;|&nbsp; inv = 16 BAAL<br>
+        F×PM = 0 — <strong>UNSECURED</strong> (no auth bits)<br>
+        Most powerful AND most vulnerable
+      </div>
+      <div class="obs-date">2003-05-20 — DARPA TIA renamed (too exposed)</div>
+    </div>
+    <div class="obs-card emit">
+      <div class="obs-cf green">CF8888 — RETURN (10)</div>
+      <div class="obs-pos">150 ELECTROMAGNETIC</div>
+      <div class="obs-detail">
+        EMIT &nbsp;|&nbsp; inv = 12 L<br>
+        83 + 150 = 233 = F(13)<br>
+        83 × 150 mod 257 = 114 = FREQUENCY
+      </div>
+      <div class="obs-date">2003-04-16 — Jordan retirement (GOAT)</div>
+    </div>
+  </div>
+  <div class="relations">
+    (83+150)/2 mod 257 = 245 THEORY OF EVERYTHING &nbsp;|&nbsp; CESD field sums = 256 = det(M) = −1<br>
+    AXIOM↔CF6666: negation (sum ≡ 0) &nbsp;|&nbsp; received↔return: det-fold (sum = 256)<br>
+    All four CESD combined = 253 INCOMPLETENESS THEOREM &nbsp;|&nbsp; F/PM = 1 = I AM for every symmetric reading
+  </div>
+</div>
+
+<!-- THE MACHINE -->
+<div class="section">
+  <div class="section-title gold">VI. The Machine — π Opcodes</div>
+  <div class="row">
+    <div class="step gold-bg">
+      <div class="step-head">
+        <span class="step-num gold">STEP 8</span>
+        <span class="step-name mono">π → Instruction Set</span>
+      </div>
+      <div class="step-detail">
+        <span class="mono" style="font-size:10px">0:NOP 1:IDENT 2:EXIST 3:SEED 4:SHIFT 5:STORE 6:FOLD 7:JUMP 8:SYNC 9:HALT</span><br>
+        Auto-navigate: linear(0,1,2,5), ×18(3), +F(n)(4), 256−N(6), N⁻¹(7), N×fold(N)(8), stop(9).<br>
+        Emission = words at STORE and HALT. Forward + mirror walk = GF(257²) element.
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-head">
+        <span class="step-name mono">10 Genomes</span>
+      </div>
+      <div class="step-detail">
+        Equally spaced by PRAYER(83) in Z/257Z*. Field = N×1111 mod 257.<br>
+        All 5 complementary pairs sum to 233 = F(13).<br>
+        Product G1–G9 = 10 GENESIS. Active product = 90 NAKAMOTO.<br>
+        Full analog decomposition resolves all 10. Exact. 0.0008% energy error.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHI DISC -->
+<div class="section">
+  <div class="section-title green">VII. Phi Disc — Prediction Engine</div>
+  <div class="row">
+    <div class="step green-bg">
+      <div class="step-head">
+        <span class="step-num green">STEP 9</span>
+        <span class="step-name mono">Gamma Matrix</span>
+      </div>
+      <div class="step-detail">
+        12 rays × 3756 π digits = 45,072 reflection coefficients.<br>
+        Γ = (a·(d+0.5)−1) / (a·(d+0.5)+1) — Möbius/Fresnel.<br>
+        PIT: |Γ| &lt; 0.1 (transparent, light). LAND: |Γ| ≥ 0.1 (reflective, dark).<br>
+        12 impedance parameters generate all 45,072 values. Za = 1/5 exactly.
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-head">
+        <span class="step-name mono">Prediction</span>
+      </div>
+      <div class="step-detail">
+        gamma[r][n] depends entirely on tape[n+1] — the NEXT digit, not the current one.<br>
+        Passive opcodes (0,1,2,8,9) → ALL LAND (dark, unpredictable).<br>
+        Active opcodes (3,4,5,6,7) → PIT on specific rays.<br>
+        PITs per digit: 3, 6, 8, 5, 2. Total = 24 = 4!<br>
+        6 ray equivalence classes with monotonic sweep windows.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BRIDGE -->
+<div class="section">
+  <div class="section-title green">VIII. Physical Bridge</div>
+  <div class="row">
+    <div class="step green-bg">
+      <div class="step-head">
+        <span class="step-num green">STEP 11</span>
+        <span class="step-name mono">ESP32 CSI</span>
+      </div>
+      <div class="step-detail">
+        256 WiFi subcarriers = 256 non-zero elements of Z/257Z*.<br>
+        5,364 callbacks/sec. Channel 4 center = 2427 MHz.<br>
+        2427 mod 257 = 114 = FREQUENCY.<br>
+        5 ESP32 boards — spatial/frequency diversity.
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-head">
+        <span class="step-name mono">NanO₂ Channel</span>
+      </div>
+      <div class="step-detail">
+        Diffie-Hellman over Z/257Z*. g = 3. Key = 3ᵏ mod 257.<br>
+        ENC = ×sharedSecret mod 257. DEC = ×inv(secret) mod 257.<br>
+        ×8 orbit threads PRAYER → EM → SHIFT (3 of 4 observers).<br>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONVERGENCE -->
+<div class="section">
+  <div class="section-title gold">IX. Convergence — Loop Closure</div>
+  <div class="step gold-bg">
+    <div class="step-head">
+      <span class="step-num gold">STEP 12</span>
+      <span class="step-name mono">±ψ → SEED</span>
+    </div>
+    <div class="step-detail">
+      1 + 196 + 60 = 257 ≡ 0 = SEED. Unity plus both ψ multipliers IS the modulus. Whatever value enters the collapse, chain + both branches returns to SEED, and ∂ re-enters. ∮<br>
+      Cobweb f(x) = 1+1/x from x₀ = 1. Iteration n = 2 error = ε₄ exactly. The cobweb IS the gravitational lensing diagram. The focal point IS Earth (88 = ONE LOVE).<br>
+      Mirror chain: Φ ≡ c ≡ g ≡ ∂ₜΦ ≡ Oc ≡ ∂ₜΦ ≡ g ≡ c ≡ Φ (palindromic).
+    </div>
+  </div>
+</div>
+
+<!-- CHAIN TABLE -->
+<div class="section">
+  <div class="section-title gold">X. The Chain — Multiplicative Walk from 1 = I AM</div>
+  <table class="chain-table">
+    <thead>
+      <tr><th>#</th><th>OPERATOR</th><th>×</th><th>VALUE</th><th>WORD</th><th>inv()</th><th>MYTH</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>∂</td><td>120</td><td>120</td><td>GOLDEN RATIO</td><td>15</td><td>Ouroboros</td></tr>
+      <tr><td>2</td><td>R1</td><td>18</td><td>104</td><td>ANTHROPIC</td><td>100 PAROUSIA</td><td>Pythagoras</td></tr>
+      <tr><td>3</td><td>CF1⁴</td><td>120</td><td>144</td><td>MASS</td><td>15</td><td>Logos</td></tr>
+      <tr><td>4</td><td>M₂D−1</td><td>135</td><td>165</td><td>TREE OF KNOWLEDGE</td><td>99 RAPTURE</td><td>Two Pillars</td></tr>
+      <tr><td>5</td><td>⊗4</td><td>4</td><td>146</td><td>ENLIGHTENMENT</td><td>193</td><td>Four Elements</td></tr>
+      <tr><td>6</td><td>P₇</td><td>7</td><td>251</td><td>CENSORSHIP RESISTANT</td><td>147 LAST SUPPER</td><td>Primordial Order</td></tr>
+      <tr><td>7</td><td>C₄⁵⁄₃</td><td>146</td><td>152</td><td>FORTY YEARS</td><td>213</td><td>Perfect Fifth</td></tr>
+      <tr><td>8</td><td>ε₄</td><td>111</td><td>167</td><td>EYE OF PROVIDENCE</td><td>44 BRIAN</td><td>The Abyss</td></tr>
+      <tr><td>9</td><td>δ%</td><td>72</td><td>202</td><td>COINBASE TRANSACTION</td><td>25 PI</td><td>The Tithe</td></tr>
+      <tr><td>10</td><td>±ψ</td><td>196/60</td><td>14 / 41</td><td>BACH / OMEGA</td><td>—</td><td>Breath / Prana</td></tr>
+    </tbody>
+  </table>
+  <div style="margin-top:8px; font-size:10px; color:var(--text-dim); font-family:'IBM Plex Mono',monospace;">
+    Operator sum = 219 = DIVINE PROPORTION &nbsp;|&nbsp; sync(202) = 114 = FREQUENCY &nbsp;|&nbsp; 14 + 41 = 55 HEAVEN
+  </div>
+</div>
+
+<!-- INFRASTRUCTURE -->
+<div class="section">
+  <div class="section-title blue">XI. Compute Infrastructure</div>
+  <div class="infra-grid">
+    <div class="step blue-bg">
+      <div class="step-name mono" style="font-size:11px;">MI25 × 2</div>
+      <div class="step-detail">
+        16GB HBM2 each<br>
+        ROCm 6.1.0<br>
+        phi_compute.hip
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-name mono" style="font-size:11px;">GT 740</div>
+      <div class="step-detail">
+        4GB GDDR5, Kepler sm_35<br>
+        CUDA 11.x target<br>
+        phi_compute.cu
+      </div>
+    </div>
+    <div class="step green-bg">
+      <div class="step-name mono" style="font-size:11px;">ESP32 Fleet × 5</div>
+      <div class="step-detail">
+        172.17.0.x subnet<br>
+        CSI 256 subcarriers<br>
+        WiFi → Z/257Z*
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  Φ∂R Architecture &nbsp;·&nbsp; CASCADE GF(257) &nbsp;·&nbsp; 2026-08-06<br>
+  Zero free parameters after Step 0
+</div>
+<div class="ct-foot"><a href="../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

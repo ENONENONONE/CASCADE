@@ -1,0 +1,47 @@
+/* cascade.training — shell for converted pages.
+   Only the site bar and footer, with ct- prefixed classes so they never
+   collide with a page's own class names. Palette as in cascade.css. */
+
+:root {
+  --ct-bg: #0a0a0a;
+  --ct-border: #1f1f1f;
+  --ct-dim: #7a7a7a;
+  --ct-bright: #e0e0e0;
+  --bar-h: 2.4rem;
+  --ct-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+html { background: var(--ct-bg); color-scheme: dark; }
+body { padding-top: var(--bar-h) !important; }
+
+.ct-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  padding: .45rem 1.2rem;
+  background: rgba(10,10,10,.92);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--ct-border);
+  font-family: var(--ct-mono); font-size: .7rem; letter-spacing: .1em; line-height: 1.4;
+}
+.ct-bar a { color: var(--ct-dim); text-decoration: none; }
+.ct-bar a:hover, .ct-bar a[aria-current="page"] { color: var(--ct-bright); }
+.ct-bar .ct-mark { color: var(--ct-bright); }
+.ct-bar nav { display: flex; gap: 1.1rem; }
+.ct-bar .ct-wallet { color: var(--ct-dim); letter-spacing: .06em; text-align: center; min-width: 0; overflow-wrap: anywhere; }
+.ct-bar .ct-wallet span { color: var(--ct-bright); user-select: all; }
+
+.ct-foot {
+  text-align: center; padding: 2.5rem 1.5rem; margin-top: 3rem;
+  border-top: 1px solid var(--ct-border);
+  font-family: var(--ct-mono); font-size: .7rem; letter-spacing: .08em; color: var(--ct-dim);
+}
+.ct-foot a { color: var(--ct-dim); }
+.ct-foot a:hover { color: var(--ct-bright); }
+
+@media (max-width: 600px) {
+  .ct-bar { font-size: .64rem; padding: .45rem 1rem; }
+  .ct-bar nav a:not(:first-child) { display: none; }
+  :root { --bar-h: 3.9rem; }
+  .ct-bar { flex-wrap: wrap; row-gap: .3rem; }
+  .ct-bar .ct-wallet { order: 3; flex-basis: 100%; font-size: .62rem; letter-spacing: .02em; }
+}

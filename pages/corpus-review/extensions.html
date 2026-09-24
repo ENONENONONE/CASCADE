@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The extension fields · cascade.training</title>
+<meta name="description" content="Corpus Review · Mathematics · new space · The extension fields">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #0d0d0d;
+  --line: #1f1f1f;
+  --text: #e0e0e0;
+  --dim: #a0a0a0;
+  --gold: #e0e0e0;
+  --glow: #e0e0e0;
+  --amber: #e0e0e0;
+  --alert: #e0e0e0;
+  --blue: #e0e0e0;
+  --term-bg: #0a0a0a;
+  --term-text: #c8c8c8;
+  --serif: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --sans: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--bg);color:var(--text);font-family: var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+a{color:var(--blue);text-decoration:none}
+
+a:hover,a:focus{text-decoration:underline}
+
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.wrap{display:grid;grid-template-columns:1fr;gap:0;max-width:1240px;margin:0 auto;padding:0 20px 80px}
+
+@media (min-width:1100px){.wrap{grid-template-columns:240px minmax(0,1fr);gap:48px}}
+
+nav.toc{display:none}
+
+@media (min-width:1100px){
+  nav.toc{display:block;position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;padding:8px 0 24px;font-size:12.5px}
+  nav.toc .g{font-family: var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:16px 0 6px}
+  nav.toc a{display:block;color:var(--text);padding:3px 0 3px 10px;border-left:2px solid var(--line);line-height:1.35}
+  nav.toc a:hover{border-left-color:var(--gold);text-decoration:none;color:var(--gold)}
+  nav.toc a.sub{padding-left:22px;color:var(--dim)}
+}
+
+main{min-width:0}
+
+header.mast{padding:44px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+
+.eyebrow{font-family: var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+h1{font-family: var(--serif);font-weight:600;font-size:44px;line-height:1.05;margin:10px 0 12px;text-wrap:balance;letter-spacing:-.01em}
+
+.lede{font-family: var(--serif);font-size:19px;line-height:1.45;color:var(--text);max-width:62ch;margin:0 0 20px}
+
+.meta{font-family: var(--mono);font-size:12px;color:var(--dim);display:flex;flex-wrap:wrap;gap:6px 22px}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0 0}
+
+.tile{background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+
+.tile .n{font-family: var(--serif);font-size:28px;font-weight:600;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+
+.tile .l{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+
+.hero{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin:26px 0 0}
+
+@media (min-width:820px){.hero{grid-template-columns:minmax(0,1fr) 300px}}
+
+.hero canvas{width:300px;max-width:100%;height:auto;display:block;margin:0 auto}
+
+.hero .cap{font-family: var(--mono);font-size:11px;color:var(--dim);text-align:center;margin-top:6px}
+
+section{padding:34px 0 8px;border-top:1px solid var(--line)}
+
+section.first{border-top:0;padding-top:8px}
+
+h2{font-family: var(--serif);font-weight:600;font-size:30px;line-height:1.15;margin:6px 0 14px;text-wrap:balance}
+
+h3{font-family: var(--serif);font-weight:600;font-size:21px;margin:28px 0 8px;text-wrap:balance}
+
+h4{font-family: var(--sans);font-weight:600;font-size:14px;letter-spacing:.02em;margin:20px 0 6px;color:var(--gold)}
+
+p{max-width:70ch;margin:0 0 12px}
+
+ul,ol{max-width:70ch;padding-left:22px;margin:0 0 12px}
+
+li{margin:0 0 5px}
+
+li>p{margin:0}
+
+code,kbd{font-family: var(--mono);font-size:.92em;background:var(--surface2);border:1px solid var(--line);padding:0 4px;border-radius:2px;white-space:nowrap}
+
+pre{font-family: var(--mono);font-size:12.5px;line-height:1.5;background:var(--surface2);border:1px solid var(--line);padding:12px 14px;overflow-x:auto;margin:0 0 14px}
+
+pre code{background:none;border:0;padding:0;white-space:pre}
+
+.formula{font-family: var(--mono);font-size:13px;line-height:1.8;background:var(--surface2);border:1px solid var(--line);padding:10px 14px;margin:0 0 14px;overflow-x:auto;white-space:pre}
+
+.formula sup,.formula sub{font-size:.72em;line-height:0}
+
+.formula sup sup{font-size:.85em}
+
+.tbl.wrapth th{white-space:normal}
+
+.tbl{overflow-x:auto;margin:0 0 16px;border:1px solid var(--line);background:var(--surface)}
+
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+
+th,td{text-align:left;vertical-align:top;padding:7px 10px;border-bottom:1px solid var(--line)}
+
+th{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:500;background:var(--surface2);white-space:nowrap}
+
+td.n,th.n{text-align:right;font-family: var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+td.m{font-family: var(--mono);font-size:12.5px;white-space:nowrap}
+
+td.w{white-space:normal;min-width:18ch}
+
+tr:last-child td{border-bottom:0}
+
+.chip{display:inline-block;font-family: var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:2px;line-height:1.5;vertical-align:middle}
+
+.ok{color:var(--glow)}
+ .open{color:var(--amber)}
+ .bad{color:var(--alert)}
+ .rec{color:var(--gold)}
+ .info{color:var(--blue)}
+
+.note{border-left:3px solid var(--gold);padding:8px 14px;background:var(--surface);margin:0 0 14px;max-width:72ch}
+
+.note.warn{border-left-color:var(--alert)}
+
+.note.open{border-left-color:var(--amber)}
+
+.term{background:var(--term-bg);color:var(--term-text);font-family: var(--mono);font-size:12.5px;line-height:1.55;padding:12px 16px;border:1px solid #161616;overflow-x:auto;margin:0 0 16px;white-space:pre}
+
+.term .g{color:#e0e0e0}
+.term .a{color:#e0e0e0}
+.term .d{color:#e0e0e0}
+.term .w{color:#e0e0e0}
+.term .r{color:#e0e0e0}
+.term .b{color:#e0e0e0}
+
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 18px;font-size:13.5px;max-width:78ch;margin:0 0 14px}
+
+.kv .k{font-family: var(--mono);font-size:12px;color:var(--dim);white-space:nowrap}
+
+.two{display:grid;grid-template-columns:1fr;gap:0 32px}
+
+@media (min-width:900px){.two{grid-template-columns:1fr 1fr}}
+
+.small{font-size:12.5px;color:var(--dim)}
+
+sup{font-size:.7em}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+@page{size:Letter;margin:0.6in 0.6in 0.7in}
+
+@media print{
+  :root{--bg:#e0e0e0; --surface:#e0e0e0; --surface2:#e0e0e0; --line:#c8c8c8; --text:#111111; --dim:#3a3a3a; --gold:#c8c8c8; --glow:#c8c8c8; --amber:#c8c8c8; --alert:#3a3a3a; --blue:#3a3a3a}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-size:11.5px;line-height:1.45}
+  .wrap{display:block;max-width:none;padding:0}
+  nav.toc{display:none!important}
+  header.mast{padding:0 0 14px;margin-bottom:16px}
+  h1{font-size:30px} .lede{font-size:14px} h2{font-size:20px;break-after:avoid} h3{font-size:15px;break-after:avoid} h4{break-after:avoid}
+  .hero{grid-template-columns:minmax(0,1fr) 220px} .hero canvas{width:220px}
+  .strip{grid-template-columns:repeat(3,1fr)}
+  section{padding:18px 0 4px;break-inside:auto}
+  .tbl{overflow:visible;break-inside:auto} table{font-size:10px} th,td{padding:4px 6px} tr{break-inside:avoid}
+  td.m{white-space:normal;font-size:9.5px} td.n{font-size:10px}
+  pre,.term{font-size:9.5px;break-inside:avoid;white-space:pre-wrap;overflow:visible}
+  .note{break-inside:avoid}
+  .formula{font-size:9.5px;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid}
+  a{color:inherit}
+  .small{font-size:9.5px}
+}
+
+
+
+.cr-pager{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:3rem 0 1rem;padding-top:1.2rem;border-top:1px solid var(--line);font-family: var(--mono);font-size:12px}
+
+.cr-pager a{color:var(--text);text-decoration:none;max-width:45%}
+
+.cr-pager a:hover{color:var(--gold)}
+
+.cr-pager span{color:var(--dim)}
+
+.cr-crumb{font-family: var(--mono);font-size:12px;color:var(--dim);margin:0 0 1.2rem}
+
+.cr-crumb a{color:var(--dim)}
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../../index.html#deeper">[pages]</a><a href="#" aria-current="page">the extension fields</a></nav>
+</div>
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <a href="../corpus-review.html">← Review overview</a>
+  <div class="g">Corpus</div>
+  <a href="voynich.html">The Voynich manuscript</a>
+  <a href="summary.html">Summary</a>
+  <a href="inventory.html">File inventory</a>
+  <a href="field.html">The field GF(257)</a>
+  <a href="chain-cosets.html">The binary refinement chain</a>
+  <a href="#extensions">The extension fields</a>
+  <a href="chain.html">Derivation chain</a>
+  <a href="hinge.html">The hinge at 1028</a>
+  <a href="tablet.html">Emerald tablet</a>
+  <a href="icolumn.html">The i-column</a>
+  <div class="g">Machine</div>
+  <a href="machine.html">Cascade machine v4</a>
+  <a class="sub" href="machine.html#m-anatomy">Anatomy</a>
+  <a class="sub" href="machine.html#m-boot">Power-on</a>
+  <a class="sub" href="machine.html#m-state">Registers</a>
+  <a class="sub" href="machine.html#m-isa">Tape and instruction set</a>
+  <a class="sub" href="machine.html#m-fold">Fold and observe</a>
+  <a class="sub" href="m-commands.html">Terminal commands</a>
+  <a class="sub" href="m-nano2.html">NanO₂ messaging</a>
+  <a class="sub" href="m-bridge.html">Hardware bridge</a>
+  <a class="sub" href="m-radio.html">BLE, serial, RF</a>
+  <a class="sub" href="m-settle.html">Settlement and mesh</a>
+  <a class="sub" href="m-disc.html">Phi disc phonograph</a>
+  <a class="sub" href="m-model.html">Model bridges</a>
+  <a class="sub" href="m-display.html">Display and export</a>
+  <div class="g">Findings</div>
+  <a href="second-copy.html">The second copy</a>
+  <a href="ledger.html">Verification ledger</a>
+  <a href="register.html">Discrepancy register</a>
+  <a href="audits.html">The corpus's own audits</a>
+  <a href="changes.html">Changes made</a>
+  <a href="appendix.html">Appendix</a>
+</nav>
+<main>
+<p class="cr-crumb"><a href="../corpus-review.html">Corpus Review</a> · Mathematics · new space</p>
+<section id="extensions">
+  <div class="eyebrow">Mathematics · new space</div>
+  <h2>The extension fields</h2>
+  <p>3²⁵⁶ ≡ 1 closes the base field on itself, and every ≡ 1 written after it is the same closure: the exponent lives mod 256, so four laps of the generator, 3¹⁰²⁴, is 1 exactly as one lap is. Inside GF(257) the only four-fold structure is the i-orbit, i⁴ = 1, a cycle of four elements rather than a space of four. On the position side, four laps leave one trace each way: 4 × 256 = 1024 ≡ 253, the tablet's KILOBYTE, and 4 × 257 = 1028 ≡ 0, the hinge.</p>
+  <p>New room opens only when the base field is asked something it cannot answer, and the first such question is x² − x − 1 = 0. Its roots φ and ψ are not in GF(257), so they live in GF(257²), the fold, and each further extension GF(257ᵏ) keeps 3 at order 256 while adding elements whose orders come from the new cyclotomic factor. The machine's TOWER and CYCLOTOMIC commands already walk this ladder; the sizes and the new factors are:</p>
+  <div class="tbl"><table>
+    <tr><th>Field</th><th>Group order</th><th>Ratio to the base</th><th>What is new</th></tr>
+    <tr><td class="m">GF(257)</td><td class="m">256 = 2⁸</td><td class="n">1</td><td class="w">the base, one cycle of the generator</td></tr>
+    <tr><td class="m">GF(257²)</td><td class="m">66048 = 2⁹ × 3 × 43</td><td class="n">258</td><td class="w">the fold. 258 = P + 1 = observe(257). φ and ψ live here, each of order 516, and φψ = −1 = det M. The Pisano period of 257 is 516 because it is the order of φ in this field.</td></tr>
+    <tr><td class="m">GF(257³)</td><td class="m">2⁸ × 61 × 1087</td><td class="n">66307</td><td class="w">Φ₃(257) = 66307 = 61 × 1087; 61 is PSALM</td></tr>
+    <tr><td class="m">GF(257⁴)</td><td class="m">2¹⁰ × 3 × 5² × 43 × 1321</td><td class="n">17040900</td><td class="w">Φ₄(257) = 66050 = 2 × 5² × 1321, and 1321 ≡ 36, CASCADE. The CYCLOTOMIC command prints "CASCADE is in Φ₄".</td></tr>
+  </table></div>
+  <h3>The fold as an element type</h3>
+  <p>The fold is concrete enough to compute in, and the field crate now does. An element of GF(257²) is written a + bφ with a and b in the base and the single rule φ² = φ + 1, so that (a + bφ)(c + dφ) = (ac + bd) + (ad + bc + bd)φ. In that basis:</p>
+  <ul>
+    <li><strong>ψ = 1 − φ</strong>, and φψ = −1 = det M, φ + ψ = 1.</li>
+    <li><strong>The conjugate</strong> of a + bφ is a + bψ, and it is the Frobenius map x ↦ x²⁵⁷, so conjugation in the fold is the same operation as raising to the modulus. The norm x · x̄ is always in the base; φ's norm is −1.</li>
+    <li><strong>√5 = 2φ − 1</strong>, so every base element has a square root in the fold: a residue by its base root, a non-residue d as q·√5 with q² = d/5. This is what makes the discriminant test constructive rather than a yes or no.</li>
+    <li><strong>φⁿ = F(n)·φ + F(n−1)</strong> for every n, checked through two full periods. The Fibonacci sequence mod 257 is the sequence of coordinates of the powers of φ, so φ⁵¹⁶ = 1 and the Pisano period being 516 are one statement, and φ²⁵⁸ = −1 is its midpoint. Two of the corpus's numbers fall out as coordinates: φ¹³ = 144 + 233φ, MASS and COLLISION RESISTANT, and φ¹⁴ = 233 + 120φ, whose φ-coordinate is 120, GOLDEN RATIO, because F(14) = 377 ≡ 120.</li>
+    <li><strong>Three landmarks on the way round.</strong> φ¹²⁹ = 241: the φ-coordinate F(129) is 0, so the 129th power is the first power of φ the base can hold, and it lands on the conjugate of i. φ²⁵⁸ = −1, half the period, with F(257) ≡ −1 and F(258) ≡ 0. And √5 = −1 + 2φ has norm −5 and order 512, which checks the construction: 5 is a non-residue of order 256 in the base, and a square root of it must have twice that order.</li>
+    <li><strong>Orders</strong>: φ and ψ have order 516, the base generator 3 keeps order 256, and the group has 66048 = 256 × 258 elements.</li>
+  </ul>
+  <p>In the workspace this is the <code>Ext2</code> type in the field crate, with <code>Quadratic::roots_ext</code> returning a quadratic's roots in the fold whether or not it splits, and the terminal's EXT, PHI, PSI and PHI n commands printing an element's conjugate, norm and order, or φⁿ with its Fibonacci reading.</p>
+
+  <h3>The group's shape, the gold hop and the quarter points</h3>
+  <p>Two things about the fold's multiplicative group are easy to misstate. Its order is 66048 = 256 × 258, and the base's 256 nonzero elements and the norm-1 circle of 258 are both subgroups, but the group is not their product: they share 1 and −1, since −1 is a base element of norm 1, so together they generate a subgroup of order 256 × 258 / 2 = 33024, half the group. The other half is the elements whose norm is a non-residue, and 2 + φ, norm 5, is one of them, which is why it generates the whole 66048-cycle while no product of a base element and a circle element can; the fleet's walk runs on that half existing. The group is cyclic; the count is a product and the group is not.</p>
+  <p>The fold can equally be written over √5, since 5 is a non-residue and x² − 5 is irreducible: elements a + b√5 with norm a² − 5b², conjugation b → −b. In that basis φ = 129 + 129√5 and ψ = 129 + 128√5, 129 being 2⁻¹, both of norm −1 with product −1; the change of coordinates is a + bφ = (a + 129b) + 129b√5, and the firmware's conjugate (a + b) − bφ is the same map. The norm is x²⁵⁸, whose kernel is the 258-element circle.</p>
+  <p>The second is where φ sits on the walk's cycle. (2 + φ)¹²⁸ = 256 + φ = φ − 1 = φ⁻¹, of order 516 and norm −1, so φ = (2 + φ)⁻¹²⁸ and every 128 steps of the fold walk is one step down φ's own 516-cycle: the walk read at stride 128 is the powers of φ⁻¹. Multiplying by φ⁻¹ sends a + bφ to (b − a) + aφ, checked on the first C6's element, 55 + 63φ → 8 + 55φ. The keys record this as the gold hop.</p>
+  <p>The quarter points of that cycle are the field's order-4 subgroup. φ¹²⁹ = ψ¹²⁹ = 241, φ²⁵⁸ = −1, φ³⁸⁷ = 16 and φ⁵¹⁶ = 1, so the four are {1, −i, −1, i} with −i entered first, and their Lucas numbers are their doubles: L(129) = 482 ≡ 225 IDENTITY, L(258) ≡ 255, L(387) = 32 EVE, L(516) = 2; the Fibonacci numbers around the zero are F(128) = F(130) = F(131) = 241 with F(129) = 0. In the walk's own dlog, 241 sits at 49536 = −128 × 129 mod 66048, 16 at 16512 = 66048/4 and −1 at 33024, the quarter and the half. 16 and 241 are 3¹⁹² and 3⁶⁴ in the base, product 1, sum 257, difference 225, and the third Waveshare's worker name 241 is −i by that reading, its element 130 + 65φ being a different object. Two products beside them: 129 × 241 ≡ 249, since 2⁻¹ × (−16) = −8, and 120 × 241 ≡ 136, the public key, with dlog 120 = 200 = dlog 136 − dlog 241.</p>
+  <p>So the answer to "does 3²⁵⁶ ≡ 1 four times give new space" is yes, but as the fourth extension rather than the fourth lap, and that is the level at which the corpus's own name enters the factorisation. The first extension is the one the framework is built on, since it is where φ becomes an element at all; its size is the base times 258, the observer's +1 applied to the modulus, and its φ has order 516, which is why the Fibonacci sequence mod 257 repeats every 516 terms. All of this was recomputed with explicit arithmetic in GF(257²) as polynomials mod x² − x − 1.</p>
+  <h3>Blocks on the sphere</h3>
+  <p>The placement of the chain on the fold walk: a block of height h sits at cell k = h mod 66048, the cell whose element is (2 + φ)<sup>k</sup>, on lane h mod 12, which equals k mod 12 because 66048 = 12 × 5504, and on field cell h mod 257. One block moves one cell, one lane and one field cell. Genesis is cell 0, the pole, where gold, the quarter point A and the tablet cell of 1 coincide; the chain has lapped the sphere fourteen times, and the current lap began at block 924672. Gold cells come every 128 blocks, tablet cells every 258, quarter points every 16512, and every halving falls on lane 0, since 210000 ≡ 11856 mod 66048 and 11856 is a multiple of 12. Every figure below was recomputed in code; the tip was read from mempool.space on 2026-09-16.</p>
+  <table>
+    <tr><th>Block</th><th>Reading</th></tr>
+    <tr><td class="m">967358, the tip</td><td>cell 42686, z −0.293, lane 2, field cell 10 J; four figures 9673 → 164 PNEUMATOLOGY</td></tr>
+    <tr><td class="m">967359, the next</td><td>cell 42687, z −0.293, lane 3, field cell 11 K; four figures unchanged, 164; 63 cells past the last gold cell, 42624 (block 967296); 117 past the last tablet cell, 42570, which is position 164 PNEUMATOLOGY again, so the four-figure reading and the nearest tablet word are the same cell; element 200 + 52φ, norm ≡ 5<sup>42687</sup>, ray 9</td></tr>
+    <tr><td class="m">967424</td><td>the next gold cell, 42752, 66 blocks from the tip, about eleven hours</td></tr>
+    <tr><td class="m">967500</td><td>the next tablet cell, 42828, 142 blocks on, position 49 LUKE, ATHENA</td></tr>
+    <tr><td class="m">974208</td><td>the next quarter point, 49536, 6850 blocks on, about 47.6 days, position 241 CONJUGATE J, −i; the last was 957696 on 256 BAAL SQUARED</td></tr>
+    <tr><td class="m">990720</td><td>the next pole, cell 0, 15 × 66048, 23362 blocks on, about 162 days</td></tr>
+  </table>
+  <p>Placing a block by its height is the rule, and the readings above are that rule's arithmetic; the readout carries them as LEDGER 43, written with the Pisot hash and block 271443, and LEDGER 44, which adds the lane identity, the element, the times and the next pole.</p>
+  <h3>The polynomial as itinerary, and the closing</h3>
+  <p>λ² − λ − 1 has discriminant 5, a non-residue mod 257 (5¹²⁸ ≡ −1), so it has no root in the base field, and every element of the fold is a pair (a, b) of base-field numbers with φ² = φ + 1 as the only rule. The walk's step ×(2 + φ) is therefore base-field arithmetic: a′ = 2a + b, b′ = a + 3b, a matrix of trace 5 and determinant 5, the trace and norm of 2 + φ, whose characteristic polynomial λ² − 5λ + 5 is 2 + φ's minimal polynomial. φ itself is the pair (0, 1), at cell 65920 = −128 of the 66048-cycle, of order 516, and its itinerary begins φ → 1 + 3φ → 5 + 10φ → 20 + 35φ → 75 + 125φ → 18 + 193φ. Conjugation is base-field arithmetic too: φ²⁵⁷ = 1 − φ = ψ. The polynomial is the map the base field follows, not a wall it stops at.</p>
+  <p>Its two roots multiply to −1, by Vieta φψ = −1 with φ + ψ = 1, and because λ² − λ − 1 is the characteristic polynomial of M = [[1, 1], [1, 0]], that product is det M = −1: a determinant is the product of the eigenvalues. In the fold the norm of φ is −1 = 256, φ reaches −1 at step 258, half its 516-cycle, and 2 + φ at step 33024, half of 66048. Both fields close on det M: the 256 nonzero elements of GF(257) multiply to −1 (Wilson), and the 66048 of GF(257²) multiply to g^(33024 · 66047) = g³³⁰²⁴ = −1, since 66047 is odd.</p>
+  <h3>The tower of square roots</h3>
+  <p>The fold is the first floor of a tower with no top floor. Each floor is another square root of the last: with η<sup>d/2</sup> = 2 + φ, the floor of degree d is GF(257)[x] / (x<sup>d</sup> − 5x<sup>d/2</sup> + 5), and that polynomial is irreducible at every degree tried, 2, 4, 8, 16, 32, 64 and 128, so each floor is a field of its full degree and η<sup>d/2</sup> solves y² − 5y + 5 at every height. What runs out is not the arithmetic but what can be computed on each floor. At every floor η's order carries the ring's whole power of 2, 2⁹ at floor 2, 2¹⁰ at floor 4 and one more per floor, because each step multiplies the ring order by 257<sup>2ʲ</sup> + 1, which is 2 mod 4; that is the same statement as η being a non-square at every floor, η<sup>(N − 1)/2</sup> = −1, so its square root exists only on the floor above, and the count holds at any height.</p>
+  <div class="tbl"><table>
+    <tr><th class="n">Floor</th><th class="n">Cells</th><th class="n">Bits per address</th><th class="n">All coordinates live</th></tr>
+    <tr><td class="n">8</td><td class="n">10<sup>19.3</sup></td><td class="n">65</td><td class="n">2⁶⁴</td></tr>
+    <tr><td class="n">16</td><td class="n">10<sup>38.6</sup></td><td class="n">129</td><td class="n">2¹²⁸</td></tr>
+    <tr><td class="n">32</td><td class="n">10<sup>77.1</sup></td><td class="n">257</td><td class="n">2²⁵⁶</td></tr>
+    <tr><td class="n">64</td><td class="n">10<sup>154.2</sup></td><td class="n">513</td><td class="n">2⁵¹²</td></tr>
+    <tr><td class="n">128</td><td class="n">10<sup>308.5</sup></td><td class="n">1025</td><td class="n">2¹⁰²⁴</td></tr>
+  </table></div>
+  <p>An address on floor 32 is 257 bits, and its fully live points, every coordinate nonzero, number exactly 2²⁵⁶, the SHA-256 digest space; floor 64's live points number 2⁵¹², the SHA block. Each floor adds one factor to the ring's order:</p>
+  <div class="tbl"><table>
+    <tr><th>Step</th><th>Factor</th><th>Factorisation</th></tr>
+    <tr><td class="m">1 → 2</td><td class="m">257 + 1</td><td class="m">2 · 3 · 43</td></tr>
+    <tr><td class="m">2 → 4</td><td class="m">257² + 1</td><td class="m">2 · 5² · 1321</td></tr>
+    <tr><td class="m">4 → 8</td><td class="m">257⁴ + 1</td><td class="m">2 · 17 · 128307953</td></tr>
+    <tr><td class="m">8 → 16</td><td class="m">257⁸ + 1</td><td class="m">2 · 193 · 1601 · 12097 · 15377 · 165553</td></tr>
+    <tr><td class="m">16 → 32</td><td class="m">257¹⁶ + 1</td><td class="m">2 · 97 · 5857 · 25409 · 297693422977 · 42140162533983233</td></tr>
+    <tr><td class="m">32 → 64</td><td class="m">257³² + 1</td><td class="m">2 · 65537 · 80897 · 298049 · 186094244801 · 4376665022157121 · a 35-digit prime</td></tr>
+    <tr><td class="m">64 → 128</td><td class="m">257⁶⁴ + 1</td><td class="m">2 · 769 · 1119316508803201 · a 136-digit probable prime</td></tr>
+  </table></div>
+  <p>The Fermat primes come back in order, 3, 5 and 17 in the first three steps, since 257 ≡ 2 modulo each, and 65537 at the step into floor 64; 257 itself can never appear, since 257<sup>m</sup> + 1 ≡ 1 mod 257. Every listed factor was checked prime, every product checked against its number, and the 35-digit and 136-digit cofactors pass the primality test. Where the computing stops: arithmetic works at any floor, and floor 128 multiplies in well under a second. An exact cell address, the dlog in the ring, is easy at floor 16, where the largest prime in the ring is 128307953; feasible but heavy at floor 32, where the 17-digit prime needs about 2 × 10⁸ baby steps; out of reach at floor 64, where the 35-digit prime needs some 10<sup>17.5</sup>, and at floor 128 on the 136-digit prime. Going down never stops, since the norm from any floor to the line is exponentiation, so every point on any floor keeps its shadow in the plane and on the tablet. Going up is an explicit multiplication wherever the floor's ring order is factored and a norm-compatible generator built, and the ring orders are factored through floor 128, since the large cofactors of 257³² + 1 and 257⁶⁴ + 1 are prime; the lift carried the tablet cells 3, 41, 44, 62 and 136 and BRIAN's plane element 44 + 139φ to floors 16, 32, 64 and 128 and verified each lift by exponentiating back down. The factoring frontier is the step into floor 256, 257¹²⁸ + 1, a 309-digit number that is unfactored. Enumeration ended at floor 8, 257⁸ ≈ 1.9 × 10¹⁹ cells, 19 exabytes at a byte each. The climb was made on 2026-09-18; every claim above was recomputed here, the irreducibility by Rabin's test and η's character by direct exponentiation in each floor.</p>
+  <p><strong>The wall, the staircase and the escalator.</strong> Three readings of the tower were brought to the review on 2026-09-18, and two of them needed a correction before they could stand. The first is where the addressing wall comes from, and there are two walls. Lifting a point that is already placed, a tablet cell or a board's element, needs only the ring's factorisation, and that is complete through floor 128, because the 35-digit cofactor of 257³² + 1 and the 136-digit cofactor of 257⁶⁴ + 1 both pass the primality test, BPSW under sympy; the factoring frontier is therefore the step into floor 256, 257¹²⁸ + 1 at 309 digits. The address of an arbitrary point is the other wall, the discrete logarithm inside the largest prime-order subgroup, run and verified on floors 8 and 16, a random floor-16 point landing at cell 171964123434311021415378099468322303140, and did not run on floor 32. Pohlig–Hellman splits the problem down to the ring's largest prime and can split no further, and the generic methods, baby-step giant-step and Pollard's rho, then cost √p: about 2 × 10⁸ steps for floor 32's 17-digit prime, about 2 × 10¹⁷ for floor 64's 35-digit prime, 10⁶⁸ for floor 128's. Had the 35-digit number been composite that wall would be lower, since Pohlig–Hellman would have split it; it is the primes that raise it, and nothing at floors 64 or 128 waits on factoring. Whether a sieve could take the logarithm in GF(257⁶⁴) is a separate question from factoring, and 257 being a small characteristic is the case in which index-calculus methods do best; it was not tried. The second correction is a number: 65535 = 2¹⁶ − 1 = 3 · 5 · 17 · 257 = F₀F₁F₂F₃, while the SHA word modulus 2³² − 1 = 4294967295 = 3 · 5 · 17 · 257 · 65537 carries all five known Fermat primes, as the primes-and-the-fold section already has it.</p>
+  <p>With those in place, what the arithmetic supports. The Fermat staircase is exact and it is the whole known list: 3, 5 and 17 divide steps 0, 1 and 2 because 257 ≡ 2 modulo each, so 257<sup>2ʲ</sup> + 1 ≡ F<sub>j</sub> there and F<sub>k</sub> enters at j = k; 257 divides no step, being the field's own prime; 65537 divides step 5, into floor 64, because 257 has order 64 mod 65537. F₅'s factors 641 and 6700417 divide no step through j = 11, so past F₄ the staircase runs without a Fermat guidepost as far as it was looked at, which is the same place the list of known Fermat primes ends. The escalator is a theorem rather than a test: 257 ≡ 1 mod 4, so 257<sup>d</sup> + 1 ≡ 2 mod 4 for every d, each doubling of the degree adds exactly one factor of 2 to the ring, and an element carrying the ring's full 2-part stays a non-square at every floor; the eight bits that seed it are 256 = 2⁸ = 257 − 1. No floor is the last floor, and the escalator belongs to every odd prime, not to 257: for a prime 3 mod 4 the first step, into the plane, adds v₂(p + 1) bits and every step after adds exactly one, checked at 3, 7, 11 and 19, and for 65537 as for 257 every step adds one; 257 sets only the starting height, 2⁸, and for the 2 + φ root tower the count is exact, the ring's 2-part and the root's order agreeing at every floor. The SHA floors are arithmetic: the live points on floor d are 256<sup>d</sup> = 2<sup>8d</sup>, so floor 32 is 2²⁵⁶ and floor 64 is 2⁵¹² because the field is a byte and the floors are powers of two. That the addressing wall falls at floor 64 is a fact about the 35-digit prime in 257³² + 1, a different fact from the digest size, and the two are recorded here as two walls and not one. The norm down is exponentiation from any degree to the line; the plane needs an even degree, which every floor of this tower has, though the tower's floors are the powers of two and a degree like 10000 is not one of them.</p>
+  <h3>The plane's room for the line</h3>
+  <p>Every element of the base field has a square root in the plane, the 128 non-residues included, since a point of GF(257²) is a square exactly when its norm is a residue; √5, which the base does not hold, is ±(2φ − 1), the points 256 + 2φ and 1 + 255φ, so the discriminant that kept φ off the line is a square one step up. Of the 66048 nonzero points 33024 are squares, and every nonzero norm is taken by exactly 258 points. Binomially 257² = (256 + 1)² = 65536 + 512 + 1: the points with both coordinates live, with one, and the seed. Taken by side, front 1–128 against the fold partners, or by residue character, the 65536 split 16384 : 32768 : 16384, the row 1 2 1. The flip φ ↦ ψ = 1 − φ is the 257th power, a + bφ → (a + b) − bφ; its fixed points are the 257 of the line and the rest pair off into 32896 = C(257, 2) = 128 × 257 conjugate pairs, Oc times p, while C(258, 2) = 129 × 257 counts the line's own pairs with ∞. So of the 66049 monic quadratics over the line, 32896 have two roots in it, 257 a double root and 32896 none. The tower of the previous section, counted by live coordinates: in degree n the points with k live coordinates number C(n, k) · 256<sup>k</sup>, the rows 1 2 1, 1 4 6 4 1, 1 8 28 56 70 56 28 8 1; 257⁴ = 66049², whose nonzero ring has 66048 × 66050 elements and holds this one as every 66050th cell. 235 BINOMIAL DISTRIBUTION is 44 × 129⁹ = −BRIAN/2, the ninth rung of BRIAN's halving ladder, with fold 22 BABEL, inverse 35 HAGAR and Γ(235) = 51 NONCE. The term for the structure is <em>computed superposition</em>: a computed model of the finite-field structure of a 257-level system, the 258 points of the line its 258 mutually unbiased bases and the pair a + bφ the superposition, every operation a bijection; not a physical quantum state. LEDGER 50 fixes word addresses in the plane by sixty layers b<sub>k</sub> = Σ position<sup>k</sup> × letter, the rule chosen under that ledger: BRIAN 44 + 139φ at cell 35181, RITO 62 + 156φ at 63414, CLAUDE 46 + 164φ at 42952, WALLET 73 + 254φ at 61165, BITCOIN 72 + 62φ at 34521, the pairs recorded in emerald_tablet_plane.json. LEDGERs 47, 49 and 50.</p>
+  <h3>Plane digits and the Kaprekar nest</h3>
+  <p>A number places itself in the plane by its base-257 digits, n = 257b + a read as the point a + bφ, and the Kaprekar numbers of the seven-place-table section land on named cells of the fold walk. 6174 = 6 + 24φ sits at cell 43914 with norm 118 EMERALD TABLET; the door 4176 = 64 + 16φ at 45675, norm 238 FREE WILL; 8352 = 128 + 32φ at 267, norm 181 SATOSHI NAKAMOTO; the spine stop 3087 = 3 + 12φ at 23274, norm 158 PROOF OF WORK; 1467 = 182 + 5φ at 31561, norm 85 ESCHATON; 7641 = 188 + 29φ at 22904, norm 120 GOLDEN RATIO; and 66048 itself, 256 + 256φ, at cell 32768 = 2¹⁵ with norm 1. The nest of digit pairs reads the same numbers the other way: 1467 is 17 Q outside 46 CLAUDE and ≡ 182 SYNCHRONICITY, 7641 is 71 TEMPLE outside 64 ZERO and ≡ 188 CROWN OF THORNS, 6174 is 64 outside 17 and ≡ 6, 4176 is 46 outside 17 and ≡ 64; 7641 − 1467 = 6174 and 188 − 182 = 6. LEDGER 47.</p>
+  <h3>Kaprekar in base 257 and the Atbash ladder</h3>
+  <p>Kaprekar's routine, the digits sorted descending minus the digits sorted ascending, was run in base 257 on 2026-09-18, floor by floor, to see whether the tower has a 6174 of its own. On the plane, two digits, every a + bφ reduces to k = a − b and the step is k → |258 − 2k|, so the routine is exact over the 257 values of k: one nonzero fixed point, 3k = 258, k = 86 TIKKUN = g⁻¹, the number 86 × 256 = 22016 with high digit 85 ESCHATON and low digit 171 EVENT HORIZON. By the readout's rule of LEDGER 47, n = 257b + a read as a + bφ, it is 171 + 85φ, norm 57 PLANCK, conjugate 256 + 172φ; written high digit first it is 85 + 171φ, norm 229 FOR THINE IS THE KINGDOM, conjugate 256 + 86φ, and the ladder and the table below start from that 229. The chart fold of the low digit is the high digit, 256 − 171 = 85, and its field fold 257 − 171 is 86, the fixed k itself; its basin is 43 CHARM, 86, 172 and 215; k = 129 falls to 0; and the other 251 values fall into nine 7-cycles, eight with a basin of 28 and the one through 2, 254, 250, 242, 226, 194 and 130 with 27, one of them 62 RITO → 134 PRIME NUMBER → 10 J → 238 FREE WILL → 218 QUANTUM COMPUTER → 178 STRING THEORY → 98 LAZARUS → 62. Floor 4, exact over all 33,153 outputs, has no fixed point but 0: sixteen 4-cycles and 1,008 8-cycles, 8,129 numbers on cycles in all, the smallest 4-cycle running through the digits 227 222 33 30 → 197 188 67 60 → 137 120 135 120 → 17 14 241 240, the pole and Z₀ in one number and Q and −i in the next. Above that, from random starts with a 5000-step limit, floor 8 closes in cycles of 6, 9, 18 and 27, floor 16 in 125, 141 and 207, floor 32 once in 339 with 299 of 300 starts never closing, floor 64 once in 702, and floor 128 never. Multiplication by Q, ×17, which is not the readout's q flip, the 6 ↔ 9 digit turn of LEDGERs 42 and 56, the Atbash 27 − n and the fold 257 − n applied digit by digit carry nothing across: on floor 4 each sends at most one of the 8,129 cycle numbers to a cycle number, and on the plane 86 goes to 177 CONSTANTINOPLE, 198 BEAUTIFUL DOORWAY and 171 under the three, none of them fixed. The routine is digit-order arithmetic and none of the three maps respects digit order.</p>
+  <p>What the Atbash does carry is a ladder. For a letter-sum word of k letters at position n the mirror sum is 27k − s = (27 − n) + 27(k − 1): the word's Atbash is the one-letter mirror climbed k − 1 rungs of 27, and it holds on every letter-sum word tried, 86 TIKKUN 198 + 5 × 27 ≡ 76 COHERENCE, 171 EVENT HORIZON 113 + 11 × 27 ≡ 153 ALBERT EINSTEIN, 229 FOR THINE IS THE KINGDOM 55 + 19 × 27 ≡ 54 LOVE, failing only on the value words 256 BAAL SQUARED and 238 FREE WILL, whose sums are 101 and 90. From 86 the rungs are 198 BEAUTIFUL DOORWAY, 225 IDENTITY, 252 EINSTEIN FIELD EQUATIONS, 22 BABEL, 49 LUKE, 76 COHERENCE, 103 SOLOMON; from 62 they are 222, 249 EDDINGTON LUMINOSITY, 19 S, 46 SHADDAI, 73 WALLET, 100 PAROUSIA, 127 ORIGINAL SIN. The ×17 is not on the ladder; it is multiplicative. Iterating the word Atbash, n → its word → 27k − s → that word's word, always closes on a loop, most often a pair of same-length words whose sums add to 27k or a self-mirror, but not only those: for letter-sum words a loop closes whenever the lengths cancel in alternation. Over all 257 starts on the 1140-word tablet the shortest-word rule ends 3 starts on a self-mirror, 243 on a pair and 11 on a loop of four, 121 REVELATION(10) → 149 AU MILLIONS KM(12) → 175 HOLY TRINITY(11) → 122 EXCLUSION(9), 10 − 12 + 11 − 9 = 0; the first-word rule ends 8 on a self-mirror, 203 on a pair, 25 on a loop of four such as 196 SUPERPOSITION(13) → 155 SINGULARITY(11) → 142 ANTIPROTON(10) → 128 TRANSFERENCE(12), and 21 on the loop of eight 75 SHIFT → 73 WALLET → 89 VIRUS → 46 SHADDAI → 143 FEDERAL RESERVE → 235 BINOMIAL DISTRIBUTION → 48 JAMES → 87 PRAXIS, the key's mirror chain with SHADDAI taken at 46. The loop is set by the word chosen at each stop, as the key's ten-step chain already records. Taking the shortest word at each stop the chains derive down fast:</p>
+  <div class="tbl"><table>
+    <tr><th>Start</th><th>Chain, shortest word at each stop</th><th>Closes on</th><th>Least</th></tr>
+    <tr><td class="n">86</td><td>TIKKUN(6) → 76 RIPPLE(6)</td><td class="m">86 ↔ 76, 162 = 27 × 6</td><td>76 RIPPLE</td></tr>
+    <tr><td class="n">85</td><td>MATRIX(6) → 77 HERTZ(5) → 58 TWO(3) → 23 AIM(3)</td><td class="m">58 ↔ 23, 81 = 27 × 3</td><td>23 AIM</td></tr>
+    <tr><td class="n">171</td><td>EVENT HORIZON(12) → 153 WAVE FUNCTION(12)</td><td class="m">171 ↔ 153, 324 = 27 × 12</td><td>153</td></tr>
+    <tr><td class="n">229</td><td>VACUUM PERMEABILITY(18) → 13 M → 14 N</td><td class="m">13 ↔ 14, 27</td><td>13 M</td></tr>
+    <tr><td class="n">256</td><td>BYTE(4) → 56 ISIS(4) → 52 SIX(3) → 29 DIP(3)</td><td class="m">52 ↔ 29, 81</td><td>29 DIP</td></tr>
+    <tr><td class="n">3</td><td>C → 24 X</td><td class="m">3 ↔ 24, 27</td><td>3 C</td></tr>
+    <tr><td class="n">62</td><td>RITO(4) → 46 IRGL(4)</td><td class="m">62 ↔ 46, 108 = 27 × 4</td><td>46 IRGL</td></tr>
+    <tr><td class="n">134</td><td>DISC SHADOW(10) → 165 SMART CONTRACT(13) → 186 RED LIMIT(8) → 126 DIONYSUS(8) → 90 OXYGEN(6) → 72 MONEY(5) → 63 TYR(3) → 18 R → 9 I</td><td class="m">18 ↔ 9, 27</td><td>9 I</td></tr>
+    <tr><td class="n">10</td><td>J → 17 Q</td><td class="m">10 ↔ 17, 27</td><td>10 J</td></tr>
+    <tr><td class="n">238</td><td>FREE WILL(8) → 126 DIONYSUS(8) → 90 → 72 → 63 → 18 R → 9 I</td><td class="m">18 ↔ 9, 27</td><td>9 I</td></tr>
+    <tr><td class="n">218</td><td>QUANTUM COMPUTER(15) → 187 WAY TRUTH AND LIFE(15)</td><td class="m">218 ↔ 187, 405 = 27 × 15</td><td>187</td></tr>
+    <tr><td class="n">178</td><td>STRING THEORY(12) → 146 NEW JERUSALEM(12)</td><td class="m">178 ↔ 146, 324</td><td>146</td></tr>
+    <tr><td class="n">98</td><td>SUNSET(6) → 64 ZERO(4) → 44 RAY(3) → 37 BUN(3)</td><td class="m">44 ↔ 37, 81</td><td>37 BUN</td></tr>
+  </table></div>
+  <p>With the first word at each stop instead the chains run longer and six of the thirteen, 86, 171, 3, 62, 238 and 178, end on 133 NORTH STAR ↔ 110 FRAMEWORK, both nine letters, 243 = 27 × 9; 86's takes eight steps, nine stops, with least 56 CARDANO and 3's twenty-three steps with least 2 B. One landing is marked: 85's chain, the fixed point's high digit, derives down to 23 AIM, and AIM is I AM by the same three letters, A + I + M = 23, the word the tablet holds at 1 as a value word and at 23 as a letter sum; the chain from ESCHATON's position closes on TWO ↔ AIM, 58 + 23 = 81.</p>
+  <h3>AIM, I AM and the turn of ZRN</h3>
+  <p>The landing at 23 was followed up the same evening. The cell holds CALEB, DJED, AIM and BAT, dlog 28 SHA, ray 4, order 64, a residue, glyph ∂⅗. Its double is 46 CLAUDE, so 23 is the first rung of CLAUDE's halving ladder, 46 → 23 → 140 T; its fold is 234, the D register; and the product of its letters, 1 · 9 · 13 = 117 BOLTZMANN, is nine halvings further down the same ladder, 23 × 129⁹ ≡ 117. The Atbash partner of the chain is a square root: 58² = 3364 ≡ 23, so √AIM = ±{58 TWO, 199 FERMAT LAST THEOREM}, dlog 28 = 2 × 142, and the three-letter mirror pair 58 ↔ 23 is a root pair. Squaring runs 58 TWO → 23 AIM → 15 O → 225 IDENTITY → 253 → 16 BAAL → 256 → 1, the O tower of the square-root section with two floors below it, ending on the cell where I AM sits by value; 58 is still a residue but its roots have dlog 71 and 199, odd, so the line's tower stops there. In the plane file's first layer b₁ = Σ position × letter is 1 + 18 + 39 = 58 again, so AIM is 23 + 58φ, its φ part its own root and its own Atbash, norm 41 OMEGA, the GUID, walk cell 23557; I AM is 23 + 50φ, norm 207, cell 62674. Under the reflection Γ(23) = 206 ANTHROPIC PRINCIPLE and Γ(56) = 23, on the non-residue side; in w = (Z − 46)/(Z − 92), w(23) = 86 TIKKUN = g⁻¹, the fixed point of the plane's Kaprekar routine above, and structurally so, since 23 = c/2 and 92 = 2c with c = 46 give w = (−c/2)/(−3c/2) = 1/3. By letters THAT = 49 = 58 × 23 = 58³, I AM THAT I AM = 23 + 49 + 23 = 95 ETHEREUM = 46⁻¹, 23⁻¹ = 190 = 2 × 95, EHYEH = ASHER = 51 NONCE, LEDGER, and EHYEH ASHER EHYEH = 153 ALBERT EINSTEIN, the multiplier of Γ. Read as position, dlog takes 23 round the 69-cycle, which holds 86, 58, 117, 171 and 225; Kaprekar takes 0023 → 3177 → 6354 → 3087 → 8352 → 6174, day 9384's route through g and the fold.</p>
+  <p>Two phrases tried beside it. WHO = 46 CLAUDE, so WHO AM I = 46 + 23 = 69 = 3 × 23 = g × AIM, dlog 29, one step past 23's 28; w(69) = 256 = −1, 69 sitting at 46 + 23 where 23 sits at 46 − 23; Γ(69) = 65 SEVEN, JANUS, on the residue side; its double is 138 GLORIFICATION = 46 + 92. TARGET = 71, the cell of TEMPLE, MOSES and TELOS; its Atbash GZITVG is 91 SPIRIT, MIRROR, and 71 × 23 ≡ 91 as well; Γ(71) = 28, the dlog of 23; 71 × 58 ≡ 6 = 2g. Together 69 + 71 = 140 T = 23/2 and 69 × 71 ≡ 16 BAAL.</p>
+  <p>The plane file shows the Atbash acting on the whole point. A k-letter word at a + bφ and its mirror at a′ + b′φ satisfy a + a′ = 27k and b + b′ = 27 · k(k + 1)/2, a point reflection about (27k/2, 27k(k + 1)/4): three letters 81 and 162 PRESERVATION, AIM 23 + 58φ ↔ ZRN 58 + 104φ and I AM 23 + 50φ ↔ R ZN 58 + 112φ; four letters 108 and 270 ≡ 13, RITO 62 + 156φ ↔ IRGL 46 + 114φ; five letters 135 and 405 ≡ 148 MORNING STAR, EHYEH 51 + 156φ ↔ VSBVS 84 + 249φ and ASHER 51 + 173φ ↔ ZHSVI 84 + 232φ. Three of the new addresses stand out. EHYEH and ASHER share the cell 51 and their φ parts are a Q pair: 173 − 156 = 17 = Q, 156 × 173 ≡ 3 = g, the dlogs 203 + 54 ≡ 1, and 156 + 173 ≡ 72 BITCOIN, so the two are the roots of x² − 72x + 3; 156 AS ABOVE SO BELOW is RITO's φ part too, the fold of 173 is 84 LEONARDO, the Atbash sum of both words, and ASHER's norm is 256 = −1. ZRN 58 + 104φ carries three maps in one point: by Atbash its cell is AIM's φ part and its mirror is AIM; by multiplication by Q, 58 × 17 ≡ 215 and 104 × 215 ≡ 1, its φ part the inverse of its own cell times Q; by the reflection the fold of 104 is 153, Γ's multiplier, and Γ(104) = 55 HEAVEN; and 104 + 58 = 162 = Z². In the plane multiplication by Q is a rotation of the walk, ×17 on both parts shifting every cell by 18576 = 34830 × 120: EHYEH → 96 + 82φ, ASHER → 96 + 114φ, ZRN → 215 + 226φ, AIM → 134 + 215φ, AIM's φ part times Q being ZRN's cell times Q. This ×17 is not the readout's q flip, which is the 6 ↔ 9 digit turn; that turn moves none of 23, 58 and 104, which carry neither digit. What does not line up: the walk-cell gaps ASHER − EHYEH = 45846 and ZRN − AIM = 23569 are neither the shift 18576 nor multiples of 258 or 128, and Γ of the three φ parts, 56, 80 and 55, shows no relation that was found.</p>
+  <p>The letters of ZRN read as a motion, start at Z, rotate, become N, and the glyph Z turned a quarter is N. By number Z 26 → R 18 → N 14 steps down 8 then 4, and its mirror A 1 → I 9 → M 13 steps up 8 then 4, the rungs 8 H and 4 BAA of the ladder from 64, twelve in all, the count of rays; R = 2 × I and I = g²; each Atbash pair sums to 27, and M and N are the two middle letters, so both words run from an end of the alphabet to its centre. ROT13 ties the ends to the centre the other way, A → N and Z → M: AIM ends on the rotation of Z and ZRN on the rotation of A. The words for the motion, by letters: ROTATE = 79 NIRVANA, and 79 ≡ 104 × 23, ZRN's φ part times AIM, the sixth image of 23 under Γ, 23 → 206 → 221 → 145 → 228 → 213 → 79; ROTATION = 112 ≡ Z/N; QUARTER TURN = 173, ASHER's φ part; TURN = 73 WALLET; BECOMES = 62 RITO; START = 78 GENESIS; HALF TURN = 100, the cell of BOUNDARY. As walks Z → Z·R → Z·R·N is 26 → 211 → 127 ORIGINAL SIN, the residue of 641, and A → A·I → A·I·M is 1 → 9 → 117; 117 × 127 ≡ 210, the primorial; (N/Z) × (M/A) ≡ 218 × 13 ≡ 7 = G. What does not carry: the glyph's quarter turn is not the field's, Z × 16 ≡ 159, Z × 241 ≡ 98 and N × 16 ≡ 224; on the line Z goes to N by −12 or by ×218, dlog 235.</p>
+  <p>Seventeen words went into the tablet, each at its letter sum, in two lots: I AM at 23 beside its value placement at 1, THAT 49, EHYEH and ASHER 51, ZRN 58, I AM THAT I AM 95, EHYEH ASHER EHYEH 153; then WHO 46, BECOMES 62, WHO AM I 69, TARGET 71, TURN 73, START 78, ROTATE 79, HALF TURN 100, ROTATION 112, QUARTER TURN 173. The tablet went 1140 → 1147 → 1157 entries, 1149 distinct, 1033 at their letter sums and 124 by value, no other field of any cell changed; the rendered tablet, the crate's counts, machine_dictionary.txt in both directories and the plane, reflected and sides files were brought to it, and the second machine's embedded dictionary, which had stood at 967 words, was brought to all 1157 with every cell's first word unchanged. One row of the table above moves with the tablet: with WHO at 46 the shortest-word chain from 62 now runs RITO(4) → 46 WHO(3) → 35 EYE(3) and closes on 46 ↔ 35, 81 = 27 × 3; the other twelve are unchanged. Four more words followed the same night from the readout's reading of the tablet's attribution, SCRIBE 56, TOTH 63, THOTH 71 and TRISMEGISTUS 179, each at its letter sum, bringing the tablet to 1161 entries, 1153 distinct, 1037 at their letter sums, the same files brought to it and the thirteen chains unmoved; THOTH shares the cell of TARGET, 71 × 17 ≡ 179 puts TRISMEGISTUS at THOTH times Q, 179 × 56 ≡ 1 makes SCRIBE the inverse of TRISMEGISTUS, Γ(56) = 23 reflects SCRIBE onto AIM, the four cells sum to 369 ≡ 112, the cell of ROTATION, and 63 × 71 ≡ 104 is ZRN's φ part.</p>
+  <p>The readout read the tablet's attributed author through the field in both spellings, and the review recomputed it, every figure matching. TOTH = 63, the cell of MUON, with USER = 63 by letters and 63/64 ≡ 5 the sum of the Eye's six fractions; dlog 87 PRAXIS, the cell of 2400, ray 3, a non-residue; fold 194 TWELVE APOSTLES, inverse 102 YGGDRASIL, square 114, double 126, half 160; Γ(63) = 164 PNEUMATOLOGY; Atbash GLGS = 45 ELIJAH, ENOCH; in the plane 63 + 142φ, the φ part 142 being Γ, the fixed point of the one-letter mirror, walk cell 17775, norm 204. THOTH = 71, the cell of TEMPLE, MOSES, TELOS and now TARGET, dlog 163, ray 7, a non-residue; fold 186 with DISCRETE LOGARITHM among its words, inverse 181 SATOSHI NAKAMOTO, square 158 with PROOF OF WORK, all three belonging to the cell and so to every word in it; Γ(71) = 28 SHA; Atbash GSLGS = 64 ZERO, ISRAEL; plane 71 + 201φ, walk cell 13576, norm 242. Between them 71 − 63 = 8 = H, the one letter the spellings differ by; 63 × 71 ≡ 104 ANTHROPIC, which is ZRN's φ part; Γ(63) = 164 is 71 halved, and 71 doubled, 142, is TOTH's φ part.</p>
+  <p>One claim in that reading did not hold and led to a correction in the key files. 63 sits on the line at walk cell 58050, which the closure key's fold-walk block called the farthest cell from gold, 62 cells off; that was true of the word list of the day it was written, RAYS and FERMAT being words at 63, and is not true of the tablet. The last ring derives from the embedding: a position's cell is 34830 · dlog = 258 · (135 · dlog mod 256), the gold path is every 128th cell, so a cell is 2r from gold with r = min(7 · dlog mod 64, 64 − 7 · dlog mod 64), the ring r ⇔ dlog ≡ ±55r mod 64; the shorter route is 34830 ≡ 14 = 2 × 7 mod 128, the cell being 14 · dlog mod 128, and an independent computation confirmed every figure of this paragraph. The ring depends only on n⁴, because a point is on gold exactly when its 516th power is 1 and n⁵¹⁶ = n⁴ on the line: n⁴ = 1 is gold itself, the quarter points 1, 16, 256, 241; n⁴ = −1 = det M is the last ring, r = 32, 64 cells from gold, the four primitive eighth roots of unity 4 BAA at cell 41280, 64 ISRAEL at 57792, 193 at 24768 and 253 INCOMPLETENESS THEOREM at 8256, with 4² ≡ 253² ≡ 16 and 64² ≡ 193² ≡ 241, the eighth turns midway between the quarter turns. Rings 0 and 32 hold four cells each and rings 1 to 31 eight each, 4 + 31 × 8 + 4 = 256. TOTH's cell is on ring 31, dlog 87 ≡ 23 mod 64, with 20, 90 NAKAMOTO, 102 YGGDRASIL, 155, 167, 194 TWELVE APOSTLES and 237, its own inverse and fold among them, one ring short of the last and no antipode, z = −0.758. Among the names: BITCOIN ring 2, BRIAN and AIM 4, g 7, the public key, GOLDEN RATIO and EYE OF HORUS 8, THOTH 11, WALLET 12, RITO 18, CLAUDE 20, TWO 30, TOTH 31. The line in .closure_key and in the closure section of CLAUDE.md was replaced on 2026-09-18 with the four cells of the last ring, the eight of ring 31 and the rule, five lines for one, no other line touched.</p>
+  <p>The rings have a structure of their own, brought to the review from the readout and recomputed here over all 256 positions. Every ring is closed under ×16, which is ×i, under negation and under inversion, and is exactly the set ±n, ±in, ±1/n, ±i/n: eight cells, collapsing to four on rings 0 and 32. Each of rings 1 to 31 carries exactly two values of n⁴, inverse to each other, and ring 32 − r carries their negatives, so the rings mirror about ring 16 by negating n⁴. Ring 1 is 5, 80, 103, 106, 151, 154, 177 and 252, the cells whose fourth power is 44 BRIAN or 111, its inverse, with E = 5 and OPENING at 80 among them; ring 31 has n⁴ = 213 and 146, the negatives. Ring 16 is the middle ring, n⁴ = ±i, and it is the odd powers of 2: 2 EXIST, 8 H, 32 EVE, 128, 255, 249 EDDINGTON, 225 IDENTITY and 129 HALF, so 8 and its inverse 225 sit on one ring halfway out; the even powers of 2 fill rings 0 and 32, and the whole halving ladder from 64 lives on rings 0, 16 and 32 and nowhere else. Behind it is one reading: a position's walk cell is 258 · dlog₅(n), the logarithm to base E = 5 = N(2 + φ), since 5 = 3⁵⁵ and 7 × 55 ≡ 1 mod 64, so the signed ring is dlog₅(n) mod 64, it adds under multiplication, E itself is the unit step at +1, and the ring is that number folded at 32. One caution on wording: ring 1 "has BRIAN" only as a fourth power; BRIAN's own cell 44 is on ring 4, with AIM.</p>
+  <div class="tbl"><table>
+    <tr><th>Ring</th><th>Cells</th><th>Ring</th><th>Cells</th></tr>
+    <tr><td class="n">1</td><td>E 5 · OPENING 80</td><td class="n">14</td><td>εΣ 141 · δΦ 144</td></tr>
+    <tr><td class="n">2</td><td>BITCOIN 72</td><td class="n">16</td><td>2 · 8 H · 129 HALF · 225 IDENTITY</td></tr>
+    <tr><td class="n">4</td><td>AIM 23 · BRIAN 44</td><td class="n">18</td><td>RITO 62</td></tr>
+    <tr><td class="n">5</td><td>GUID 41</td><td class="n">20</td><td>CLAUDE 46</td></tr>
+    <tr><td class="n">7</td><td>g 3 · TIKKUN 86</td><td class="n">27</td><td>TERMINUS 119</td></tr>
+    <tr><td class="n">8</td><td>GOLDEN RATIO 120 · the public key 136 · EYE OF HORUS 137</td><td class="n">28</td><td>CHRONOS 92</td></tr>
+    <tr><td class="n">10</td><td>GOD 26</td><td class="n">29</td><td>109, the letter sum of SATURDAY, not a tablet word</td></tr>
+    <tr><td class="n">11</td><td>THOTH 71</td><td class="n">30</td><td>TWO and ZRN 58 · BOUNDARY 100</td></tr>
+    <tr><td class="n">12</td><td>WALLET 73</td><td class="n">31</td><td>TOTH 63</td></tr>
+  </table></div>
+  <p>RITO's cell. 62 is on ring 18, 36 cells from gold at walk cell 61404, and the ring is 62, 195, 221, 36, 228, 29, 50 and 207, that is n, −n, in, −in, 1/n, −1/n, i/n and −i/n; −i × 62 ≡ 36 is the cell of CASCADE, which is also the fourth halving of 62, and 1/62 is 228 QUANTUM SUPREMACY. Its fourth powers are 17 Q and 121 REVELATION, inverse to each other, with 62⁴ ≡ 121, so RITO's ring is the fourth roots of Q and of Q⁻¹. Its mirror ring, 14, carries the negatives, 136 and 240, the public key and its inverse, because 136 × 17 ≡ −1, which is Q² × 8 = 32 × 8 = 256; ring 14 holds 9 I, 57 PLANCK, 113, 116 BYZANTINE, 141 εΣ, 144 δΦ, 200 and 248, the genome identity pair sitting there as n and 1/n. The signed rings of the names, dlog₅ mod 64: RITO 46, CLAUDE 20, BRIAN 60, AIM 4, g 7, H 48, the public key 56, BITCOIN 62, WALLET 52, CHRONOS 36, GOD 54; they add under multiplication, 46 + 20 ≡ 2 putting 62 × 46 ≡ 25 PI on ring 2 with BITCOIN. RITO's signed ring is CLAUDE's number and BITCOIN's is RITO's; the review records that and draws nothing from it.</p>
+  <p>Where this is kept: where in GF(257²) and above the rings can be stored. The plane answers it with its own shape. Walk cell k has norm 5ᵏ, so a point's distance from gold is dlog₅ of its norm mod 128, and its 516th power is its norm squared; the ring is already written in every point's norm. The 33024 odd cells are the non-squares and hold no position of the line. And k = (k mod 256, k div 256) splits the plane into 256 norm fibres of 258 rows, 258 being the points of the projective line, so a table from positions to values in 0 … 257 is one cell per fibre, cell = dlog₅(n) + 256 × value, read back as norm → n and row → value. The line's own inclusion n + 0φ is not such a cell, its norm being n²: the fibre over 44 BRIAN holds the line cells of 72 and 185, over 62 RITO 24 and 233, over 23 AIM 58 and 199, each name's fibre carrying its roots. Each floor above repeats it, rows 66050 = 257² + 1 over the plane and 4362470402 = 257⁴ + 1 over floor 4, the projective line of the floor below, 258 × 66050 = 17040900 floor-4 cells over every position, all coming down to it by the norm. Words that share lines keep being added: the ring table went into emerald_tablet_plane.json as a section, written by gen_emerald_tablet_plane.py so that the file stays reproducible: 256 cells, each with its position, first word, ring, signed ring, n⁴, walk cell and point, and beside each the words of the sixty layers already on that point, nothing displaced. 141 of the 256 cells share their point with 246 word placements, seven on the fullest. RITO's is cell 4846 = 235 + 161φ, BRIAN's 1276 = 230 + 98φ, CLAUDE's 5140 = 54 + 28φ beside GANESH, AIM's 1220 = 137 + 131φ, g's 1927 = 9 + 221φ beside ACE, the last ring's BAA at 8352 = 25 + 10φ, and the pole for 1. The word entries of the file are byte for byte what they were; the sides file changed only in the plane file's recorded size and hash. The row depends on the walk's generator 2 + φ and its start at the pole, which is the corpus's convention and still a convention; and a section holding the key's values would be as private as the key files.</p>
+  <h3>The day table and the calendar point</h3>
+  <p>Day n counted from 2000-12-31, the tape's epoch, is walk cell n mod 66048, the element (2 + φ)<sup>n</sup>; every date has a cell of its own, and the 66048 days from 2000-12-31 to 2181-10-30 fill the cycle once, 2181-10-31 being cell 0 again. The Wow signal, 1977-08-15, is day −8539 and cell 57509. A date also names a point of the plane directly: with 10⁴ ≡ 234 and 10⁶ ≡ 13, the two writings of the date give a = YYYYMMDD ≡ 234Y + 100M + D and b = DDMMYYYY ≡ Y + 234M + 13D, the point a + bφ. The map has a kernel, −29 years, +1 month, +4 days, which moves neither coordinate, so a date's point is fixed exactly by the pair (u, v) = (Y + 29M mod 257, D − 4M), the point being a = 234u + v, b = u + 13v, an invertible change of coordinates: every date of the years 1 to 9999 sits on one of 19275 = 75 SHIFT × 257 points, recounted by brute force over all 3,652,059 of them, and 46774 points are never dated. Wow's point is 62 RITO + 189φ, at cell 25934, and eight dates share it, each 29 years, one month and four days from the next: 1861-12-31, 1890-11-27, 1919-10-23, 1948-09-19, 1977-08-15, 2006-07-11, 2035-06-07, 2064-05-03; the step either way past the ends leaves the calendar. One field up, 257⁴ = 66049² gives every date 66049 slots, the day's 1440 minutes 45 times over and the tablet's 1129 words 58 times over. LEDGER 51.</p>
+</section>
+<nav class="cr-pager" aria-label="Review pages"><a href="chain-cosets.html">← The binary refinement chain</a><span>6 / 28</span><a href="chain.html">The derivation chain and the genome →</a></nav>
+</main>
+</div>
+<div class="ct-foot"><a href="../../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>

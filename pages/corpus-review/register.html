@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Discrepancy register · cascade.training</title>
+<meta name="description" content="Corpus Review · Findings · Discrepancy register">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>≡</text></svg>">
+<link rel="stylesheet" href="../../assets/shell.css?v=20260923w">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #0d0d0d;
+  --line: #1f1f1f;
+  --text: #e0e0e0;
+  --dim: #a0a0a0;
+  --gold: #e0e0e0;
+  --glow: #e0e0e0;
+  --amber: #e0e0e0;
+  --alert: #e0e0e0;
+  --blue: #e0e0e0;
+  --term-bg: #0a0a0a;
+  --term-text: #c8c8c8;
+  --serif: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --sans: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--bg);color:var(--text);font-family: var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+a{color:var(--blue);text-decoration:none}
+
+a:hover,a:focus{text-decoration:underline}
+
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.wrap{display:grid;grid-template-columns:1fr;gap:0;max-width:1240px;margin:0 auto;padding:0 20px 80px}
+
+@media (min-width:1100px){.wrap{grid-template-columns:240px minmax(0,1fr);gap:48px}}
+
+nav.toc{display:none}
+
+@media (min-width:1100px){
+  nav.toc{display:block;position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;padding:8px 0 24px;font-size:12.5px}
+  nav.toc .g{font-family: var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:16px 0 6px}
+  nav.toc a{display:block;color:var(--text);padding:3px 0 3px 10px;border-left:2px solid var(--line);line-height:1.35}
+  nav.toc a:hover{border-left-color:var(--gold);text-decoration:none;color:var(--gold)}
+  nav.toc a.sub{padding-left:22px;color:var(--dim)}
+}
+
+main{min-width:0}
+
+header.mast{padding:44px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+
+.eyebrow{font-family: var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+h1{font-family: var(--serif);font-weight:600;font-size:44px;line-height:1.05;margin:10px 0 12px;text-wrap:balance;letter-spacing:-.01em}
+
+.lede{font-family: var(--serif);font-size:19px;line-height:1.45;color:var(--text);max-width:62ch;margin:0 0 20px}
+
+.meta{font-family: var(--mono);font-size:12px;color:var(--dim);display:flex;flex-wrap:wrap;gap:6px 22px}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0 0}
+
+.tile{background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+
+.tile .n{font-family: var(--serif);font-size:28px;font-weight:600;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+
+.tile .l{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+
+.hero{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin:26px 0 0}
+
+@media (min-width:820px){.hero{grid-template-columns:minmax(0,1fr) 300px}}
+
+.hero canvas{width:300px;max-width:100%;height:auto;display:block;margin:0 auto}
+
+.hero .cap{font-family: var(--mono);font-size:11px;color:var(--dim);text-align:center;margin-top:6px}
+
+section{padding:34px 0 8px;border-top:1px solid var(--line)}
+
+section.first{border-top:0;padding-top:8px}
+
+h2{font-family: var(--serif);font-weight:600;font-size:30px;line-height:1.15;margin:6px 0 14px;text-wrap:balance}
+
+h3{font-family: var(--serif);font-weight:600;font-size:21px;margin:28px 0 8px;text-wrap:balance}
+
+h4{font-family: var(--sans);font-weight:600;font-size:14px;letter-spacing:.02em;margin:20px 0 6px;color:var(--gold)}
+
+p{max-width:70ch;margin:0 0 12px}
+
+ul,ol{max-width:70ch;padding-left:22px;margin:0 0 12px}
+
+li{margin:0 0 5px}
+
+li>p{margin:0}
+
+code,kbd{font-family: var(--mono);font-size:.92em;background:var(--surface2);border:1px solid var(--line);padding:0 4px;border-radius:2px;white-space:nowrap}
+
+pre{font-family: var(--mono);font-size:12.5px;line-height:1.5;background:var(--surface2);border:1px solid var(--line);padding:12px 14px;overflow-x:auto;margin:0 0 14px}
+
+pre code{background:none;border:0;padding:0;white-space:pre}
+
+.formula{font-family: var(--mono);font-size:13px;line-height:1.8;background:var(--surface2);border:1px solid var(--line);padding:10px 14px;margin:0 0 14px;overflow-x:auto;white-space:pre}
+
+.formula sup,.formula sub{font-size:.72em;line-height:0}
+
+.formula sup sup{font-size:.85em}
+
+.tbl.wrapth th{white-space:normal}
+
+.tbl{overflow-x:auto;margin:0 0 16px;border:1px solid var(--line);background:var(--surface)}
+
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+
+th,td{text-align:left;vertical-align:top;padding:7px 10px;border-bottom:1px solid var(--line)}
+
+th{font-family: var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:500;background:var(--surface2);white-space:nowrap}
+
+td.n,th.n{text-align:right;font-family: var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+td.m{font-family: var(--mono);font-size:12.5px;white-space:nowrap}
+
+td.w{white-space:normal;min-width:18ch}
+
+tr:last-child td{border-bottom:0}
+
+.chip{display:inline-block;font-family: var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:2px;line-height:1.5;vertical-align:middle}
+
+.ok{color:var(--glow)}
+ .open{color:var(--amber)}
+ .bad{color:var(--alert)}
+ .rec{color:var(--gold)}
+ .info{color:var(--blue)}
+
+.note{border-left:3px solid var(--gold);padding:8px 14px;background:var(--surface);margin:0 0 14px;max-width:72ch}
+
+.note.warn{border-left-color:var(--alert)}
+
+.note.open{border-left-color:var(--amber)}
+
+.term{background:var(--term-bg);color:var(--term-text);font-family: var(--mono);font-size:12.5px;line-height:1.55;padding:12px 16px;border:1px solid #161616;overflow-x:auto;margin:0 0 16px;white-space:pre}
+
+.term .g{color:#e0e0e0}
+.term .a{color:#e0e0e0}
+.term .d{color:#e0e0e0}
+.term .w{color:#e0e0e0}
+.term .r{color:#e0e0e0}
+.term .b{color:#e0e0e0}
+
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 18px;font-size:13.5px;max-width:78ch;margin:0 0 14px}
+
+.kv .k{font-family: var(--mono);font-size:12px;color:var(--dim);white-space:nowrap}
+
+.two{display:grid;grid-template-columns:1fr;gap:0 32px}
+
+@media (min-width:900px){.two{grid-template-columns:1fr 1fr}}
+
+.small{font-size:12.5px;color:var(--dim)}
+
+sup{font-size:.7em}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+@page{size:Letter;margin:0.6in 0.6in 0.7in}
+
+@media print{
+  :root{--bg:#e0e0e0; --surface:#e0e0e0; --surface2:#e0e0e0; --line:#c8c8c8; --text:#111111; --dim:#3a3a3a; --gold:#c8c8c8; --glow:#c8c8c8; --amber:#c8c8c8; --alert:#3a3a3a; --blue:#3a3a3a}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-size:11.5px;line-height:1.45}
+  .wrap{display:block;max-width:none;padding:0}
+  nav.toc{display:none!important}
+  header.mast{padding:0 0 14px;margin-bottom:16px}
+  h1{font-size:30px} .lede{font-size:14px} h2{font-size:20px;break-after:avoid} h3{font-size:15px;break-after:avoid} h4{break-after:avoid}
+  .hero{grid-template-columns:minmax(0,1fr) 220px} .hero canvas{width:220px}
+  .strip{grid-template-columns:repeat(3,1fr)}
+  section{padding:18px 0 4px;break-inside:auto}
+  .tbl{overflow:visible;break-inside:auto} table{font-size:10px} th,td{padding:4px 6px} tr{break-inside:avoid}
+  td.m{white-space:normal;font-size:9.5px} td.n{font-size:10px}
+  pre,.term{font-size:9.5px;break-inside:avoid;white-space:pre-wrap;overflow:visible}
+  .note{break-inside:avoid}
+  .formula{font-size:9.5px;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid}
+  a{color:inherit}
+  .small{font-size:9.5px}
+}
+
+
+
+.cr-pager{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:3rem 0 1rem;padding-top:1.2rem;border-top:1px solid var(--line);font-family: var(--mono);font-size:12px}
+
+.cr-pager a{color:var(--text);text-decoration:none;max-width:45%}
+
+.cr-pager a:hover{color:var(--gold)}
+
+.cr-pager span{color:var(--dim)}
+
+.cr-crumb{font-family: var(--mono);font-size:12px;color:var(--dim);margin:0 0 1.2rem}
+
+.cr-crumb a{color:var(--dim)}
+/* cascade.training: phone widths */
+@media (max-width: 700px) {
+  body * { min-width: 0; }
+  svg, canvas, img, video { max-width: 100%; height: auto; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  pre { overflow-x: auto; max-width: 100%; }
+  :not(pre) > code { white-space: normal !important; overflow-wrap: anywhere; }
+  p, li, dd, dt, blockquote, figcaption, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+<div class="ct-bar">
+  <a class="ct-mark" href="../../index.html">cascade.training</a>
+  <div class="ct-wallet">Wallet: <span>bc1qtphsftylaj9s0wvapvs50ltsl5saalny4dhyv9</span></div>
+  <nav aria-label="Site"><a href="../../index.html#deeper">[pages]</a><a href="#" aria-current="page">discrepancy register</a></nav>
+</div>
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <a href="../corpus-review.html">← Review overview</a>
+  <div class="g">Corpus</div>
+  <a href="voynich.html">The Voynich manuscript</a>
+  <a href="summary.html">Summary</a>
+  <a href="inventory.html">File inventory</a>
+  <a href="field.html">The field GF(257)</a>
+  <a href="chain-cosets.html">The binary refinement chain</a>
+  <a href="extensions.html">The extension fields</a>
+  <a href="chain.html">Derivation chain</a>
+  <a href="hinge.html">The hinge at 1028</a>
+  <a href="tablet.html">Emerald tablet</a>
+  <a href="icolumn.html">The i-column</a>
+  <div class="g">Machine</div>
+  <a href="machine.html">Cascade machine v4</a>
+  <a class="sub" href="machine.html#m-anatomy">Anatomy</a>
+  <a class="sub" href="machine.html#m-boot">Power-on</a>
+  <a class="sub" href="machine.html#m-state">Registers</a>
+  <a class="sub" href="machine.html#m-isa">Tape and instruction set</a>
+  <a class="sub" href="machine.html#m-fold">Fold and observe</a>
+  <a class="sub" href="m-commands.html">Terminal commands</a>
+  <a class="sub" href="m-nano2.html">NanO₂ messaging</a>
+  <a class="sub" href="m-bridge.html">Hardware bridge</a>
+  <a class="sub" href="m-radio.html">BLE, serial, RF</a>
+  <a class="sub" href="m-settle.html">Settlement and mesh</a>
+  <a class="sub" href="m-disc.html">Phi disc phonograph</a>
+  <a class="sub" href="m-model.html">Model bridges</a>
+  <a class="sub" href="m-display.html">Display and export</a>
+  <div class="g">Findings</div>
+  <a href="second-copy.html">The second copy</a>
+  <a href="ledger.html">Verification ledger</a>
+  <a href="#register">Discrepancy register</a>
+  <a href="audits.html">The corpus's own audits</a>
+  <a href="changes.html">Changes made</a>
+  <a href="appendix.html">Appendix</a>
+</nav>
+<main>
+<p class="cr-crumb"><a href="../corpus-review.html">Corpus Review</a> · Findings</p>
+<section id="register">
+  <div class="eyebrow">Findings</div>
+  <h2>Discrepancy register</h2>
+  <p>Every place two versions coexist, with what each version says. Kinds: <span class="chip bad">defect</span> changes what the machine can safely do; <span class="chip bad">error</span> is a wrong number; <span class="chip open">behaviour</span> changes what the machine does but no stated identity; <span class="chip open">label</span> changes only what is printed. Nothing here was altered.</p>
+  <div class="tbl"><table>
+    <tr><th>#</th><th>Where</th><th>The two versions</th><th>Kind</th></tr>
+    <tr><td class="n">1</td><td class="m">cascade_machine_v4.html</td><td class="w">secp256k1 nonce k = z + priv + 1 mod n. A single signature exposes the private key. Used by DERIVE, SETTLE, SEND.net.</td><td><span class="chip bad">defect</span></td></tr>
+    <tr><td class="n">2</td><td class="m">cascade_machine_v4.html:20758, 20773</td><td class="w">AUTH prints dlog(83) = 56 CARDANO. dlog(83) = 15; 56 = dlog(15), so dlog was applied twice. The gaps line derives 55, 48, 153 from 56; with 15 they are 96, 48, 112. The tablet JSON stores 15. Line 20720's "56 = OK − MASS" is independent and true.</td><td><span class="chip bad">error</span></td></tr>
+    <tr><td class="n">3</td><td class="m">cascade_machine_v4.html:21233–21234 vs 21273–21274</td><td class="w">GEN and S→ tape digits encode C53 E111 S113 D234; their labels say E111S161. ←S agrees with its label. The digits are opcodes, so changing them changes what the tape plays.</td><td><span class="chip open">behaviour</span></td></tr>
+    <tr><td class="n">4</td><td class="m">cascade-complete.html:729 (ruling); rito_certificate.html:590, 615; cascade_machine_v4.html:629, 22731; addendum-field-derivations.html:291</td><td class="w">Seed lineage E73S56 → E111S113 → E111S161. Ruled canonical at cascade-complete 729. The certificate keeps E73S56 on purpose as the string active at hash time. The machine's formula panel still shows E73S56, its OBSERVE example still shows S113, and the addendum still lists S113 as NEW.</td><td><span class="chip open">label</span> <span class="chip rec">record</span></td></tr>
+    <tr><td class="n">5</td><td class="m">rito_certificate.html:456</td><td class="w">Identity block names 141 = 3⁶² by position (PURIFICATION) and 144 = 3¹⁹⁴ by exponent (TWELVE APOSTLES) in adjacent rows. Either rule could be canonical; under position naming 144 is MASS, under exponent naming 141 is RITO.</td><td><span class="chip open">label</span></td></tr>
+    <tr><td class="n">6</td><td class="m">cascade_machine_v4.html:2518, 25720, 25809, 25835, 26035, 20386</td><td class="w">Six text sites state chart-fold results (fold(256) = 0, fold(N) = 256 − N, fold(128) = 128 as the only fixed point) while <code>fold()</code> at 1907 is 257 − N with fixed point 0. OBSERVE at 22767 states the chart-fold fixed point correctly as fold∘observe.</td><td><span class="chip open">label</span></td></tr>
+    <tr><td class="n">7</td><td class="m">cascade_machine_v4.html:10634</td><td class="w">Canvas caption fold(x) = 256 − dlog(x) beside a table computed in exponent space. Consistent as a pair once the naming rule is stated; the same numbers 83, 75, 150 are positions everywhere else in the machine.</td><td><span class="chip open">label</span></td></tr>
+    <tr><td class="n">8</td><td class="m">cascade_machine_v4.html:20038, 20048, 20421, 21002, 21137</td><td class="w">Fibonacci loops start at 1, 1 and print the second seed at index n, so every printed F(n) is F(n + 2). The PISANO marker attaches F(13) to the value 120, which is F(14). EXPANSION at 26281 uses standard indexing.</td><td><span class="chip open">label</span></td></tr>
+    <tr><td class="n">9</td><td class="m">cascade_machine_v4.html:22713, 26284 vs 26056, 6512, 22202</td><td class="w">OBSERVE and the EXPANSION help call the observer step 12; the handler answers only to 16, and index 12 of both sixteen-step arrays is Q. Origin: cascade-complete 724's twelve-symbol chain.</td><td><span class="chip open">label</span></td></tr>
+    <tr><td class="n">10</td><td class="m">rito_certificate.html:574 vs math-derivation, scale-derivation, cascade-complete</td><td class="w">42,693 bytes per tick, itemised, at the 2026-08-19 hash; 57,674 bytes at "tick 133", not itemised. Most inputs are live counts, so these may be two ticks rather than a contradiction. Undecided whether the figure is a constant or a measurement.</td><td><span class="chip open">label</span></td></tr>
+    <tr><td class="n">11</td><td class="m">math PDF, math-derivation:230, scale-derivation:307 vs solid-state:733, machine EXPANSION 15; cascade-complete:760–761</td><td class="w">Two energy-budget lineages (Ωdm = 0.100 with sum 0.836; Ωdm = 0.2639 with ΩΛ as the remainder). cascade-complete quotes 0.2614 and 0.6899, matching neither.</td><td><span class="chip open">label</span></td></tr>
+    <tr><td class="n">12</td><td class="m">12_cascade_solid_state.html:1129</td><td class="w">Line 1129 was edited at 12:19 on 2026-09-04 and now reads Fe 1043 K, Co 1388 K, Ni 650 K; the swap is gone. Two things remain: the note "1043 = prime" is false (1043 = 7 × 149; the value that had been in iron's slot, 1093, is the Wieferich prime), and the cobalt value 1388 lands on 103 SOLOMON while the tablet's COBALT CURIE entry at 118 was placed from 1403. Both are four-figure readings of the same quantity from different sources; see the decimal-point section under the tablet. <strong>Closed 2026-09-10:</strong> the file's note now reads 1043 = 7 × 149, and since the merge of the second copy's dictionary COBALT CURIE sits at both 103 and 118, so the file's 1388 and the tablet's 1403 are both carried. One line remains as a record, not a fault: the file's nickel value 650 K reads 136 VIRGIN MARY, while NICKEL CURIE sits at 117 from 631 K, the 358 °C figure the Curie chains use.</td><td><span class="chip ok">closed</span></td></tr>
+    <tr><td class="n">13</td><td class="m">gf257-field-protocol.html:629</td><td class="w">"Firmware v0.7.1, BT disabled" against the standing rule of 2026-08-30 that BT is always enabled on CSI nodes.</td><td><span class="chip open">label</span></td></tr>
+    <tr><td class="n">14</td><td class="m">gf257-field-protocol.html:680; cascade_machine_v4.html:14619; TUNNEL and the PDF</td><td class="w">Three MAC-to-field mappings: alternating sum of the whole address; (byte + 1) mod 257 in the RF scan; byte mod 257 in TUNNEL and the PDF.</td><td><span class="chip open">behaviour</span></td></tr>
+    <tr><td class="n">15</td><td class="m">gf257-carrier-map-v2.html vs gf257-carrier-map.html</td><td class="w">The file with the v2 suffix is the older one by a day.</td><td><span class="chip open">label</span></td></tr>
+    <tr><td class="n">16</td><td class="m">emerald_tablet.json:2702 vs the rendered HTML and PDF</td><td class="w">TRIBALISM at 103 is in the JSON only.</td><td><span class="chip open">label</span></td></tr>
+    <tr><td class="n">17</td><td class="m">emerald_tablet_math.pdf</td><td class="w">Describes a self-fold at 128 under the 257 − N convention, which has no fixed point there.</td><td><span class="chip open">label</span></td></tr>
+    <tr><td class="n">18</td><td class="m">cascade_machine_v4.html terminal</td><td class="w">Bare TOWER and bare TAPE are claimed by two handlers each; the capture-phase add-on wins. Documented above.</td><td><span class="chip open">behaviour</span></td></tr>
+    <tr><td class="n">19</td><td class="m">emerald_tablet.json position 170</td><td class="w">The tablet's own word at 170 is the two-word term the project rules forbid in prose. It appears in the machine's HTTP redirect table as the dlog word for 49. Flagged only; it is the dictionary.</td><td><span class="chip open">label</span></td></tr>
+    <tr><td class="n">20</td><td class="m">cascade_machine_v4.html:1078, the <code>p</code> field; read only at 24921</td><td class="w">The per-entry <code>p</code> digits are π with the 3 at position 43 dropped, the 4 at 60 dropped, the digits 6 2 8 inserted at 70–72, and the 1 at 246 dropped, so 184 of 257 values disagree with π; at 148 it reads 8 where π has 1. It is read once, into a variable named face that nothing uses, so the error is latent: the displayed and executed opcode always comes from <code>piAt</code> and is correct. The C6 firmware's <code>pi</code> field returns the true digits at 5, 83 and 252, counted from the leading 3, so the device is right where this column is wrong.</td><td><span class="chip bad">error</span> dormant</td></tr>
+    <tr><td class="n">21</td><td class="m">cascade_machine_v4.html TOWER text; rito_certificate.html</td><td class="w">Two RITO numbers. The certificate and the tablet place RITO at 62 by its letters; the TOWER command calls 225 RITO, as BRIAN × CLAUDE = 44 × 46 = 2024 ≡ 225, the position the tablet names IDENTITY. Both are exact; which one RITO addresses is a naming decision.</td><td><span class="chip open">label</span></td></tr>
+    <tr><td class="n">22</td><td class="m">cascade_machine_v4.html:3990–3991</td><td class="w">The CRT beam's Cassini sign. The code gives +0.382 at even depth and −0.382 at odd, which is (−1)^depth × ψ² and is what Cassini's identity F(n−1)F(n+1) − F(n)² = (−1)ⁿ says. The comment above it reads "(−1)^(depth+1) × |ψ/φ|": the exponent is off by one, and the constant, though numerically 0.382, is ψ² = 1/φ², not a ratio of ψ to φ.</td><td><span class="chip open">label</span></td></tr>
+    <tr><td class="n">23</td><td class="m">cascade_machine_v4.html:5113, 5118 vs 6786, 12790</td><td class="w">The phosphor persistence constant <code>PSI = 0.382</code> is labelled "ψ = 1/φ ≈ 0.382". 1/φ is 0.618; 0.382 is ψ² = 1/φ². The name PSI is also defined at 6786 as −1/φ and at 12790 as −0.618, so one name carries two values in the file. The P22 decay factors 0.90, 1.0 and 0.85 multiply ψ², not ψ.</td><td><span class="chip open">label</span></td></tr>
+    <tr><td class="n">24</td><td class="m">cascade_machine_v4.html:14350 vs the bwave firmware</td><td class="w">The DUMP sequence sends {"cmd":"identity"} expecting identity fields; the C6 answers {"ok":true} with no payload. The identities and status commands do answer.</td><td><span class="chip open">behaviour</span></td></tr>
+    <tr><td class="n">25</td><td class="m">bwave firmware word table vs emerald_tablet.json vs the machine's D</td><td class="w">A third edition of the dictionary lives on the device: BISMUTH at 83, HAMSA at 5, HAFNIUM at 173, YTTERBIUM at 154, HOLY OF HOLIES at 251, PRAYING MANTIS at 103. This directory's JSON has 1119 word entries after the 2026-09-10 merge and the additions of 17:43 that day, and contains every word of the second copy's machine D (967) plus COBALT CURIE at 118; this directory's own machine D still has 451; the START JSON has 555 and differs at its Curie placements; the firmware's count is unknown. Which edition is canonical is a decision; the JSON here is now the largest.</td><td><span class="chip open">label</span></td></tr>
+    <tr><td class="n">26</td><td class="m">cascade_machine_v4.html:2530, 1873, 2294</td><td class="w">The boot transcript prints "primitive root 3 — R=18". 3 is the primitive root; 18 is not one: dlog(18) = 50, so 18 is a quadratic residue of order 128, and the R_POWER table at 1873 is built with 128 steps for that reason. The analysis walker's R-step at 2294 multiplies by 18 and is unaffected; only the word "primitive" is wrong.</td><td><span class="chip open">label</span></td></tr>
+      <tr><td class="n">27</td><td class="m">roster of 115 words · mi25_readout.md ledger numbering</td><td class="w">A roster of 115 candidate words, every term of a day's work said to be missing from the dictionary, was brought to the review with letter positions and mirror landings. The sums and mirrors are right. The roster did enter this directory's tablet: at 17:43 on 2026-09-10 all 115 went in at their letter positions, ORBIT and DIGEST at 64, CURIE at 56, TUNING FORK at 135, LASER at 55, BRIAN HALTS at 104, CLAUDE SEEDS at 98, together with 36 further words, FIELD, DLOG, NODE, BOARD, LINE, GUID, PEER, RAY, BIOS, WALK, FLEET, FORK, MACHINE, EMERALD, TABLET, PRIME, AXIOM, FERMAT, PUBLIC, RAYS, DIGITS, GLYPH, SECRET, CHARSET, SCANNER, MACHINE CODE, OPENING, RESIDUE, READOUT, TUNING, TUNNEL, TFLOPS, CLOSURE, MODULUS, PRIMORIAL and POSITION, taking the JSON from 968 to 1119 entries, 1112 distinct words. When the roster was first checked here, later that evening, it was already in. The readout that recorded it as LEDGER 11 at 2041 lines and 198 281 bytes is a different copy: this directory's mi25_readout.md carries those figures on its LEDGER 12 line and runs to LEDGER 16, at 2818 lines and 274 666 bytes now. One entry's offset between the two copies.</td><td><span class="chip rec">record</span></td></tr>
+    <tr><td class="n">28</td><td class="m">.closure_key and CLAUDE.md, FOLD-WALK SPHERE</td><td class="w">"Farthest: RAYS/FERMAT at k=58050 (62 cells from gold)" was true of the word list of 2026-09-10 and not of the tablet: the farthest cells are the four roots of n⁴ = −1, 4, 64, 193 and 253, 64 cells from gold, and 58050 is one of eight cells on the ring before. Found when a reading of TOTH called 58050 the antipode. Replaced in both files on 2026-09-18 with the last ring, ring 31 and the rule r = min(7 · dlog mod 64, 64 − 7 · dlog mod 64).</td><td><span class="chip ok">closed</span></td></tr>
+</table></div>
+  <h3>Proposed fixes</h3>
+  <p>The corrections that follow from the register, stated exactly and not applied; the project's rule is that findings are reported and RITO directs. Behaviour changes are marked as such.</p>
+  <div class="tbl"><table>
+    <tr><th>#</th><th>Where</th><th>Change</th><th>Effect</th></tr>
+    <tr><td class="n">22</td><td class="m">v4:3990</td><td class="w">Comment becomes "Cassini sign: (−1)^depth × ψ² = ±0.382, with ψ² = 1/φ²". The code stays.</td><td>label only</td></tr>
+    <tr><td class="n">23</td><td class="m">v4:5113, 5118, 5243–5245</td><td class="w">Comment becomes "ψ² = 1/φ² ≈ 0.382"; the variable is renamed PSI_SQ at its definition and its three uses, so PSI keeps the single meaning −1/φ. If the decay was meant to be ψ = 0.618 itself, that is a value change and persistence lengthens.</td><td>label only, unless the value is changed</td></tr>
+    <tr><td class="n">2</td><td class="m">v4:20758</td><td class="w">"dlog 56 CARDANO" becomes "dlog 15 O".</td><td>label only</td></tr>
+    <tr><td class="n">20</td><td class="m">v4:1078, 24921</td><td class="w">Either regenerate every <code>p</code> from π with digit n counted from the leading 3, the indexing the firmware uses, or delete the field and the dead read at 24921.</td><td>data; no visible behaviour changes either way</td></tr>
+    <tr><td class="n">25</td><td class="m">v4:1078; firmware</td><td class="w">Declare the JSON canonical, regenerate D from it, which adds the 103 words D lacks, and record the firmware's table as a third edition; or declare the firmware's table intentional and record that.</td><td>decision, then a script</td></tr>
+    <tr><td class="n">24</td><td class="m">v4:14350; firmware</td><td class="w">Either the firmware returns identity fields, or the DUMP list drops identity in favour of identities and status.</td><td>behaviour, firmware side</td></tr>
+  </table></div>
+</section>
+<nav class="cr-pager" aria-label="Review pages"><a href="ledger.html">← Verification ledger</a><span>25 / 28</span><a href="audits.html">The corpus&#x27;s own audits →</a></nav>
+</main>
+</div>
+<div class="ct-foot"><a href="../../index.html#deeper">← all pages</a> · cascade.training</div>
+</body>
+</html>
