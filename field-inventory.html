@@ -1,0 +1,489 @@
+<!doctype html><html><head><meta charset="utf-8"><!-- frame-runtime --><script>window.__FRAME_PREAMBLE={"v":1,"capabilities":{"artifact":"artifact.DfA2To-s.js","assets":"assets.8Gk803W0.js","comments":"comments.hEoja5zd.js","db":"db.h-3sndFg.js","downloads":"downloads.th1YuAIk.js","embed":"embed.eqL6deQM.js","endpoints":"endpoints.CfzSv5nM.js","mcp":"mcp.Bvma3qD7.js","network":"network.B5UA9Su4.js","permissions":"permissions.BNySkLV5.js","room":"room.VSdFwTE9.js","sample":"sample.BW2Uysoh.js","self":"artifact.DfA2To-s.js","user":"user.BpKav-Rf.js"},"transforms":"_transforms.-IAc0qoT.js","comments":"_comments.C-AkolIB.js","translate":"_translate.5HCW4BJh.js","ldx":"_ldx.f0k6Z2Dd.js"}</script><script>(function(){"use strict";var le=["light","dark","system"],ue=/^[A-Za-z0-9_-]{1,64}$/,J=/^[a-zA-Z_:][a-zA-Z0-9_:.-]{0,127}$/,fe=new Set(["class","hidden","value","checked","style","title","alt","placeholder","lang","dir","role","tabindex","disabled","readonly","contenteditable","open","colspan","rowspan"]);function de(e){const t=e.toLowerCase();return t.startsWith("data-")||t.startsWith("aria-")||fe.has(t)}var We="http://www.w3.org/1999/xhtml",pe="http://www.w3.org/2000/svg",me=new Set(["script","style","iframe","noscript","noframes","noembed","xmp","plaintext","template","title","textarea","object","embed"]),he=new Set(["script","style"]);function _e(e){const t=e.localName.toLowerCase();return e.namespaceURI==="http://www.w3.org/1999/xhtml"?!me.has(t):e.namespaceURI===pe?!he.has(t):!1}function I(e,t){return e===t||(e===160||e===32)&&(t===160||t===32)}function ve(e,t){const r=e.length,n=t.length;let a=0;for(;a<r&&a<n&&I(e.charCodeAt(a),t.charCodeAt(a));)a++;let s=0;for(;s<r-a&&s<n-a&&I(e.charCodeAt(r-1-s),t.charCodeAt(n-1-s));)s++;return{p:a,s}}function ye(e,t){const r=e.firstChild;if(e.childNodes.length!==1||r===null||r.nodeType!==Node.TEXT_NODE){e.textContent=t;return}const n=r.data,a=n.length,s=t.length,{p:c,s:i}=ve(n,t);c===a&&i===0&&a===s||r.replaceData(c,a-c-i,t.slice(c,s-i));const p=r.data,f=e.ownerDocument.getSelection?.()??null,v=f!==null&&f.rangeCount>0&&(f.anchorNode===r||f.focusNode===r)?{anchor:f.anchorNode,anchorOffset:f.anchorOffset,focus:f.focusNode,focusOffset:f.focusOffset}:null;let d=-1,y=-1;for(let _=0;_<p.length&&_<t.length;_++){const E=p.charCodeAt(_),T=t.charCodeAt(_);E!==T&&I(E,T)&&(d<0&&(d=_),y=_)}const w=d>=0;if(w&&r.replaceData(d,y-d+1,t.slice(d,y+1)),w&&v!==null&&v.anchor!==null&&v.focus!==null)try{f.setBaseAndExtent(v.anchor,v.anchorOffset,v.focus,v.focusOffset)}catch{}}var we=new Set(["html","head","body","frameset"]);function be(e){return e.namespaceURI==="http://www.w3.org/1999/xhtml"&&we.has(e.localName)}function Ee(e){if(e===null||typeof e!="object")return!1;const t=e;if(typeof t.target!="string"||!ue.test(t.target)||t.text!==void 0&&typeof t.text!="string")return!1;if(t.attrsSet!==void 0){if(t.attrsSet===null||typeof t.attrsSet!="object")return!1;for(const[r,n]of Object.entries(t.attrsSet))if(!J.test(r)||typeof n!="string")return!1}if(t.attrsRemoved!==void 0){if(!Array.isArray(t.attrsRemoved))return!1;for(const r of t.attrsRemoved)if(typeof r!="string"||!J.test(r))return!1}return!0}function ge(e,t){if(e===null||typeof e!="object")return!1;const{seq:r,elements:n}=e;if(typeof r!="number"||!Number.isSafeInteger(r)||!Array.isArray(n)||n.length===0||n.length>64)return!1;for(let a=0;a<n.length;a++)if(!t(n[a]))return!1;return!0}function Ae(e){return e===null||typeof e!="object"?!1:ge(e.__frame_patch,Ee)}function Te(e){if(e===null||typeof e!="object")return!1;const t=e.__frame_init;return t!==null&&typeof t=="object"}function Re(e){return e!==null&&typeof e=="object"&&e.__frame_size_poke===!0}function Le(e){if(e===null||typeof e!="object")return!1;const t=e.__frame_theme;if(t===null||typeof t!="object")return!1;const r=t.theme;return typeof r=="string"&&le.includes(r)}var L=/^[\w.-]+\.js$/;function Se(e,t,r){return r?"inert":typeof t=="string"&&L.test(t)?e?[t]:"inert":e?"inert":"framed"}var Ke="frame_ldx_runtime",$e="script#an-form";function ke(){return{post(e,t){parent.postMessage(e,t)},on(e){const t=r=>{r.source===parent&&e(r.data,r.origin,r.isTrusted)};return addEventListener("message",t),()=>removeEventListener("message",t)}}}function Pe(){return{post:()=>{},on:()=>()=>{}}}var U="__frame_scroll",Oe=150,Ce=310,Me=160,je=3e4;function Ne(){let e=0,t=!1,r=!1,n=!1,a=0,s=null;const c=u=>{try{sessionStorage.setItem(U,JSON.stringify({y:u}))}catch{}},i=()=>{if(clearTimeout(e),s===null)return;const u=s;s=null,c(u)},p=()=>{if(t){t=!1;return}r=!0,s=scrollY,clearTimeout(e),e=setTimeout(i,Oe)};try{addEventListener("scroll",p,{passive:!0}),addEventListener("pagehide",i)}catch{}const f=()=>{let u;try{u=sessionStorage.getItem(U)}catch{return null}if(u===null)return null;let b;try{b=JSON.parse(u)}catch{b=null}const o=b?.y;if(!(typeof o=="number"&&Number.isFinite(o)&&o>=0)){try{sessionStorage.removeItem(U)}catch{}return null}return o};let v=!1;const d=u=>{try{const b=scrollY;scrollTo({top:u,left:0,behavior:"instant"}),a=u,n=!0,clearTimeout(e),s=null,c(u);const o=scrollY;o!==b&&(t=!0),o!==u&&!v&&(v=!0,addEventListener("load",()=>{try{if(scrollY===o){const m=f();d(m!==null?m:a)}}catch{}},{once:!0}))}catch{}},y=()=>{try{return!!location.hash}catch{return!0}};let w=!1;const _=()=>{try{if(w||innerWidth>Ce||innerHeight>Me)return;w=!0;const u=Date.now(),b=()=>{try{removeEventListener("resize",b)}catch{}if(Date.now()-u>je||r||y())return;const o=f();d(o!==null?o:a)};addEventListener("resize",b)}catch{}};let E=!1,T=!1;return{restore(){if(E||(E=!0,y()))return;const u=f();u!==null&&(d(u),_())},promoted(){if(T||(T=!0,y()))return;const u=f();u!==null?(d(u),_()):n&&d(a)}}}function Be(e,t,r,n){let a=null;try{a=window.trustedTypes?.createPolicy("frame-runtime",{createScriptURL:p=>p})??null}catch{}const s=window.Worker,c=s?.prototype,i=Object.freeze({Worker:s,workerOn:c?.addEventListener,workerPost:c?.postMessage,workerTerminate:c?.terminate,fetch:window.fetch.bind(window),preventDefault:Event.prototype.preventDefault,policy:a,origins:t});r(e).then(p=>p?.bootTopLevel?p.bootTopLevel(i,n):n.settle()).catch(()=>n.settle())}var qe="modulepreload",Xe=function(e){return"/"+e},Ye={},De=function(t,r,n){let a=Promise.resolve();function s(c){const i=new Event("vite:preloadError",{cancelable:!0});if(i.payload=c,window.dispatchEvent(i),!i.defaultPrevented)throw c}return a.then(c=>{for(const i of c||[])i.status==="rejected"&&s(i.reason);return t().catch(s)})},Ie=window===top,Q=Object.getOwnPropertyDescriptor(window,"claude"),C=Se(Ie,window.__FRAME_PREAMBLE?.topLevel,Q?.writable===!1),x=typeof C=="object"&&C[0],h=x?Pe():ke();(function(){const e=Object.defineProperty,t=globalThis,r=["RTCPeerConnection","webkitRTCPeerConnection","RTCDataChannel","RTCIceCandidate","RTCSessionDescription","RTCRtpSender","RTCRtpReceiver"];let n=0;for(let a=0;a<r.length;a++){const s=r[a];try{e(t,s,{value:void 0,writable:!1,configurable:!1})}catch{try{delete t[s]}catch{}try{e(t,s,{value:void 0,writable:!1,configurable:!0})}catch{}}typeof t[s]=="function"&&n++}if(n&&C==="framed")try{h.post({__frame_rtc_lockdown_failed:n},"*")}catch{}})();var Ue=1e4,xe=2e3,ee=Object.freeze([...window.__FRAME_PREAMBLE?.origins??["https://claude.ai","https://preview.claude.ai"]]);function te(e){for(const t of ee)if(t.endsWith(":*"))try{const r=new URL(e);if(`${r.protocol}//${r.hostname}:*`===t)return!0}catch{}else if(e===t)return!0;return!1}var M=Object.freeze({...window.__FRAME_PREAMBLE?.capabilities}),F=window.__FRAME_PREAMBLE?.transforms,z=window.__FRAME_PREAMBLE?.comments,H=window.__FRAME_PREAMBLE?.translate,W=window.__FRAME_PREAMBLE?.ldx;function S(e){return De(()=>import("/_runtime/"+e),void 0)}function re(e,t){return{contract:e.contract,changes:new Set(e.changes??[]),flags:new Set(e.flags??[]),capabilities:e.capabilities??{},capBudgets:e.capBudgets??{},transforms:new Map,shellOrigin:t,mount:q,hooks:N,pipe:()=>({wrap:(r,n)=>(...a)=>{try{return n(...a)}catch(s){return Promise.reject(s)}}})}}var j=null,A=null;function ne(e,t,r){try{Object.defineProperty(e,t,{value:r,writable:!1,configurable:!1,enumerable:!0})}catch{try{Object.defineProperty(e,t,{value:r,writable:!1,configurable:!0,enumerable:!0})}catch{}}}var K=!1,N={editBefore:null,edit:null};function Fe(e,t,r=!1){const n=[];let a;if(r)try{N.editBefore?.(e)}catch{}for(const s of e.elements){const c=document.querySelector(`[data-id="${s.target}"]`);if(!c){a=s.target;break}if([...Object.keys(s.attrsSet??{}),...s.attrsRemoved??[]].some(i=>!de(i))){a=s.target;break}if(s.text!==void 0&&(!_e(c)||be(c))){a=s.target;break}for(const[i,p]of Object.entries(s.attrsSet??{}))if(!se(c,i)){try{c.setAttribute(i,p)}catch{}oe(c,i,p)}for(const i of s.attrsRemoved??[])se(c,i)||(c.removeAttribute(i),oe(c,i,null));typeof s.text=="string"&&ye(c,s.text),n.push(s.target)}if(r)try{N.edit?.(e.seq,n,a)}catch{}if(a!==void 0){h.post({__frame_patch_miss:{seq:e.seq}},t);return}try{document.dispatchEvent(new CustomEvent("claude:edit",{detail:{seq:e.seq,targets:n}}))}catch{}}function oe(e,t,r){if(!(e instanceof HTMLInputElement))return;const n=t.toLowerCase();n==="checked"?e.checked=r!==null:n==="value"&&e.type!=="file"&&(e.value=r??"")}function se(e,t){const r=t.toLowerCase(),n=e;return r==="data-id"||(r==="value"||r==="checked")&&(n.__artifactSecret===!0||/^(password|hidden|file)$/.test(n.type??"")||/(^|\s)(cc-|one-time-code|current-password|new-password)/i.test(`${e.getAttribute("autocomplete")??""} ${n.autocomplete??""}`))}function ae(e){const t=document.documentElement;e==="light"||e==="dark"?(t.dataset.theme=e,t.style.colorScheme=e,K=!0):K&&(delete t.dataset.theme,t.style.colorScheme="",K=!1)}var B=new Map;function ze(){let e;const t={u:new Promise(r=>{e=r}),r:r=>{t.done=!0,e(r)},done:!1,nulled:!1};return t}function $(){for(const e of B.values())e.done||(e.nulled=!0,e.r(null))}var He=Object.freeze(Object.assign(Object.create(null),{call:Function.prototype.call,apply:Function.prototype.apply,bind:Function.prototype.bind})),q=(e,t)=>{const r=B.get(e);if(!r||r.done){r?.nulled&&A&&h.post({__frame_cap_telemetry:{kind:"cap-load-error",cap:e}},A);return}const n=typeof t=="function"?Object.setPrototypeOf(t,He):Object.assign(Object.create(null),t);typeof n.then=="function"&&delete n.then,r.r(Object.freeze(n))};function ie(){const e=Q?.value??{};ne(window,"claude",e);for(const t of Object.keys(M)){if(e[t]!==void 0){ne(e,t,e[t]);continue}B.set(t,ze())}if(e.use===void 0){const t=r=>{if(typeof r!="string"||!Object.hasOwn(M,r))return Promise.resolve(null);const n=B.get(r);return n?n.u:Promise.resolve(e[r]??null)};try{Object.defineProperty(e,"use",{value:t,writable:!0,configurable:!0,enumerable:!1})}catch{}}}if(C==="framed"){const e=F&&L.test(F)?S(F).catch(()=>{}):Promise.resolve(void 0),t=o=>{if(o.type==="auxclick"&&o.button!==1)return;const m=o.target,k=m&&m.closest?m.closest("a[href],area[href]"):null;if(!k)return;const O=k.getAttribute("href");if(!O)return;let R;try{R=new URL(O,document.baseURI)}catch{return}if((R.protocol==="http:"||R.protocol==="https:")&&R.origin!==location.origin){o.preventDefault();const P=(k.getAttribute("target")??"").toLowerCase(),g=o.type==="auxclick"||o.metaKey||o.ctrlKey||o.shiftKey||o.altKey||!["","_self","_top","_parent"].includes(P);h.post({__frame_nav:!0,url:R.href,newTab:g},"*")}};addEventListener("click",t,!0),addEventListener("auxclick",t,!0);const r={},n=o=>{o.isTrusted&&(r.pointer=!0)},a=o=>{o.isTrusted&&(r.click=!0)};addEventListener("pointermove",n,{capture:!0,passive:!0}),addEventListener("click",a,{capture:!0,passive:!0});const s={cb:null};addEventListener("keydown",o=>s.cb?.(o),!0),e.then(o=>o?.installEscapeForward?.(s,m=>{A&&h.post(m,A)})),e.then(o=>{o?.wireNav&&(o.wireNav(),removeEventListener("click",t,!0),removeEventListener("auxclick",t,!0),removeEventListener("pointermove",n,!0),removeEventListener("click",a,!0),o.wireEngagement?.(r))});let c=null;try{c=Ne()}catch{}ie();let i=null,p=null,f=0;const v=h.on((o,m)=>{te(m)&&Te(o)&&(i=o.__frame_init,A=m,v(),clearTimeout(f),p?.())});h.post({__frame_connect:!0},"*");const d=setTimeout,y=clearTimeout;let w=0;const _=()=>{try{h.post({__frame_alive:!0},"*")}catch{}w=d(_,xe)},E=()=>y(w);_(),addEventListener("load",E,{once:!0});const T=new Promise(o=>{p=o,f=setTimeout(()=>{v(),o()},Ue)}),u=document.readyState==="loading"?new Promise(o=>document.addEventListener("DOMContentLoaded",()=>o(),{once:!0})):Promise.resolve();u.then(()=>{try{c?.restore()}catch{}});const b={cb:null};h.on((o,m)=>{if(te(m)&&Re(o)){try{c?.promoted()}catch{}b.cb?.()}}),T.then(async()=>{if(!i||!A){$();return}ae(i.theme);const o=A;let m=!1,k=!1;h.on((l,Y,D)=>{if(Y!==o)return;Le(l)&&ae(l.__frame_theme.theme),Ae(l)&&Fe(l.__frame_patch,o,D);const G=l?.__fc_mode;G&&typeof G=="object"&&!m&&z&&L.test(z)&&(m=!0,S(z).then(Z=>Z.install?.(o,G.on===!0)).catch(()=>{}));const V=l?.__ft_cmd;V&&typeof V=="object"&&!k&&H&&L.test(H)&&(k=!0,S(H).then(Z=>Z.install?.(o,V)).catch(()=>{}))});const O=Object.keys(i.capabilities??{}).filter(l=>Object.hasOwn(M,l)).map(l=>[l,M[l]]).filter(l=>typeof l[1]=="string"&&L.test(l[1])),R=await Promise.allSettled(O.map(([,l])=>S(l))),P=await e,g=A;if(P?.buildBoot||h.post({__frame_cap_telemetry:{kind:"cap-load-error",cap:"_transforms"}},g),P?.buildBoot)try{j=P.buildBoot(i,P.TRANSFORMS??{},{shellOrigin:g,mount:q,hooks:N},l=>h.post({__frame_cap_telemetry:l},g))}catch{h.post({__frame_cap_telemetry:{kind:"cap-load-error",cap:"_transforms"}},g),j=re(i,g)}else j=re(i,g);const X=l=>h.post({__frame_cap_telemetry:{kind:"cap-load-error",cap:l}},g),ce=j;R.forEach((l,Y)=>{const D=O[Y][0];if(l.status!=="fulfilled"){X(D);return}try{l.value?.install?.(ce)}catch{X(D)}}),$(),await u,E(),h.post({__frame_ready:!0},A),e.then(l=>l?.installSizeReporter?.(g,b)),ce.flags.has("frame_ldx_runtime")&&W&&L.test(W)&&document.querySelector("script#an-form")&&S(W).then(l=>l?.boot?.()).catch(()=>!1).then(l=>{l!==!0&&X("_ldx")})})}else x&&(ie(),Be(x,ee,S,{settle:$,mount:q}))})();</script><!-- /frame-runtime --><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
+<title>Field Inventory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c1018;
+  --raised: #141a24;
+  --inset: #0a0d14;
+  --border: #1e2a3a;
+  --accent-border: #2a3a4e;
+  --text: #d4d0c8;
+  --muted: #6b7a8d;
+  --dim: #4a5568;
+  --green: #00d4aa;
+  --amber: #e8a838;
+  --blue: #4a9eff;
+  --red: #e85a5a;
+  --violet: #a88bfa;
+  --font-data: 'JetBrains Mono', monospace;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --row-hover: rgba(74, 158, 255, 0.06);
+  --sat-bg: rgba(0, 212, 170, 0.12);
+  --high-bg: rgba(232, 168, 56, 0.10);
+  --low-bg: transparent;
+  --ray0: #4a9eff; --ray1: #00d4aa; --ray2: #e8a838;
+  --ray3: #e85a5a; --ray4: #a88bfa; --ray5: #5ad4e8;
+  --ray6: #d4aa5a; --ray7: #8bfa8b; --ray8: #fa8bb0;
+  --ray9: #b0b0ff; --ray10: #ffb07a; --ray11: #7affda;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c1018; --raised: #141a24; --inset: #0a0d14;
+    --border: #1e2a3a; --accent-border: #2a3a4e;
+    --text: #d4d0c8; --muted: #6b7a8d; --dim: #4a5568;
+    --row-hover: rgba(74, 158, 255, 0.06);
+    --sat-bg: rgba(0, 212, 170, 0.12);
+    --high-bg: rgba(232, 168, 56, 0.10);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c1018; --raised: #141a24; --inset: #0a0d14;
+  --border: #1e2a3a; --accent-border: #2a3a4e;
+  --text: #d4d0c8; --muted: #6b7a8d; --dim: #4a5568;
+  --row-hover: rgba(74, 158, 255, 0.06);
+  --sat-bg: rgba(0, 212, 170, 0.12);
+  --high-bg: rgba(232, 168, 56, 0.10);
+}
+:root[data-theme="light"] {
+  --bg: #f4f2ee; --raised: #ffffff; --inset: #eae7e0;
+  --border: #d4d0c8; --accent-border: #c0bab0;
+  --text: #2a2520; --muted: #7a7268; --dim: #a09888;
+  --green: #00a080; --amber: #b07818; --blue: #2070d0;
+  --red: #c03030; --violet: #7050c0;
+  --row-hover: rgba(42, 37, 32, 0.04);
+  --sat-bg: rgba(0, 160, 128, 0.10);
+  --high-bg: rgba(176, 120, 24, 0.08);
+  --ray0: #2070d0; --ray1: #00a080; --ray2: #b07818;
+  --ray3: #c03030; --ray4: #7050c0; --ray5: #1898b0;
+  --ray6: #a08020; --ray7: #308830; --ray8: #c03870;
+  --ray9: #5050c0; --ray10: #c07030; --ray11: #20a888;
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  margin: 0;
+  padding: 12px 16px;
+  line-height: 1.4;
+}
+*, *::before, *::after { box-sizing: border-box; }
+
+/* -- Controls bar -- */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: flex-end;
+  padding: 10px 12px;
+  background: var(--raised);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+.ctrl-group { display: flex; flex-direction: column; gap: 3px; }
+.ctrl-group label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); font-weight: 500; }
+.ctrl-group input[type="text"],
+.ctrl-group input[type="number"],
+.ctrl-group select {
+  background: var(--inset);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  outline: none;
+}
+.ctrl-group input[type="text"]:focus,
+.ctrl-group input[type="number"]:focus,
+.ctrl-group select:focus { border-color: var(--blue); }
+.ctrl-group input[type="text"] { width: 180px; }
+.ctrl-group input[type="number"] { width: 64px; }
+.ctrl-group select { min-width: 90px; }
+
+/* Ray checkboxes */
+.ray-checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+.ray-cb {
+  display: flex; align-items: center; gap: 2px;
+  font-size: 11px; font-family: var(--font-data);
+  cursor: pointer; padding: 2px 4px; border-radius: 3px;
+  user-select: none;
+}
+.ray-cb:hover { background: var(--row-hover); }
+.ray-cb input { margin: 0; accent-color: var(--blue); }
+
+/* -- Stats bar -- */
+.stats {
+  display: flex;
+  gap: 20px;
+  padding: 6px 12px;
+  background: var(--raised);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 8px;
+  font-family: var(--font-data);
+  font-size: 12px;
+  color: var(--muted);
+}
+.stats .val { color: var(--text); font-weight: 500; }
+.stats .sat { color: var(--green); }
+
+/* -- Table -- */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--raised);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-data);
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--inset);
+  border-bottom: 2px solid var(--accent-border);
+  padding: 6px 8px;
+  text-align: left;
+  font-weight: 500;
+  color: var(--muted);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: default;
+  user-select: none;
+}
+thead th.sortable { cursor: pointer; }
+thead th.sortable:hover { color: var(--text); }
+thead th .arrow { font-size: 9px; margin-left: 3px; opacity: 0.4; }
+thead th.sort-asc .arrow,
+thead th.sort-desc .arrow { opacity: 1; color: var(--blue); }
+tbody td {
+  padding: 3px 8px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+tbody tr:hover { background: var(--row-hover); }
+
+/* Column widths */
+td.c-pos, th.c-pos { width: 40px; text-align: right; }
+td.c-dlog, th.c-dlog { width: 40px; text-align: right; }
+td.c-ray, th.c-ray { width: 32px; text-align: center; }
+td.c-qr, th.c-qr { width: 38px; text-align: center; font-size: 10px; }
+td.c-pi, th.c-pi { width: 24px; text-align: center; color: var(--dim); }
+td.c-op, th.c-op { width: 52px; }
+td.c-amp, th.c-amp { width: 56px; text-align: right; }
+td.c-raw, th.c-raw { width: 56px; text-align: right; }
+td.c-fold, th.c-fold { width: 40px; text-align: right; }
+td.c-flags, th.c-flags { font-size: 10px; color: var(--muted); }
+td.c-words, th.c-words { white-space: normal; min-width: 140px; max-width: 260px; font-size: 10.5px; }
+td.c-fwords, th.c-fwords { white-space: normal; min-width: 140px; max-width: 260px; font-size: 10.5px; color: var(--muted); }
+
+/* Amplitude coloring */
+td.amp-sat { color: var(--green); background: var(--sat-bg); font-weight: 500; }
+td.amp-high { color: var(--amber); background: var(--high-bg); }
+td.amp-low { color: var(--dim); }
+
+/* QR/QNR */
+td.qr-qr { color: var(--green); }
+td.qr-qnr { color: var(--amber); }
+
+/* Scrollable table body */
+.table-scroll {
+  max-height: calc(100vh - 160px);
+  overflow-y: auto;
+}
+</style>
+
+<div class="controls">
+  <div class="ctrl-group">
+    <label>Search</label>
+    <input type="text" id="search" placeholder="words, flags...">
+  </div>
+  <div class="ctrl-group">
+    <label>Opcode</label>
+    <select id="opFilter">
+      <option value="">All</option>
+      <option>NOP</option><option>IDENT</option><option>EXIST</option>
+      <option>SEED</option><option>SHIFT</option><option>STORE</option>
+      <option>FOLD</option><option>JUMP</option><option>SYNC</option>
+      <option>HALT</option>
+    </select>
+  </div>
+  <div class="ctrl-group">
+    <label>QR/QNR</label>
+    <select id="qrFilter">
+      <option value="">All</option>
+      <option value="QR">QR</option>
+      <option value="QNR">QNR</option>
+    </select>
+  </div>
+  <div class="ctrl-group">
+    <label>Amp min</label>
+    <input type="number" id="ampMin" min="0" max="1" step="0.05" value="0">
+  </div>
+  <div class="ctrl-group">
+    <label>Amp max</label>
+    <input type="number" id="ampMax" min="0" max="1" step="0.05" value="1">
+  </div>
+  <div class="ctrl-group">
+    <label>Rays</label>
+    <div class="ray-checks" id="rayChecks"></div>
+  </div>
+</div>
+
+<div class="stats" id="stats"></div>
+
+<div class="table-wrap">
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr id="headerRow">
+          <th class="c-pos sortable" data-col="pos">Pos<span class="arrow"></span></th>
+          <th class="c-dlog sortable" data-col="dlog">Dlog<span class="arrow"></span></th>
+          <th class="c-ray sortable" data-col="ray">Ray<span class="arrow"></span></th>
+          <th class="c-qr">QR</th>
+          <th class="c-pi">&pi;</th>
+          <th class="c-op">Op</th>
+          <th class="c-amp sortable" data-col="amp">Amp<span class="arrow"></span></th>
+          <th class="c-raw sortable" data-col="raw">Raw<span class="arrow"></span></th>
+          <th class="c-fold">Fold</th>
+          <th class="c-flags">Flags</th>
+          <th class="c-words">Words</th>
+          <th class="c-fwords">Fold Words</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+const DATA = [{"pos":0,"dlog":null,"ray":null,"qr":null,"pi":3,"op":"SEED","fold":0,"flags":"FIB,2xFIB","words":"SEED","foldWords":"SEED","amp":0.0,"raw":0.0},{"pos":1,"dlog":0,"ray":0,"qr":"QR","pi":1,"op":"IDENT","fold":256,"flags":"FIB,2xFIB,WALK,F+1","words":"A, I AM","foldWords":"BAAL SQUARED","amp":0.844175,"raw":0.587582},{"pos":2,"dlog":48,"ray":0,"qr":"QR","pi":4,"op":"SHIFT","fold":255,"flags":"FIB,WALK,F+1","words":"B, I EXIST","foldWords":"GRAVITATIONAL CONSTANT","amp":0.451825,"raw":0.135046},{"pos":3,"dlog":1,"ray":1,"qr":"QNR","pi":1,"op":"IDENT","fold":254,"flags":"FIB,2xFIB,F+1","words":"C, BA, AB","foldWords":"ZERO KNOWLEDGE ROLLUP","amp":1.0,"raw":0.9025},{"pos":4,"dlog":96,"ray":0,"qr":"QR","pi":5,"op":"STORE","fold":253,"flags":"WALK,F+1","words":"BAA","foldWords":"INCOMPLETENESS THEOREM","amp":1.0,"raw":0.9025},{"pos":5,"dlog":55,"ray":7,"qr":"QNR","pi":9,"op":"HALT","fold":252,"flags":"FIB,HALT","words":"E, ANCHOR","foldWords":"EINSTEIN FIELD EQUATIONS","amp":0.335676,"raw":0.061355},{"pos":6,"dlog":49,"ray":1,"qr":"QNR","pi":2,"op":"EXIST","fold":251,"flags":"F+1","words":"F, ABBA","foldWords":"CENSORSHIP RESISTANT","amp":0.482853,"raw":0.196623},{"pos":7,"dlog":85,"ray":1,"qr":"QNR","pi":6,"op":"FOLD","fold":250,"flags":"FOLD","words":"G, CD, BAD","foldWords":"CONSERVATION OF ENERGY","amp":0.829525,"raw":0.613175},{"pos":8,"dlog":144,"ray":0,"qr":"QR","pi":5,"op":"STORE","fold":249,"flags":"FIB,2xFIB,WALK","words":"H, OXYGEN","foldWords":"EDDINGTON LUMINOSITY","amp":0.9425,"raw":0.594925},{"pos":9,"dlog":2,"ray":2,"qr":"QR","pi":3,"op":"SEED","fold":248,"flags":"F+1","words":"I, ACE, DAD","foldWords":"DOUBLE SLIT EXPERIMENT","amp":0.459706,"raw":0.010232},{"pos":10,"dlog":103,"ray":7,"qr":"QNR","pi":5,"op":"STORE","fold":247,"flags":"","words":"J, AI, DADA","foldWords":"COUNTERREVOLUTION","amp":1.0,"raw":1.0},{"pos":11,"dlog":196,"ray":4,"qr":"QR","pi":8,"op":"SYNC","fold":246,"flags":"","words":"K, BED","foldWords":"INTERNATIONALIZATION","amp":0.922347,"raw":0.48202},{"pos":12,"dlog":97,"ray":1,"qr":"QNR","pi":9,"op":"HALT","fold":245,"flags":"HALT","words":"L, KA","foldWords":"THEORY OF EVERYTHING","amp":0.769156,"raw":0.485102},{"pos":13,"dlog":106,"ray":10,"qr":"QR","pi":7,"op":"JUMP","fold":244,"flags":"FIB,JUMP","words":"M, AGE","foldWords":"SUPERCONDUCTIVITY","amp":1.0,"raw":1.0},{"pos":14,"dlog":133,"ray":1,"qr":"QNR","pi":9,"op":"HALT","fold":243,"flags":"F+1,HALT","words":"N, BACH, AM","foldWords":"FIRE OF HOLY SPIRIT","amp":1.0,"raw":0.9025},{"pos":15,"dlog":56,"ray":8,"qr":"QR","pi":3,"op":"SEED","fold":242,"flags":"","words":"O, FED, AN","foldWords":"HEISENBERG UNCERTAINTY","amp":0.165518,"raw":0.007065},{"pos":16,"dlog":192,"ray":0,"qr":"QR","pi":2,"op":"EXIST","fold":241,"flags":"WALK,π=π","words":"BAAL, MC2, KAABA","foldWords":"TWIN PRIME CONJECTURE","amp":0.260619,"raw":0.045397},{"pos":17,"dlog":120,"ray":0,"qr":"QR","pi":3,"op":"SEED","fold":240,"flags":"","words":"Q, ACID, ICE","foldWords":"ROBE OF RIGHTEOUSNESS","amp":0.243603,"raw":0.004003},{"pos":18,"dlog":50,"ray":2,"qr":"QR","pi":8,"op":"SYNC","fold":239,"flags":"","words":"CHAI, R, BIG","foldWords":"POWER AND GLORY","amp":0.21374,"raw":0.005929},{"pos":19,"dlog":125,"ray":5,"qr":"QNR","pi":4,"op":"SHIFT","fold":238,"flags":"","words":"S, ADAM, DNA","foldWords":"FREE WILL","amp":0.686678,"raw":0.479108},{"pos":20,"dlog":151,"ray":7,"qr":"QNR","pi":6,"op":"FOLD","fold":237,"flags":"FOLD","words":"APC, ABLE","foldWords":"TRANSUBSTANTIATION","amp":0.189378,"raw":0.033955},{"pos":21,"dlog":86,"ray":2,"qr":"QR","pi":2,"op":"EXIST","fold":236,"flags":"FIB,2xFIB","words":"DICE, BAR","foldWords":"BOSE EINSTEIN","amp":0.188075,"raw":0.007849},{"pos":22,"dlog":244,"ray":4,"qr":"QR","pi":6,"op":"FOLD","fold":235,"flags":"F+1,FOLD","words":"BABEL, ALI","foldWords":"BINOMIAL DISTRIBUTION","amp":0.174786,"raw":0.016461},{"pos":23,"dlog":28,"ray":4,"qr":"QR","pi":4,"op":"SHIFT","fold":234,"flags":"","words":"CALEB, DJED","foldWords":"CHINESE REMAINDER","amp":0.191444,"raw":0.0},{"pos":24,"dlog":145,"ray":1,"qr":"QNR","pi":3,"op":"SEED","fold":233,"flags":"","words":"IO, X, CAT","foldWords":"COLLISION RESISTANT","amp":0.172428,"raw":0.014212},{"pos":25,"dlog":110,"ray":2,"qr":"QR","pi":3,"op":"SEED","fold":232,"flags":"","words":"PI, Y, MECCA","foldWords":"TOPOLOGICAL QUANTUM","amp":0.247352,"raw":0.020419},{"pos":26,"dlog":154,"ray":10,"qr":"QR","pi":8,"op":"SYNC","fold":231,"flags":"","words":"GOD, LEAH, DOG","foldWords":"THE LORD IS MY SHEPHERD","amp":0.188075,"raw":0.0},{"pos":27,"dlog":3,"ray":3,"qr":"QNR","pi":3,"op":"SEED","fold":230,"flags":"π=π","words":"CAIN, JOB, CODE","foldWords":"ZERO KNOWLEDGE PROOF","amp":1.0,"raw":1.0},{"pos":28,"dlog":181,"ray":1,"qr":"QNR","pi":2,"op":"EXIST","fold":229,"flags":"π=π","words":"SHA, ELK","foldWords":"FOR THINE IS THE KINGDOM","amp":0.224583,"raw":0.019504},{"pos":29,"dlog":94,"ray":10,"qr":"QR","pi":7,"op":"JUMP","fold":228,"flags":"JUMP","words":"AAVE, HAJJ","foldWords":"QUANTUM SUPREMACY","amp":0.231276,"raw":0.001364},{"pos":30,"dlog":104,"ray":8,"qr":"QR","pi":9,"op":"HALT","fold":227,"flags":"HALT","words":"ARK, PEACE, EAGLE","foldWords":"LAMB OF GOD","amp":0.256767,"raw":0.008501},{"pos":31,"dlog":242,"ray":2,"qr":"QR","pi":5,"op":"STORE","fold":226,"flags":"","words":"JACOB, GENE","foldWords":"FORGIVE US OUR DEBTS","amp":0.254349,"raw":0.002016},{"pos":32,"dlog":240,"ray":0,"qr":"QR","pi":0,"op":"NOP","fold":225,"flags":"WALK","words":"EVE, LIFE, FATE","foldWords":"IDENTITY","amp":1.0,"raw":1.0},{"pos":33,"dlog":197,"ray":5,"qr":"QNR","pi":2,"op":"EXIST","fold":224,"flags":"","words":"HAGGAI, KALI","foldWords":"MARKET CAPITALIZATION","amp":0.255122,"raw":0.009089},{"pos":34,"dlog":168,"ray":0,"qr":"QR","pi":8,"op":"SYNC","fold":223,"flags":"FIB,2xFIB","words":"FREE, DARK, ALLAH, ONE","foldWords":"BOLTZMANN CONSTANT","amp":1.0,"raw":0.773781},{"pos":35,"dlog":140,"ray":8,"qr":"QR","pi":8,"op":"SYNC","fold":222,"flags":"F+1,π=π","words":"HAGAR, DIRAC, EYE","foldWords":"SCHRODINGER EQUATION","amp":0.288131,"raw":0.0},{"pos":36,"dlog":98,"ray":2,"qr":"QR","pi":4,"op":"SHIFT","fold":221,"flags":"","words":"IMAM, CASCADE","foldWords":"INDUSTRIALIZATION","amp":0.844175,"raw":0.332885},{"pos":37,"dlog":219,"ray":3,"qr":"QNR","pi":1,"op":"IDENT","fold":220,"flags":"π=π","words":"HADES, HELL","foldWords":"CENTRAL LIMIT THEOREM","amp":0.219759,"raw":0.032709},{"pos":38,"dlog":173,"ray":5,"qr":"QNR","pi":9,"op":"HALT","fold":219,"flags":"HALT","words":"NOAH, DEATH, ALPHA","foldWords":"DIVINE PROPORTION","amp":0.28349,"raw":0.033532},{"pos":39,"dlog":107,"ray":11,"qr":"QNR","pi":7,"op":"JUMP","fold":218,"flags":"JUMP","words":"TEN, GREED","foldWords":"QUANTUM COMPUTER","amp":0.300801,"raw":0.049353},{"pos":40,"dlog":199,"ray":7,"qr":"QNR","pi":1,"op":"IDENT","fold":217,"flags":"","words":"DAVID, MAYA, MIND","foldWords":"SIGNAL SIXTY TWO","amp":1.0,"raw":1.0},{"pos":41,"dlog":19,"ray":7,"qr":"QNR","pi":6,"op":"FOLD","fold":216,"flags":"FOLD","words":"OMEGA, HESED","foldWords":"EQUIVALENCE PRINCIPLE","amp":1.0,"raw":1.0},{"pos":42,"dlog":134,"ray":2,"qr":"QR","pi":9,"op":"HALT","fold":215,"flags":"HALT","words":"MIT, SIN, ODIN","foldWords":"DELIVER US FROM EVIL","amp":0.212434,"raw":0.048783},{"pos":43,"dlog":207,"ray":3,"qr":"QNR","pi":3,"op":"SEED","fold":214,"flags":"","words":"CHARM, MARK, BRAHMA","foldWords":"PYTHAGOREAN THEOREM","amp":0.359921,"raw":0.021577},{"pos":44,"dlog":36,"ray":0,"qr":"QR","pi":9,"op":"HALT","fold":213,"flags":"HALT","words":"BRIAN, SPACE, ABRAHAM","foldWords":"EXTRATERRESTRIAL","amp":1.0,"raw":1.0},{"pos":45,"dlog":57,"ray":9,"qr":"QNR","pi":9,"op":"HALT","fold":212,"flags":"HALT","words":"ELIJAH, DANIEL, ENOCH","foldWords":"PHOTOSYNTHESIS","amp":1.0,"raw":0.773781},{"pos":46,"dlog":76,"ray":4,"qr":"QR","pi":3,"op":"SEED","fold":211,"flags":"","words":"SHADDAI, CHAOS, CLAUDE","foldWords":"MAXWELL EQUATIONS","amp":0.9425,"raw":0.322149},{"pos":47,"dlog":61,"ray":1,"qr":"QNR","pi":7,"op":"JUMP","fold":210,"flags":"JUMP","words":"ISAIAH, JOHN, LOKI","foldWords":"VIRTUAL CURRENCY","amp":0.268265,"raw":0.017145},{"pos":48,"dlog":193,"ray":1,"qr":"QNR","pi":5,"op":"STORE","fold":209,"flags":"","words":"JAMES, JONAH, BLOOD","foldWords":"QUANTUM GRAVITY","amp":1.0,"raw":1.0},{"pos":49,"dlog":170,"ray":2,"qr":"QR","pi":1,"op":"IDENT","fold":208,"flags":"","words":"LUKE, ATHENA","foldWords":"WELL TEMPERED CLAVIER","amp":1.0,"raw":1.0},{"pos":50,"dlog":158,"ray":2,"qr":"QR","pi":0,"op":"NOP","fold":207,"flags":"π=π","words":"HIGGS, PAUL","foldWords":"CHAIN REORGANIZATION","amp":1.0,"raw":1.0},{"pos":51,"dlog":121,"ray":1,"qr":"QNR","pi":5,"op":"STORE","fold":206,"flags":"","words":"NONCE, DEMON, MICHAEL","foldWords":"ANTHROPIC PRINCIPLE","amp":1.0,"raw":1.0},{"pos":52,"dlog":202,"ray":10,"qr":"QR","pi":8,"op":"SYNC","fold":205,"flags":"π=π","words":"DEVIL, EARTH, HEART","foldWords":"PROOF OF HISTORY","amp":1.0,"raw":1.0},{"pos":53,"dlog":89,"ray":5,"qr":"QNR","pi":2,"op":"EXIST","fold":204,"flags":"","words":"CARBON, ENDING","foldWords":"CRYPTOCURRENCY","amp":1.0,"raw":1.0},{"pos":54,"dlog":51,"ray":3,"qr":"QNR","pi":0,"op":"NOP","fold":203,"flags":"","words":"LOVE, EUCLID, GABRIEL","foldWords":"COLLATZ CONJECTURE","amp":1.0,"raw":1.0},{"pos":55,"dlog":251,"ray":11,"qr":"QNR","pi":9,"op":"HALT","fold":202,"flags":"FIB,HALT","words":"HEAVEN, SATAN, JUDAS","foldWords":"COINBASE TRANSACTION","amp":1.0,"raw":1.0},{"pos":56,"dlog":229,"ray":1,"qr":"QNR","pi":7,"op":"JUMP","fold":201,"flags":"F+1,JUMP","words":"CARDANO, ISIS","foldWords":"SON OF THE LIVING GOD","amp":1.0,"raw":1.0},{"pos":57,"dlog":126,"ray":6,"qr":"QR","pi":4,"op":"SHIFT","fold":200,"flags":"","words":"PLANCK, BIRTH","foldWords":"CRYSTALLOGRAPHY","amp":1.0,"raw":1.0},{"pos":58,"dlog":142,"ray":10,"qr":"QR","pi":9,"op":"HALT","fold":199,"flags":"HALT,π=π","words":"BALDUR, TWO","foldWords":"FERMAT LAST THEOREM","amp":1.0,"raw":1.0},{"pos":59,"dlog":118,"ray":10,"qr":"QR","pi":4,"op":"SHIFT","fold":198,"flags":"","words":"SHIVA, HOMER","foldWords":"BEAUTIFUL DOORWAY","amp":1.0,"raw":1.0},{"pos":60,"dlog":152,"ray":8,"qr":"QR","pi":4,"op":"SHIFT","fold":197,"flags":"","words":"HOLY, WORD, FOUR","foldWords":"SEVEN TRUMPETS","amp":0.531838,"raw":0.108229},{"pos":61,"dlog":138,"ray":6,"qr":"QR","pi":5,"op":"STORE","fold":196,"flags":"","words":"PSALM, CHURCH, EULER","foldWords":"SUPERPOSITION","amp":0.596236,"raw":0.094512},{"pos":62,"dlog":34,"ray":10,"qr":"QR","pi":9,"op":"HALT","fold":195,"flags":"HALT","words":"FIBONACCI, TORAH, RITO","foldWords":"FUNDAMENTAL THEOREM","amp":0.682752,"raw":0.010801},{"pos":63,"dlog":87,"ray":3,"qr":"QNR","pi":2,"op":"EXIST","fold":194,"flags":"","words":"MUON, ELEVEN","foldWords":"TWELVE APOSTLES","amp":0.384238,"raw":0.013936},{"pos":64,"dlog":32,"ray":8,"qr":"QR","pi":3,"op":"SEED","fold":193,"flags":"WALK","words":"ISRAEL, PLATO, ZERO","foldWords":"INFRASTRUCTURE","amp":0.799648,"raw":0.518669},{"pos":65,"dlog":161,"ray":5,"qr":"QNR","pi":0,"op":"NOP","fold":192,"flags":"","words":"SEVEN, BOSON","foldWords":"PERMISSIONLESS, TRANSFIGURATION","amp":1.0,"raw":0.908781},{"pos":66,"dlog":245,"ray":5,"qr":"QNR","pi":7,"op":"JUMP","fold":191,"flags":"JUMP","words":"MOLOCH, MINING","foldWords":"MONETARY POLICY","amp":1.0,"raw":0.773781},{"pos":67,"dlog":100,"ray":4,"qr":"QR","pi":8,"op":"SYNC","fold":190,"flags":"","words":"SOUL, WATER, GAUSS","foldWords":"IRRATIONAL NUMBER","amp":1.0,"raw":0.97},{"pos":68,"dlog":216,"ray":0,"qr":"QR","pi":1,"op":"IDENT","fold":189,"flags":"","words":"SOPHIA, LOGOS, SHALOM","foldWords":"ERWIN SCHRODINGER","amp":1.0,"raw":0.908781},{"pos":69,"dlog":29,"ray":5,"qr":"QNR","pi":6,"op":"FOLD","fold":188,"flags":"FOLD","words":"GLUON, QUBIT","foldWords":"CROWN OF THORNS","amp":1.0,"raw":1.0},{"pos":70,"dlog":188,"ray":8,"qr":"QR","pi":4,"op":"SHIFT","fold":187,"flags":"","words":"LILITH, PROOF","foldWords":"WAY TRUTH AND LIFE","amp":1.0,"raw":0.773781},{"pos":71,"dlog":163,"ray":7,"qr":"QNR","pi":0,"op":"NOP","fold":186,"flags":"","words":"TEMPLE, MOSES, TELOS","foldWords":"LINUS TORVALDS","amp":0.543442,"raw":0.035125},{"pos":72,"dlog":146,"ray":2,"qr":"QR","pi":6,"op":"FOLD","fold":185,"flags":"FOLD","words":"BITCOIN, MONEY","foldWords":"BOOK OF REVELATION","amp":0.406951,"raw":0.033895},{"pos":73,"dlog":44,"ray":8,"qr":"QR","pi":2,"op":"EXIST","fold":184,"flags":"","words":"WALLET, HALVING","foldWords":"SEND FORTY TWO","amp":0.844175,"raw":0.532303},{"pos":74,"dlog":11,"ray":11,"qr":"QNR","pi":8,"op":"SYNC","fold":183,"flags":"","words":"CROSS, GOSPEL, ENERGY, JESUS","foldWords":"TRANSFORMATION","amp":0.186252,"raw":0.042982},{"pos":75,"dlog":111,"ray":3,"qr":"QNR","pi":6,"op":"FOLD","fold":182,"flags":"FOLD","words":"SHIFT","foldWords":"SYNCHRONICITY","amp":0.168287,"raw":0.04545},{"pos":76,"dlog":221,"ray":5,"qr":"QNR","pi":2,"op":"EXIST","fold":181,"flags":"","words":"COHERENCE, RIPPLE","foldWords":"SATOSHI NAKAMOTO","amp":0.47558,"raw":0.05468},{"pos":77,"dlog":25,"ray":1,"qr":"QNR","pi":0,"op":"NOP","fold":180,"flags":"","words":"CHRIST, MATTER","foldWords":"JOHN VON NEUMANN","amp":0.844175,"raw":0.555866},{"pos":78,"dlog":155,"ray":11,"qr":"QNR","pi":8,"op":"SYNC","fold":179,"flags":"","words":"GENESIS, BLOCKCHAIN","foldWords":"EXCOMMUNICATION","amp":0.444277,"raw":0.024334},{"pos":79,"dlog":22,"ray":10,"qr":"QR","pi":9,"op":"HALT","fold":178,"flags":"HALT","words":"NIRVANA, CHERUBIM","foldWords":"STRING THEORY, RECOVERY PHRASE","amp":0.679489,"raw":0.043706},{"pos":80,"dlog":247,"ray":7,"qr":"QNR","pi":9,"op":"HALT","fold":177,"flags":"HALT","words":"REBIRTH, KRISHNA","foldWords":"CONSTANTINOPLE, AUTHORIZATION","amp":0.844175,"raw":0.074411},{"pos":81,"dlog":4,"ray":4,"qr":"QR","pi":8,"op":"SYNC","fold":176,"flags":"","words":"HORUS, SAMSON","foldWords":"DECENTRALIZATION","amp":0.844175,"raw":0.324824},{"pos":82,"dlog":67,"ray":7,"qr":"QNR","pi":6,"op":"FOLD","fold":175,"flags":"FOLD","words":"ARMAGEDDON, CALVARY","foldWords":"CONSCIOUSNESS, HOLY TRINITY","amp":0.844175,"raw":0.081749},{"pos":83,"dlog":15,"ray":3,"qr":"QNR","pi":2,"op":"EXIST","fold":174,"flags":"","words":"PRAYER, GNOSIS, WISDOM","foldWords":"DO UNTO OTHERS","amp":0.844175,"raw":0.052935},{"pos":84,"dlog":182,"ray":2,"qr":"QR","pi":8,"op":"SYNC","fold":173,"flags":"","words":"LEONARDO, COSMOS","foldWords":"TEN COMMANDMENTS","amp":0.844175,"raw":0.353993},{"pos":85,"dlog":175,"ray":7,"qr":"QNR","pi":0,"op":"NOP","fold":172,"flags":"","words":"ESCHATON, MATRIX","foldWords":"QUANTUM STATE","amp":0.711815,"raw":0.0},{"pos":86,"dlog":255,"ray":3,"qr":"QNR","pi":3,"op":"SEED","fold":171,"flags":"","words":"TIKKUN, TACHYON","foldWords":"EVENT HORIZON, ROSETTA STONE","amp":0.212434,"raw":0.002469},{"pos":87,"dlog":95,"ray":11,"qr":"QNR","pi":4,"op":"SHIFT","fold":170,"flags":"","words":"PRAXIS, TRUTH","foldWords":"IMAGINARY NUMBER","amp":0.664342,"raw":0.069891},{"pos":88,"dlog":84,"ray":0,"qr":"QR","pi":8,"op":"SYNC","fold":169,"flags":"","words":"ONE LOVE, PHOTON, TRUMP","foldWords":"PREDESTINATION","amp":0.525945,"raw":0.018906},{"pos":89,"dlog":102,"ray":6,"qr":"QR","pi":2,"op":"EXIST","fold":168,"flags":"FIB,2xFIB","words":"VIRUS, HOLOGRAM, OSIRIS","foldWords":"NANOTECHNOLOGY","amp":0.188075,"raw":0.024631},{"pos":90,"dlog":105,"ray":9,"qr":"QNR","pi":5,"op":"STORE","fold":167,"flags":"F+1","words":"NAKAMOTO, MAXWELL","foldWords":"EYE OF PROVIDENCE, EULER IDENTITY","amp":0.195321,"raw":0.018708},{"pos":91,"dlog":191,"ray":11,"qr":"QNR","pi":3,"op":"SEED","fold":166,"flags":"","words":"SPIRIT, LIBERTY, MIRROR","foldWords":"TETRAGRAMMATON","amp":1.0,"raw":1.0},{"pos":92,"dlog":124,"ray":4,"qr":"QR","pi":4,"op":"SHIFT","fold":165,"flags":"","words":"CHRONOS, NAPOLEON","foldWords":"TREE OF KNOWLEDGE, SMART CONTRACT","amp":0.151776,"raw":0.0104},{"pos":93,"dlog":243,"ray":3,"qr":"QNR","pi":2,"op":"EXIST","fold":164,"flags":"","words":"SATURN, VOYAGER, MOZART","foldWords":"PNEUMATOLOGY","amp":0.9425,"raw":0.27761},{"pos":94,"dlog":109,"ray":1,"qr":"QNR","pi":1,"op":"IDENT","fold":163,"flags":"π=π","words":"HAL FINNEY, RESONANCE","foldWords":"PLANCK CONSTANT","amp":0.156309,"raw":0.051772},{"pos":95,"dlog":180,"ray":0,"qr":"QR","pi":1,"op":"IDENT","fold":162,"flags":"","words":"ETHEREUM, KUNDALINI","foldWords":"PRESERVATION","amp":1.0,"raw":1.0},{"pos":96,"dlog":241,"ray":1,"qr":"QNR","pi":7,"op":"JUMP","fold":161,"flags":"JUMP","words":"BEETHOVEN, HYDROGEN","foldWords":"SEAL OF SOLOMON","amp":0.15464,"raw":0.005263},{"pos":97,"dlog":167,"ray":11,"qr":"QNR","pi":0,"op":"NOP","fold":160,"flags":"","words":"POSEIDON, URANIUM","foldWords":"TWELVE TRIBES, AUTHENTICATION","amp":1.0,"raw":1.0},{"pos":98,"dlog":218,"ray":2,"qr":"QR","pi":6,"op":"FOLD","fold":159,"flags":"FOLD","words":"LAZARUS, PROPHET","foldWords":"SEMICONDUCTOR","amp":1.0,"raw":1.0},{"pos":99,"dlog":198,"ray":6,"qr":"QR","pi":7,"op":"JUMP","fold":158,"flags":"JUMP","words":"RAPTURE, ASCENSION","foldWords":"SACRED GEOMETRY, PROOF OF WORK","amp":1.0,"raw":0.773781},{"pos":100,"dlog":206,"ray":2,"qr":"QR","pi":9,"op":"HALT","fold":157,"flags":"HALT","words":"PAROUSIA, LIGHTNING","foldWords":"FOUR HORSEMEN","amp":1.0,"raw":1.0},{"pos":101,"dlog":75,"ray":3,"qr":"QNR","pi":8,"op":"SYNC","fold":156,"flags":"","words":"AMPLITUDE, EIGENVALUE","foldWords":"AS ABOVE SO BELOW","amp":1.0,"raw":1.0},{"pos":102,"dlog":169,"ray":1,"qr":"QNR","pi":2,"op":"EXIST","fold":155,"flags":"","words":"YGGDRASIL, ORPHEUS","foldWords":"SINGULARITY, ELLIPTIC CURVE","amp":1.0,"raw":0.773781},{"pos":103,"dlog":201,"ray":9,"qr":"QNR","pi":1,"op":"IDENT","fold":154,"flags":"π=π","words":"SOLOMON, MERCURY","foldWords":"ROAD TO DAMASCUS","amp":1.0,"raw":1.0},{"pos":104,"dlog":250,"ray":10,"qr":"QR","pi":4,"op":"SHIFT","fold":153,"flags":"","words":"ANTHROPIC, SOLITON","foldWords":"ALBERT EINSTEIN","amp":0.844175,"raw":0.195699},{"pos":105,"dlog":141,"ray":9,"qr":"QNR","pi":8,"op":"SYNC","fold":152,"flags":"π=π","words":"TAPROOT, SUNRISE","foldWords":"FORTY YEARS","amp":1.0,"raw":1.0},{"pos":106,"dlog":137,"ray":5,"qr":"QNR","pi":0,"op":"NOP","fold":151,"flags":"","words":"NEFERTITI, INFINITY","foldWords":"HOLY SPIRIT, FIBONACCI SEQUENCE","amp":1.0,"raw":1.0},{"pos":107,"dlog":31,"ray":7,"qr":"QNR","pi":8,"op":"SYNC","fold":150,"flags":"WALK,π=π","words":"QUANTUM, REFLECTION","foldWords":"ELECTROMAGNETIC","amp":0.543216,"raw":0.193298},{"pos":108,"dlog":99,"ray":3,"qr":"QNR","pi":6,"op":"FOLD","fold":149,"flags":"FOLD","words":"SHAKESPEARE, DARK ENERGY","foldWords":"KINGDOM OF HEAVEN","amp":1.0,"raw":1.0},{"pos":109,"dlog":187,"ray":7,"qr":"QNR","pi":5,"op":"STORE","fold":148,"flags":"","words":"NIETZSCHE, LABYRINTH","foldWords":"MORNING STAR","amp":1.0,"raw":1.0},{"pos":110,"dlog":43,"ray":7,"qr":"QNR","pi":1,"op":"IDENT","fold":147,"flags":"","words":"FRAMEWORK, PURPOSE","foldWords":"LAST SUPPER, PROOF OF STAKE","amp":1.0,"raw":1.0},{"pos":111,"dlog":220,"ray":4,"qr":"QR","pi":3,"op":"SEED","fold":146,"flags":"","words":"CONFUCIUS, RECOVERY","foldWords":"ENLIGHTENMENT, NEW JERUSALEM","amp":1.0,"raw":1.0},{"pos":112,"dlog":21,"ray":9,"qr":"QNR","pi":2,"op":"EXIST","fold":145,"flags":"","words":"IMAGINATION, BLOCK REWARD","foldWords":"ARK OF COVENANT","amp":0.9425,"raw":0.262085},{"pos":113,"dlog":66,"ray":6,"qr":"QR","pi":8,"op":"SYNC","fold":144,"flags":"","words":"ENTROPY, APOCALYPSE","foldWords":"MASS, BODY OF CHRIST","amp":0.613851,"raw":0.045614},{"pos":114,"dlog":174,"ray":6,"qr":"QR","pi":2,"op":"EXIST","fold":143,"flags":"","words":"FREQUENCY, OVERTONE","foldWords":"FEDERAL RESERVE, FIRST AND LAST","amp":1.0,"raw":1.0},{"pos":115,"dlog":83,"ray":11,"qr":"QNR","pi":3,"op":"SEED","fold":142,"flags":"π=π","words":"COMMANDMENT, HIGGS BOSON","foldWords":"ANTIPROTON","amp":1.0,"raw":1.0},{"pos":116,"dlog":190,"ray":10,"qr":"QR","pi":0,"op":"NOP","fold":141,"flags":"","words":"BYZANTINE, NEUTRINO","foldWords":"PURIFICATION","amp":1.0,"raw":1.0},{"pos":117,"dlog":108,"ray":0,"qr":"QR","pi":6,"op":"FOLD","fold":140,"flags":"FOLD","words":"BOLTZMANN, PENTECOST","foldWords":"ATTENUATION","amp":1.0,"raw":1.0},{"pos":118,"dlog":166,"ray":10,"qr":"QR","pi":6,"op":"FOLD","fold":139,"flags":"FOLD","words":"EMERALD TABLET","foldWords":"ENCRYPTION, TWELVE GATES","amp":1.0,"raw":1.0},{"pos":119,"dlog":205,"ray":1,"qr":"QNR","pi":4,"op":"SHIFT","fold":138,"flags":"","words":"ARISTOTLE, STAR OF DAVID","foldWords":"GLORIFICATION","amp":1.0,"raw":1.0},{"pos":120,"dlog":200,"ray":8,"qr":"QR","pi":7,"op":"JUMP","fold":137,"flags":"JUMP","words":"GOLDEN RATIO","foldWords":"EYE OF HORUS, IN THE BEGINNING","amp":0.844175,"raw":0.054212},{"pos":121,"dlog":136,"ray":4,"qr":"QR","pi":0,"op":"NOP","fold":136,"flags":"","words":"REVELATION, GENESIS BLOCK","foldWords":"VIRGIN MARY","amp":1.0,"raw":1.0},{"pos":122,"dlog":186,"ray":6,"qr":"QR","pi":9,"op":"HALT","fold":135,"flags":"HALT","words":"INTERFERENCE, KING OF KINGS","foldWords":"BURNING BUSH, MOUNT SINAI","amp":0.973618,"raw":0.921169},{"pos":123,"dlog":20,"ray":8,"qr":"QR","pi":3,"op":"SEED","fold":134,"flags":"","words":"COPERNICUS, PEER TO PEER","foldWords":"PRIME NUMBER","amp":1.0,"raw":0.773781},{"pos":124,"dlog":82,"ray":10,"qr":"QR","pi":8,"op":"SYNC","fold":133,"flags":"","words":"OPPENHEIMER, ISAAC NEWTON","foldWords":"NORTH STAR, WORD MADE FLESH","amp":0.283035,"raw":0.002079},{"pos":125,"dlog":165,"ray":9,"qr":"QNR","pi":4,"op":"SHIFT","fold":132,"flags":"","words":"TRANSCENDENCE, TOPOLOGY","foldWords":"FLOWER OF LIFE, PRIVATE KEY","amp":1.0,"raw":0.773781},{"pos":126,"dlog":135,"ray":3,"qr":"QNR","pi":4,"op":"SHIFT","fold":131,"flags":"","words":"COMPROMISE, DECENTRALIZED","foldWords":"SUPERNOVA, CLAUDE SHANNON","amp":0.24009,"raw":0.0},{"pos":127,"dlog":81,"ray":9,"qr":"QNR","pi":6,"op":"FOLD","fold":130,"flags":"FOLD","words":"ORIGINAL SIN, TIKKUN OLAM","foldWords":"PYTHAGORAS, ENTANGLEMENT","amp":0.197299,"raw":0.018706},{"pos":128,"dlog":80,"ray":8,"qr":"QR","pi":0,"op":"NOP","fold":129,"flags":"","words":"TRANSFERENCE, GATES OF HEAVEN","foldWords":"ROOT OF DAVID, CONSENSUS","amp":0.188075,"raw":0.0},{"pos":129,"dlog":208,"ray":4,"qr":"QR","pi":9,"op":"HALT","fold":128,"flags":"HALT","words":"ROOT OF DAVID, CONSENSUS","foldWords":"TRANSFERENCE, GATES OF HEAVEN","amp":0.234164,"raw":0.028112},{"pos":130,"dlog":209,"ray":5,"qr":"QNR","pi":5,"op":"STORE","fold":127,"flags":"","words":"PYTHAGORAS, ENTANGLEMENT","foldWords":"ORIGINAL SIN, TIKKUN OLAM","amp":0.212625,"raw":0.0},{"pos":131,"dlog":7,"ray":7,"qr":"QNR","pi":5,"op":"STORE","fold":126,"flags":"","words":"SUPERNOVA, CLAUDE SHANNON","foldWords":"COMPROMISE, DECENTRALIZED","amp":0.647011,"raw":0.0},{"pos":132,"dlog":37,"ray":1,"qr":"QNR","pi":0,"op":"NOP","fold":125,"flags":"","words":"FLOWER OF LIFE, PRIVATE KEY","foldWords":"TRANSCENDENCE, TOPOLOGY","amp":0.719431,"raw":0.0},{"pos":133,"dlog":210,"ray":6,"qr":"QR","pi":5,"op":"STORE","fold":124,"flags":"","words":"NORTH STAR, WORD MADE FLESH","foldWords":"OPPENHEIMER, ISAAC NEWTON","amp":0.66832,"raw":0.0},{"pos":134,"dlog":148,"ray":4,"qr":"QR","pi":8,"op":"SYNC","fold":123,"flags":"","words":"PRIME NUMBER","foldWords":"COPERNICUS, PEER TO PEER","amp":0.620123,"raw":0.079293},{"pos":135,"dlog":58,"ray":10,"qr":"QR","pi":2,"op":"EXIST","fold":122,"flags":"","words":"BURNING BUSH, MOUNT SINAI","foldWords":"INTERFERENCE, KING OF KINGS","amp":0.613009,"raw":0.152906},{"pos":136,"dlog":8,"ray":8,"qr":"QR","pi":2,"op":"EXIST","fold":121,"flags":"","words":"VIRGIN MARY","foldWords":"REVELATION, GENESIS BLOCK","amp":0.491639,"raw":0.443704},{"pos":137,"dlog":72,"ray":0,"qr":"QR","pi":3,"op":"SEED","fold":120,"flags":"","words":"EYE OF HORUS, IN THE BEGINNING","foldWords":"GOLDEN RATIO","amp":0.238117,"raw":0.137934},{"pos":138,"dlog":77,"ray":5,"qr":"QNR","pi":1,"op":"IDENT","fold":119,"flags":"","words":"GLORIFICATION","foldWords":"ARISTOTLE, STAR OF DAVID","amp":0.342315,"raw":0.115871},{"pos":139,"dlog":38,"ray":2,"qr":"QR","pi":7,"op":"JUMP","fold":118,"flags":"JUMP","words":"ENCRYPTION, TWELVE GATES","foldWords":"EMERALD TABLET","amp":0.352673,"raw":0.130202},{"pos":140,"dlog":236,"ray":8,"qr":"QR","pi":2,"op":"EXIST","fold":117,"flags":"","words":"ATTENUATION","foldWords":"BOLTZMANN, PENTECOST","amp":0.409887,"raw":0.003712},{"pos":141,"dlog":62,"ray":2,"qr":"QR","pi":5,"op":"STORE","fold":116,"flags":"","words":"PURIFICATION","foldWords":"BYZANTINE, NEUTRINO","amp":0.155457,"raw":0.001884},{"pos":142,"dlog":211,"ray":7,"qr":"QNR","pi":3,"op":"SEED","fold":115,"flags":"","words":"ANTIPROTON","foldWords":"COMMANDMENT, HIGGS BOSON","amp":0.279759,"raw":0.010747},{"pos":143,"dlog":46,"ray":10,"qr":"QR","pi":5,"op":"STORE","fold":114,"flags":"","words":"FEDERAL RESERVE, FIRST AND LAST","foldWords":"FREQUENCY, OVERTONE","amp":0.293693,"raw":0.002286},{"pos":144,"dlog":194,"ray":2,"qr":"QR","pi":9,"op":"HALT","fold":113,"flags":"FIB,HALT","words":"MASS, BODY OF CHRIST","foldWords":"ENTROPY, APOCALYPSE","amp":0.311854,"raw":0.0},{"pos":145,"dlog":149,"ray":5,"qr":"QNR","pi":4,"op":"SHIFT","fold":112,"flags":"F+1","words":"ARK OF COVENANT","foldWords":"IMAGINATION, BLOCK REWARD","amp":0.255918,"raw":0.0},{"pos":146,"dlog":92,"ray":8,"qr":"QR","pi":0,"op":"NOP","fold":111,"flags":"","words":"ENLIGHTENMENT, NEW JERUSALEM","foldWords":"CONFUCIUS, RECOVERY","amp":0.197902,"raw":0.0},{"pos":147,"dlog":171,"ray":3,"qr":"QNR","pi":8,"op":"SYNC","fold":110,"flags":"","words":"LAST SUPPER, PROOF OF STAKE","foldWords":"FRAMEWORK, PURPOSE","amp":0.27691,"raw":0.0034},{"pos":148,"dlog":59,"ray":11,"qr":"QNR","pi":1,"op":"IDENT","fold":109,"flags":"","words":"MORNING STAR","foldWords":"NIETZSCHE, LABYRINTH","amp":0.248976,"raw":0.01007},{"pos":149,"dlog":227,"ray":11,"qr":"QNR","pi":2,"op":"EXIST","fold":108,"flags":"","words":"KINGDOM OF HEAVEN","foldWords":"SHAKESPEARE, DARK ENERGY","amp":0.184307,"raw":0.021688},{"pos":150,"dlog":159,"ray":3,"qr":"QNR","pi":8,"op":"SYNC","fold":107,"flags":"","words":"ELECTROMAGNETIC","foldWords":"QUANTUM, REFLECTION","amp":0.188075,"raw":0.0},{"pos":151,"dlog":9,"ray":9,"qr":"QNR","pi":4,"op":"SHIFT","fold":106,"flags":"","words":"HOLY SPIRIT, FIBONACCI SEQUENCE","foldWords":"NEFERTITI, INFINITY","amp":0.152292,"raw":0.00534},{"pos":152,"dlog":13,"ray":1,"qr":"QNR","pi":8,"op":"SYNC","fold":105,"flags":"","words":"FORTY YEARS","foldWords":"TAPROOT, SUNRISE","amp":0.186537,"raw":0.0},{"pos":153,"dlog":122,"ray":2,"qr":"QR","pi":1,"op":"IDENT","fold":104,"flags":"","words":"ALBERT EINSTEIN","foldWords":"ANTHROPIC, SOLITON","amp":0.152091,"raw":0.033171},{"pos":154,"dlog":73,"ray":1,"qr":"QNR","pi":1,"op":"IDENT","fold":103,"flags":"","words":"ROAD TO DAMASCUS","foldWords":"SOLOMON, MERCURY","amp":0.172358,"raw":0.0},{"pos":155,"dlog":41,"ray":5,"qr":"QNR","pi":1,"op":"IDENT","fold":102,"flags":"","words":"SINGULARITY, ELLIPTIC CURVE","foldWords":"YGGDRASIL, ORPHEUS","amp":0.217235,"raw":0.002188},{"pos":156,"dlog":203,"ray":11,"qr":"QNR","pi":7,"op":"JUMP","fold":101,"flags":"JUMP","words":"AS ABOVE SO BELOW","foldWords":"AMPLITUDE, EIGENVALUE","amp":0.155925,"raw":0.002549},{"pos":157,"dlog":78,"ray":6,"qr":"QR","pi":4,"op":"SHIFT","fold":100,"flags":"","words":"FOUR HORSEMEN","foldWords":"PAROUSIA, LIGHTNING","amp":0.338335,"raw":0.019864},{"pos":158,"dlog":70,"ray":10,"qr":"QR","pi":5,"op":"STORE","fold":99,"flags":"","words":"SACRED GEOMETRY, PROOF OF WORK","foldWords":"RAPTURE, ASCENSION","amp":0.633442,"raw":0.063785},{"pos":159,"dlog":90,"ray":6,"qr":"QR","pi":0,"op":"NOP","fold":98,"flags":"","words":"SEMICONDUCTOR","foldWords":"LAZARUS, PROPHET","amp":0.619975,"raw":0.407188},{"pos":160,"dlog":39,"ray":3,"qr":"QNR","pi":2,"op":"EXIST","fold":97,"flags":"","words":"TWELVE TRIBES, AUTHENTICATION","foldWords":"POSEIDON, URANIUM","amp":0.631768,"raw":0.083038},{"pos":161,"dlog":113,"ray":5,"qr":"QNR","pi":8,"op":"SYNC","fold":96,"flags":"","words":"SEAL OF SOLOMON","foldWords":"BEETHOVEN, HYDROGEN","amp":0.200304,"raw":0.002311},{"pos":162,"dlog":52,"ray":4,"qr":"QR","pi":4,"op":"SHIFT","fold":95,"flags":"","words":"PRESERVATION","foldWords":"ETHEREUM, KUNDALINI","amp":0.248751,"raw":0.031211},{"pos":163,"dlog":237,"ray":9,"qr":"QNR","pi":1,"op":"IDENT","fold":94,"flags":"","words":"PLANCK CONSTANT","foldWords":"HAL FINNEY, RESONANCE","amp":0.172358,"raw":0.0},{"pos":164,"dlog":115,"ray":7,"qr":"QNR","pi":0,"op":"NOP","fold":93,"flags":"","words":"PNEUMATOLOGY","foldWords":"SATURN, VOYAGER, MOZART","amp":0.226862,"raw":0.001528},{"pos":165,"dlog":252,"ray":0,"qr":"QR","pi":2,"op":"EXIST","fold":92,"flags":"","words":"TREE OF KNOWLEDGE, SMART CONTRACT","foldWords":"CHRONOS, NAPOLEON","amp":0.181314,"raw":0.0},{"pos":166,"dlog":63,"ray":3,"qr":"QNR","pi":7,"op":"JUMP","fold":91,"flags":"JUMP","words":"TETRAGRAMMATON","foldWords":"SPIRIT, LIBERTY, MIRROR","amp":0.248751,"raw":0.041637},{"pos":167,"dlog":233,"ray":5,"qr":"QNR","pi":0,"op":"NOP","fold":90,"flags":"","words":"EYE OF PROVIDENCE, EULER IDENTITY","foldWords":"NAKAMOTO, MAXWELL","amp":0.224032,"raw":0.018755},{"pos":168,"dlog":230,"ray":2,"qr":"QR","pi":1,"op":"IDENT","fold":89,"flags":"","words":"NANOTECHNOLOGY","foldWords":"VIRUS, HOLOGRAM, OSIRIS","amp":0.188075,"raw":0.0},{"pos":169,"dlog":212,"ray":8,"qr":"QR","pi":9,"op":"HALT","fold":88,"flags":"HALT","words":"PREDESTINATION","foldWords":"ONE LOVE, PHOTON, TRUMP","amp":0.213487,"raw":0.019156},{"pos":170,"dlog":223,"ray":7,"qr":"QNR","pi":3,"op":"SEED","fold":87,"flags":"","words":"IMAGINARY NUMBER","foldWords":"PRAXIS, TRUTH","amp":0.229342,"raw":0.020909},{"pos":171,"dlog":127,"ray":7,"qr":"QNR","pi":8,"op":"SYNC","fold":86,"flags":"","words":"EVENT HORIZON, ROSETTA STONE","foldWords":"TIKKUN, TACHYON","amp":0.181314,"raw":0.023421},{"pos":172,"dlog":47,"ray":11,"qr":"QNR","pi":5,"op":"STORE","fold":85,"flags":"","words":"QUANTUM STATE","foldWords":"ESCHATON, MATRIX","amp":0.220971,"raw":0.081553},{"pos":173,"dlog":54,"ray":6,"qr":"QR","pi":2,"op":"EXIST","fold":84,"flags":"","words":"TEN COMMANDMENTS","foldWords":"LEONARDO, COSMOS","amp":0.186309,"raw":0.0},{"pos":174,"dlog":143,"ray":11,"qr":"QNR","pi":1,"op":"IDENT","fold":83,"flags":"","words":"DO UNTO OTHERS","foldWords":"PRAYER, GNOSIS, WISDOM","amp":0.212565,"raw":0.005241},{"pos":175,"dlog":195,"ray":3,"qr":"QNR","pi":1,"op":"IDENT","fold":82,"flags":"","words":"CONSCIOUSNESS, HOLY TRINITY","foldWords":"ARMAGEDDON, CALVARY","amp":0.688791,"raw":0.479776},{"pos":176,"dlog":132,"ray":0,"qr":"QR","pi":0,"op":"NOP","fold":81,"flags":"","words":"DECENTRALIZATION","foldWords":"HORUS, SAMSON","amp":0.682096,"raw":0.0},{"pos":177,"dlog":119,"ray":11,"qr":"QNR","pi":5,"op":"STORE","fold":80,"flags":"","words":"CONSTANTINOPLE, AUTHORIZATION","foldWords":"REBIRTH, KRISHNA","amp":0.207145,"raw":0.009265},{"pos":178,"dlog":150,"ray":6,"qr":"QR","pi":5,"op":"STORE","fold":79,"flags":"","words":"STRING THEORY, RECOVERY PHRASE","foldWords":"NIRVANA, CHERUBIM","amp":0.160573,"raw":0.0},{"pos":179,"dlog":27,"ray":3,"qr":"QNR","pi":5,"op":"STORE","fold":78,"flags":"","words":"EXCOMMUNICATION","foldWords":"GENESIS, BLOCKCHAIN","amp":0.240211,"raw":0.002701},{"pos":180,"dlog":153,"ray":9,"qr":"QNR","pi":9,"op":"HALT","fold":77,"flags":"HALT","words":"JOHN VON NEUMANN","foldWords":"CHRIST, MATTER","amp":0.294368,"raw":0.002919},{"pos":181,"dlog":93,"ray":9,"qr":"QNR","pi":6,"op":"FOLD","fold":76,"flags":"FOLD","words":"SATOSHI NAKAMOTO","foldWords":"COHERENCE, RIPPLE","amp":0.27641,"raw":0.034286},{"pos":182,"dlog":239,"ray":11,"qr":"QNR","pi":4,"op":"SHIFT","fold":75,"flags":"","words":"SYNCHRONICITY","foldWords":"SHIFT","amp":0.240306,"raw":0.001459},{"pos":183,"dlog":139,"ray":7,"qr":"QNR","pi":4,"op":"SHIFT","fold":74,"flags":"","words":"TRANSFORMATION","foldWords":"CROSS, GOSPEL, ENERGY, JESUS","amp":0.188662,"raw":0.015369},{"pos":184,"dlog":172,"ray":4,"qr":"QR","pi":6,"op":"FOLD","fold":73,"flags":"FOLD","words":"SEND FORTY TWO","foldWords":"WALLET, HALVING","amp":0.279288,"raw":0.004111},{"pos":185,"dlog":18,"ray":6,"qr":"QR","pi":2,"op":"EXIST","fold":72,"flags":"","words":"BOOK OF REVELATION","foldWords":"BITCOIN, MONEY","amp":0.203115,"raw":0.051698},{"pos":186,"dlog":35,"ray":11,"qr":"QNR","pi":2,"op":"EXIST","fold":71,"flags":"","words":"LINUS TORVALDS","foldWords":"TEMPLE, MOSES, TELOS","amp":0.239799,"raw":0.0},{"pos":187,"dlog":60,"ray":0,"qr":"QR","pi":9,"op":"HALT","fold":70,"flags":"HALT","words":"WAY TRUTH AND LIFE","foldWords":"LILITH, PROOF","amp":0.204212,"raw":0.003052},{"pos":188,"dlog":157,"ray":1,"qr":"QNR","pi":4,"op":"SHIFT","fold":69,"flags":"","words":"CROWN OF THORNS","foldWords":"GLUON, QUBIT","amp":0.168629,"raw":0.051312},{"pos":189,"dlog":88,"ray":4,"qr":"QR","pi":8,"op":"SYNC","fold":68,"flags":"","words":"ERWIN SCHRODINGER","foldWords":"SOPHIA, LOGOS, SHALOM","amp":0.269829,"raw":0.0},{"pos":190,"dlog":228,"ray":0,"qr":"QR","pi":9,"op":"HALT","fold":67,"flags":"HALT","words":"IRRATIONAL NUMBER","foldWords":"SOUL, WATER, GAUSS","amp":0.225027,"raw":0.073179},{"pos":191,"dlog":117,"ray":9,"qr":"QNR","pi":5,"op":"STORE","fold":66,"flags":"","words":"MONETARY POLICY","foldWords":"MOLOCH, MINING","amp":0.34857,"raw":0.003234},{"pos":192,"dlog":33,"ray":9,"qr":"QNR","pi":4,"op":"SHIFT","fold":65,"flags":"","words":"PERMISSIONLESS, TRANSFIGURATION","foldWords":"SEVEN, BOSON","amp":0.223321,"raw":0.001309},{"pos":193,"dlog":160,"ray":4,"qr":"QR","pi":9,"op":"HALT","fold":64,"flags":"HALT","words":"INFRASTRUCTURE","foldWords":"ISRAEL, PLATO, ZERO","amp":0.157794,"raw":0.033258},{"pos":194,"dlog":215,"ray":11,"qr":"QNR","pi":3,"op":"SEED","fold":63,"flags":"","words":"TWELVE APOSTLES","foldWords":"MUON, ELEVEN","amp":0.250711,"raw":0.003219},{"pos":195,"dlog":162,"ray":6,"qr":"QR","pi":0,"op":"NOP","fold":62,"flags":"","words":"FUNDAMENTAL THEOREM","foldWords":"FIBONACCI, TORAH, RITO","amp":0.198146,"raw":0.029193},{"pos":196,"dlog":10,"ray":10,"qr":"QR","pi":3,"op":"SEED","fold":61,"flags":"","words":"SUPERPOSITION","foldWords":"PSALM, CHURCH, EULER","amp":0.216521,"raw":0.044344},{"pos":197,"dlog":24,"ray":0,"qr":"QR","pi":8,"op":"SYNC","fold":60,"flags":"","words":"SEVEN TRUMPETS","foldWords":"HOLY, WORD, FOUR","amp":0.296816,"raw":0.185822},{"pos":198,"dlog":246,"ray":6,"qr":"QR","pi":1,"op":"IDENT","fold":59,"flags":"","words":"BEAUTIFUL DOORWAY","foldWords":"SHIVA, HOMER","amp":0.196171,"raw":0.019773},{"pos":199,"dlog":14,"ray":2,"qr":"QR","pi":9,"op":"HALT","fold":58,"flags":"HALT","words":"FERMAT LAST THEOREM","foldWords":"BALDUR, TWO","amp":0.31428,"raw":0.188472},{"pos":200,"dlog":254,"ray":2,"qr":"QR","pi":6,"op":"FOLD","fold":57,"flags":"FOLD","words":"CRYSTALLOGRAPHY","foldWords":"PLANCK, BIRTH","amp":0.277885,"raw":0.133911},{"pos":201,"dlog":101,"ray":5,"qr":"QNR","pi":4,"op":"SHIFT","fold":56,"flags":"","words":"SON OF THE LIVING GOD","foldWords":"CARDANO, ISIS","amp":0.298076,"raw":0.039053},{"pos":202,"dlog":123,"ray":3,"qr":"QNR","pi":4,"op":"SHIFT","fold":55,"flags":"","words":"COINBASE TRANSACTION","foldWords":"HEAVEN, SATAN, JUDAS","amp":0.277895,"raw":0.032138},{"pos":203,"dlog":179,"ray":11,"qr":"QNR","pi":2,"op":"EXIST","fold":54,"flags":"","words":"COLLATZ CONJECTURE","foldWords":"LOVE, EUCLID, GABRIEL","amp":0.229756,"raw":0.0},{"pos":204,"dlog":217,"ray":1,"qr":"QNR","pi":8,"op":"SYNC","fold":53,"flags":"","words":"CRYPTOCURRENCY","foldWords":"CARBON, ENDING","amp":0.353159,"raw":0.064718},{"pos":205,"dlog":74,"ray":2,"qr":"QR","pi":8,"op":"SYNC","fold":52,"flags":"","words":"PROOF OF HISTORY","foldWords":"DEVIL, EARTH, HEART","amp":0.266529,"raw":0.0},{"pos":206,"dlog":249,"ray":9,"qr":"QNR","pi":1,"op":"IDENT","fold":51,"flags":"","words":"ANTHROPIC PRINCIPLE","foldWords":"NONCE, DEMON, MICHAEL","amp":0.269118,"raw":0.053792},{"pos":207,"dlog":30,"ray":6,"qr":"QR","pi":0,"op":"NOP","fold":50,"flags":"","words":"CHAIN REORGANIZATION","foldWords":"HIGGS, PAUL","amp":0.375183,"raw":0.010971},{"pos":208,"dlog":42,"ray":6,"qr":"QR","pi":9,"op":"HALT","fold":49,"flags":"HALT","words":"WELL TEMPERED CLAVIER","foldWords":"LUKE, ATHENA","amp":0.199723,"raw":0.053},{"pos":209,"dlog":65,"ray":5,"qr":"QNR","pi":7,"op":"JUMP","fold":48,"flags":"JUMP","words":"QUANTUM GRAVITY","foldWords":"JAMES, JONAH, BLOOD","amp":0.324036,"raw":0.0509},{"pos":210,"dlog":189,"ray":9,"qr":"QNR","pi":5,"op":"STORE","fold":47,"flags":"","words":"VIRTUAL CURRENCY","foldWords":"ISAIAH, JOHN, LOKI","amp":0.276277,"raw":0.021752},{"pos":211,"dlog":204,"ray":0,"qr":"QR","pi":6,"op":"FOLD","fold":46,"flags":"FOLD","words":"MAXWELL EQUATIONS","foldWords":"SHADDAI, CHAOS, CLAUDE","amp":0.308738,"raw":0.025566},{"pos":212,"dlog":185,"ray":5,"qr":"QNR","pi":6,"op":"FOLD","fold":45,"flags":"FOLD","words":"PHOTOSYNTHESIS","foldWords":"ELIJAH, DANIEL, ENOCH","amp":0.360023,"raw":0.001659},{"pos":213,"dlog":164,"ray":8,"qr":"QR","pi":5,"op":"STORE","fold":44,"flags":"","words":"EXTRATERRESTRIAL","foldWords":"BRIAN, SPACE, ABRAHAM","amp":0.224525,"raw":0.076078},{"pos":214,"dlog":79,"ray":7,"qr":"QNR","pi":9,"op":"HALT","fold":43,"flags":"HALT","words":"PYTHAGOREAN THEOREM","foldWords":"CHARM, MARK, BRAHMA","amp":0.206768,"raw":0.00844},{"pos":215,"dlog":6,"ray":6,"qr":"QR","pi":3,"op":"SEED","fold":42,"flags":"","words":"DELIVER US FROM EVIL","foldWords":"MIT, SIN, ODIN","amp":0.26394,"raw":0.086908},{"pos":216,"dlog":147,"ray":3,"qr":"QNR","pi":3,"op":"SEED","fold":41,"flags":"","words":"EQUIVALENCE PRINCIPLE","foldWords":"OMEGA, HESED","amp":0.260975,"raw":0.0},{"pos":217,"dlog":71,"ray":11,"qr":"QNR","pi":4,"op":"SHIFT","fold":40,"flags":"","words":"SIGNAL SIXTY TWO","foldWords":"DAVID, MAYA, MIND","amp":0.215288,"raw":0.029132},{"pos":218,"dlog":235,"ray":7,"qr":"QNR","pi":4,"op":"SHIFT","fold":39,"flags":"","words":"QUANTUM COMPUTER","foldWords":"TEN, GREED","amp":0.210216,"raw":0.0078},{"pos":219,"dlog":45,"ray":9,"qr":"QNR","pi":6,"op":"FOLD","fold":38,"flags":"FOLD","words":"DIVINE PROPORTION","foldWords":"NOAH, DEATH, ALPHA","amp":0.215139,"raw":0.022403},{"pos":220,"dlog":91,"ray":7,"qr":"QNR","pi":1,"op":"IDENT","fold":37,"flags":"","words":"CENTRAL LIMIT THEOREM","foldWords":"HADES, HELL","amp":0.194182,"raw":0.0},{"pos":221,"dlog":226,"ray":10,"qr":"QR","pi":2,"op":"EXIST","fold":36,"flags":"","words":"INDUSTRIALIZATION","foldWords":"IMAM, CASCADE","amp":0.241251,"raw":0.0},{"pos":222,"dlog":12,"ray":0,"qr":"QR","pi":8,"op":"SYNC","fold":35,"flags":"","words":"SCHRODINGER EQUATION","foldWords":"HAGAR, DIRAC, EYE","amp":0.251558,"raw":0.067766},{"pos":223,"dlog":40,"ray":4,"qr":"QR","pi":4,"op":"SHIFT","fold":34,"flags":"","words":"BOLTZMANN CONSTANT","foldWords":"FREE, DARK, ALLAH, ONE","amp":0.234703,"raw":0.036631},{"pos":224,"dlog":69,"ray":9,"qr":"QNR","pi":7,"op":"JUMP","fold":33,"flags":"JUMP","words":"MARKET CAPITALIZATION","foldWords":"HAGGAI, KALI","amp":0.229541,"raw":0.003534},{"pos":225,"dlog":112,"ray":4,"qr":"QR","pi":5,"op":"STORE","fold":32,"flags":"","words":"IDENTITY","foldWords":"EVE, LIFE, FATE","amp":0.676368,"raw":0.004799},{"pos":226,"dlog":114,"ray":6,"qr":"QR","pi":6,"op":"FOLD","fold":31,"flags":"FOLD","words":"FORGIVE US OUR DEBTS","foldWords":"JACOB, GENE","amp":0.732686,"raw":0.017435},{"pos":227,"dlog":232,"ray":4,"qr":"QR","pi":4,"op":"SHIFT","fold":30,"flags":"","words":"LAMB OF GOD","foldWords":"ARK, PEACE, EAGLE","amp":0.632777,"raw":0.526354},{"pos":228,"dlog":222,"ray":6,"qr":"QR","pi":8,"op":"SYNC","fold":29,"flags":"","words":"QUANTUM SUPREMACY","foldWords":"AAVE, HAJJ","amp":0.215534,"raw":0.010393},{"pos":229,"dlog":53,"ray":5,"qr":"QNR","pi":2,"op":"EXIST","fold":28,"flags":"","words":"FOR THINE IS THE KINGDOM","foldWords":"SHA, ELK","amp":0.221787,"raw":0.003692},{"pos":230,"dlog":131,"ray":11,"qr":"QNR","pi":3,"op":"SEED","fold":27,"flags":"","words":"ZERO KNOWLEDGE PROOF","foldWords":"CAIN, JOB, CODE","amp":0.207418,"raw":0.002781},{"pos":231,"dlog":26,"ray":2,"qr":"QR","pi":3,"op":"SEED","fold":26,"flags":"","words":"THE LORD IS MY SHEPHERD","foldWords":"GOD, LEAH, DOG","amp":0.232905,"raw":0.002325},{"pos":232,"dlog":238,"ray":10,"qr":"QR","pi":7,"op":"JUMP","fold":25,"flags":"JUMP","words":"TOPOLOGICAL QUANTUM","foldWords":"PI, Y, MECCA","amp":0.228592,"raw":0.003156},{"pos":233,"dlog":17,"ray":5,"qr":"QNR","pi":8,"op":"SYNC","fold":24,"flags":"FIB,2xFIB","words":"COLLISION RESISTANT","foldWords":"IO, X, CAT","amp":0.152068,"raw":0.0},{"pos":234,"dlog":156,"ray":0,"qr":"QR","pi":6,"op":"FOLD","fold":23,"flags":"F+1,FOLD","words":"CHINESE REMAINDER","foldWords":"CALEB, DJED","amp":0.303852,"raw":0.031329},{"pos":235,"dlog":116,"ray":8,"qr":"QR","pi":7,"op":"JUMP","fold":22,"flags":"JUMP","words":"BINOMIAL DISTRIBUTION","foldWords":"BABEL, ALI","amp":0.22476,"raw":0.040918},{"pos":236,"dlog":214,"ray":10,"qr":"QR","pi":8,"op":"SYNC","fold":21,"flags":"","words":"BOSE EINSTEIN","foldWords":"DICE, BAR","amp":0.712626,"raw":0.483518},{"pos":237,"dlog":23,"ray":11,"qr":"QNR","pi":3,"op":"SEED","fold":20,"flags":"","words":"TRANSUBSTANTIATION","foldWords":"APC, ABLE","amp":0.474623,"raw":0.003095},{"pos":238,"dlog":253,"ray":1,"qr":"QNR","pi":1,"op":"IDENT","fold":19,"flags":"","words":"FREE WILL","foldWords":"S, ADAM, DNA","amp":0.276441,"raw":0.039552},{"pos":239,"dlog":178,"ray":10,"qr":"QR","pi":6,"op":"FOLD","fold":18,"flags":"FOLD","words":"POWER AND GLORY","foldWords":"CHAI, R, BIG","amp":0.426068,"raw":0.050984},{"pos":240,"dlog":248,"ray":8,"qr":"QR","pi":5,"op":"STORE","fold":17,"flags":"","words":"ROBE OF RIGHTEOUSNESS","foldWords":"Q, ACID, ICE","amp":0.375098,"raw":0.004476},{"pos":241,"dlog":64,"ray":4,"qr":"QR","pi":2,"op":"EXIST","fold":16,"flags":"","words":"TWIN PRIME CONJECTURE","foldWords":"BAAL, MC2, KAABA","amp":0.262126,"raw":0.016011},{"pos":242,"dlog":184,"ray":4,"qr":"QR","pi":7,"op":"JUMP","fold":15,"flags":"JUMP","words":"HEISENBERG UNCERTAINTY","foldWords":"O, FED, AN","amp":0.291997,"raw":0.003366},{"pos":243,"dlog":5,"ray":5,"qr":"QNR","pi":1,"op":"IDENT","fold":14,"flags":"","words":"FIRE OF HOLY SPIRIT","foldWords":"N, BACH, AM","amp":0.2291,"raw":0.004385},{"pos":244,"dlog":234,"ray":6,"qr":"QR","pi":2,"op":"EXIST","fold":13,"flags":"","words":"SUPERCONDUCTIVITY","foldWords":"M, AGE","amp":0.341146,"raw":0.008165},{"pos":245,"dlog":225,"ray":9,"qr":"QNR","pi":0,"op":"NOP","fold":12,"flags":"","words":"THEORY OF EVERYTHING","foldWords":"L, KA","amp":0.311395,"raw":0.00689},{"pos":246,"dlog":68,"ray":8,"qr":"QR","pi":1,"op":"IDENT","fold":11,"flags":"","words":"INTERNATIONALIZATION","foldWords":"K, BED","amp":0.243751,"raw":0.013921},{"pos":247,"dlog":231,"ray":3,"qr":"QNR","pi":9,"op":"HALT","fold":10,"flags":"HALT","words":"COUNTERREVOLUTION","foldWords":"J, AI, DADA","amp":0.492521,"raw":0.0},{"pos":248,"dlog":130,"ray":10,"qr":"QR","pi":0,"op":"NOP","fold":9,"flags":"","words":"DOUBLE SLIT EXPERIMENT","foldWords":"I, ACE, DAD","amp":0.262241,"raw":0.045348},{"pos":249,"dlog":16,"ray":4,"qr":"QR","pi":9,"op":"HALT","fold":8,"flags":"HALT","words":"EDDINGTON LUMINOSITY","foldWords":"H, OXYGEN","amp":0.322434,"raw":0.088617},{"pos":250,"dlog":213,"ray":9,"qr":"QNR","pi":1,"op":"IDENT","fold":7,"flags":"","words":"CONSERVATION OF ENERGY","foldWords":"G, CD, BAD","amp":0.439049,"raw":0.02048},{"pos":251,"dlog":177,"ray":9,"qr":"QNR","pi":4,"op":"SHIFT","fold":6,"flags":"","words":"CENSORSHIP RESISTANT","foldWords":"F, ABBA","amp":0.215119,"raw":0.032303},{"pos":252,"dlog":183,"ray":3,"qr":"QNR","pi":5,"op":"STORE","fold":5,"flags":"","words":"EINSTEIN FIELD EQUATIONS","foldWords":"E, ANCHOR","amp":0.306428,"raw":0.021667},{"pos":253,"dlog":224,"ray":8,"qr":"QR","pi":6,"op":"FOLD","fold":4,"flags":"FOLD","words":"INCOMPLETENESS THEOREM","foldWords":"BAA","amp":0.250337,"raw":0.061762},{"pos":254,"dlog":129,"ray":9,"qr":"QNR","pi":4,"op":"SHIFT","fold":3,"flags":"","words":"ZERO KNOWLEDGE ROLLUP","foldWords":"C, BA, AB","amp":0.42894,"raw":0.0},{"pos":255,"dlog":176,"ray":8,"qr":"QR","pi":8,"op":"SYNC","fold":2,"flags":"","words":"GRAVITATIONAL CONSTANT","foldWords":"B, I EXIST","amp":0.340806,"raw":0.006631},{"pos":256,"dlog":128,"ray":8,"qr":"QR","pi":5,"op":"STORE","fold":1,"flags":"WALK","words":"BAAL SQUARED","foldWords":"A, I AM","amp":0.115175,"raw":0.0}];
+
+// State
+let sortCol = 'pos';
+let sortDir = 1; // 1=asc, -1=desc
+const rayState = new Array(12).fill(true);
+
+// Build ray checkboxes
+const rcEl = document.getElementById('rayChecks');
+for (let r = 0; r < 12; r++) {
+  const lbl = document.createElement('label');
+  lbl.className = 'ray-cb';
+  const cb = document.createElement('input');
+  cb.type = 'checkbox';
+  cb.checked = true;
+  cb.dataset.ray = r;
+  cb.addEventListener('change', () => { rayState[r] = cb.checked; render(); });
+  const span = document.createElement('span');
+  span.textContent = r;
+  span.style.color = `var(--ray${r})`;
+  lbl.appendChild(cb);
+  lbl.appendChild(span);
+  rcEl.appendChild(lbl);
+}
+
+// Sorting
+document.querySelectorAll('th.sortable').forEach(th => {
+  th.addEventListener('click', () => {
+    const col = th.dataset.col;
+    if (sortCol === col) sortDir *= -1;
+    else { sortCol = col; sortDir = 1; }
+    render();
+  });
+});
+
+// Filter inputs
+const searchEl = document.getElementById('search');
+const opEl = document.getElementById('opFilter');
+const qrEl = document.getElementById('qrFilter');
+const ampMinEl = document.getElementById('ampMin');
+const ampMaxEl = document.getElementById('ampMax');
+[searchEl, opEl, qrEl, ampMinEl, ampMaxEl].forEach(el => el.addEventListener('input', render));
+
+function getFiltered() {
+  const q = searchEl.value.toLowerCase().trim();
+  const op = opEl.value;
+  const qr = qrEl.value;
+  const aMin = parseFloat(ampMinEl.value) || 0;
+  const aMax = parseFloat(ampMaxEl.value);
+  const aMaxV = isNaN(aMax) ? 1 : aMax;
+
+  return DATA.filter(d => {
+    // Ray filter
+    if (d.ray !== null && !rayState[d.ray]) return false;
+    if (d.ray === null) {
+      // pos 0 has no ray - show if any ray is checked
+      if (!rayState.some(Boolean)) return false;
+    }
+    // Opcode
+    if (op && d.op !== op) return false;
+    // QR/QNR
+    if (qr && d.qr !== qr) return false;
+    // Amplitude range
+    if (d.amp < aMin || d.amp > aMaxV) return false;
+    // Text search
+    if (q) {
+      const hay = `${d.words} ${d.foldWords} ${d.flags} ${d.op} ${d.qr || ''}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function getSorted(arr) {
+  return arr.slice().sort((a, b) => {
+    let va = a[sortCol], vb = b[sortCol];
+    if (va === null) va = -1;
+    if (vb === null) vb = -1;
+    if (va < vb) return -sortDir;
+    if (va > vb) return sortDir;
+    return 0;
+  });
+}
+
+function render() {
+  const filtered = getFiltered();
+  const sorted = getSorted(filtered);
+
+  // Update sort indicators
+  document.querySelectorAll('th.sortable').forEach(th => {
+    th.classList.remove('sort-asc', 'sort-desc');
+    const arrow = th.querySelector('.arrow');
+    if (th.dataset.col === sortCol) {
+      th.classList.add(sortDir === 1 ? 'sort-asc' : 'sort-desc');
+      arrow.textContent = sortDir === 1 ? ' ▲' : ' ▼';
+    } else {
+      arrow.textContent = ' ▲';
+    }
+  });
+
+  // Stats
+  const satCount = filtered.filter(d => d.amp >= 1.0).length;
+  const avgAmp = filtered.length ? (filtered.reduce((s, d) => s + d.amp, 0) / filtered.length) : 0;
+  document.getElementById('stats').innerHTML =
+    `<span>Showing: <span class="val">${filtered.length}</span> / 257</span>` +
+    `<span>Avg amp: <span class="val">${avgAmp.toFixed(4)}</span></span>` +
+    `<span>Saturated: <span class="val sat">${satCount}</span></span>`;
+
+  // Table body
+  const tbody = document.getElementById('tbody');
+  const frag = document.createDocumentFragment();
+  for (const d of sorted) {
+    const tr = document.createElement('tr');
+
+    // Pos
+    const tdPos = document.createElement('td');
+    tdPos.className = 'c-pos';
+    tdPos.textContent = d.pos;
+    tr.appendChild(tdPos);
+
+    // Dlog
+    const tdDlog = document.createElement('td');
+    tdDlog.className = 'c-dlog';
+    tdDlog.textContent = d.dlog !== null ? d.dlog : '—';
+    tr.appendChild(tdDlog);
+
+    // Ray
+    const tdRay = document.createElement('td');
+    tdRay.className = 'c-ray';
+    if (d.ray !== null) {
+      tdRay.textContent = d.ray;
+      tdRay.style.color = `var(--ray${d.ray})`;
+      tdRay.style.fontWeight = '500';
+    } else {
+      tdRay.textContent = '—';
+      tdRay.style.color = 'var(--dim)';
+    }
+    tr.appendChild(tdRay);
+
+    // QR
+    const tdQr = document.createElement('td');
+    tdQr.className = 'c-qr';
+    if (d.qr) {
+      tdQr.textContent = d.qr;
+      tdQr.classList.add(d.qr === 'QR' ? 'qr-qr' : 'qr-qnr');
+    } else {
+      tdQr.textContent = '—';
+      tdQr.style.color = 'var(--dim)';
+    }
+    tr.appendChild(tdQr);
+
+    // Pi digit
+    const tdPi = document.createElement('td');
+    tdPi.className = 'c-pi';
+    tdPi.textContent = d.pi;
+    tr.appendChild(tdPi);
+
+    // Opcode
+    const tdOp = document.createElement('td');
+    tdOp.className = 'c-op';
+    tdOp.textContent = d.op;
+    tr.appendChild(tdOp);
+
+    // Amplitude (smoothed)
+    const tdAmp = document.createElement('td');
+    tdAmp.className = 'c-amp';
+    tdAmp.textContent = d.amp.toFixed(4);
+    if (d.amp >= 1.0) tdAmp.classList.add('amp-sat');
+    else if (d.amp > 0.5) tdAmp.classList.add('amp-high');
+    else if (d.amp < 0.2) tdAmp.classList.add('amp-low');
+    tr.appendChild(tdAmp);
+
+    // Raw amplitude
+    const tdRaw = document.createElement('td');
+    tdRaw.className = 'c-raw';
+    tdRaw.textContent = d.raw.toFixed(4);
+    if (d.raw >= 1.0) tdRaw.classList.add('amp-sat');
+    else if (d.raw > 0.5) tdRaw.classList.add('amp-high');
+    else if (d.raw < 0.2) tdRaw.classList.add('amp-low');
+    tr.appendChild(tdRaw);
+
+    // Fold partner
+    const tdFold = document.createElement('td');
+    tdFold.className = 'c-fold';
+    tdFold.textContent = d.fold;
+    tr.appendChild(tdFold);
+
+    // Flags
+    const tdFlags = document.createElement('td');
+    tdFlags.className = 'c-flags';
+    tdFlags.textContent = d.flags;
+    tr.appendChild(tdFlags);
+
+    // Words
+    const tdWords = document.createElement('td');
+    tdWords.className = 'c-words';
+    tdWords.textContent = d.words;
+    tr.appendChild(tdWords);
+
+    // Fold words
+    const tdFWords = document.createElement('td');
+    tdFWords.className = 'c-fwords';
+    tdFWords.textContent = d.foldWords;
+    tr.appendChild(tdFWords);
+
+    frag.appendChild(tr);
+  }
+  tbody.textContent = '';
+  tbody.appendChild(frag);
+}
+
+render();
+</script>
+
+</body></html>
